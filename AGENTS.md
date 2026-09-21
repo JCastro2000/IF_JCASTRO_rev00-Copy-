@@ -1,3 +1,11 @@
+# COPIA DE TRABAJO rev02, NO es el informe original
+
+Repositorio `IF_JCASTRO_rev00-Copy-`. Aquí se aplican los cambios de la campaña definitiva
+de 102 simulaciones. El original vive en `../latex-proyecto` y **no se modifica salvo
+petición explícita**. Ver `_ESTE_ES_LA_COPIA.md`.
+
+---
+
 ## Regla: Veracidad de datos
 
 - No inventar datos numéricos, citas bibliográficas, parámetros técnicos ni afirmaciones factuales.
