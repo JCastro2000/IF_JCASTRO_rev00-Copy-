@@ -1,0 +1,98 @@
+\chapter*{Anexo A}
+\addcontentsline{toc}{chapter}{Anexo A: Fuerzas de diseño por estación}
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{A.\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A.\arabic{figure}}
+
+\section*{Fuerzas de diseño por estación para ingreso al modelo FEM}
+\label{anexo:fuerzas}
+
+Las tablas siguientes presentan, para cada una de las 24 estaciones de la pala, la fuerza aerodinámica que entrega la simulación y la fuerza puntual con que esa estación se carga en el modelo de elementos finitos, para los dos casos de carga de estado límite último. Todos los valores se expresan en valor absoluto; la orientación de las componentes $x$ e $y$, en el sistema local de la pala, corresponde a la Figura~\ref{fig:ejes_locales}.
+
+Las dos primeras columnas de fuerza, $F_{sim,x}$ y $F_{sim,y}$, son la fuerza aerodinámica por unidad de longitud [N/m] que QBlade entrega en cada estación: para el DLC 1.1, la del instante de máxima solicitación global en la realización que registró la mayor solicitación; para el DLC 1.3, el promedio por estación de ese mismo valor entre las seis semillas a la velocidad gobernante (Sección~\ref{sec:anexo_f} y Sección~\ref{sec:anexo_dlc13} del Capítulo~3). Multiplicar esa fuerza lineal por la longitud de pala $\Delta s_i$ que representa cada estación (Sección~\ref{sec:anexo_f}) la convierte en la fuerza puntual equivalente de ese tramo. Las dos últimas columnas, $F_{d,x}$ y $F_{d,y}$, son la fuerza puntual [N] efectivamente aplicada como carga remota en el centroide de cada estación del modelo FEM: la anterior, además, escalada uniformemente hasta la carga de diseño según el factor $F_d / F_{tot}(t_{max})$ del DLC 1.1 (Sección~\ref{sec:anexo_f}) o el factor $\gamma_f$ del DLC 1.3 (Sección~\ref{sec:anexo_dlc13}).
+
+\begin{table}[H]
+    \centering
+    \caption{Fuerzas por estación para el DLC 1.1: fuerza lineal simulada y fuerza puntual de diseño aplicada.}
+    \label{tab:anexo_fuerzas_dlc11}
+    \begin{tabular}{ccrrrr}
+        \hline
+        \textbf{Est.} & $\mathbf{z}$ \textbf{[m]} & \textbf{$F_{sim,x}$ [N/m]} & \textbf{$F_{sim,y}$ [N/m]} & \textbf{$F_{d,x}$ [N]} & \textbf{$F_{d,y}$ [N]} \\
+        \hline
+         1 &  0 &    899 &     99 &  1~230 &    135 \\
+         2 &  1 &  3~852 &  1~134 &  5~273 &  1~552 \\
+         3 &  2 &  4~187 &  1~334 &  5~717 &  1~822 \\
+         4 &  3 &  4~345 &  1~430 &  5~946 &  1~957 \\
+         5 &  4 &  4~446 &  1~475 &  6~085 &  2~019 \\
+         6 &  5 &  4~536 &  1~492 &  6~208 &  2~042 \\
+         7 &  6 &  4~645 &  1~554 &  6~343 &  2~122 \\
+         8 &  7 &  4~744 &  1~614 &  6~494 &  2~210 \\
+         9 &  8 &  4~831 &  1~673 &  6~612 &  2~290 \\
+        10 &  9 &  4~898 &  1~718 &  6~704 &  2~352 \\
+        11 & 10 &  4~951 &  1~754 &  6~776 &  2~400 \\
+        12 & 11 &  4~958 &  1~757 &  6~770 &  2~399 \\
+        13 & 12 &  4~945 &  1~749 &  6~768 &  2~394 \\
+        14 & 13 &  4~913 &  1~731 &  6~724 &  2~369 \\
+        15 & 14 &  4~833 &  1~693 &  6~615 &  2~317 \\
+        16 & 15 &  4~736 &  1~647 &  6~482 &  2~254 \\
+        17 & 16 &  4~610 &  1~576 &  6~295 &  2~152 \\
+        18 & 17 &  4~473 &  1~482 &  6~122 &  2~028 \\
+        19 & 18 &  4~311 &  1~415 &  5~900 &  1~936 \\
+        20 & 19 &  4~184 &  1~345 &  5~727 &  1~841 \\
+        21 & 20 &  4~075 &  1~284 &  5~564 &  1~754 \\
+        22 & 21 &  3~942 &  1~209 &  5~396 &  1~654 \\
+        23 & 22 &  3~636 &  1~045 &  4~976 &  1~430 \\
+        24 & 23 &  1~453 &    222 &  1~988 &    303 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Fuerzas por estación para el DLC 1.3: fuerza lineal simulada (promedio de 6 semillas) y fuerza puntual de diseño aplicada.}
+    \label{tab:anexo_fuerzas_dlc13}
+    \begin{tabular}{ccrrrr}
+        \hline
+        \textbf{Est.} & $\mathbf{z}$ \textbf{[m]} & \textbf{$F_{sim,x}$ [N/m]} & \textbf{$F_{sim,y}$ [N/m]} & \textbf{$F_{d,x}$ [N]} & \textbf{$F_{d,y}$ [N]} \\
+        \hline
+         1 &  0 &    982 &    115 &  1~327 &    155 \\
+         2 &  1 &  4~093 &  1~278 &  5~529 &  1~726 \\
+         3 &  2 &  4~425 &  1~489 &  5~964 &  2~006 \\
+         4 &  3 &  4~564 &  1~583 &  6~164 &  2~138 \\
+         5 &  4 &  4~635 &  1~625 &  6~261 &  2~195 \\
+         6 &  5 &  4~691 &  1~642 &  6~336 &  2~217 \\
+         7 &  6 &  4~760 &  1~664 &  6~414 &  2~242 \\
+         8 &  7 &  4~820 &  1~683 &  6~510 &  2~273 \\
+         9 &  8 &  4~871 &  1~700 &  6~579 &  2~296 \\
+        10 &  9 &  4~915 &  1~692 &  6~639 &  2~286 \\
+        11 & 10 &  4~953 &  1~682 &  6~690 &  2~272 \\
+        12 & 11 &  4~970 &  1~672 &  6~697 &  2~253 \\
+        13 & 12 &  4~968 &  1~665 &  6~710 &  2~249 \\
+        14 & 13 &  4~946 &  1~661 &  6~680 &  2~243 \\
+        15 & 14 &  4~876 &  1~679 &  6~586 &  2~268 \\
+        16 & 15 &  4~797 &  1~700 &  6~479 &  2~296 \\
+        17 & 16 &  4~739 &  1~695 &  6~386 &  2~285 \\
+        18 & 17 &  4~722 &  1~669 &  6~379 &  2~255 \\
+        19 & 18 &  4~727 &  1~669 &  6~385 &  2~254 \\
+        20 & 19 &  4~757 &  1~617 &  6~425 &  2~184 \\
+        21 & 20 &  4~714 &  1~610 &  6~353 &  2~169 \\
+        22 & 21 &  4~609 &  1~582 &  6~225 &  2~137 \\
+        23 & 22 &  4~332 &  1~411 &  5~851 &  1~906 \\
+        24 & 23 &  1~776 &    300 &  2~399 &    405 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+\section*{Serie temporal de fatiga}
+
+La Figura~\ref{fig:anexo_serie_temporal} presenta una serie temporal representativa del procesamiento de fatiga para $V = 10$~m/s. El panel superior muestra la evolución de la tensión $\sigma(t) = K_{aero} \cdot M_{res}(t) + \sigma_{in}$ durante los $550$~s de simulación efectiva, mientras que el panel inferior presenta el histograma de amplitudes de tensión obtenido mediante el algoritmo de conteo Rainflow.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{Figuras/Figuras Resultados/serie_temporal_ejemplo.pdf}
+    \caption{Serie temporal de tensión y espectro de amplitudes Rainflow para $V = 10$~m/s (semilla 1).}
+    \label{fig:anexo_serie_temporal}
+\end{figure}

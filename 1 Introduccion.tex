@@ -1,0 +1,44 @@
+\chapter{Introducción}
+
+El presente capítulo introduce el marco general del trabajo, abordando en la Sección 1.1 el contexto energético que motiva el estudio, la formulación del problema de ingeniería y la propuesta de análisis realizada. Se presentan las condiciones que rigen el desarrollo de la energía eólica en Chile y su impacto en el diseño de sistemas offshore, se exponen los desafíos de diseño y, en la Sección 1.2, se establecen los objetivos que orientan el desarrollo del trabajo. Las Secciones 1.3 y 1.4 definen, respectivamente, el alcance y la estructura del documento.
+
+\section{Contexto y motivación}
+
+Chile ha experimentado un crecimiento sostenido de su demanda eléctrica en las últimas décadas, impulsado por la electrificación progresiva de la matriz energética, la expansión de la minería del cobre y el desarrollo de nuevas industrias asociadas a la transición energética como el hidrógeno verde, que supera con holgura a la electromovilidad como vector de demanda futura, con un consumo proyectado del orden de 150 TWh anuales al año 2040~\parencite{CEN_Proyeccion2045}. En este contexto, la política energética nacional establece como objetivo la descarbonización completa del sistema eléctrico hacia el año 2050~\parencite{MinEnergia2022}.
+
+En cuanto a las tecnologías actualmente en uso, a abril de 2026 las cinco principales fuentes de generación del sistema eléctrico nacional fueron la solar fotovoltaica con un 26\%, el carbón con un 18{,}6\%, el gas natural con un 18\%, la hidráulica con un 17{,}4\% y la eólica con un 15{,}7\%, que en conjunto aportaron el 95{,}7\% de la energía generada; el 4{,}3\% restante se repartió entre fuentes de menor participación~\parencite{CEN_May2026}. Si bien las renovables ya cubren cerca del 60\% de la generación, los combustibles fósiles todavía aportan más de un tercio, de modo que alcanzar la meta de descarbonización exige incorporar nueva capacidad renovable a gran escala en un plazo acotado. Esta necesidad ha llevado a evaluar recursos que hasta ahora no se explotan en el país, entre ellos el eólico marino.
+
+Entre las tecnologías con potencial para contribuir a dicha meta, \textcite{Mattar2021} muestran que el recurso eólico offshore chileno alcanza densidades de potencia de hasta 3\,190 W/m² y factores de capacidad cercanos al 70\%, superando al recurso terrestre, cuyo factor de capacidad típico en la zona centro-sur se sitúa entre el 30\% y el 40\%~\parencite{Tampier2024}. Más allá del recurso eólico disponible, este potencial representa una oportunidad para que Chile desarrolle capacidades locales de fabricación y mantenimiento, capturando el valor agregado de la cadena productiva offshore~\parencite{Tampier2024}.
+
+En este contexto, el desarrollo tecnológico local de componentes estructurales para aerogeneradores offshore requiere metodologías que estimen las cargas aerodinámicas bajo estrictos estándares. Una caracterización imprecisa de estas solicitaciones vuelve especulativa la verificación estructural, aumentando el riesgo en el dimensionamiento y la seguridad del equipo. Solo mediante una caracterización precisa de las cargas es posible transitar desde los modelos teóricos hacia la validación de componentes estructurales confiables~\parencite{Tampier2024}.
+
+El presente trabajo toma como caso de estudio un aerogenerador offshore flotante de eje vertical del fabricante \textcite{SeaTwirl2026}. Para evaluar su comportamiento, las cargas aerodinámicas se obtienen mediante simulación aerodinámica en el software libre QBlade, que incorpora la deformación de la pala mediante un modelo estructural interno, en conformidad con los lineamientos de la norma IEC 61400-1~\parencite{IEC61400-1}. De este modo, las cargas obtenidas se transfieren a un modelo estructural independiente de la pala para verificar su integridad bajo condiciones representativas de operación en la costa sur de Chile, que corresponden al emplazamiento adoptado para el análisis. Dicha verificación se realiza mediante el método de elementos finitos (FEM, por sus siglas en inglés) en el software Ansys\glsunset{fem}. Sobre esa base se establece el propósito del trabajo: determinar si la pala cumple los criterios de la norma en las condiciones del emplazamiento y con qué holgura.
+
+\section{Objetivos}
+
+\subsection{Objetivo general}
+
+Validar el diseño estructural de una pala de aerogenerador offshore flotante de eje vertical mediante simulación numérica y cumplimiento de criterios normativos.
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+    \item \textbf{OE1:} Caracterizar el comportamiento aerodinámico y las cargas dinámicas de la pala mediante software QBlade, considerando condiciones representativas del sitio de instalación, con el fin de determinar su distribución temporal.
+
+    \item \textbf{OE2:} Desarrollar un modelo estructural de la pala mediante el \gls{fem}, definiendo condiciones de borde y estados de carga equivalentes al escenario operacional.
+
+    \item \textbf{OE3:} Evaluar la integridad estructural del diseño conforme a criterios normativos, verificando su comportamiento bajo condiciones de funcionamiento nominal.
+
+\end{itemize}
+
+Una vez establecidos los objetivos, se definen a continuación los límites y la estructura del trabajo.
+
+\section{Alcance}
+
+El estudio se limita al análisis estructural de una pala del aerogenerador. La caracterización aerodinámica se restringe al método de vórtices libres (FVW). Consecuentemente, quedan excluidos del dominio de cálculo los brazos de soporte (struts), la torre, el sistema de flotación, el generador y los sistemas de anclaje. No se aborda el análisis hidrodinámico de la plataforma ni la evaluación de la dinámica acoplada rotor-plataforma.
+
+Las condiciones ambientales se definen a partir de datos del explorador eólico~\parencite{ExploradorEolico2018}, procesados conforme a los lineamientos de la norma IEC 61400-1~\parencite{IEC61400-1}. La verificación estructural se rige por los estados límite último (ULS) y de fatiga (FLS), ambos por sus siglas en inglés, incluyendo las comprobaciones de estabilidad y de deflexión asociadas al primero\glsunset{uls}\glsunset{fls}.
+
+\section{Estructura del documento}
+
+El presente documento se organiza en cinco capítulos. El Capítulo 2 presenta los antecedentes generales: el estado del arte de la energía eólica offshore, las configuraciones de aerogeneradores de eje vertical, el marco normativo IEC 61400-1, la caracterización del recurso eólico, los métodos de simulación aerodinámica basados en vórtices libres, el cálculo de polares aerodinámicas y el análisis estructural por elementos finitos. El Capítulo 3 describe la metodología desarrollada, detallando la caracterización del recurso eólico, el cálculo de cargas aerodinámicas mediante el software utilizado y la configuración del modelo estructural en Ansys. El Capítulo 4 presenta los resultados obtenidos: la caracterización del recurso eólico y de las propiedades del aire, el análisis del rango operacional de Reynolds, la caracterización aerodinámica, el TSR óptimo, la curva de potencia de la turbina, las cargas aerodinámicas para los tres casos de diseño (DLC 1.1 para ULS con NTM, DLC 1.2 para fatiga y DLC 1.3 para ULS con ETM), la comparación de fuerzas por estación, la verificación estructural por elementos finitos (incluyendo convergencia de malla, tensiones principales y deformaciones para ambos DLC de estado límite último), y los resúmenes de la verificación a resistencia última, estabilidad y fatiga conforme a IEC 61400-1. El Capítulo 5 presenta las conclusiones del trabajo en relación con los objetivos planteados, las limitaciones del alcance y las líneas de trabajo futuro. El Anexo A entrega las fuerzas de diseño por estación empleadas en el modelo estructural y una serie temporal representativa del procesamiento de fatiga.

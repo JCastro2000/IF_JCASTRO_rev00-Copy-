@@ -1,0 +1,1 @@
+# makeglossaries no requerido: se usa \makenoidxglossaries

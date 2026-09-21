@@ -1,0 +1,678 @@
+% Archivo: simbolos.tex — Lista de Símbolos
+
+\newglossaryentry{alpha}{
+  type=simbolos,
+  name={$\alpha$},
+  description={Ángulo de ataque},
+  unit={°},
+  sort={alpha}
+}
+
+\newglossaryentry{alphaz}{
+  type=simbolos,
+  name={$\alpha_z$},
+  description={Exponente de cizalladura vertical del perfil de viento normal (NWP); no confundir con el ángulo de ataque $\alpha$},
+  unit={---},
+  sort={alpha-z}
+}
+
+\newglossaryentry{area}{
+  type=simbolos,
+  name={$A$},
+  description={Área barrida por el rotor},
+  unit={m$^2$},
+  sort={A}
+}
+
+\newglossaryentry{cuerda}{
+  type=simbolos,
+  name={$c$},
+  description={Cuerda de la pala del rotor; también, parámetro de escala de la distribución de Weibull},
+  unit={m},
+  sort={c}
+}
+
+\newglossaryentry{LM}{
+  type=simbolos,
+  name={$LM$},
+  description={Multiplicador de carga del análisis de pandeo lineal; factor por el que deben amplificarse las cargas aplicadas para alcanzar la inestabilidad elástica},
+  unit={---},
+  sort={LM}
+}
+
+\newglossaryentry{cETM}{
+  type=simbolos,
+  name={$c_{ETM}$},
+  description={Constante del modelo de turbulencia extrema (ETM)},
+  unit={m/s},
+  sort={cETM}
+}
+
+\newglossaryentry{Cd90}{
+  type=simbolos,
+  name={$C_{d90}$},
+  description={Coeficiente de arrastre a 90°},
+  unit={---},
+  sort={Cd90}
+}
+
+\newglossaryentry{Cm}{
+  type=simbolos,
+  name={$C_m$},
+  description={Coeficiente de momento},
+  unit={---},
+  sort={Cm}
+}
+
+\newglossaryentry{Cp}{
+  type=simbolos,
+  name={$C_p$},
+  description={Coeficiente de potencia},
+  unit={---},
+  sort={Cp}
+}
+
+\newglossaryentry{altura}{
+  type=simbolos,
+  name={$H$},
+  description={Altura del rotor},
+  unit={m},
+  sort={H}
+}
+
+\newglossaryentry{lambda}{
+  type=simbolos,
+  name={$\lambda$},
+  description={Relación de velocidad de punta (TSR)},
+  unit={---},
+  sort={lambda}
+}
+
+\newglossaryentry{mu}{
+  type=simbolos,
+  name={$\mu$},
+  description={Viscosidad dinámica del fluido},
+  unit={Pa$\cdot$s},
+  sort={mu}
+}
+
+\newglossaryentry{nu}{
+  type=simbolos,
+  name={$\nu$},
+  description={Viscosidad cinemática del fluido; también, coeficiente de Poisson del material},
+  unit={m$^2$/s},
+  sort={nu}
+}
+
+\newglossaryentry{omega}{
+  type=simbolos,
+  name={$\Omega$},
+  description={Velocidad angular del rotor},
+  unit={rad/s},
+  sort={Omega}
+}
+
+\newglossaryentry{theta}{
+  type=simbolos,
+  name={$\theta$},
+  description={Posición acimutal de la pala},
+  unit={°},
+  sort={theta}
+}
+
+\newglossaryentry{radio}{
+  type=simbolos,
+  name={$R$},
+  description={Radio del rotor},
+  unit={m},
+  sort={R}
+}
+
+\newglossaryentry{reynolds}{
+  type=simbolos,
+  name={$Re$},
+  description={Número de Reynolds},
+  unit={---},
+  sort={Re}
+}
+
+\newglossaryentry{rho}{
+  type=simbolos,
+  name={$\rho$},
+  description={Densidad del fluido},
+  unit={kg/m$^3$},
+  sort={rho}
+}
+
+\newglossaryentry{Vave}{
+  type=simbolos,
+  name={$V_{ave}$},
+  description={Velocidad media anual del viento a la altura del centro del rotor},
+  unit={m/s},
+  sort={Vave}
+}
+
+\newglossaryentry{Vhub}{
+  type=simbolos,
+  name={$V_{hub}$},
+  description={Velocidad del viento a la altura del centro del rotor},
+  unit={m/s},
+  sort={Vhub}
+}
+
+\newglossaryentry{zhub}{
+  type=simbolos,
+  name={$z_{hub}$},
+  description={Altura del centro del rotor},
+  unit={m},
+  sort={zhub}
+}
+
+% ---- Geometría y parámetros del rotor ----
+\newglossaryentry{D}{
+  type=simbolos,
+  name={$D$},
+  description={Diámetro del rotor},
+  unit={m},
+  sort={D}
+}
+
+\newglossaryentry{Npalas}{
+  type=simbolos,
+  name={$N$},
+  description={Número de palas},
+  unit={---},
+  sort={N-palas}
+}
+
+\newglossaryentry{sigma}{
+  type=simbolos,
+  name={$\sigma$},
+  description={Solidez del rotor ($\sigma = Nc/R$). La tensión mecánica se escribe $\sigma(t)$ cuando varía en el tiempo, y con subíndice en los demás casos},
+  unit={---},
+  sort={sigma}
+}
+
+\newglossaryentry{DeltaTheta}{
+  type=simbolos,
+  name={$\Delta\theta$},
+  description={Paso angular de discretización temporal},
+  unit={°},
+  sort={DeltaTheta}
+}
+
+% ---- Aerodinámica ----
+\newglossaryentry{CL}{
+  type=simbolos,
+  name={$C_l$},
+  description={Coeficiente de sustentación},
+  unit={---},
+  sort={CL}
+}
+
+\newglossaryentry{CD}{
+  type=simbolos,
+  name={$C_d$},
+  description={Coeficiente de arrastre},
+  unit={---},
+  sort={CD}
+}
+
+\newglossaryentry{M}{
+  type=simbolos,
+  name={$M$},
+  description={Momento aerodinámico (torque)},
+  unit={N$\cdot$m},
+  sort={M}
+}
+
+\newglossaryentry{P}{
+  type=simbolos,
+  name={$P$},
+  description={Potencia mecánica del rotor},
+  unit={W},
+  sort={P}
+}
+
+\newglossaryentry{W}{
+  type=simbolos,
+  name={$W$},
+  description={Velocidad relativa del flujo sobre la pala},
+  unit={m/s},
+  sort={W}
+}
+
+\newglossaryentry{Ncrit}{
+  type=simbolos,
+  name={$N_{crit}$},
+  description={Parámetro de transición del modelo $e^N$},
+  unit={---},
+  sort={Ncrit}
+}
+
+% ---- Recurso eólico y oleaje ----
+\newglossaryentry{Vref}{
+  type=simbolos,
+  name={$V_{ref}$},
+  description={Velocidad de referencia del viento (período de retorno de 50 años)},
+  unit={m/s},
+  sort={Vref}
+}
+
+\newglossaryentry{z0}{
+  type=simbolos,
+  name={$z_0$},
+  description={Longitud de rugosidad de la superficie del mar},
+  unit={m},
+  sort={z0}
+}
+
+\newglossaryentry{AC}{
+  type=simbolos,
+  name={$A_C$},
+  description={Constante de Charnock; la IEC 61400-3 la fija en $0{,}011$ para mar abierto y $0{,}034$ para emplazamientos cercanos a la costa},
+  unit={---},
+  sort={AC}
+}
+
+\newglossaryentry{kappa}{
+  type=simbolos,
+  name={$\kappa$},
+  description={Constante de von K\'arm\'an ($0{,}4$)},
+  unit={---},
+  sort={kappa}
+}
+
+\newglossaryentry{Iref}{
+  type=simbolos,
+  name={$I_{ref}$},
+  description={Intensidad de turbulencia de referencia, evaluada a $V_{hub} = 15$~m/s, según la categoría de turbina (A, B o C); sin relación con $V_{ref}$},
+  unit={---},
+  sort={Iref}
+}
+
+\newglossaryentry{bNTM}{
+  type=simbolos,
+  name={$b_{NTM}$},
+  description={Parámetro de ordenada del Modelo de Turbulencia Normal (NTM); la IEC 61400-1 lo denota $b$ y lo fija en $5{,}6$~m/s para las clases estándar},
+  unit={m/s},
+  sort={b-NTM}
+}
+
+\newglossaryentry{sigma1}{
+  type=simbolos,
+  name={$\sigma_{NTM}$},
+  description={Desviación estándar representativa de la turbulencia según el Modelo de Turbulencia Normal (NTM); la IEC 61400-1 la denota $\sigma_1$},
+  unit={m/s},
+  sort={sigma-NTM}
+}
+
+\newglossaryentry{fWeibull}{
+  type=simbolos,
+  name={$f_W$},
+  description={Densidad de probabilidad de Weibull de la velocidad del viento en el emplazamiento},
+  unit={s/m},
+  sort={fWeibull}
+}
+
+\newglossaryentry{kWeibull}{
+  type=simbolos,
+  name={$k$},
+  description={Parámetro de forma de la distribución de Weibull},
+  unit={---},
+  sort={kWeibull}
+}
+
+% ---- Material de la pala ----
+\newglossaryentry{Emod}{
+  type=simbolos,
+  name={$E$},
+  description={Módulo elástico del material},
+  unit={GPa},
+  sort={Emod}
+}
+
+\newglossaryentry{sigmau}{
+  type=simbolos,
+  name={$\sigma_u$},
+  description={Resistencia última del material},
+  unit={MPa},
+  sort={sigma-u}
+}
+
+\newglossaryentry{ml}{
+  type=simbolos,
+  name={$m_l$},
+  description={Masa por unidad de longitud de la pala},
+  unit={kg/m},
+  sort={ml}
+}
+
+\newglossaryentry{teq}{
+  type=simbolos,
+  name={$t_{eq}$},
+  description={Espesor equivalente de pared de la pala},
+  unit={mm},
+  sort={teq}
+}
+
+% ---- Modelo de turbulencia de Mann ----
+\newglossaryentry{epsilonmann}{
+  type=simbolos,
+  name={$\varepsilon$},
+  description={Tasa de disipación turbulenta; interviene en el modelo de Mann a través del parámetro $\alpha\varepsilon^{2/3}$. No confundir con la deformación última $\varepsilon_u$},
+  unit={m$^2$/s$^3$},
+  sort={epsilon}
+}
+
+\newglossaryentry{epsilonu}{
+  type=simbolos,
+  name={$\varepsilon_u$},
+  description={Deformación última del material},
+  unit={\%},
+  sort={epsilon-u}
+}
+
+\newglossaryentry{sigmaiso}{
+  type=simbolos,
+  name={$\sigma_{iso}$},
+  description={Parámetro de intensidad del modelo de Mann, $\sigma_{iso} = 0{,}55\,\sigma_{NTM}$},
+  unit={m/s},
+  sort={sigma-iso}
+}
+
+\newglossaryentry{Lambda1}{
+  type=simbolos,
+  name={$\Lambda_1$},
+  description={Parámetro de escala de turbulencia longitudinal (IEC 61400-1, Sección 6.3)},
+  unit={m},
+  sort={Lambda1}
+}
+
+\newglossaryentry{ellmann}{
+  type=simbolos,
+  name={$\ell$},
+  description={Escala de longitud del modelo de Mann, $\ell = 0{,}8\,\Lambda_1$},
+  unit={m},
+  sort={ell}
+}
+
+\newglossaryentry{Gammamann}{
+  type=simbolos,
+  name={$\Gamma$},
+  description={Parámetro de anisotropía del modelo de Mann ($\Gamma = 3{,}9$ según IEC 61400-1, donde se denota $\gamma$)},
+  unit={---},
+  sort={Gamma}
+}
+
+\newglossaryentry{gammaf}{
+  type=simbolos,
+  name={$\gamma_f$},
+  description={Factor parcial de seguridad aplicado a las cargas},
+  unit={---},
+  sort={gamma-f}
+}
+
+\newglossaryentry{gammam}{
+  type=simbolos,
+  name={$\gamma_m$},
+  description={Factor parcial de seguridad del material},
+  unit={---},
+  sort={gamma-m}
+}
+
+\newglossaryentry{gamman}{
+  type=simbolos,
+  name={$\gamma_n$},
+  description={Factor parcial de seguridad por consecuencias de la falla},
+  unit={---},
+  sort={gamma-n}
+}
+
+\newglossaryentry{gammaE}{
+  type=simbolos,
+  name={$\gamma_E$},
+  description={Constante de Euler-Mascheroni ($0{,}5772$), empleada en el ajuste de Gumbel},
+  unit={---},
+  sort={gamma-E}
+}
+
+\newglossaryentry{bbasquin}{
+  type=simbolos,
+  name={$b$},
+  description={Exponente de Basquin de la curva S-N del material},
+  unit={---},
+  sort={b}
+}
+
+\newglossaryentry{Ftot}{
+  type=simbolos,
+  name={$F_{tot}$},
+  description={Fuerza total integrada sobre la pala},
+  unit={N},
+  sort={F-tot}
+}
+
+\newglossaryentry{Fmax}{
+  type=simbolos,
+  name={$F_{max}$},
+  description={Máximo de $F_{tot}(t)$ en una realización},
+  unit={N},
+  sort={F-max}
+}
+
+\newglossaryentry{Fk}{
+  type=simbolos,
+  name={$F_k$},
+  description={Carga característica obtenida de la extrapolación estadística},
+  unit={N},
+  sort={F-k}
+}
+
+\newglossaryentry{Fd}{
+  type=simbolos,
+  name={$F_d$},
+  description={Carga de diseño, $F_d = \gamma_f F_k$},
+  unit={N},
+  sort={F-d}
+}
+
+\newglossaryentry{Pe}{
+  type=simbolos,
+  name={$P_e$},
+  description={Probabilidad de excedencia},
+  unit={---},
+  sort={P-e}
+}
+
+\newglossaryentry{Tobs}{
+  type=simbolos,
+  name={$T_{obs}$},
+  description={Duración de cada realización simulada},
+  unit={s},
+  sort={T-obs}
+}
+
+\newglossaryentry{Tretorno}{
+  type=simbolos,
+  name={$T_{retorno}$},
+  description={Período de retorno; la IEC 61400-1 lo fija en $50$ años para el DLC 1.1},
+  unit={años},
+  sort={T-retorno}
+}
+
+\newglossaryentry{Tsim}{
+  type=simbolos,
+  name={$T_{sim}$},
+  description={Duración efectiva de la serie temporal procesada},
+  unit={s},
+  sort={T-sim}
+}
+
+\newglossaryentry{muj}{
+  type=simbolos,
+  name={$\mu_j$},
+  description={Parámetro de localización de la distribución de Gumbel a la velocidad $V_j$},
+  unit={N},
+  sort={mu-j}
+}
+
+\newglossaryentry{betaj}{
+  type=simbolos,
+  name={$\beta_j$},
+  description={Parámetro de escala de la distribución de Gumbel a la velocidad $V_j$},
+  unit={N},
+  sort={beta-j}
+}
+
+\newglossaryentry{sigma1max}{
+  type=simbolos,
+  name={$\sigma_{1,\max}$},
+  description={Tensión principal máxima obtenida del modelo de elementos finitos},
+  unit={MPa},
+  sort={sigma-1max}
+}
+
+\newglossaryentry{sigma3min}{
+  type=simbolos,
+  name={$\sigma_{3,\min}$},
+  description={Tensión principal mínima obtenida del modelo de elementos finitos},
+  unit={MPa},
+  sort={sigma-3min}
+}
+
+\newglossaryentry{sigmaa}{
+  type=simbolos,
+  name={$\sigma_a$},
+  description={Amplitud de tensión de un ciclo de fatiga},
+  unit={MPa},
+  sort={sigma-a}
+}
+
+\newglossaryentry{sigmam}{
+  type=simbolos,
+  name={$\sigma_m$},
+  description={Tensión media de un ciclo de fatiga},
+  unit={MPa},
+  sort={sigma-m}
+}
+
+\newglossaryentry{sigmain}{
+  type=simbolos,
+  name={$\sigma_{in}$},
+  description={Tensión principal máxima en la sección crítica bajo cargas inerciales},
+  unit={MPa},
+  sort={sigma-in}
+}
+
+\newglossaryentry{Keff}{
+  type=simbolos,
+  name={$K_{aero}$},
+  description={Factor que relaciona el momento flector aerodinámico con la tensión principal},
+  unit={1/m$^3$},
+  sort={K-aero}
+}
+
+\newglossaryentry{Mres}{
+  type=simbolos,
+  name={$M_{res}$},
+  description={Momento flector resultante en la sección crítica},
+  unit={N$\cdot$m},
+  sort={M-res}
+}
+
+\newglossaryentry{Dano}{
+  type=simbolos,
+  name={$D$},
+  description={Daño acumulado por fatiga (regla de Palmgren-Miner); la verificación exige $D \leq 1$},
+  unit={---},
+  sort={D-1}
+}
+
+\newglossaryentry{D20}{
+  type=simbolos,
+  name={$D_{20}$},
+  description={Daño acumulado al cabo de los $20$ años de vida de diseño},
+  unit={---},
+  sort={D-20}
+}
+
+\newglossaryentry{ni}{
+  type=simbolos,
+  name={$n_i$},
+  description={Número de ciclos aplicados en el rango de amplitud $i$},
+  unit={---},
+  sort={n-i}
+}
+
+\newglossaryentry{Ni}{
+  type=simbolos,
+  name={$N_i$},
+  description={Número de ciclos admisibles en el rango de amplitud $i$},
+  unit={---},
+  sort={N-i}
+}
+
+\newglossaryentry{Nf}{
+  type=simbolos,
+  name={$N_f$},
+  description={Número de ciclos hasta la falla bajo amplitud constante},
+  unit={---},
+  sort={N-f}
+}
+
+\newglossaryentry{lambdaopt}{
+  type=simbolos,
+  name={$\lambda_{opt}$},
+  description={Relación de velocidad de punta de máxima eficiencia},
+  unit={---},
+  sort={lambda-opt}
+}
+
+\newglossaryentry{Taire}{
+  type=simbolos,
+  name={$T$},
+  description={Temperatura del aire en el emplazamiento},
+  unit={K},
+  sort={T-aire}
+}
+
+\newglossaryentry{mu0}{
+  type=simbolos,
+  name={$\mu_0$},
+  description={Viscosidad de referencia de la ley de Sutherland},
+  unit={Pa$\cdot$s},
+  sort={mu-0}
+}
+
+\newglossaryentry{T0}{
+  type=simbolos,
+  name={$T_0$},
+  description={Temperatura de referencia de la ley de Sutherland},
+  unit={K},
+  sort={T-0}
+}
+
+\newglossaryentry{Csuth}{
+  type=simbolos,
+  name={$C$},
+  description={Constante de Sutherland para el aire},
+  unit={K},
+  sort={C-suth}
+}
+
+\newglossaryentry{Ra}{
+  type=simbolos,
+  name={$R_a$},
+  description={Constante del gas para el aire seco},
+  unit={J/(kg$\cdot$K)},
+  sort={R-a}
+}
+
+\newglossaryentry{Patm}{
+  type=simbolos,
+  name={$P_{atm}$},
+  description={Presión atmosférica},
+  unit={Pa},
+  sort={P-atm}
+}

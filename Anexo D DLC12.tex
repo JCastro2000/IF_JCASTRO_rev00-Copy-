@@ -1,0 +1,221 @@
+\chapter*{Anexo D}
+\addcontentsline{toc}{chapter}{Anexo D: Procesamiento de cargas del DLC 1.2}
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{D.\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{D.\arabic{figure}}
+
+\section*{Procesamiento de cargas del DLC 1.2: daño acumulado por fatiga}
+\label{anexo:dlc12}
+
+Este anexo reproduce el código que evalúa el estado límite de fatiga a partir de las series temporales de cargas, siguiendo el Anexo G de IEC 61400-1~\parencite{IEC61400-1}. Se omiten las rutinas de exportación y de generación de figuras.
+
+A diferencia de los casos de resistencia última, la variable de carga no es la fuerza total integrada sino el momento flector resultante en la sección crítica. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
+
+\subsection*{Parámetros de entrada}
+
+\begin{pycode}
+# -*- coding: utf-8 -*-
+"""
+DLC 1.2 - Verificación del estado límite de fatiga (Anexo G, IEC 61400-1).
+Entrada : 72 series temporales de fuerzas por estación (12 V x 6 semillas).
+Salida  : daño acumulado de Palmgren-Miner en la vida de diseño.
+"""
+import glob, os
+from collections import defaultdict
+import numpy as np
+import rainflow          # conteo de ciclos según ASTM E1049-85
+
+# --- Geometría y sección crítica ----------------------------------------
+BLADE_LENGTH = 23.0
+N_POS        = 24
+Z_POS        = np.arange(N_POS, dtype=float)  # altura de cada estación [m]
+
+# La sección crítica es la unión con el strut inferior, donde el modelo de
+# elementos finitos localiza la tensión principal máxima.
+Z_CRIT = 5.0
+
+# --- Material (GFRP, ensayos de Huh et al. 2012 para tejido +/-45) ------
+SIGMA_U = 242.1      # resistencia última a tracción [MPa]
+B_EXP   = -0.045     # exponente de Basquin de la curva S-N
+
+# --- Factores parciales de seguridad (Tabla 3 de la norma) --------------
+GAMMA_F = 1.00       # cargas de fatiga (Sección 7.6.3.1)
+GAMMA_M = 1.70       # material compuesto
+GAMMA_N = 1.15       # consecuencia de falla
+
+# En fatiga los tres factores se aplican de forma acumulativa sobre la
+# amplitud de tensión, en lugar de reducir la resistencia. Ambas vías son
+# equivalentes, pero factorar la carga permite conservar la curva S-N
+# nominal del material tal como la reporta el ensayo.
+GAMMA_TOTAL = GAMMA_F * GAMMA_M * GAMMA_N    # = 1,955
+
+# --- Recurso eólico y vida de diseño ------------------------------------
+WEIBULL_K = 2.09
+WEIBULL_C = 8.97      # [m/s]
+V_LISTA   = list(range(2, 26, 2))
+DV        = 2.0       # ancho del intervalo de velocidad [m/s]
+T_SIM     = 550.0     # duración útil de cada realización [s]
+T_YEAR    = 365.25 * 24 * 3600.0
+ANIOS     = 20        # vida de diseño [años]
+
+# Tensiones principales máximas obtenidas del FEM en la sección crítica:
+# la primera bajo la carga de diseño completa del DLC 1.1 y la segunda con
+# las cargas inerciales como única solicitación. Su diferencia es la parte
+# que escala con el momento aerodinámico.
+SIGMA_1_MAX = 163.399  # [MPa] carga de diseño completa
+SIGMA_IN    = 114.5    # [MPa] solo centrífuga y gravedad
+\end{pycode}
+
+\subsection*{Del vector de cargas al momento flector}
+
+El momento flector en la sección crítica se obtiene sumando el aporte de todas las estaciones situadas por debajo de ella, cada una multiplicada por su brazo. Las dos componentes se combinan en un momento resultante.
+
+\begin{pycode}
+def momento_resultante(fx, fy):
+    """
+    Momento flector resultante en la sección crítica:
+
+        Mx = suma_i Fy_i * (z_crit - z_i)      para z_i < z_crit
+        My = suma_i Fx_i * (z_crit - z_i)
+        M_res = sqrt( Mx^2 + My^2 )
+
+    Solo contribuyen las estaciones por debajo de z_crit: el strut
+    inferior es el apoyo, de modo que el tramo de pala que queda bajo él
+    actúa en voladizo y es el único que genera momento sobre la sección.
+
+    fx, fy son las fuerzas por segmento [N] y el brazo está en metros, de
+    modo que M_res queda en N*m.
+    """
+    bajo  = Z_POS < Z_CRIT
+    brazo = Z_CRIT - Z_POS[bajo]
+    Mx = float(np.sum(fy[bajo] * brazo))
+    My = float(np.sum(fx[bajo] * brazo))
+    return np.hypot(Mx, My)
+\end{pycode}
+
+\subsection*{Calibración de la relación momento-tensión}
+
+Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es proporcional al momento flector. La constante de proporcionalidad se obtiene de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico y se descuenta de la calibración para reincorporarse después como tensión media.
+
+\begin{pycode}
+# fx_d, fy_d son las fuerzas de diseño por estación del DLC 1.1, es decir
+# las mismas que se aplicaron en el modelo de elementos finitos.
+M_res_d = momento_resultante(fx_d, fy_d) / 1000.0     # [kN*m]
+
+# K_aero traduce momento aerodinámico a tensión. Solo la diferencia entre
+# la tensión del caso completo y la del caso inercial depende del momento;
+# calibrar sobre la tensión total inflaría la amplitud de todos los ciclos.
+K_AERO = (SIGMA_1_MAX - SIGMA_IN) / M_res_d           # [MPa/(kN*m)]
+\end{pycode}
+
+\subsection*{Corrección por tensión media, curva S-N y conteo de ciclos}
+
+La Sección 7.6.3 de la norma exige que el daño considere el rango cíclico y la tensión media. Como la rotación impone una tensión media elevada, cada ciclo se reduce primero a su amplitud equivalente a media nula mediante el diagrama de Goodman.
+
+\begin{pycode}
+def amplitud_equivalente(sigma_a, sigma_m):
+    """
+    Diagrama lineal de Goodman: amplitud a media nula que produce el mismo
+    daño que el par (sigma_a, sigma_m).
+
+        sigma_a0 = sigma_a / (1 - sigma_m/sigma_u)
+
+    Se prefiere a Gerber porque Huh et al. (2012) reportan, para este mismo
+    tejido bidireccional, que Goodman subestima la vida sobre 40 MPa de
+    tensión media, es decir es la formulación conservadora de las dos.
+    """
+    return sigma_a / (1.0 - sigma_m / SIGMA_U)
+
+
+def ciclos_hasta_falla(sigma_a):
+    """
+    Vida a fatiga según la ecuación de Basquin, despejada para N_f:
+
+        sigma_a = sigma_u * (2 N_f)^b     =>    N_f = 0,5 * (sigma_a/sigma_u)^(1/b)
+
+    sigma_a es la amplitud ya corregida por media y factorada por
+    GAMMA_TOTAL. Como b es negativo, N_f crece al disminuir la amplitud.
+    """
+    return 0.5 * (sigma_a / SIGMA_U) ** (1.0 / B_EXP)
+
+
+def weibull_pdf(V, k, c):
+    """Densidad de probabilidad de Weibull de la velocidad del viento."""
+    return (k / c) * (V / c) ** (k - 1) * np.exp(-(V / c) ** k)
+
+
+# Tiempo que el viento permanece en cada intervalo de velocidad a lo largo
+# de un año, en segundos. Es el peso que convierte una realización de
+# 550 s en su contribución anual.
+t_anual = {V: weibull_pdf(V, WEIBULL_K, WEIBULL_C) * DV * T_YEAR
+           for V in V_LISTA}
+\end{pycode}
+
+\subsection*{Daño por realización y acumulación anual}
+
+Cada serie temporal se convierte en una historia de tensiones, se descompone en ciclos mediante el algoritmo Rainflow y se acumula el daño según la regla de Palmgren-Miner.
+
+\begin{pycode}
+danio_por_V = defaultdict(list)
+
+for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
+    partes = os.path.basename(ruta).replace('_forces.csv', '').split('_')
+    V = int(partes[2][1:])
+
+    datos = np.genfromtxt(ruta, delimiter=',', names=True)
+    mask  = datos['Times'] >= 50.0          # descarte que exige la norma
+
+    # Columnas de fuerza, en el orden de las estaciones
+    col_fx = [c for c in datos.dtype.names if c.startswith('Fx_')]
+    col_fy = [c for c in datos.dtype.names if c.startswith('Fy_')]
+
+    # --- Historia de tensiones en la sección crítica -------------------
+    # Se recorre la serie instante a instante: en cada uno se arma el
+    # vector de cargas de las 24 estaciones, se reduce a momento flector,
+    # este se traduce a tensión mediante K_aero y se le suma la tensión
+    # inercial, constante, que fija el nivel medio de la historia.
+    indices = np.where(mask)[0]
+    sigma_t = np.empty(len(indices))
+    for j, idx in enumerate(indices):
+        fx_t = np.array([datos[c][idx] for c in col_fx])
+        fy_t = np.array([datos[c][idx] for c in col_fy])
+        sigma_t[j] = (K_AERO * momento_resultante(fx_t, fy_t) / 1000.0
+                      + SIGMA_IN)
+
+    # --- Conteo de ciclos ----------------------------------------------
+    # Rainflow descompone la historia irregular en ciclos cerrados, cada
+    # uno caracterizado por su rango y su valor medio.
+    escala = t_anual[V] / T_SIM      # realizaciones equivalentes por año
+
+    danio = 0.0
+    # extract_cycles entrega rango, media y conteo de cada ciclo; los tres
+    # se emplean, ya que la media entra en la corrección de Goodman y el
+    # conteo distingue los medios ciclos residuales de los completos.
+    for rango, media, conteo, _, _ in rainflow.extract_cycles(sigma_t):
+        sigma_a = rango / 2.0
+        if sigma_a < 0.01:
+            continue                 # ciclos de amplitud despreciable
+
+        # Primero la corrección por tensión media, luego los factores
+        # parciales sobre la amplitud, según la Sección 7.6.3 de la norma.
+        sigma_a_eq = GAMMA_TOTAL * amplitud_equivalente(sigma_a, media)
+
+        # Regla de Palmgren-Miner: cada ciclo consume una fracción 1/N_f
+        # de la vida. El factor de escala expande la contribución de la
+        # realización de 550 s al año completo.
+        danio += conteo * escala / ciclos_hasta_falla(sigma_a_eq)
+
+    danio_por_V[V].append(danio)
+
+# --- Daño anual y en la vida de diseño ---------------------------------
+# Para cada velocidad se promedian las seis semillas, y los aportes de
+# todas las velocidades se suman.
+D_anual = sum(float(np.mean(danio_por_V[V])) for V in danio_por_V)
+D_vida  = D_anual * ANIOS
+
+# Criterio de verificación del Anexo G: la pala cumple si el daño
+# acumulado en la vida de diseño no alcanza la unidad.
+cumple = D_vida < 1.0
+\end{pycode}

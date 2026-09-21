@@ -1,0 +1,240 @@
+\chapter*{Anexo B}
+\addcontentsline{toc}{chapter}{Anexo B: Procesamiento de cargas del DLC 1.1}
+
+\setcounter{table}{0}
+\renewcommand{\thetable}{B.\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{B.\arabic{figure}}
+
+\section*{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
+\label{anexo:dlc11}
+
+Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en la carga de diseño del DLC 1.1, siguiendo el procedimiento del Anexo F de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
+
+\subsection*{Parámetros de entrada}
+
+Los parámetros del emplazamiento provienen de la caracterización del recurso eólico y los normativos de la Tabla~\ref{tab:factores_seguridad}.
+
+\begin{pycode}
+# -*- coding: utf-8 -*-
+"""
+DLC 1.1 - Extrapolación de cargas extremas según el Anexo F de IEC 61400-1.
+Entrada : 72 series temporales de fuerzas por estación (12 V x 6 semillas).
+Salida  : carga característica F_k a 50 años y carga de diseño F_d.
+"""
+import csv, glob, os
+from collections import defaultdict
+import numpy as np
+
+# --- Geometría de la pala y discretización del sensor -------------------
+BLADE_LENGTH = 23.0        # envergadura de la pala [m]
+N_POS        = 24          # estaciones de medición sobre la envergadura
+
+# Posición normalizada de cada estación y longitud de pala que representa.
+# Las 24 estaciones están igualmente espaciadas, de modo que cada una
+# concentra la carga de un tramo de 1,0 m.
+POS     = np.linspace(0.0, 1.0, N_POS)
+SEG_LEN = np.full(N_POS, BLADE_LENGTH / (N_POS - 1))
+
+# --- Recurso eólico del emplazamiento -----------------------------------
+WEIBULL_K = 2.09           # factor de forma de Weibull
+WEIBULL_C = 8.97           # factor de escala de Weibull [m/s], a z_hub
+
+# --- Parámetros normativos ----------------------------------------------
+T_DISCARD = 50.0                       # tramo inicial descartado [s]. La
+                                       # norma exige eliminar al menos los
+                                       # 5 s iniciales, o mas si es
+                                       # necesario (Seccion 7.5).
+T_OBS     = 600.0                      # duración de cada realización [s]
+T_RETURN  = 50 * 365 * 24 * 3600.0     # período de retorno de 50 años [s]
+
+# Probabilidad de excedencia objetivo: una ventana de observación de 600 s
+# dentro de un período de retorno de 50 años (~3,81e-7).
+PE_TARGET = T_OBS / T_RETURN
+
+# Factor parcial de carga. La norma admite reducirlo de 1,35 a 1,25 para
+# el DLC 1.1 cuando la carga se obtiene por extrapolación estadística
+# según el Anexo F (Sección 7.6.2.1, nota al pie de la Tabla 3).
+GAMMA_F = 1.25
+\end{pycode}
+
+\subsection*{Reducción del vector de cargas a una solicitación escalar}
+
+QBlade entrega, en cada paso de tiempo, la fuerza por unidad de longitud en las $24$ estaciones y en las dos direcciones del sistema local de la pala contenidas en el plano del perfil: $F_x$ normal a la cuerda y $F_y$ en el sentido de la cuerda. La extrapolación del Anexo F opera sobre una única variable de carga, por lo que ese vector debe reducirse a un escalar en cada instante.
+
+\begin{pycode}
+def fuerza_equivalente(fx, fy):
+    """
+    Reduce el vector de cargas de un instante a una solicitación escalar.
+
+    Multiplicar la fuerza por unidad de longitud de cada estación por la
+    longitud de pala que esa estación representa entrega la fuerza en
+    newton de cada tramo; su suma es la solicitación global de la pala en
+    ese instante:
+
+        F_tot(t) = suma_i  sqrt( Fx_i(t)^2 + Fy_i(t)^2 ) * L_seg,i
+
+    Las dos componentes se combinan en el módulo del vector que forman
+    en cada estación, y no se suman con signo. El módulo es siempre
+    positivo, de modo que la suma a lo largo de la envergadura no admite
+    cancelaciones entre estaciones con carga de sentido opuesto y recoge
+    la solicitación completa que soporta la pala.
+    """
+    return float(np.sum(np.sqrt(fx ** 2 + fy ** 2) * SEG_LEN))
+
+
+def maximo_de_la_realizacion(ruta_csv):
+    """
+    Devuelve el máximo de F_tot(t) de una realización.
+
+    Se descartan los primeros T_DISCARD segundos. La norma obliga a
+    eliminar de todo intervalo de análisis con viento turbulento los
+    datos iniciales, porque las condiciones con que arranca la
+    simulación afectan la estadística de cargas al comienzo del
+    período simulado (Sección 7.5).
+    """
+    with open(ruta_csv) as fh:
+        lector   = csv.reader(fh)
+        cabecera = next(lector)
+
+        # Las columnas de fuerza se identifican por su prefijo; el resto
+        # (tiempo, Cp, potencia, rpm) no interviene en este cálculo.
+        col_t  = 0
+        col_fx = [i for i, c in enumerate(cabecera) if c.startswith('Fx_')]
+        col_fy = [i for i, c in enumerate(cabecera) if c.startswith('Fy_')]
+
+        f_max = 0.0
+        for fila in lector:
+            if float(fila[col_t]) < T_DISCARD:
+                continue
+            fx = np.array([float(fila[i]) for i in col_fx])
+            fy = np.array([float(fila[i]) for i in col_fy])
+            f_max = max(f_max, fuerza_equivalente(fx, fy))
+
+    return f_max
+\end{pycode}
+
+\subsection*{Ajuste de la distribución de extremos por velocidad}
+
+Para cada velocidad de viento se dispone de seis máximos, uno por semilla. El Anexo F modela su distribución mediante una función de Gumbel, cuyos parámetros se estiman por el método de los momentos según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
+
+\begin{pycode}
+GAMMA_EULER = 0.5772156649   # constante de Euler-Mascheroni
+
+def ajuste_gumbel(maximos):
+    """
+    Ajusta una distribución de Gumbel por el método de los momentos, tal
+    como prescribe la Sección F.1 del Anexo F:
+
+        beta = sqrt(6)/pi * s          mu = x_medio - gamma_E * beta
+
+    donde s es la desviación estándar muestral de los máximos y x_medio su
+    promedio. Devuelve el parámetro de localización mu y el de escala beta.
+    """
+    x    = np.asarray(maximos, dtype=float)
+    beta = np.sqrt(6.0) / np.pi * np.std(x, ddof=1)
+    mu   = np.mean(x) - GAMMA_EULER * beta
+    return mu, beta
+
+
+def excedencia_gumbel(F, mu, beta):
+    """
+    Probabilidad de que F_tot supere el valor F en una realización de
+    600 s a una velocidad de viento dada:
+
+        P(F_tot > F | V) = 1 - exp( -exp( -(F - mu) / beta ) )
+    """
+    return 1.0 - np.exp(-np.exp(-(F - mu) / beta))
+
+
+def weibull_pdf(V, k, c):
+    """Densidad de probabilidad de Weibull de la velocidad del viento."""
+    return (k / c) * (V / c) ** (k - 1) * np.exp(-(V / c) ** k)
+\end{pycode}
+
+\subsection*{Agregación y carga característica}
+
+La probabilidad de excedencia de largo plazo pondera la probabilidad condicional de cada velocidad por el tiempo que el viento permanece en ella. La carga característica $F_k$ es aquella cuya probabilidad de excedencia iguala la del período de retorno de $50$ años.
+
+\begin{pycode}
+# --- Paso 1: máximo de cada realización, agrupado por velocidad ---------
+maximos = defaultdict(list)
+for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
+    # Nombre del archivo: sim_037_V14_S1_forces.csv -> V = 14 m/s, semilla 1
+    partes = os.path.basename(ruta).replace('_forces.csv', '').split('_')
+    V = int(partes[2][1:])
+    maximos[V].append(maximo_de_la_realizacion(ruta))
+
+# --- Paso 2: un Gumbel por velocidad, ajustado sobre sus 6 semillas -----
+parametros  = {V: ajuste_gumbel(maximos[V]) for V in sorted(maximos)}
+V_ensayadas = np.array(sorted(parametros), dtype=float)
+mu_V        = np.array([parametros[V][0] for V in V_ensayadas])
+beta_V      = np.array([parametros[V][1] for V in V_ensayadas])
+
+# --- Paso 3: llevar mu y beta a la malla de integración ----------------
+# El Anexo F integra sobre todo el rango operacional y no solo sobre las
+# velocidades simuladas. Entre ellas se interpola linealmente; fuera del
+# rango ensayado np.interp mantiene el valor del extremo más próximo.
+V_bins = np.arange(0.5, 25.5, 1.0)
+dV     = 1.0
+mu_bins   = np.interp(V_bins, V_ensayadas, mu_V)
+beta_bins = np.interp(V_bins, V_ensayadas, beta_V)
+
+# Peso de cada intervalo de velocidad, normalizado a probabilidad total 1.
+p_bins  = weibull_pdf(V_bins, WEIBULL_K, WEIBULL_C)
+p_bins /= np.sum(p_bins * dV)
+
+
+def excedencia_largo_plazo(F):
+    """
+    Probabilidad de excedencia de largo plazo (Anexo F):
+
+        P_e(F) = integral_V  P(F_tot > F | V) * p_Weibull(V) dV
+
+    Combina la distribución de extremos condicional a cada velocidad con
+    la distribución de velocidades del emplazamiento.
+    """
+    return float(np.sum(excedencia_gumbel(F, mu_bins, beta_bins) * p_bins * dV))
+
+
+# --- Paso 4: F_k por bisección -----------------------------------------
+# P_e es monótona decreciente en F, de modo que la bisección converge sin
+# ambigüedad al único valor que satisface P_e(F_k) = PE_TARGET.
+F_lo = 0.0
+F_hi = 3.0 * max(max(v) for v in maximos.values())
+for _ in range(100):
+    F_mid = 0.5 * (F_lo + F_hi)
+    if excedencia_largo_plazo(F_mid) > PE_TARGET:
+        F_lo = F_mid      # todavía se excede con demasiada frecuencia
+    else:
+        F_hi = F_mid
+F_k = 0.5 * (F_lo + F_hi)
+
+# --- Paso 5: carga de diseño (Ec. 28, Sección 7.6.1.1) -----------------
+F_d = GAMMA_F * F_k
+\end{pycode}
+
+\subsection*{Del escalar a las fuerzas por estación}
+
+El Anexo F entrega un único valor escalar, que se distribuye en las 24 estaciones con que se instrumentó la pala. Para preservar la correlación espacial entre ellas, el perfil se toma del instante de máxima solicitación global de la realización que registró la mayor solicitación y se escala de manera uniforme, conforme a la Sección 7.5 de la norma.
+
+\begin{pycode}
+# fx_crit, fy_crit son las fuerzas compañeras por unidad de longitud en
+# las 24 estaciones, capturadas en el instante t_max de la realización
+# que produjo el mayor F_tot de todo el conjunto.
+
+F_tot_crit = fuerza_equivalente(fx_crit, fy_crit)
+
+# Factor único que lleva la solicitación de ese instante hasta la carga
+# de diseño, conservando intacta la forma del perfil a lo largo de la
+# envergadura.
+escala = F_d / F_tot_crit
+
+# Fuerzas de diseño por estación [N]. Se conserva el signo original, de
+# modo que la dirección de aplicación en el modelo estructural reproduce
+# la del instante gobernante.
+Fd_x = fx_crit * SEG_LEN * escala
+Fd_y = fy_crit * SEG_LEN * escala
+\end{pycode}
+
+Las fuerzas resultantes se recogen en la Tabla~\ref{tab:anexo_fuerzas_dlc11} del Anexo A, junto con la fuerza lineal simulada de la que provienen.

@@ -1,0 +1,509 @@
+\documentclass[12pt,letterpaper]{report}
+
+% --- 1. PAQUETES BASE E IDIOMA ---
+\usepackage{etoolbox}
+\usepackage{fontspec}
+\usepackage[spanish,es-tabla]{babel}
+\selectlanguage{spanish}
+\usepackage{csquotes}
+
+% --- 2. PAQUETES DE ÍNDICES Y DISEÑO ---
+% ¡CRÍTICO! tocloft y titlesec DEBEN ir ANTES de biblatex 
+% para evitar el error "Patching \addtocontents failed"
+\usepackage[titles]{tocloft}        
+\usepackage[explicit]{titlesec}
+\usepackage{setspace} 
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage[normalem]{ulem}
+
+% --- 3. BIBLIOGRAFÍA (BIBLATEX, ESTILO APA 7) ---
+% style=apa (paquete biblatex-apa) entrega el formato APA real:
+% todos los apellidos invertidos, "&" antes del último autor, títulos
+% sin comillas, volumen(número), DOI como https://doi.org/...
+\usepackage[
+    style=apa,
+    backend=biber,
+    maxbibnames=99
+]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+
+\addbibresource{Referencias.bib}
+
+% --- 4. GRÁFICOS, TABLAS Y MATEMÁTICAS ---
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption} 
+\usepackage{xcolor} 
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{pdfpages}
+\usepackage{pgfgantt}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{longtable}
+
+% --- 5. ENLACES Y GLOSARIO (SIEMPRE AL FINAL) ---
+\usepackage[hidelinks, bookmarks=true, bookmarksnumbered=true]{hyperref}
+\usepackage[acronym, toc]{glossaries}
+\newglossary[slg]{simbolos}{sls}{slo}{Lista de Símbolos}
+%\makeglossaries
+\makenoidxglossaries
+
+% Carga del archivo externo de acrónimos
+\loadglsentries{acronimos}
+
+\glsaddkey{unit}{---}{\glsentryunit}{\Glsentryunit}{\glsunit}{\Glsunit}{\GLSunit}
+
+\loadglsentries{simbolos}
+
+% --- ESTILO DE NOMENCLATURA (3 columnas: Símbolo | Descripción | Unidad) ---
+\newglossarystyle{nomenclatura}{%
+  \renewenvironment{theglossary}{%
+    \longtable{l p{10cm} c}
+    \textbf{Símbolo} & \textbf{Descripción} & \textbf{Unidad} \\ \hline
+    \endhead
+  }{%
+    \endlongtable
+  }%
+  \renewcommand{\glossentry}[2]{%
+    \glossentryname{##1} & \glossentrydesc{##1} & \glsentryunit{##1} \\
+  }%
+  \renewcommand{\glsgroupskip}{}%
+  \renewcommand{\glsgroupheading}[1]{}%
+  \renewcommand{\glossaryheader}{}%
+}
+
+% --- CONFIGURACIÓN DE BIBLATEX ---
+% No se redefinen title, volume, journaltitle, pages ni url: el estilo apa
+% ya entrega el formato correcto (título de artículo sin comillas, volumen
+% en cursiva, páginas sin prefijo y URL literal). Sobrescribirlos rompía
+% visualmente el formato APA aunque el estilo estuviera bien declarado.
+\setlength{\bibhang}{1.27cm}   % sangría francesa de 0,5 in que exige APA
+\setlength{\bibitemsep}{1.5\itemsep}
+\urlstyle{same}
+
+% --- CONFIGURACIÓN DE FUENTE ---
+\setmainfont{Carlito} 
+
+% --- MÁRGENES OFICIALES ESTRICTOS ---
+\geometry{
+    letterpaper,
+    top=2cm,       
+    bottom=2.6cm,
+    left=3cm,
+    right=2cm,
+    headheight=14pt,
+    headsep=0.25cm, 
+    footskip=1cm  
+}
+
+% --- ESTILO DE TEXTO CUERPO DEL INFORME ---
+\onehalfspacing 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% --- FORMATO DE FIGURAS Y TABLAS ---
+\makeatletter
+\g@addto@macro\@floatboxreset\centering
+\makeatother
+
+\AtBeginEnvironment{table}{\singlespacing}
+\AtBeginEnvironment{figure}{\singlespacing}
+
+\captionsetup[figure]{
+    justification=centering, 
+    labelsep=period,         
+    position=bottom,         
+    skip=1\baselineskip,     
+    labelfont=bf             
+}
+
+\captionsetup[table]{
+    justification=centering, 
+    labelsep=period,         
+    position=top,            
+    skip=1\baselineskip,     
+    labelfont=bf             
+}
+
+\setlength{\intextsep}{1\baselineskip}
+\setlength{\textfloatsep}{1\baselineskip}
+\setlength{\floatsep}{1\baselineskip}
+
+% --- Estilo numeración de ecuaciones ---
+\makeatletter
+\def\tagform@#1{\maketag@@@{\textbf{(#1)}\@@italiccorr}}
+\makeatother
+
+% --- DESTACADO DE CAMBIOS PARA REVISIÓN ---
+% Sombrea en amarillo los párrafos nuevos, es decir, los que no existían
+% en la versión anterior. Los párrafos que solo fueron reescritos no se
+% marcan. Para la versión final basta cambiar la línea siguiente por
+% \destacarcambiosfalse: el texto queda intacto y sin sombreado.
+\usepackage{framed}
+
+\definecolor{colorcambio}{HTML}{FFF3A3}
+
+\newif\ifdestacarcambios
+\destacarcambiostrue
+
+\ifdestacarcambios
+  \colorlet{shadecolor}{colorcambio}
+  \newenvironment{nuevobloque}{\begin{snugshade*}}{\end{snugshade*}}
+\else
+  \newenvironment{nuevobloque}{}{}
+\fi
+
+% --- DESTACADO TEMPORAL: CANDIDATOS A RESUMIR/QUITAR ---
+% Sombrea en naranja los pasajes propuestos para eliminar o comprimir
+% a una referencia, mientras se decide. No forma parte del esquema de
+% revision anterior (colorcambio); se puede desactivar cambiando
+% \destacarcandidatostrue por \destacarcandidatosfalse.
+\definecolor{colorcandidato}{HTML}{FFC48C}
+
+\newif\ifdestacarcandidatos
+\destacarcandidatostrue
+
+\ifdestacarcandidatos
+  \newenvironment{candidato}{\begingroup\colorlet{shadecolor}{colorcandidato}\begin{snugshade*}}{\end{snugshade*}\endgroup}
+\else
+  \newenvironment{candidato}{}{}
+\fi
+
+% --- FORMATO DE CÓDIGO FUENTE (ANEXOS) ---
+% El entorno pycode desactiva localmente los caracteres activos del
+% español ("<>) para que no interfieran con la sintaxis de Python, y los
+% restaura al cerrar el bloque.
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codfondo}{HTML}{F7F7F9}
+\definecolor{codmarco}{HTML}{C8C8D2}
+\definecolor{codcoment}{HTML}{2E7D32}
+\definecolor{codclave}{HTML}{1F4E79}
+\definecolor{codtexto}{HTML}{A03030}
+\definecolor{codnum}{HTML}{8A8A8A}
+
+\lstdefinestyle{estilopython}{
+    language=Python,
+    basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\color{codclave}\bfseries,
+    commentstyle=\color{codcoment}\itshape,
+    stringstyle=\color{codtexto},
+    numbers=left,
+    numberstyle=\ttfamily\tiny\color{codnum},
+    numbersep=9pt,
+    backgroundcolor=\color{codfondo},
+    frame=single,
+    rulecolor=\color{codmarco},
+    framesep=5pt,
+    xleftmargin=18pt,
+    xrightmargin=2pt,
+    breaklines=true,
+    breakatwhitespace=false,
+    breakindent=12pt,
+    postbreak=\mbox{\textcolor{codnum}{$\hookrightarrow$}\space},
+    showstringspaces=false,
+    tabsize=4,
+    columns=fullflexible,
+    keepspaces=true,
+    upquote=true,
+    extendedchars=true,
+    literate=%
+      {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+      {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+      {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1
+      {¿}{{?`}}1 {¡}{{!`}}1 {°}{{\textdegree}}1
+}
+
+\lstnewenvironment{pycode}[1][]
+  {\shorthandoff{"<>}\lstset{style=estilopython,#1}}
+  {}
+
+% --- FORMATO DE ÍNDICES ---
+\addto\captionsspanish{
+  \renewcommand{\contentsname}{Índice de Contenidos}
+  \renewcommand{\listfigurename}{Índice de Figuras}
+  \renewcommand{\listtablename}{Índice de Tablas}
+}
+
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{1em} 
+\setlength{\cftbeforeloftitleskip}{0pt}
+\setlength{\cftafterloftitleskip}{1em} 
+\setlength{\cftbeforelottitleskip}{0pt}
+\setlength{\cftafterlottitleskip}{1em} 
+\setlength{\cftbeforechapskip}{0pt}
+
+\renewcommand{\cfttoctitlefont}{\normalfont\fontsize{12}{14}\selectfont\bfseries\uline}
+\renewcommand{\cftlottitlefont}{\normalfont\fontsize{12}{14}\selectfont\bfseries\uline}
+\renewcommand{\cftloftitlefont}{\normalfont\fontsize{12}{14}\selectfont\bfseries\uline}
+
+\renewcommand{\cftaftertoctitle}{\par\hfill{\normalfont Página}}
+\renewcommand{\cftafterloftitle}{\par\hfill{\normalfont Página}}
+\renewcommand{\cftafterlottitle}{\par\hfill{\normalfont Página}}
+
+\renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftchapleader}{\hfill}
+\renewcommand{\cftsecleader}{\hfill}
+\renewcommand{\cftsubsecleader}{\hfill}
+\renewcommand{\cftsubsubsecleader}{\hfill}
+\renewcommand{\cftfigleader}{\hfill}
+\renewcommand{\cfttableader}{\hfill}
+
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{0pt}
+\setlength{\cftsubsecindent}{0pt}
+\setlength{\cftsubsubsecindent}{0pt}
+\setlength{\cftfigindent}{0pt}
+\setlength{\cfttabindent}{0pt}
+
+\renewcommand{\cftchappresnum}{Capítulo }
+\renewcommand{\cftchapaftersnum}{.}
+\newlength{\chapnumwidth}
+\settowidth{\chapnumwidth}{\cftchappresnum 99.\space}
+\setlength{\cftchapnumwidth}{\chapnumwidth}
+
+% --- FORMATO DE TÍTULOS DE CAPÍTULO ---
+\titleformat{name=\chapter}[block]
+  {\thispagestyle{empty}\vspace*{\fill}\centering\normalfont\fontsize{22}{26}\selectfont\bfseries}
+  {}
+  {0pt}
+  {CAPÍTULO \thechapter\\[1em]\MakeUppercase{#1}\vspace*{\fill}}
+
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\fontsize{12}{14}\selectfont\bfseries}
+  {}
+  {0pt}
+  {\uline{#1}}
+
+\titlespacing*{name=\chapter}{0pt}{0pt}{0pt}
+\titlespacing*{name=\chapter,numberless}{0pt}{0pt}{1.5em}
+
+\titleformat{name=\section}[block]
+  {\normalfont\fontsize{12}{14}\selectfont\bfseries}
+  {}
+  {0pt}
+  {\thesection.\hspace{0.5em}#1}
+
+\titleformat{name=\section,numberless}[block]
+  {\normalfont\fontsize{12}{14}\selectfont\bfseries}
+  {}
+  {0pt}
+  {#1}
+
+\titlespacing*{\section}{0pt}{1.5em}{0.5em}
+
+% --- FORMATO DE SUBSECCIONES ---
+\titleformat{name=\subsection}[block]
+  {\normalfont\fontsize{12}{14}\selectfont\bfseries}
+  {}
+  {0pt}
+  {\thesubsection.\hspace{0.5em}#1}
+
+\titleformat{name=\subsection,numberless}[block]
+  {\normalfont\fontsize{12}{14}\selectfont\bfseries}
+  {}
+  {0pt}
+  {#1}
+
+\titlespacing*{\subsection}{0pt}{1.5em}{0.5em}
+
+% --- CORRECCIÓN DE SALTOS DE PÁGINA ---
+\newcounter{tempPage} 
+
+\let\oldchapter\chapter
+\RenewDocumentCommand{\chapter}{s o m}{%
+  \IfBooleanTF{#1}{%
+    \oldchapter*{#3}%
+  }{%
+    \clearpage
+    \setcounter{tempPage}{\value{page}}
+    \IfNoValueTF{#2}{%
+      \oldchapter{#3}%
+    }{%
+      \oldchapter[#2]{#3}%
+    }%
+    \clearpage 
+    \setcounter{page}{\value{tempPage}} 
+  }%
+}  
+
+% --- PORTADA ---
+\newcommand{\makeportada}{
+\begin{titlepage}
+    \thispagestyle{empty} 
+    \centering
+    \setstretch{1.0}
+    \bfseries 
+    
+    \includegraphics[width=5cm]{logo_ufro.png}
+    \vspace{0.5cm}
+    
+    UNIVERSIDAD DE LA FRONTERA\\
+    FACULTAD DE INGENIERÍA Y CIENCIAS\\
+    DEPARTAMENTO DE INGENIERÍA MECÁNICA\\[4cm]
+    
+    ``VALIDACIÓN DEL DISEÑO DE UNA PALA DE AEROGENERADOR DE TIPO OFFSHORE FLOTANTE DE EJE VERTICAL BAJO CUMPLIMIENTO NORMATIVO''\\[4cm]
+    
+    \hfill 
+    \begin{minipage}{0.6\textwidth}
+        \raggedleft
+        \bfseries
+        ACTIVIDAD DE TITULACIÓN, MODALIDAD PRÁCTICA PROFESIONAL CONTROLADA\\
+        PARA OPTAR AL TÍTULO DE INGENIERO CIVIL MECÁNICO\\[0.5cm]
+        Profesor Guía: Dr.-Ing. Rodrigo Andrés Soto Valle\\
+    \end{minipage}
+    
+    \vfill
+    JOSUÉ ALEXIS CASTRO LEAL\\
+    2026
+\end{titlepage}
+}
+
+% --- CONFIGURACIÓN DE ENCABEZADO Y PIE DE PÁGINA ---
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{cuerpo}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhead[R]{\fontsize{10}{12}\selectfont \nouppercase{\leftmark}}
+    \fancyfoot[C]{\fontsize{10}{12}\selectfont\textit{Validación del diseño de una pala de aerogenerador tipo offshore flotante de eje vertical bajo cumplimiento normativo.}}
+    \fancyfoot[R]{\fontsize{10}{12}\selectfont\bfseries \thepage}
+}
+
+\fancypagestyle{preliminar}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+}
+
+% ==========================================
+% INICIO DEL DOCUMENTO
+% ==========================================
+\begin{document}
+
+\pagenumbering{roman}
+\pagestyle{preliminar}
+
+\makeportada
+
+% --- COMISIÓN EVALUADORA ---
+\newpage
+\thispagestyle{empty}
+\begin{center}
+    \bfseries
+    VALIDACIÓN DEL DISEÑO DE UNA PALA DE AEROGENERADOR\\
+    DE TIPO OFFSHORE FLOTANTE DE EJE VERTICAL\\
+    BAJO CUMPLIMIENTO NORMATIVO\\[1cm]
+    JOSUÉ ALEXIS CASTRO LEAL\\[2cm]
+    COMISIÓN EVALUADORA
+\end{center}
+\vspace{2cm}
+\begin{center}
+    \textbf{Dr.-Ing. Rodrigo Andrés Soto Valle}\\
+    \textbf{Profesor Guía}
+\end{center}
+\vspace{1.5cm}
+\begin{center}
+    \begin{tabular}{c c}
+        Dr. Renato Alexis Hunter Alarcón & Julio Andrés Leyrer Henríquez \\
+        Presidente & Académico Evaluador
+    \end{tabular}
+\end{center}
+\vfill
+\hfill
+\begin{tabular}{l l}
+    \textbf{Calificación informe escrito}    & : \hspace{3cm} \\[0.4cm]
+    \textbf{Calificación presentación oral}  & : \hspace{3cm} \\[0.4cm]
+    \textbf{Calificación final}              & : \hspace{3cm}
+\end{tabular}
+
+% --- DEDICATORIA ---
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    \raggedleft
+    \textit{Dedicado a mis padres, Alexis y Eliana por apoyarme siempre, darme la oportunidad y alentarme a estudiar, a mi polola Lorena por siempre ser un apoyo y la persona con la quien quiero seguir creciendo. También a mi hermanita por siempre preocuparse por mi, y a mi amigo que tuvo la culpa de que terminara estudiando mecánica. Sobre todo gracias Dios porque sin duda he visto sus bendiciones en mi vida.}
+\end{minipage}
+
+% --- RESUMEN ---
+\newpage
+\thispagestyle{empty}
+\section*{\underline{Resumen}}
+
+El presente trabajo validó por simulación numérica el diseño estructural de la pala de un aerogenerador offshore flotante de eje vertical, sobre una turbina SeaTwirl emplazada en la costa sur de Chile. La verificación se rigió por la norma IEC 61400-1~\parencite{IEC61400-1} en sus estados límite último y de fatiga, bajo condiciones de funcionamiento nominal.
+
+La metodología integró tres etapas. El emplazamiento se caracterizó a partir de datos públicos, obteniendo la distribución de Weibull del viento, la clase IEC del sitio y las propiedades del aire. Sobre esa base se construyó el modelo aerodinámico en QBlade, con polares del perfil NACA 0018 calibradas contra datos experimentales, y las cargas se obtuvieron de simulaciones con viento turbulento y rotación limitada a $42$~rpm. Las series temporales se procesaron según los procedimientos que la norma IEC 61400-1~\parencite{IEC61400-1} fija para cada caso: extrapolación de Gumbel a 50 años para el DLC 1.1, media de máximos para el DLC 1.3 y conteo Rainflow con la regla de Palmgren-Miner para el DLC 1.2. Las fuerzas resultantes se aplicaron a un modelo de elementos finitos de la pala en Ansys, verificado por convergencia de malla y complementado con un análisis de pandeo lineal.
+
+El emplazamiento clasificó como Clase II\textsubscript{C}, con una velocidad media de $7{,}94$~m/s y turbulencia baja. La turbina alcanzó un coeficiente de potencia de $0{,}42$--$0{,}45$, en el extremo superior de lo reportado para rotores H, y una potencia de $201{,}5$~kW a $12$~m/s, consistente con las máquinas documentadas de escala comparable. Las cargas de diseño fueron $146{,}1$ y $152{,}1$~kN en los DLC 1.1 y 1.3, si bien la mayor tensión correspondió al primero, que gobernó la verificación. La tensión máxima, localizada en las conexiones con los brazos, alcanzó $163{,}4$~MPa frente a una resistencia factoreada de $186{,}2$~MPa, con un factor de reserva de $1{,}14$; la rotación aportó por sí sola el $70\%$ de esa tensión. La verificación de estabilidad arrojó un multiplicador de carga mínimo de $1{,}12$, bajo el umbral normativo de $1{,}30$. Las deflexiones alcanzaron el $1{,}4\%$ de la luz entre conexiones y el daño acumulado por fatiga en 20 años, $D_{20} = 6{,}45 \times 10^{-8}$, quedó muy por debajo del límite unitario.
+
+Se concluye que la pala satisface los criterios de resistencia última, fatiga y deflexión que establece la norma IEC 61400-1~\parencite{IEC61400-1}, y que su validez queda condicionada a la estabilidad, ya que el diseño lo gobierna el pandeo local de la piel y no la fatiga, lo que exige rigidizar los paneles del vano central. El dimensionamiento de la pala lo determina la velocidad máxima de giro antes que el recurso eólico, de modo que fijar ese valor es una decisión estructural. La metodología, contrastada con evidencia independiente en cada etapa, es replicable para turbinas similares y extensible a los restantes casos de carga y al acoplamiento con la plataforma flotante.
+
+\newpage
+
+% Numeracion de titulos hasta el tercer nivel y su inclusion en el indice,
+% para que la jerarquia de secciones quede explicita.
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\begin{singlespace}
+    \setlength{\parskip}{0pt} 
+    \tableofcontents
+    \newpage
+    \listoftables
+    \newpage
+    \listoffigures
+\end{singlespace}
+
+\newpage
+% --- INICIO DEL CONTENIDO PRINCIPAL ---
+\setcounter{page}{1}         
+\pagenumbering{arabic}       
+\pagestyle{cuerpo}           
+\setlength{\parskip}{1em} 
+
+\include{1 Introduccion}
+\include{2 Antecedentes Generales}
+\include{3 Metodología}
+\include{4 Resultados}
+\include{5 Conclusiones}
+
+\newpage
+\include{Declaracion IA}
+
+\newpage
+\printnoidxglossary[type=\acronymtype, title={Glosario}, sort=word, nonumberlist]
+
+\glsaddall
+\begin{singlespace}
+\printnoidxglossary[type=simbolos, title={Nomenclatura}, sort=word, nogroupskip, style=nomenclatura]
+\end{singlespace}
+
+\newpage
+\begin{singlespace}
+\printbibliography[heading=bibintoc, title={Bibliografía}]
+\end{singlespace}
+
+\include{Anexo A Fuerzas}
+\include{Anexo B DLC11}
+\include{Anexo C DLC13}
+\include{Anexo D DLC12}
+\include{Anexo E Fuerzas XY}
+
+\end{document}
