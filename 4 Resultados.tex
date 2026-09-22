@@ -14,15 +14,21 @@ Los resultados de la caracterización del recurso eólico según IEC 61400-1~\pa
     \begin{tabular}{lcc}
         \hline
         \textbf{Parámetro} & \textbf{Símbolo} & \textbf{Valor} \\ \hline
-        Velocidad media Anual al Centro del Rotor ($z = 21{,}3$ m) & $V_{ave}$ & $7{,}94$ m/s \\
-        Velocidad de referencia & $V_{ref}$ & $39{,}7$ m/s \\
-        Intensidad de turbulencia de referencia & $I_{ref}$ & $0{,}12$ \\
+        Velocidad media anual al centro del rotor ($z = 21{,}3$ m) & $V_{ave}$ & $8{,}15$ m/s \\
+        Velocidad de referencia & $V_{ref}$ & $40{,}8$ m/s \\
+        Longitud de rugosidad de Charnock & $z_0$ & $1{,}332 \times 10^{-3}$ m \\
+        Intensidad de turbulencia a $15$ m/s & $I_{15}$ & $15{,}68\%$ \\
+        Intensidad de turbulencia de referencia & $I_{ref}$ & $0{,}16$ \\
         Parámetro de ordenada NTM & $b_{NTM}$ & $5{,}6$ m/s \\
-        Clase de emplazamiento (IEC) & --- & II\textsubscript{C} \\ \hline
+        Clase de emplazamiento (IEC) & --- & II\textsubscript{A} \\ \hline
     \end{tabular}
 \end{table}
 
-La velocidad media anual de $7{,}94$~m/s (Figura~\ref{fig:viento_promedio_anual}) presenta una variabilidad reducida durante el período analizado, ya que la desviación relativa de la velocidad media de cada año respecto de $V_{ave}$ no supera el $10\%$ en ninguno de los $38$ años del registro, con un mínimo de $7{,}34$~m/s en 2016 ($-7{,}6\%$) y un máximo de $8{,}47$~m/s en 1994 ($+6{,}7\%$). El ajuste lineal de esos promedios frente al año no muestra, además, una tendencia significativa (pendiente de $0{,}003$~m/s por año, $R^2 = 0{,}01$), lo que respalda tratar el registro histórico completo como representativo del recurso a lo largo de la vida de diseño de $20$ años. La estimación de la turbulencia mediante la Ec.~\ref{eq:charnock_sigma}, con la constante de Charnock de mar abierto, entrega una intensidad de $10{,}5\%$ a $15$~m/s, inferior al umbral $I_{ref} = 0{,}12$ de la categoría C, que resulta así la de menor umbral capaz de envolver la turbulencia del sitio, y es por tanto el valor de $I_{ref}$ que se adopta para el emplazamiento. La clasificación resultante corresponde a Clase II\textsubscript{C} ($37{,}5 \leq V_{ref} < 42{,}5$~m/s, $I_{ref} \leq 0{,}12$), y los parámetros del NTM son los que la norma tabula para esa categoría~\parencite{IEC61400-1}.
+La velocidad media anual de $8{,}15$~m/s (Figura~\ref{fig:viento_promedio_anual}) presenta una variabilidad reducida durante el período analizado, ya que la desviación relativa de la velocidad media de cada año respecto de $V_{ave}$ no supera el $8\%$ en ninguno de los $38$ años del registro, con un mínimo de $7{,}54$~m/s en 2016 ($-7{,}5\%$) y un máximo de $8{,}71$~m/s en 1994 ($+6{,}8\%$). El ajuste lineal de esos promedios frente al año no muestra, además, una tendencia significativa (pendiente de $0{,}003$~m/s por año, $R^2 = 0{,}01$), lo que respalda tratar el registro histórico completo como representativo del recurso a lo largo de la vida de diseño de $20$ años.
+
+La turbulencia se estima con el procedimiento de la Sección~\ref{sec:ntm}, resolviendo la rugosidad implícita de Charnock y despejando la intensidad a $15$~m/s en la forma cerrada de la Ec.~\ref{eq:i15_cerrada}. Con el coeficiente $A_C = 0{,}034$ y la desviación $d = 4$~m/s que la IEC 61400-3-1 prescribe para emplazamientos marinos~\parencite{IEC61400-3-1}, la rugosidad resulta $z_0 = 1{,}332 \times 10^{-3}$~m y la intensidad $I_{15} = 15{,}68\%$. Ese valor excede el umbral de la categoría B, de modo que la categoría A, con $I_{ref} = 0{,}16$, es la de menor umbral capaz de envolver la turbulencia del sitio, y es por tanto la que se adopta.
+
+La clasificación resultante corresponde a Clase II\textsubscript{A} ($37{,}5 \leq V_{ref} < 42{,}5$~m/s, $I_{ref} = 0{,}16$), y los parámetros del NTM son los que la norma tabula para esa categoría~\parencite{IEC61400-1}. La velocidad de referencia $V_{ref} = 40{,}8$~m/s queda holgadamente dentro del intervalo de la clase II, de modo que la reclasificación afecta a la letra de la categoría de turbulencia y no al número de la clase.
 
 \begin{figure}[H]
 \centering
@@ -31,7 +37,7 @@ La velocidad media anual de $7{,}94$~m/s (Figura~\ref{fig:viento_promedio_anual}
 \label{fig:viento_promedio_anual}
 \end{figure}
 
-La Figura~\ref{fig:viento_promedio_mensual} muestra que los meses de invierno (junio--agosto) presentan velocidades medias superiores a la media anual, mientras que los meses de verano (enero--marzo) registran las velocidades más bajas, con una diferencia estacional cercana al $30\%$.
+La Figura~\ref{fig:viento_promedio_mensual} muestra que los meses de invierno (junio--agosto) presentan velocidades medias superiores a la media anual, con un máximo de $9{,}47$~m/s en junio, mientras que los meses de verano (enero--marzo) registran las velocidades más bajas, con un mínimo de $7{,}01$~m/s en febrero, esto es, una diferencia estacional del $35\%$.
 
 \begin{figure}[H]
 \centering
@@ -40,7 +46,7 @@ La Figura~\ref{fig:viento_promedio_mensual} muestra que los meses de invierno (j
 \label{fig:viento_promedio_mensual}
 \end{figure}
 
-La densidad de probabilidad de la velocidad del viento (Figura~\ref{fig:distribucion_viento}) presenta un parámetro de forma $k = 2{,}09$, cercano al caso particular $k = 2$ de la distribución de Rayleigh que la norma adopta como referencia para las clases estándar~\parencite{ennis2018}, y un parámetro de escala $c = 8{,}97$~m/s, ajustados a la altura del centro del rotor, donde la velocidad media resulta en $V_{ave} = 7{,}94$~m/s. El ajuste reproduce la densidad observada con $R^2 = 0{,}970$. Estos dos parámetros reaparecen a lo largo del estudio, ya que la distribución que definen pondera el tiempo de exposición a cada velocidad en el cálculo de fatiga (Sección~\ref{sec:resultados_fatiga}) y entrega la probabilidad de excedencia con que se fija la velocidad de corte.
+La densidad de probabilidad de la velocidad del viento (Figura~\ref{fig:distribucion_viento}) presenta un parámetro de forma $k = 2{,}09$, cercano al caso particular $k = 2$ de la distribución de Rayleigh que la norma adopta como referencia para las clases estándar~\parencite{ennis2018}, y un parámetro de escala $c = 9{,}22$~m/s, ajustados a la altura del centro del rotor, donde la velocidad media resulta en $V_{ave} = 8{,}15$~m/s. El ajuste reproduce la densidad observada con $R^2 = 0{,}971$. Estos dos parámetros reaparecen a lo largo del estudio, ya que la distribución que definen pondera el tiempo de exposición a cada velocidad en el cálculo de fatiga (Sección~\ref{sec:resultados_fatiga}) y entrega la probabilidad de excedencia con que se fija la velocidad de corte.
 
 \begin{figure}[H]
 \centering
@@ -49,9 +55,9 @@ La densidad de probabilidad de la velocidad del viento (Figura~\ref{fig:distribu
 \label{fig:distribucion_viento}
 \end{figure}
 
-Con base en esta caracterización, el rango operacional de la turbina se define entre $V_{in} = 2$~m/s y $V_{out} = 25$~m/s. La operación estable a $2$~m/s se verifica mediante las simulaciones LLFVW, que registran producción sostenida y un TSR cercano al óptimo ($C_{p,med} = 0{,}447$, $\lambda = 3{,}88$, Tabla~\ref{tab:curva_potencia}, Sección~\ref{sec:curva_potencia}). El límite superior, adoptado por criterio de diseño (Sección~\ref{sec:giro_prescrito}), tiene un costo marginal en producción, ya que la probabilidad de excedencia del sitio es $P(V > 25\text{ m/s}) = 0{,}02\%$, equivalente a $1{,}75$~h/año, sensiblemente menor a la probabilidad de superar los $20$~m/s, $P(V > 20\text{ m/s}) = 0{,}48\%$ ($42$~h/año). Dado que el coeficiente de potencia decae por debajo de $0{,}06$ para $V \geq 24$~m/s bajo el límite de velocidad de rotación adoptado (Sección~\ref{sec:curva_potencia}), la energía capturable por encima de $25$~m/s resulta despreciable, por lo que las velocidades superiores no se consideran en este estudio.
+Con base en esta caracterización, el rango operacional de la turbina se define entre $V_{in} = 2$~m/s y $V_{out} = 25$~m/s. La operación estable a $2$~m/s se verifica mediante las simulaciones LLFVW, que registran producción sostenida con el rotor girando en su \gls{tsr} de diseño (Tabla~\ref{tab:curva_potencia}, Sección~\ref{sec:curva_potencia}). El límite superior, adoptado por criterio de diseño (Sección~\ref{sec:giro_prescrito}), tiene un costo marginal en producción, ya que la probabilidad de excedencia del sitio es $P(V > 25\text{ m/s}) = 0{,}03\%$, equivalente a $2{,}8$~h/año, sensiblemente menor a la probabilidad de superar los $20$~m/s, $P(V > 20\text{ m/s}) = 0{,}65\%$ ($57$~h/año). Dado que el coeficiente de potencia decae por debajo de $0{,}10$ para $V \geq 24$~m/s bajo el límite de velocidad de rotación adoptado (Sección~\ref{sec:curva_potencia}), la energía capturable por encima de $25$~m/s resulta despreciable, por lo que las velocidades superiores no se consideran en este estudio.
 
-Las características anteriores del emplazamiento, velocidad media moderada, turbulencia baja y estabilidad interanual sin tendencia de largo plazo, respaldan el uso del registro histórico como representativo del recurso para la estimación de la producción energética.
+Las características anteriores del emplazamiento, velocidad media moderada, turbulencia propia de la categoría A y estabilidad interanual sin tendencia de largo plazo, respaldan el uso del registro histórico como representativo del recurso para la estimación de la producción energética.
 
 \section{Caracterización de las propiedades físicas del aire}
 
