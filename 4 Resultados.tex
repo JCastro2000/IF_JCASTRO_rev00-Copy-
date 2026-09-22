@@ -420,43 +420,79 @@ La distribución de estas cargas a lo largo de la envergadura, esto es, las fuer
 \section{Cargas aerodinámicas para DLC 1.3}
 \label{sec:resultados_dlc13}
 
-Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se procesan según el método de la media de máximos prescrito en la Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1}. La Tabla~\ref{tab:dlc13_maximos} presenta los máximos observados para cada una de las 6 semillas y la media por velocidad, calculados con la misma definición de $F_{tot}$ de la Ec.~\ref{eq:F_tot}.
+Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se procesan según el método de la media de máximos prescrito en la Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, sobre las mismas trece magnitudes del DLC 1.1. La Tabla~\ref{tab:dlc13_maximos} presenta, para la envolvente direccional en el apoyo superior, los máximos observados en cada una de las 6 semillas y la media por velocidad.
 
 \begin{table}[H]
     \centering
-    \caption{Máximos de fuerza total integrada $F_{tot}$ por velocidad y semilla para DLC 1.3 (ETM).}
+    \caption[Máximos del DLC 1.3 por velocidad y semilla.]{Máximos de la envolvente direccional $M_{env}$ en el apoyo superior, por velocidad y semilla, para el DLC 1.3 (ETM).}
     \label{tab:dlc13_maximos}
     \begin{tabular}{lccccccc}
         \hline
-        & \multicolumn{7}{c}{$F_{tot,max}$ (kN)} \\
+        & \multicolumn{7}{c}{$M_{env,max}$ (kN$\cdot$m)} \\
         \cline{2-8}
         $V$ (m/s) & $S_1$ & $S_2$ & $S_3$ & $S_4$ & $S_5$ & $S_6$ & Media \\
         \hline
-        $16$ & $70{,}7$ & $78{,}7$ & $69{,}9$ & $70{,}4$ & $69{,}5$ & $81{,}0$ & $73{,}4$ \\
-        $18$ & $87{,}5$ & $84{,}4$ & $82{,}7$ & $77{,}6$ & $80{,}4$ & $88{,}6$ & $83{,}6$ \\
-        $20$ & $88{,}8$ & $97{,}8$ & $88{,}7$ & $89{,}3$ & $91{,}1$ & $88{,}9$ & $90{,}8$ \\
-        $22$ & $101{,}9$ & $101{,}8$ & $102{,}1$ & $106{,}4$ & $106{,}0$ & $102{,}0$ & $103{,}4$ \\
-        $24$ & $107{,}7$ & $113{,}8$ & $113{,}0$ & $119{,}5$ & $108{,}7$ & $113{,}2$ & $\mathbf{112{,}6}$ \\
+        $16$ & $44{,}38$ & $45{,}36$ & $43{,}86$ & $44{,}35$ & $42{,}00$ & $42{,}42$ & $43{,}73$ \\
+        $18$ & $48{,}39$ & $48{,}33$ & $51{,}21$ & $50{,}34$ & $47{,}59$ & $50{,}11$ & $49{,}33$ \\
+        $20$ & $56{,}70$ & $53{,}90$ & $56{,}45$ & $56{,}79$ & $52{,}68$ & $55{,}22$ & $55{,}29$ \\
+        $22$ & $62{,}89$ & $58{,}80$ & $61{,}78$ & $62{,}63$ & $58{,}92$ & $60{,}15$ & $60{,}86$ \\
+        $24$ & $63{,}90$ & $65{,}36$ & $63{,}94$ & $67{,}34$ & $65{,}89$ & $67{,}52$ & $\mathbf{65{,}66}$ \\
         \hline
     \end{tabular}
 \end{table}
 
-La carga característica corresponde a la mayor media entre las velocidades simuladas, $F_k = 112{,}6$~kN a $V = 24$~m/s (Destacada en la Tabla \ref{tab:dlc13_maximos}). Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
+La carga característica corresponde a la mayor media entre las velocidades simuladas, $F_k = 65{,}66$~kN$\cdot$m a $V = 24$~m/s, destacada en la Tabla~\ref{tab:dlc13_maximos}. Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
 
 \begin{equation}
-    F_{d,\text{DLC 1.3}} = \gamma_f \cdot F_k = 1{,}35 \times 112{,}6 = 152{,}1\ \text{kN}
+    M_{env,d} = \gamma_f \cdot F_k = 1{,}35 \times 65{,}66 = 88{,}64\ \text{kN}\cdot\text{m}
     \label{eq:Fd_dlc13_res}
 \end{equation}
 
-La Sección 7.4.1 de la norma IEC 61400-1~\parencite{IEC61400-1} vincula explícitamente ambos casos de carga, ya que permite omitir el análisis del DLC 1.1 cuando los valores extremos de diseño obtenidos del DLC 1.3 lo superan y prescribe, en caso contrario, aumentar la constante $c_{ETM}$ del modelo de turbulencia extrema hasta que el DLC 1.3 lo envuelva. Esa constante, cuyo valor por defecto de $2$~m/s fija la Sección 6.3.2.3 de la norma IEC 61400-1~\parencite{IEC61400-1}, es la adoptada en las simulaciones de este trabajo (Sección~\ref{sec:velocidades_simulacion}), sin recurrir al aumento que la norma habilita. El ETM del DLC 1.3 existe, por tanto, para sustituir la extrapolación estadística del DLC 1.1~\parencite{Galinos2015}.
+\subsection{Criterio de omisión del DLC 1.1}
+\label{sec:criterio_omision}
 
-Las cargas características sitúan al DLC 1.1 por encima, con $116{,}9$~kN por extrapolación estadística del NTM frente a $112{,}6$~kN por media de máximos del ETM, una diferencia del $3{,}7\%$. El orden se invierte en las cargas de diseño, $146{,}1$~kN y $152{,}1$~kN respectivamente, pero esa inversión la producen los factores parciales y no las cargas, ya que la Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1} admite $\gamma_f = 1{,}25$ para el DLC 1.1 por determinarse mediante extrapolación estadística, frente al $\gamma_f = 1{,}35$ del DLC 1.3.
+La Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1} vincula explícitamente ambos casos de carga, ya que permite omitir el análisis del DLC 1.1 cuando los valores extremos de diseño del DLC 1.3 superan a los suyos, y prescribe, en caso contrario, aumentar la constante $c_{ETM}$ del modelo de turbulencia extrema hasta que el DLC 1.3 lo envuelva. Esa misma sección admite, como alternativa a ese aumento, extrapolar directamente los valores característicos de todas las componentes de carga pertinentes para cada componente de la turbina, que es la vía adoptada en este trabajo. La constante $c_{ETM}$ conserva por ello su valor por defecto de $2$~m/s, fijado por la Sección 6.3.2.3 de la norma~\parencite{IEC61400-1} y adoptado en las simulaciones (Sección~\ref{sec:velocidades_simulacion}).
 
-\textcite{Galinos2015} obtiene el mismo ordenamiento de las cargas características en un rotor Darrieus de $5$~MW, donde los valores extrapolados del DLC 1.1 superan a los del DLC 1.3 incluso al elevar $c_{ETM}$ a $3$~m/s. La explicación que propone es que las cargas de una VAWT están dominadas por la fluctuación determinista a frecuencia $1P$, esto es, la que se repite una vez por cada revolución del rotor, ya que cada pala recorre en cada vuelta un ciclo completo de ángulo de ataque (Sección~\ref{sec:aerodinamica}). Esa componente no depende de la turbulencia, por lo que las cargas de una VAWT resultan menos sensibles a ella que las de una HAWT, de modo que el ETM, que actúa amplificando precisamente la componente turbulenta, eleva la carga de una VAWT menos de lo que la elevaría en la máquina de eje horizontal sobre la que fue calibrado. Esa dominancia determinista se observa igualmente en las simulaciones de este trabajo, ya que a $24$~m/s tres de las seis semillas del DLC 1.1 arrojan máximos que coinciden dentro del $0{,}003\%$ (Sección~\ref{sec:resultados_uls}). El propio autor advierte, no obstante, que su conclusión proviene del análisis de un único rotor Darrieus y que debe verificarse sobre otros modelos antes de proponer cambios a la norma.
+La norma evalúa el criterio sobre los momentos flectores en la raíz de la pala. En la pala de un H-rotor la raíz son sus dos conexiones con los brazos (Sección~\ref{sec:extrapolacion_teoria}), de modo que la comparación se realiza magnitud a magnitud sobre las trece definidas, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas. La Tabla~\ref{tab:criterio_omision} recoge el resultado.
 
-El criterio que la Sección 7.4.1 de la norma IEC 61400-1~\parencite{IEC61400-1} define para esa omisión se evalúa sobre los momentos flectores en la raíz de la pala y la deflexión de punta, no sobre la carga global. Como se verá en la Sección~\ref{sec:resultados_fem}, los resultados del modelo estructural muestran que el DLC 1.3 no supera al DLC 1.1 en ninguna de las dos magnitudes con que aquí se verifica la pala, con una deflexión de $0{,}164$~m frente a $0{,}169$~m y una tensión principal máxima de $156{,}8$~MPa frente a $163{,}4$~MPa. El análisis del DLC 1.1 no puede omitirse y ambos casos se conservan en la verificación.
+\begin{table}[H]
+    \centering
+    \caption[Criterio de omisión del DLC 1.1.]{Comparación de las cargas de diseño de ambos casos últimos, magnitud a magnitud. Los momentos se expresan en kN$\cdot$m y la fuerza total en kN.}
+    \label{tab:criterio_omision}
+    \begin{tabular}{lccc}
+        \hline
+        \textbf{Magnitud} & \textbf{DLC 1.1} & \textbf{DLC 1.3} & \textbf{Gobierna} \\
+        \hline
+        \multicolumn{4}{c}{\textit{Apoyo inferior, $z = 5{,}0$~m}} \\
+        \hline
+        $M_x$, sentido positivo & $22{,}31$ & $21{,}97$ & DLC 1.1 \\
+        $M_x$, sentido negativo & $4{,}04$ & $3{,}55$ & DLC 1.1 \\
+        $M_y$, sentido positivo & $81{,}30$ & $81{,}77$ & DLC 1.3 \\
+        $M_y$, sentido negativo & $79{,}37$ & $66{,}66$ & DLC 1.1 \\
+        Resultante $M_{res}$ & $84{,}64$ & $84{,}67$ & DLC 1.3 \\
+        Envolvente $M_{env}$ & $81{,}43$ & $81{,}92$ & DLC 1.3 \\
+        \hline
+        \multicolumn{4}{c}{\textit{Apoyo superior, $z = 18{,}0$~m}} \\
+        \hline
+        $M_x$, sentido positivo & $26{,}53$ & $24{,}09$ & DLC 1.1 \\
+        $M_x$, sentido negativo & $4{,}70$ & $3{,}94$ & DLC 1.1 \\
+        $M_y$, sentido positivo & $98{,}27$ & $88{,}53$ & DLC 1.1 \\
+        $M_y$, sentido negativo & $77{,}41$ & $70{,}91$ & DLC 1.1 \\
+        Resultante $M_{res}$ & $101{,}55$ & $91{,}68$ & DLC 1.1 \\
+        Envolvente $M_{env}$ & $98{,}42$ & $88{,}64$ & DLC 1.1 \\
+        \hline
+        \multicolumn{4}{c}{\textit{Indicador global}} \\
+        \hline
+        Fuerza total $F_{tot}$ & $151{,}73$ & $160{,}00$ & DLC 1.3 \\
+        \hline
+    \end{tabular}
+\end{table}
 
-Que el DLC 1.1 gobierne pese a su menor carga de diseño responde a la forma de los perfiles de carga. El del DLC 1.1 proviene de un único instante de la simulación y concentra la solicitación en el vano central, mientras que el del DLC 1.3, construido como media de máximos por estación, resulta espacialmente más suave (Sección~\ref{sec:comparacion_dlc}).
+El DLC 1.3 gobierna en cuatro de las trece magnitudes, todas ellas en el apoyo inferior o en el indicador global, y por márgenes que no superan el $0{,}6\%$ en los momentos. En el apoyo superior, que es la sección más solicitada, el DLC 1.1 gobierna en las seis magnitudes y lo hace con holgura, con un $10{,}8\%$ de diferencia en la resultante. La condición de omisión no se satisface, y ambos casos de carga se conservan por tanto en la verificación estructural.
+
+Conviene subrayar que el resultado depende de haber evaluado el criterio sobre el conjunto completo de magnitudes. Si la comparación se hubiese reducido a la fuerza total integrada, el DLC 1.3 la supera en un $5{,}4\%$ y el criterio habría autorizado prescindir del DLC 1.1, con lo que la verificación habría quedado sin el caso que realmente gobierna la sección crítica.
+
+\textcite{Galinos2015} obtiene el mismo ordenamiento en un rotor Darrieus de $5$~MW, donde los valores extrapolados del DLC 1.1 superan a los del DLC 1.3 incluso al elevar $c_{ETM}$ a $3$~m/s. La explicación que propone es que las cargas de una VAWT están dominadas por la fluctuación determinista a frecuencia $1P$, esto es, la que se repite una vez por cada revolución del rotor, ya que cada pala recorre en cada vuelta un ciclo completo de ángulo de ataque (Sección~\ref{sec:aerodinamica}). Esa componente no depende de la turbulencia, por lo que las cargas de una VAWT resultan menos sensibles a ella que las de una HAWT, de modo que el ETM, que actúa amplificando precisamente la componente turbulenta, eleva la carga de una VAWT menos de lo que la elevaría en la máquina de eje horizontal sobre la que fue calibrado. La misma dominancia determinista se observa en las simulaciones de este trabajo, ya que el recorrido relativo de los seis máximos por velocidad se estrecha a medida que el rotor se aleja del punto de diseño (Sección~\ref{sec:resultados_uls}). El propio autor advierte, no obstante, que su conclusión proviene del análisis de un único rotor Darrieus y que debe verificarse sobre otros modelos antes de proponer cambios a la norma.
 
 \section{Comparación de fuerzas por estación entre DLC}
 \label{sec:comparacion_dlc}
