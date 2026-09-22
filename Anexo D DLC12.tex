@@ -11,7 +11,7 @@
 
 Este anexo reproduce el código que evalúa el estado límite de fatiga a partir de las series temporales de cargas, siguiendo el Anexo H de IEC 61400-1~\parencite{IEC61400-1}. Se omiten las rutinas de exportación y de generación de figuras.
 
-A diferencia de los casos de resistencia última, la variable de carga no es la fuerza total integrada sino el momento flector resultante en la sección crítica. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
+A diferencia de los casos de resistencia última, la variable de carga no es la fuerza total integrada sino el momento flector resultante en la sección crítica. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3.1 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
 
 \subsection*{Parámetros de entrada}
 
@@ -28,12 +28,20 @@ import numpy as np
 import rainflow          # conteo de ciclos según ASTM E1049-85
 
 # --- Geometría y sección crítica ----------------------------------------
+# Las 21 estaciones son los centros de los paneles del reparto coseno con
+# que QBlade discretiza la pala, de modo que la carga se lee donde el
+# método resuelve la circulación. Los anchos Delta_s suman por
+# construcción los 23 m de envergadura.
 BLADE_LENGTH = 23.0
-N_POS        = 24
-Z_POS        = np.arange(N_POS, dtype=float)  # altura de cada estación [m]
+N_POS        = 21
+BORDES       = 0.5 * BLADE_LENGTH * (
+    1.0 - np.cos(np.linspace(0.0, np.pi, N_POS + 1)))
+Z_POS        = 0.5 * (BORDES[:-1] + BORDES[1:])   # centro de panel [m]
+DELTA_S      = np.diff(BORDES)                    # ancho de panel [m]
 
 # La sección crítica es la unión con el strut inferior, donde el modelo de
-# elementos finitos localiza la tensión principal máxima.
+# elementos finitos localiza la tensión principal máxima. Los struts son
+# simétricos y se sitúan a 5,0 y 18,0 m sobre la base de la pala.
 Z_CRIT = 5.0
 
 # --- Material (GFRP, ensayos de Huh et al. 2012 para tejido +/-45) ------
@@ -56,7 +64,7 @@ WEIBULL_K = 2.09
 WEIBULL_C = 8.97      # [m/s]
 V_LISTA   = list(range(2, 26, 2))
 DV        = 2.0       # ancho del intervalo de velocidad [m/s]
-T_SIM     = 550.0     # duración útil de cada realización [s]
+T_OBS     = 600.0     # ventana útil de cada realización [s]
 T_YEAR    = 365.25 * 24 * 3600.0
 ANIOS     = 20        # vida de diseño [años]
 
@@ -112,7 +120,7 @@ K_AERO = (SIGMA_1_MAX - SIGMA_IN) / M_res_d           # [MPa/(kN*m)]
 
 \subsection*{Corrección por tensión media, curva S-N y conteo de ciclos}
 
-La Sección 7.6.3 de la norma exige que el daño considere el rango cíclico y la tensión media. Como la rotación impone una tensión media elevada, cada ciclo se reduce primero a su amplitud equivalente a media nula mediante el diagrama de Goodman.
+La Sección 7.6.3.1 de la norma exige que el daño considere el rango cíclico y la tensión media. Como la rotación impone una tensión media elevada, cada ciclo se reduce primero a su amplitud equivalente a media nula mediante el diagrama de Goodman.
 
 \begin{pycode}
 def amplitud_equivalente(sigma_a, sigma_m):
@@ -148,7 +156,7 @@ def weibull_pdf(V, k, c):
 
 # Tiempo que el viento permanece en cada intervalo de velocidad a lo largo
 # de un año, en segundos. Es el peso que convierte una realización de
-# 550 s en su contribución anual.
+# 600 s en su contribución anual.
 t_anual = {V: weibull_pdf(V, WEIBULL_K, WEIBULL_C) * DV * T_YEAR
            for V in V_LISTA}
 \end{pycode}
@@ -173,7 +181,7 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
 
     # --- Historia de tensiones en la sección crítica -------------------
     # Se recorre la serie instante a instante: en cada uno se arma el
-    # vector de cargas de las 24 estaciones, se reduce a momento flector,
+    # vector de cargas de las 21 estaciones, se reduce a momento flector,
     # este se traduce a tensión mediante K_aero y se le suma la tensión
     # inercial, constante, que fija el nivel medio de la historia.
     indices = np.where(mask)[0]
@@ -187,7 +195,7 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
     # --- Conteo de ciclos ----------------------------------------------
     # Rainflow descompone la historia irregular en ciclos cerrados, cada
     # uno caracterizado por su rango y su valor medio.
-    escala = t_anual[V] / T_SIM      # realizaciones equivalentes por año
+    escala = t_anual[V] / T_OBS      # realizaciones equivalentes por año
 
     danio = 0.0
     # extract_cycles entrega rango, media y conteo de cada ciclo; los tres
@@ -199,12 +207,12 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
             continue                 # ciclos de amplitud despreciable
 
         # Primero la corrección por tensión media, luego los factores
-        # parciales sobre la amplitud, según la Sección 7.6.3 de la norma.
+        # parciales sobre la amplitud, según la Sección 7.6.3.1 de la norma.
         sigma_a_eq = GAMMA_TOTAL * amplitud_equivalente(sigma_a, media)
 
         # Regla de Palmgren-Miner: cada ciclo consume una fracción 1/N_f
         # de la vida. El factor de escala expande la contribución de la
-        # realización de 550 s al año completo.
+        # realización de 600 s al año completo.
         danio += conteo * escala / ciclos_hasta_falla(sigma_a_eq)
 
     danio_por_V[V].append(danio)

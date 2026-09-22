@@ -637,7 +637,7 @@ donde $\Delta s_i$ es la longitud de pala que concentra la estación $i$, y el p
 
 \medskip
 \noindent\textbf{Máximos por simulación y ajuste de Gumbel.}
-Los pasos que siguen se describen sobre una magnitud genérica $F$, que designa a cualquiera de las trece recién definidas, y se ejecutan de forma independiente para cada una de ellas. Para cada velocidad de viento $V_j$ se dispone de $6$ simulaciones, una por semilla estocástica del campo de viento turbulento (Sección~\ref{sec:campo_turbulento}), de modo que las seis representan realizaciones independientes de un mismo proceso estocástico. De cada una se extrae el mayor valor que alcanza $F(t)$ sobre el intervalo $t \geq 50$~s (Sección~\ref{sec:velocidades_simulacion}). Ese valor se denota $F_{max}$ y es la variable sobre la que opera todo el procedimiento, ya que cada realización aporta una observación y a la velocidad $V_j$ se cuenta por tanto con seis. Extraer un único máximo por realización es coherente con la definición normativa de la carga característica, referida al mayor valor que se presenta en un intervalo de diez minutos (Sección 7.6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
+Los pasos que siguen se describen sobre una magnitud genérica $F$, que designa a cualquiera de las trece recién definidas, y se ejecutan de forma independiente para cada una de ellas. Para cada velocidad de viento $V_j$ se dispone de $6$ simulaciones, una por semilla estocástica del campo de viento turbulento (Sección~\ref{sec:campo_turbulento}), de modo que las seis representan realizaciones independientes de un mismo proceso estocástico. De cada una se extrae el mayor valor que alcanza $F(t)$ sobre el intervalo $t \geq 50$~s (Sección~\ref{sec:velocidades_simulacion}). Ese valor se denota $F_{max}$ y es la variable sobre la que opera todo el procedimiento, ya que cada realización aporta una observación y a la velocidad $V_j$ se cuenta por tanto con seis. Extraer un único máximo por realización es coherente con la definición normativa de la carga característica, referida al mayor valor que se presenta en un intervalo de diez minutos (Sección 7.6.2.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
 
 Sobre esas seis observaciones se ajusta la distribución de Gumbel presentada en la Sección~\ref{sec:extrapolacion_teoria}, cuya función de distribución acumulada es la Ec.~\ref{eq:gumbel_anexof}, evaluada aquí en $F = F_{max}$. Sus dos parámetros, el de posición $\mu_j$ y el de escala $\beta_j$, se estiman por el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra. Para la distribución de Gumbel la media vale $\mu_j + \gamma_E \beta_j$ y la varianza $\pi^2 \beta_j^2 / 6$~\parencite{Gumbel1958}, de donde se despejan los estimadores de las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}:
 
@@ -688,7 +688,7 @@ con $T_{obs} = 600$~s el período de observación de cada realización y $T_{ret
 
 \medskip
 \noindent\textbf{Carga de diseño.}
-La carga característica $F_k$ es un valor estadístico; la carga de diseño $F_d$ incorpora además un margen para cubrir las incertidumbres del modelo de carga y de la extrapolación estadística. Se obtiene mayorando la carga característica por el factor parcial de carga, según la Ec.~\ref{eq:fd_anexof} de la Sección~\ref{sec:extrapolacion_teoria} (Ecuación 28, Sección 7.6.1.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, con $\gamma_f = 1{,}25$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
+La carga característica $F_k$ es un valor estadístico; la carga de diseño $F_d$ incorpora además un margen para cubrir las incertidumbres del modelo de carga y de la extrapolación estadística. Se obtiene mayorando la carga característica por el factor parcial de carga, según la Ec.~\ref{eq:fd_anexof} de la Sección~\ref{sec:extrapolacion_teoria} (Ecuación 29, Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, con $\gamma_f = 1{,}25$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
 
 \medskip
 \noindent\textbf{Perfil espacial de fuerzas de diseño.}
@@ -719,7 +719,7 @@ El tramo que solicita a esa sección es el voladizo que ella sostiene, esto es, 
     \label{eq:Mres_fatiga}
 \end{align}
 
-donde el subíndice $i$ recorre las $24$ estaciones en que se discretizó la pala (Sección~\ref{sec:discretizacion}); $z_i$ es la coordenada de la estación $i$ sobre la envergadura (m) y $(z_{crit} - z_i)$, el brazo de palanca con que su carga actúa sobre la sección crítica; $F_{x,i}$ y $F_{y,i}$ son las fuerzas puntuales que aporta la estación $i$ en cada instante (N), obtenidas al multiplicar la fuerza por unidad de longitud que entrega la simulación por la longitud de pala $\Delta s_i$ que la estación representa, en las dos direcciones del sistema local de la Figura~\ref{fig:ejes_locales}. Las componentes $M_x$ y $M_y$ son los momentos flectores que actúan sobre la sección crítica en torno a cada uno de los dos ejes locales del perfil: $M_x$ flecta la pala en torno al eje $X_l$ y lo genera la componente de fuerza $F_y$, mientras que $M_y$ flecta en torno al eje $Y_l$ y lo genera $F_x$. El momento flector resultante $M_{res}$ es el módulo del vector que ambas componentes forman y constituye la variable de carga del análisis de fatiga. A diferencia de la fuerza total integrada $F_{tot}(t)$ empleada en el DLC 1.1, $M_{res}(t)$ se vincula directamente al mecanismo de falla por fatiga, ya que la tensión en la sección crítica es proporcional al momento resultante.
+donde el subíndice $i$ recorre las $21$ estaciones en que se discretizó la pala (Sección~\ref{sec:discretizacion}); $z_i$ es la coordenada de la estación $i$ sobre la envergadura (m) y $(z_{crit} - z_i)$, el brazo de palanca con que su carga actúa sobre la sección crítica; $F_{x,i}$ y $F_{y,i}$ son las fuerzas puntuales que aporta la estación $i$ en cada instante (N), obtenidas al multiplicar la fuerza por unidad de longitud que entrega la simulación por la longitud de pala $\Delta s_i$ que la estación representa, en las dos direcciones del sistema local de la Figura~\ref{fig:ejes_locales}. Las componentes $M_x$ y $M_y$ son los momentos flectores que actúan sobre la sección crítica en torno a cada uno de los dos ejes locales del perfil: $M_x$ flecta la pala en torno al eje $X_l$ y lo genera la componente de fuerza $F_y$, mientras que $M_y$ flecta en torno al eje $Y_l$ y lo genera $F_x$. El momento flector resultante $M_{res}$ es el módulo del vector que ambas componentes forman y constituye la variable de carga del análisis de fatiga. Es la misma construcción que la Ec.~\ref{eq:M_res} aplica a las secciones de apoyo en el DLC 1.1, evaluada aquí en la sección crítica, y se vincula directamente al mecanismo de falla por fatiga, ya que la tensión en esa sección es proporcional al momento resultante. La envolvente direccional no interviene en este caso, puesto que el daño se acumula sobre la historia completa de la señal y no sobre su extremo.
 
 \medskip
 \noindent\textbf{Conversión momento--tensión.}
@@ -730,14 +730,14 @@ Bajo la hipótesis de linealidad elástica del GFRP hasta rotura~\parencite{Huh2
     \label{eq:sigma_from_M}
 \end{equation}
 
-donde $\sigma_{in}$ es la tensión principal máxima que el modelo FEM registra en la sección crítica bajo las cargas inerciales como única solicitación, y $K_{aero}$ el factor que traduce momento aerodinámico en tensión. Este último se obtiene de las mismas dos corridas del modelo FEM, según la Ec.~\ref{eq:keff}:
+donde $\sigma_{in}$ es la tensión principal máxima que el modelo FEM registra en la sección crítica bajo las cargas inerciales como única solicitación, y $K_{aero}$ el factor que traduce momento aerodinámico en tensión. Ambas corridas de calibración se resuelven con las cargas sin mayorar, coherentemente con el $\gamma_f = 1{,}00$ que rige en fatiga, de modo que la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo, según la Ec.~\ref{eq:sigma_eq}. El factor $K_{aero}$ se obtiene de esas mismas dos corridas, según la Ec.~\ref{eq:keff}:
 
 \begin{equation}
-    K_{aero} = \frac{\sigma_{1,\max} - \sigma_{in}}{M_{res,d}}
+    K_{aero} = \frac{\sigma_{1,\max} - \sigma_{in}}{M_{res,k}}
     \label{eq:keff}
 \end{equation}
 
-donde $\sigma_{1,\max}$ es la tensión principal máxima bajo la carga de diseño completa del DLC 1.1, que incluye las cargas inerciales, y $M_{res,d}$ el momento flector resultante que producen las fuerzas aerodinámicas de diseño, evaluado mediante la Ec.~\ref{eq:Mres_fatiga}. Restar $\sigma_{in}$ del numerador aísla la fracción de tensión que efectivamente escala con el momento: calibrar el factor sobre la tensión total atribuiría al momento aerodinámico una contribución inercial que no depende de él, y sobreestimaría por ello la amplitud de todos los ciclos. Este enfoque es consistente con la formulación del Anexo H (Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, que permite asumir que la tensión local en el punto de falla es linealmente proporcional a la carga.
+donde $\sigma_{1,\max}$ es la tensión principal máxima bajo la solicitación completa del DLC 1.1 sin mayorar, que incluye las cargas inerciales, y $M_{res,k}$ el momento flector resultante que producen esas mismas fuerzas aerodinámicas, evaluado mediante la Ec.~\ref{eq:Mres_fatiga}. Restar $\sigma_{in}$ del numerador aísla la fracción de tensión que efectivamente escala con el momento, ya que calibrar el factor sobre la tensión total atribuiría al momento aerodinámico una contribución inercial que no depende de él, y sobreestimaría por ello la amplitud de todos los ciclos. Este enfoque es consistente con la formulación del Anexo H (Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, que permite asumir que la tensión local en el punto de falla es linealmente proporcional a la carga.
 
 \medskip
 \noindent\textbf{Conteo de ciclos Rainflow.}
@@ -749,7 +749,7 @@ Cada ciclo se refiere a media nula mediante el diagrama de vida constante descri
 
 \medskip
 \noindent\textbf{Curva S-N del material.}
-La resistencia a fatiga del GFRP se modela mediante la ecuación de Basquin en su forma factorizada~\parencite{Basquin1910}. La norma prescribe que todos los factores parciales de seguridad se apliquen al rango de tensión cíclica (Sección 7.6.3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:sigma_eq}:
+La resistencia a fatiga del GFRP se modela mediante la ecuación de Basquin en su forma factorizada~\parencite{Basquin1910}. La norma prescribe que todos los factores parciales de seguridad se apliquen al rango de tensión cíclica (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:sigma_eq}:
 
 \begin{equation}
     \sigma_{a,\text{eq}} = \gamma_f \cdot \gamma_m \cdot \gamma_n \cdot \sigma_{a,0}
@@ -812,7 +812,7 @@ donde $D_{\text{año}}$ es el daño acumulado por fatiga durante un año de oper
     \label{eq:D20}
 \end{equation}
 
-La verificación del estado límite de fatiga exige que el daño acumulado no supere la unidad, según la Ec.~\ref{eq:fatiga_criterio} (Sección 7.6.3 de la norma IEC 61400-1)~\parencite{IEC61400-1}:
+La verificación del estado límite de fatiga exige que el daño acumulado no supere la unidad, según la Ec.~\ref{eq:fatiga_criterio} (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}:
 
 \begin{equation}
     D_{20} \leq 1{,}0
@@ -823,7 +823,7 @@ La verificación del estado límite de fatiga exige que el daño acumulado no su
 \subsubsection{DLC 1.3 --- estado límite último}
 \label{sec:anexo_dlc13}
 
-Para el DLC 1.3, la norma prescribe un método alternativo al Anexo G. Las cargas características se determinan como la media de los máximos de las realizaciones estocásticas, sin extrapolación temporal a 50 años (Sección 7.6.2 de IEC 61400-1~\parencite{IEC61400-1}).
+Para el DLC 1.3, la norma prescribe un método alternativo al Anexo G. Las cargas características se determinan como la media de los máximos de las realizaciones estocásticas, sin extrapolación temporal a 50 años (Sección 7.6.2.2 de IEC 61400-1~\parencite{IEC61400-1}).
 
 \medskip
 \noindent\textbf{Extracción de máximos.}
@@ -831,7 +831,7 @@ Las magnitudes que se procesan son las trece definidas para el DLC 1.1, obtenida
 
 \medskip
 \noindent\textbf{Carga característica por velocidad.}
-A diferencia del DLC 1.1, donde el Anexo G ajusta una distribución de extremos y extrapola sobre todo el rango operacional, la Sección 7.6.2 de la norma IEC 61400-1~\parencite{IEC61400-1} define aquí la carga característica sin extrapolación temporal: para una velocidad de viento dada, es la media de los máximos de las realizaciones estocásticas disponibles a esa velocidad. Para cada una de las cinco velocidades $V_j$ ensayadas en el DLC 1.3, la carga característica $F_k(V_j)$ se calcula, en consecuencia, como el promedio aritmético de los $6$ máximos $F_{\max}(V_j, s)$ obtenidos en el paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
+A diferencia del DLC 1.1, donde el Anexo G ajusta una distribución de extremos y extrapola sobre todo el rango operacional, la Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1} define aquí la carga característica sin extrapolación temporal: para una velocidad de viento dada, es la media de los máximos de las realizaciones estocásticas disponibles a esa velocidad. Para cada una de las cinco velocidades $V_j$ ensayadas en el DLC 1.3, la carga característica $F_k(V_j)$ se calcula, en consecuencia, como el promedio aritmético de los $6$ máximos $F_{\max}(V_j, s)$ obtenidos en el paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
 
 \begin{equation}
     F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s)
