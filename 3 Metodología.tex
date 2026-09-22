@@ -310,6 +310,8 @@ Los submodelos aerodinámicos complementarios que ofrece el software se configur
 \label{fig:qblade_dynamic_stall}
 \end{figure}
 
+Los brazos de soporte se incorporan a la definición de la turbina con cinco paneles aerodinámicos cada uno y distribución de tipo coseno, de modo que su arrastre interviene en el balance de par del rotor. Su sustentación, en cambio, se mantiene desactivada. La razón es que QBlade la resuelve asignando un perfil aerodinámico al brazo, y no se dispone de la sección real de estos elementos, de modo que activarla obligaría a suponer una geometría no documentada. Una comprobación específica sobre el caso de $12$~m/s cuantifica el alcance de ese supuesto, ya que habilitar la sustentación de los brazos con una sección supuesta reduce el coeficiente de potencia en un $2{,}6\%$, magnitud que acota el efecto sin resolverlo. La exclusión se declara, por tanto, como una limitación del modelo, que sobreestima ligeramente la potencia en esa proporción y cuyo efecto sobre la carga de la pala no queda acotado por esa misma medida.
+
 \subsubsection{Modelo de estela LLFVW}
 
 Para la resolución de la inducción del rotor se utiliza el método \gls{llfvw}. El esquema de integración de la convección de la estela se fija en Predictor-Corrector Backwards (PC2B), de segundo orden. Frente al esquema de primer orden de Euler, este duplica el número de evaluaciones del campo de velocidades por paso temporal, pero la mayor precisión que alcanza permite emplear un paso mayor manteniendo una exactitud aceptable~\parencite{marten2019qblade}, compensación pertinente en un conjunto de $102$ simulaciones de $600$~s.
