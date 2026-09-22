@@ -552,9 +552,11 @@ La verificación a fatiga del DLC 1.2 se presenta siguiendo la cadena de cálcul
 
 \subsection{Procesamiento de las series de carga}
 
-Las 72 series temporales del DLC 1.2 se procesan mediante el momento flector $M_{res}(t)$ en la sección crítica $z_{crit} = 5$~m (conexión con el brazo inferior, donde el FEM localiza la tensión máxima) y el factor de proporcionalidad $K_{aero} = 0{,}752$~MPa/(kN$\cdot$m), conforme a la metodología descrita en la Sección~\ref{sec:anexo_g}. Dicho factor resulta de las dos corridas FEM de la Sección~\ref{sec:resultados_fem}, como la tensión bajo la carga de diseño completa, $\sigma_{1,\max} = 163{,}4$~MPa, menos la que producen las cargas inerciales por sí solas, $\sigma_{in} = 114{,}5$~MPa, dividida por el momento de diseño de $65{,}0$~kN$\cdot$m. Esta última tensión se reincorpora después como el nivel medio sobre el que oscila la historia de tensión. Sobre esa historia se aplica el conteo de ciclos Rainflow~\parencite{ASTM_E1049,Matsuishi1968} y la corrección por tensión media según el diagrama de Goodman, conforme exige la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}. Dado que cada simulación cubre únicamente $T_{sim} = 550$~s, los ciclos contabilizados a cada velocidad deben expandirse al tiempo que el viento permanece en ese intervalo a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de dicho escalamiento temporal para las doce velocidades del rango operacional. Una serie temporal representativa del procesamiento Rainflow para $V = 10$~m/s se presenta en el \hyperref[anexo:fuerzas]{Anexo~A}.
+Las 72 series temporales del DLC 1.2 se procesan mediante el momento flector $M_{res}(t)$ en la sección crítica $z_{crit} = 5$~m, que es la conexión con el brazo inferior, donde el modelo estructural localiza la tensión máxima. La conversión a tensión emplea el factor de proporcionalidad $K_{aero}$ y la tensión inercial $\sigma_{in}$ definidos en la Sección~\ref{sec:anexo_g}, ambos calibrados con dos corridas del modelo de elementos finitos bajo cargas sin mayorar. El momento resultante en esa sección en el instante de calibración vale $58{,}49$~kN$\cdot$m, de donde $K_{aero} = 0{,}836$~MPa/(kN$\cdot$m) con $\sigma_{1,\max} = 163{,}4$~MPa y $\sigma_{in} = 114{,}5$~MPa. Esta última tensión se reincorpora después como el nivel medio sobre el que oscila la historia de tensión.
 
-En la Tabla~\ref{tab:weibull_fatiga}, $f_W(V)$ es la densidad de probabilidad de Weibull, $t_j$ el tiempo anual que el viento permanece en cada intervalo de velocidad y $t_j/T_{sim}$ el número de simulaciones equivalentes por año.
+Sobre esa historia se aplica el conteo de ciclos Rainflow~\parencite{ASTM_E1049,Matsuishi1968} y la corrección por tensión media según el diagrama de Goodman, conforme exige la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}. Las 72 realizaciones aportan $219\,516$ ciclos contados sobre sus ventanas útiles de $T_{obs} = 600$~s, que deben expandirse al tiempo que el viento permanece en cada intervalo de velocidad a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de dicho escalamiento temporal para las doce velocidades del rango operacional.
+
+En la Tabla~\ref{tab:weibull_fatiga}, $f_W(V)$ es la densidad de probabilidad de Weibull, $t_j$ el tiempo anual que el viento permanece en cada intervalo de velocidad y $t_j/T_{obs}$ el número de realizaciones equivalentes por año.
 
 \begin{table}[H]
     \centering
@@ -562,66 +564,104 @@ En la Tabla~\ref{tab:weibull_fatiga}, $f_W(V)$ es la densidad de probabilidad de
     \label{tab:weibull_fatiga}
     \begin{tabular}{lccccc}
         \hline
-        $V$ (m/s) & $f_W(V)$ & Prob. (\%) & $t_j$ (h/año) & $t_j$ (s/año) & $t_j/T_{sim}$ \\
+        $V$ (m/s) & $f_W(V)$ & Prob. (\%) & $t_j$ (h/año) & $t_j$ (s/año) & $t_j/T_{obs}$ \\
         \hline
-        $2$  & $0{,}0431$ & $8{,}62$ & $761{,}9$  & $2{,}74 \times 10^6$ & $4\,986$ \\
-        $4$  & $0{,}0794$ & $15{,}89$ & $1\,407{,}9$ & $5{,}07 \times 10^6$ & $9\,216$ \\
-        $6$  & $0{,}0967$ & $19{,}34$ & $1\,711{,}7$ & $6{,}16 \times 10^6$ & $11\,204$ \\
-        $8$  & $0{,}0930$ & $18{,}59$ & $1\,641{,}0$ & $5{,}91 \times 10^6$ & $10\,741$ \\
-        $10$ & $0{,}0746$ & $14{,}91$ & $1\,310{,}9$ & $4{,}72 \times 10^6$ & $8\,581$ \\
-        $12$ & $0{,}0511$ & $10{,}22$ & $893{,}5$  & $3{,}22 \times 10^6$ & $5\,848$ \\
-        $14$ & $0{,}0303$ & $6{,}05$  & $525{,}7$  & $1{,}89 \times 10^6$ & $3\,441$ \\
-        $16$ & $0{,}0156$ & $3{,}12$  & $268{,}8$  & $9{,}68 \times 10^5$ & $1\,760$ \\
-        $18$ & $0{,}0070$ & $1{,}40$  & $119{,}9$  & $4{,}32 \times 10^5$ & $785$ \\
-        $20$ & $0{,}0027$ & $0{,}55$  & $46{,}8$   & $1{,}68 \times 10^5$ & $306$ \\
-        $22$ & $0{,}0009$ & $0{,}19$  & $16{,}0$   & $5{,}76 \times 10^4$ & $105$ \\
-        $24$ & $0{,}0003$ & $0{,}06$  & $4{,}8$    & $1{,}72 \times 10^4$ & $31$ \\
+        $2$  & $0{,}0413$ & $8{,}25$  & $723{,}3$    & $2{,}60 \times 10^6$ & $4\,340$ \\
+        $4$  & $0{,}0767$ & $15{,}34$ & $1\,344{,}8$ & $4{,}84 \times 10^6$ & $8\,069$ \\
+        $6$  & $0{,}0944$ & $18{,}89$ & $1\,655{,}7$ & $5{,}96 \times 10^6$ & $9\,934$ \\
+        $8$  & $0{,}0923$ & $18{,}46$ & $1\,617{,}9$ & $5{,}82 \times 10^6$ & $9\,707$ \\
+        $10$ & $0{,}0756$ & $15{,}13$ & $1\,326{,}0$ & $4{,}77 \times 10^6$ & $7\,956$ \\
+        $12$ & $0{,}0532$ & $10{,}65$ & $933{,}4$    & $3{,}36 \times 10^6$ & $5\,601$ \\
+        $14$ & $0{,}0326$ & $6{,}52$  & $571{,}2$    & $2{,}06 \times 10^6$ & $3\,427$ \\
+        $16$ & $0{,}0175$ & $3{,}49$  & $305{,}9$    & $1{,}10 \times 10^6$ & $1\,835$ \\
+        $18$ & $0{,}0082$ & $1{,}64$  & $143{,}9$    & $5{,}18 \times 10^5$ & $863$ \\
+        $20$ & $0{,}0034$ & $0{,}68$  & $59{,}6$     & $2{,}15 \times 10^5$ & $358$ \\
+        $22$ & $0{,}0012$ & $0{,}25$  & $21{,}8$     & $7{,}85 \times 10^4$ & $131$ \\
+        $24$ & $0{,}0004$ & $0{,}08$  & $7{,}0$      & $2{,}52 \times 10^4$ & $42$ \\
         \hline
     \end{tabular}
 \end{table}
 
-El factor $t_j/T_{sim}$ cuantifica cuántas veces debe repetirse el espectro de ciclos de cada simulación para representar un año de operación. Su distribución sigue directamente a la de Weibull del emplazamiento, ya que alcanza su máximo en las velocidades intermedias ($V = 6$--$8$~m/s), las más frecuentes, y cae más de dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas pocas horas al año. Aplicado este escalamiento, el espectro de ciclos de cada simulación queda expresado sobre un año de operación y puede contrastarse con la resistencia del material.
+El factor $t_j/T_{obs}$ cuantifica cuántas veces debe repetirse el espectro de ciclos de cada realización para representar un año de operación. Su distribución sigue directamente a la de Weibull del emplazamiento, ya que alcanza su máximo en las velocidades intermedias ($V = 6$--$8$~m/s), las más frecuentes, y cae más de dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas pocas horas al año. Aplicado este escalamiento, el espectro queda expresado sobre un año de operación, con un total de $1{,}44 \times 10^{8}$ ciclos anuales, y puede contrastarse con la resistencia del material.
+
+La Figura~\ref{fig:espectro_fatiga} recoge ese espectro en forma acumulada, esto es, el número de ciclos anuales que superan cada nivel de amplitud.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figuras/Figuras Resultados/espectro_fatiga.pdf}
+    \caption[Espectro colectivo anual de amplitudes de tensión.]{Espectro colectivo anual acumulado, esto es, número de ciclos por año cuya amplitud equivalente a media nula supera el valor del eje horizontal.}
+    \label{fig:espectro_fatiga}
+\end{figure}
+
+La caída es de siete órdenes de magnitud a lo largo del rango de amplitudes, lo que anticipa el reparto del daño que se examina más adelante. De los $1{,}44 \times 10^{8}$ ciclos anuales, $1{,}13 \times 10^{7}$ superan los $10$~MPa de amplitud equivalente y solo $1{,}2 \times 10^{4}$ superan los $40$~MPa.
 
 \subsection{Curva S-N y espectro de fatiga}
 
-La Figura~\ref{fig:curva_sn_gfrp} presenta la curva S-N del GFRP en sus formas nominal y factoreada ($\gamma_m = 1{,}7$, $\gamma_n = 1{,}15$ según la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}), junto con el espectro colectivo anual que resulta del escalamiento anterior. En la ecuación de Basquin~\parencite{Basquin1910}, la resistencia última $\sigma_u = 242{,}1$~MPa corresponde al valor proporcionado por el fabricante de la pala (Tabla~\ref{tab:material_pala}), mientras que el exponente de fatiga $b = -0{,}045$ proviene de \textcite{Huh2012} para un tejido bidireccional ($\pm 45^\circ$) fabricado por infusión al vacío.
+La Figura~\ref{fig:curva_sn_gfrp} presenta la curva S-N del GFRP en sus formas nominal y de diseño, junto con el espectro colectivo anual que resulta del escalamiento anterior. La curva de diseño resulta de dividir la nominal por el producto de los tres factores parciales de fatiga, $\gamma_f \gamma_m \gamma_n = 1{,}00 \times 2{,}00 \times 1{,}15 = 2{,}30$ (Sección~\ref{sec:factores_seguridad}), operación equivalente a mayorar la amplitud de cada ciclo, que es como la norma lo prescribe~\parencite{IEC61400-1}. En la ecuación de Basquin~\parencite{Basquin1910}, la resistencia última $\sigma_u = 242{,}1$~MPa corresponde al valor proporcionado por el fabricante de la pala (Tabla~\ref{tab:material_pala}), mientras que el exponente de fatiga $b = -0{,}045$ proviene de \textcite{Huh2012} para un tejido bidireccional ($\pm 45^\circ$) fabricado por infusión al vacío.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{Figuras/Figuras Resultados/curva_sn_gfrp.pdf}
-    \caption{Curva S-N del GFRP $\pm 45^\circ$ en su forma nominal y factoreada, y espectro colectivo anual de fatiga.}
+    \caption{Curva S-N del GFRP $\pm 45^\circ$ en su forma nominal y de diseño, y espectro colectivo anual de fatiga.}
     \label{fig:curva_sn_gfrp}
 \end{figure}
 
-La superposición de ambas curvas en un mismo gráfico permite apreciar directamente el margen de seguridad a fatiga, ya que el espectro colectivo se sitúa por debajo de la curva S-N factoreada en todo el rango de ciclos. Las mayores amplitudes del espectro, que no superan los $18{,}4$~MPa, corresponden a las velocidades de viento más altas y a un número reducido de ciclos anuales, mientras que la gran mayoría de los ciclos se concentra en amplitudes de pocos MPa. Esas amplitudes se superponen a una tensión media elevada, comprendida entre $114{,}5$ y $135{,}4$~MPa, que impone la carga permanente de rotación y que sitúa los ciclos en régimen de tracción-tracción, con una razón de tensiones media de $R \approx 0{,}88$.
+La superposición de ambas curvas en un mismo gráfico permite apreciar directamente el margen a fatiga, ya que el espectro colectivo se sitúa por debajo de la curva de diseño en todo el rango de ciclos. Las amplitudes brutas no superan los $24{,}4$~MPa y su mediana es de $0{,}36$~MPa, esto es, la gran mayoría de los ciclos son de amplitud muy pequeña y solo una fracción reducida alcanza valores apreciables. Esas amplitudes se superponen a una tensión media elevada, comprendida entre $114{,}5$ y $158{,}6$~MPa, que impone la carga permanente de rotación y que sitúa los ciclos en régimen de tracción-tracción. El ciclo más severo de toda la campaña, de amplitud $24{,}4$~MPa sobre una media de $139{,}0$~MPa, corresponde a una razón de tensiones $R = 0{,}70$.
+
+La corrección de Goodman es, en estas condiciones, determinante. Ese mismo ciclo pasa de una amplitud bruta de $24{,}4$~MPa a una amplitud equivalente a media nula de $57{,}4$~MPa, esto es, se multiplica por $2{,}35$, y al aplicarle los factores parciales llega a $132{,}0$~MPa. La tensión media que impone la rotación duplica con creces el efecto dañino de las fluctuaciones aerodinámicas, resultado que confirma la pertinencia de incorporarla al conteo en lugar de tratar las amplitudes de forma aislada.
 
 \subsection{Daño acumulado por velocidad de viento}
 
-El daño de cada ciclo se obtiene al confrontar su amplitud con la curva S-N, y su contribución anual, al ponderarlo por el escalamiento temporal de la Tabla~\ref{tab:weibull_fatiga}. La Figura~\ref{fig:daño_por_viento} presenta el reparto resultante entre las doce velocidades del rango operacional.
+El daño de cada ciclo se obtiene al confrontar su amplitud con la curva S-N, y su contribución anual, al ponderarlo por el escalamiento temporal de la Tabla~\ref{tab:weibull_fatiga}. La Figura~\ref{fig:daño_por_viento} presenta el reparto resultante entre las doce velocidades del rango operacional, en escala logarítmica en el panel (a) para que las contribuciones menores resulten visibles, y en porcentaje del total en el panel (b).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figuras/Figuras Resultados/daño_por_viento.pdf}
-    \caption{Contribución porcentual de cada velocidad de viento al daño anual por fatiga.}
+    \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/dano_por_viento.pdf}
+    \caption[Daño anual por fatiga repartido por velocidad de viento.]{Daño anual por fatiga repartido entre las velocidades del rango operacional: (a) daño absoluto en escala logarítmica y (b) contribución porcentual al daño anual.}
     \label{fig:daño_por_viento}
 \end{figure}
 
-El $98{,}3\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $0{,}8\%$ del año ($68$~h/año). El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
+El $99{,}2\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}0\%$ del año ($88$~h/año), y solo la condición de $24$~m/s aporta el $70{,}2\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
+
+La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $219\,516$ clases de ciclo contadas, el $90\%$ del daño lo aportan $323$, esto es, un $0{,}15\%$ del total, todas ellas de amplitud equivalente superior a $41$~MPa. Los ciclos de amplitud equivalente mayor o igual a $40$~MPa son $1{,}2 \times 10^{4}$ al año, frente a los $1{,}44 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población muy reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
 
 \subsection{Daño acumulado total}
 
-Sumando las contribuciones de las doce velocidades, el daño anual acumulado según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 3{,}22 \times 10^{-9}$. Para la vida útil de diseño de $20$ años, el daño total asciende al valor de la Ec.~\ref{eq:D20_res}:
+Sumando las contribuciones de las doce velocidades, el daño anual acumulado según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 3{,}00 \times 10^{-4}$. Para la vida útil de diseño de $20$ años, el daño total asciende al valor de la Ec.~\ref{eq:D20_res}:
 
 \begin{equation}
-    D_{20} = 20 \cdot D_{\text{año}} = 6{,}45 \times 10^{-8}
+    D_{20} = 20 \cdot D_{\text{año}} = 6{,}00 \times 10^{-3}
     \label{eq:D20_res}
 \end{equation}
 
-Este valor, muy por debajo del límite normativo de la Ec.~\ref{eq:fatiga_criterio}, indica que la fatiga no es un mecanismo dimensionante para la pala bajo las condiciones analizadas. La solicitación a fatiga se mantiene acotada por la combinación de dos factores. Primero, como muestra el espectro de la Figura~\ref{fig:curva_sn_gfrp}, las amplitudes de tensión no superan los $18{,}4$~MPa, en torno a un $8\%$ de $\sigma_u = 242{,}1$~MPa, ni siquiera en las condiciones más exigentes. Segundo, el exponente de Basquin $b = -0{,}045$, típico de tejidos biaxiales $\pm 45^\circ$ fabricados por infusión al vacío~\parencite{Huh2012}, produce una curva S-N excepcionalmente plana, cuya resistencia a fatiga decae muy lentamente con el número de ciclos, por lo que se requieren amplitudes de tensión cercanas a la resistencia última para generar daño significativo.
+Este valor queda por debajo del límite normativo de la Ec.~\ref{eq:fatiga_criterio} con un margen de más de dos órdenes de magnitud, de modo que la fatiga no resulta un mecanismo dimensionante para la pala bajo las condiciones analizadas. La solicitación se mantiene acotada por la combinación de dos factores. El primero es que las amplitudes brutas no superan los $24{,}4$~MPa, en torno a un $10\%$ de $\sigma_u = 242{,}1$~MPa, ni siquiera en las condiciones más exigentes. El segundo es que el exponente de Basquin $b = -0{,}045$, propio de tejidos biaxiales $\pm 45^\circ$ fabricados por infusión al vacío~\parencite{Huh2012}, produce una curva S-N muy plana, cuya resistencia decae lentamente con el número de ciclos, por lo que se requieren amplitudes cercanas a la resistencia última para generar daño apreciable.
 
-Conviene acotar el alcance de esa cifra. Un daño de $6{,}45 \times 10^{-8}$ proviene de extrapolar la curva de Basquin muy por encima del rango de ciclos ensayado por \textcite{Huh2012}, de modo que su magnitud exacta no admite lectura literal como predicción de vida. La verificación admite, en cambio, una cota que no depende de esa extrapolación. El ciclo más severo de toda la campaña, de amplitud $18{,}4$~MPa sobre una media de $135{,}4$~MPa, corregido por Goodman y factorado, equivale a una amplitud de diseño de $81{,}8$~MPa, a la que la curva S-N asigna $N_f = 1{,}49 \times 10^{10}$ ciclos. El rotor completa $4{,}42 \times 10^{8}$ revoluciones en los $20$ años de vida de diseño girando a su velocidad máxima, de modo que aun bajo el supuesto extremo de que todos esos ciclos fueran el más severo registrado, el daño acumulado alcanzaría $D_{20} = 0{,}030$, todavía por debajo de la unidad. La verificación a fatiga se satisface, por tanto, con independencia del tramo extrapolado de la curva.
+\subsection{Sensibilidad del resultado a la calibración}
 
-El margen a fatiga no habilita, sin embargo, una reducción del espesor de pared, ya que, como se verá en la Sección~\ref{sec:resultados_fem}, la verificación de estabilidad demanda rigidización adicional de la piel, no menos material. La fatiga queda así descartada como criterio dimensionante, y el diseño pasa a estar gobernado por la estabilidad y, en segundo término, por la resistencia última.
+Esa misma planitud de la curva, que explica el margen, convierte al resultado en muy sensible a la tensión con que se alimenta el cálculo. El daño escala con la amplitud elevada a $|1/b| = 22{,}2$, de modo que un error moderado en el factor de conversión momento-tensión se amplifica enormemente en el daño. La Tabla~\ref{tab:sensibilidad_fatiga} recorre esa dependencia variando $K_{aero}$ en torno a su valor calibrado.
+
+\begin{table}[H]
+    \centering
+    \caption[Sensibilidad del daño acumulado a la calibración momento-tensión.]{Daño acumulado en la vida de diseño en función del factor de conversión momento-tensión, referido a su valor calibrado $K_{aero} = 0{,}836$~MPa/(kN$\cdot$m).}
+    \label{tab:sensibilidad_fatiga}
+    \begin{tabular}{ccc}
+        \hline
+        $K/K_{aero}$ & $K$ (MPa/(kN$\cdot$m)) & $D_{20}$ \\
+        \hline
+        $0{,}80$ & $0{,}669$ & $1{,}70 \times 10^{-5}$ \\
+        $1{,}00$ & $0{,}836$ & $6{,}00 \times 10^{-3}$ \\
+        $1{,}25$ & $1{,}045$ & $2{,}85$ \\
+        $1{,}50$ & $1{,}254$ & $5{,}93 \times 10^{2}$ \\
+        $2{,}00$ & $1{,}672$ & $6{,}28 \times 10^{6}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Un aumento del $25\%$ en el factor de conversión basta para que el daño supere la unidad y la verificación deje de cumplirse. El margen de dos órdenes de magnitud sobre $D_{20}$ equivale, por tanto, a un margen de apenas un $20\%$ sobre la tensión, que es la magnitud con significado físico. La conclusión operativa es que la calibración del modelo de elementos finitos que entrega $K_{aero}$ y $\sigma_{in}$ debe considerarse parte integral de la verificación a fatiga y no un dato auxiliar, y que cualquier revisión del modelo estructural obliga a rehacer este cálculo.
+
+Conviene acotar además el alcance de la cifra absoluta. El daño proviene de evaluar la curva de Basquin en un rango de ciclos superior al ensayado por \textcite{Huh2012}, de modo que su magnitud exacta no admite lectura literal como predicción de vida. Lo que la verificación establece con solidez es el ordenamiento, esto es, que la fatiga dispone de holgura frente a la resistencia última y a la estabilidad bajo las cargas de esta campaña, y no una vida esperada concreta.
+
+El margen a fatiga no habilita, por lo demás, una reducción del espesor de pared, ya que la verificación de estabilidad demanda rigidización adicional de la piel y no menos material (Sección~\ref{sec:resultados_fem}). La fatiga queda así descartada como criterio dimensionante, y el diseño pasa a estar gobernado por la estabilidad y, en segundo término, por la resistencia última.
 
 \section{Verificación estructural de la pala}
 \label{sec:resultados_fem}
