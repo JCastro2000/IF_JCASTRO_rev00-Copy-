@@ -28,7 +28,8 @@ Para el desarrollo de los análisis aerodinámicos y estructurales contemplados 
         Espesor máximo del perfil           & $t$     & 0{,}198 & m \\
         Número de palas                     & $N$     & 3 & — \\
         Área de barrido del rotor           & $A_s$   & 476{,}79 & m$^2$ \\
-        Posición de conexión de struts      & —       & 5{,}0 y 17{,}0 & m \\
+        Posición de conexión de struts      & —       & 5{,}0 y 18{,}0 & m \\
+        Vano entre conexiones               & $L$     & 13{,}0 & m \\
         Masa de la pala                     & $m$     & 760 & kg \\
         \hline
     \end{tabular}
@@ -497,32 +498,35 @@ La verificación de la integridad estructural conforme a IEC 61400-1~\parencite{
 
 \subsubsection{Factor parcial de cargas ($\gamma_f$)}
 
-El factor $\gamma_f$ cubre las desviaciones desfavorables de las cargas respecto de su valor característico y las incertidumbres del modelo de carga (Sección 7.6.1.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}. Sus valores se prescriben en la Tabla 3 de la norma IEC 61400-1:
+El factor $\gamma_f$ cubre las desviaciones desfavorables de las cargas respecto de su valor característico y las incertidumbres del modelo de carga (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. Sus valores se prescriben en la Tabla 3 de la norma IEC 61400-1:
 
 \begin{itemize}
-    \item \textbf{DLC 1.1:} $\gamma_f = 1{,}25$. La norma reduce el factor general de $1{,}35$ a $1{,}25$ para el DLC 1.1 cuando las cargas se determinan mediante extrapolación estadística a 50 años según el Anexo G (Sección 7.6.2.1 de la norma IEC 61400-1, nota al pie de la Tabla 3)~\parencite{IEC61400-1}.
-    \item \textbf{DLC 1.2 (fatiga):} $\gamma_f = 1{,}00$ para todas las situaciones normales y anormales (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, ya que en fatiga la incertidumbre se cubre por el lado de la resistencia del material.
-    \item \textbf{DLC 1.3:} $\gamma_f = 1{,}35$, correspondiente a situaciones de diseño normales sin extrapolación estadística (Sección 7.6.2.1 de la norma IEC 61400-1, Tabla 3)~\parencite{IEC61400-1}.
+    \item \textbf{DLC 1.1:} $\gamma_f = 1{,}25$. La norma reduce el factor general de $1{,}35$ a $1{,}25$ para el DLC 1.1 cuando las cargas se determinan mediante extrapolación estadística a 50 años según el Anexo G (nota a de la Tabla 3 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
+    \item \textbf{DLC 1.2 (fatiga):} $\gamma_f = 1{,}00$ para todas las situaciones normales y anormales (Sección 7.6.3.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, ya que en fatiga la incertidumbre se cubre por el lado de la resistencia del material.
+    \item \textbf{DLC 1.3:} $\gamma_f = 1{,}35$, correspondiente a situaciones de diseño normales sin extrapolación estadística (Sección 7.6.2.2 de la norma IEC 61400-1, Tabla 3)~\parencite{IEC61400-1}.
 \end{itemize}
+
+El factor se aplica a la totalidad de la solicitación y no solo a su parte aerodinámica. Las cargas inerciales, gravedad y fuerza centrífuga, son determinísticas y por ello no requieren extrapolación estadística, pero $\gamma_f$ no cubre la dispersión estadística sino la incertidumbre del modelo de carga, que en ellas reside en la masa real de la pala, en su distribución y en la consigna de rotación. La propia norma lo confirma al tratar las cargas gravitatorias como favorables, con $\gamma_f = 0{,}9$, únicamente cuando alivian la respuesta total (nota 18 de la Tabla 3 de la norma IEC 61400-1)~\parencite{IEC61400-1}. La forma en que esa mayoración se materializa en el modelo estructural se detalla en la Sección~\ref{sec:fem}.
 
 Dado que el modelo de cálculo de cargas no ha sido validado mediante mediciones experimentales en una turbina similar, no aplica la reducción de $\gamma_f$ contemplada en la Sección 7.6.6 de la norma IEC 61400-1~\parencite{IEC61400-1} para modelos validados.
 
 \subsubsection{Factor parcial de material ($\gamma_m$)}
 
-El factor $\gamma_m$ cubre las desviaciones desfavorables de la resistencia del material, las incertidumbres geométricas y las diferencias entre las propiedades medidas en probetas y las reales en la estructura (Sección 7.6.1.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}. La norma distingue según el tipo de verificación:
+El factor $\gamma_m$ cubre las desviaciones desfavorables de la resistencia del material, las incertidumbres geométricas y las diferencias entre las propiedades medidas en probetas y las reales en la estructura (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. La norma distingue según el tipo de verificación:
 
 \begin{itemize}
-    \item \textbf{ULS (resistencia última):} $\gamma_m = 1{,}30$. La Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1} prescribe $\gamma_m \geq 1{,}30$ para componentes estructurales no dúctiles (clase 2, no a prueba de fallos, \textit{non fail-safe}) cuya falla por tracción o compresión conduciría rápidamente a la falla de un componente principal de la turbina. El GFRP de la pala exhibe comportamiento lineal-elástico hasta rotura frágil~\parencite{Huh2012,Moraras2023}, lo que lo clasifica como material no dúctil.
-    \item \textbf{Fatiga:} $\gamma_m = 1{,}70$. La Sección 7.6.3.2 de la norma IEC 61400-1~\parencite{IEC61400-1} prescribe $\gamma_m \geq 1{,}70$ para materiales compuestos con coeficiente de variación de la resistencia a fatiga entre el $15\%$ y el $20\%$, cuando la curva S-N se basa en una probabilidad de supervivencia del $50\%$~\parencite{Huh2012}. Este valor es conservador; la norma permite reducirlo a $1{,}20$ si la curva S-N se deriva con un $95\%$ de supervivencia y $95\%$ de confianza.
+    \item \textbf{ULS (resistencia última):} $\gamma_m = 1{,}30$. La Sección 7.6.2.4 de la norma IEC 61400-1~\parencite{IEC61400-1} prescribe $\gamma_m \geq 1{,}30$ para componentes estructurales no dúctiles (clase 2, no a prueba de fallos, \textit{non fail-safe}) cuya falla por tracción o compresión conduciría rápidamente a la falla de un componente principal de la turbina. El GFRP de la pala exhibe comportamiento lineal-elástico hasta rotura frágil~\parencite{Huh2012,Moraras2023}, lo que lo clasifica como material no dúctil.
+    \item \textbf{Estabilidad (pandeo):} $\gamma_m = 1{,}20$. Esa misma sección fija un valor propio y menor para el pandeo global de cascarones curvos, categoría en la que incluye de forma explícita a las palas~\parencite{IEC61400-1}, y es el que rige la verificación de la Sección~\ref{sec:pandeo_met}.
+    \item \textbf{Fatiga:} $\gamma_m = 2{,}00$. La Sección 7.6.3.3 de la norma IEC 61400-1 establece un mínimo de $1{,}70$ cuando la curva S-N se basa en una probabilidad de supervivencia del $50\%$ y el coeficiente de variación de la resistencia a fatiga es inferior al $15\%$, y exige aumentarlo hasta al menos $2{,}00$ para componentes con un coeficiente de variación entre el $15\%$ y el $20\%$, entre los que menciona expresamente a los compuestos de fibra~\parencite{IEC61400-1}. Los laminados de GFRP de pala se sitúan en esa segunda categoría~\parencite{Huh2012}, de modo que el valor aplicable es $2{,}00$. La norma permite reducirlo a $1{,}35$ si la distribución de resistencia se establece a partir de ensayos del material real y la curva S-N se deriva con un $95\%$ de supervivencia y un $95\%$ de confianza, condición que no se satisface aquí por no disponerse de esos ensayos.
 \end{itemize}
 
 \subsubsection{Factor parcial de consecuencia de falla ($\gamma_n$)}
 
-El factor $\gamma_n$ distingue entre clases de componentes según la criticidad de su falla, conforme a la Sección 7.6.1.2 de la norma IEC 61400-1~\parencite{IEC61400-1}. La pala del aerogenerador se clasifica como componente clase 2 (no a prueba de fallos, \textit{non fail-safe}), cuya falla puede conducir a la falla de una parte principal de la turbina. En verificaciones de resistencia última, la norma establece $\gamma_n = 1{,}00$ (Sección 7.6.2.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. Para fatiga, el factor se incrementa a $\gamma_n = 1{,}15$ (Sección 7.6.3.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, reflejando la mayor incertidumbre asociada a la acumulación de daño cíclico en materiales compuestos.
+El factor $\gamma_n$ distingue entre clases de componentes según la criticidad de su falla, conforme a la Sección 7.6.1.3 de la norma IEC 61400-1~\parencite{IEC61400-1}. La pala del aerogenerador se clasifica como componente clase 2 (no a prueba de fallos, \textit{non fail-safe}), cuya falla puede conducir a la falla de una parte principal de la turbina. En verificaciones de resistencia última, la norma establece $\gamma_n = 1{,}00$ (Sección 7.6.2.4 de la norma IEC 61400-1)~\parencite{IEC61400-1}. Para fatiga, el factor se incrementa a $\gamma_n = 1{,}15$ (Sección 7.6.3.3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, reflejando la mayor incertidumbre asociada a la acumulación de daño cíclico en materiales compuestos.
 
 \subsubsection{Verificación de resistencia última}
 
-La condición de estado límite último se expresa mediante la ecuación (31) de la norma IEC 61400-1~\parencite{IEC61400-1}, reproducida en la Ec.~\ref{eq:uls_verification}:
+La condición de estado límite último se expresa mediante la ecuación (32) de la norma IEC 61400-1~\parencite{IEC61400-1}, reproducida en la Ec.~\ref{eq:uls_verification}:
 
 \begin{equation}
     \gamma_n \cdot \gamma_f \cdot F_k \leq \frac{f_k}{\gamma_m}
@@ -542,7 +546,7 @@ Para el DLC 1.1 y DLC 1.3, la resistencia factoreada se obtiene como $\sigma_u /
 
 \subsubsection{Verificación de fatiga}
 
-En la verificación de fatiga, todos los factores parciales ($\gamma_f = 1{,}00$, $\gamma_m = 1{,}70$, $\gamma_n = 1{,}15$) se aplican al rango de tensión cíclica, según lo prescrito en la Sección 7.6.3 de la norma IEC 61400-1~\parencite{IEC61400-1}. La curva S-N resultante (Ec.~\ref{eq:basquin_design}) y el procedimiento completo de cálculo de daño se detallan en la Sección~\ref{sec:anexo_g} (DLC 1.2).
+En la verificación de fatiga, todos los factores parciales ($\gamma_f = 1{,}00$, $\gamma_m = 2{,}00$, $\gamma_n = 1{,}15$) se aplican al rango de tensión cíclica, según lo prescrito en la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}. La curva S-N resultante (Ec.~\ref{eq:basquin_design}) y el procedimiento completo de cálculo de daño se detallan en la Sección~\ref{sec:anexo_g} (DLC 1.2).
 
 La Tabla~\ref{tab:factores_seguridad} reúne los valores que resultan de los tres apartados anteriores y que se aplican en cada uno de los DLC considerados.
 
@@ -555,11 +559,15 @@ La Tabla~\ref{tab:factores_seguridad} reúne los valores que resultan de los tre
         \textbf{Factor} & \textbf{Símbolo} & \textbf{DLC 1.1 (ULS)} & \textbf{DLC 1.2 (Fatiga)} & \textbf{DLC 1.3 (ULS)} \\
         \hline
         Cargas & $\gamma_f$ & $1{,}25$ & $1{,}00$ & $1{,}35$ \\
-        Material & $\gamma_m$ & $1{,}30$ & $1{,}70$ & $1{,}30$ \\
+        Material, resistencia última & $\gamma_m$ & $1{,}30$ & — & $1{,}30$ \\
+        Material, pandeo & $\gamma_m$ & $1{,}20$ & — & $1{,}20$ \\
+        Material, fatiga & $\gamma_m$ & — & $2{,}00$ & — \\
         Consecuencia de falla & $\gamma_n$ & $1{,}00$ & $1{,}15$ & $1{,}00$ \\
         \hline
     \end{tabular}
 \end{table}
+
+El factor de cargas se aplica por igual a las solicitaciones aerodinámicas y a las inerciales, de modo que la totalidad de la respuesta estructural queda mayorada por el valor que declara la tabla.
 
 \subsection{Procesamiento de cargas aerodinámicas}
 \label{sec:procesamiento_cargas}
@@ -890,40 +898,46 @@ El análisis estructural de la pala se realiza en el software Ansys. En correlac
 \subsubsection{Condiciones de borde}
 \label{sec:condiciones_borde}
 
-La pala se sostiene en los dos puntos en que se conecta a los brazos, situados a $z = 5{,}0$ y $z = 17{,}0$~m sobre la base (Tabla~\ref{tab:geometria_turbina}), que constituyen por tanto sus únicos apoyos. Ambos se representan como empotramientos, esto es, restringiendo los seis grados de libertad, criterio coherente con la rigidez del conjunto brazo-eje frente a la de la pala y con la exclusión de los brazos del dominio de cálculo. La restricción no se impone sobre una arista ni sobre un nodo, sino sobre una superficie de $500 \times 600$~mm en cada conexión, de modo que la reacción se reparte sobre un área finita y no genera la singularidad de tensión que produciría un apoyo puntual. Bajo estas condiciones la pala se comporta como una viga con dos apoyos y un voladizo en cada extremo, configuración que determina las zonas críticas del análisis.
+La pala se sostiene en los dos puntos en que se conecta a los brazos, situados a $z = 5{,}0$ y $z = 18{,}0$~m sobre la base (Tabla~\ref{tab:geometria_turbina}), que constituyen por tanto sus únicos apoyos. Las conexiones son simétricas respecto del centro de la pala y dejan un voladizo de $5{,}0$~m en cada extremo y un vano central de $13{,}0$~m. Ambos apoyos se representan como empotramientos, esto es, restringiendo los seis grados de libertad, criterio coherente con la rigidez del conjunto brazo-eje frente a la de la pala y con la exclusión de los brazos del dominio de cálculo. La restricción no se impone sobre una arista ni sobre un nodo, sino sobre una superficie de $500 \times 600$~mm en cada conexión, de modo que la reacción se reparte sobre un área finita y no genera la singularidad de tensión que produciría un apoyo puntual. Bajo estas condiciones la pala se comporta como una viga con dos apoyos y un voladizo en cada extremo, configuración que determina las zonas críticas del análisis.
 
 La zona de conexión incorpora además un vendaje de refuerzo de $20$~mm de espesor y $1$~m de longitud, dispuesto concéntricamente alrededor del perímetro de la sección, que reproduce el engrosamiento local del laminado con que se resuelve la introducción de carga en una unión de este tipo.
 
 \subsubsection{Cargas aplicadas}
 
-Las fuerzas aerodinámicas se aplican según el procesamiento de datos específico de cada caso. Además de ellas, se aplican las cargas másicas de origen inercial, que por su naturaleza determinística no requieren extrapolación estadística. Estas no se introducen como fuerzas nodales, sino como aceleraciones globales impuestas sobre la totalidad del modelo: el solucionador las convierte en fuerzas de volumen elemento a elemento, multiplicando la masa de cada elemento por la aceleración prescrita, de modo que la distribución espacial de la carga inercial queda determinada por la distribución de masa del propio modelo. Las aceleraciones que definen estas cargas son:
+Las fuerzas aerodinámicas se aplican según el procesamiento de datos específico de cada caso, como cargas remotas en los centroides de las $21$ estaciones. Además de ellas, se aplican las cargas másicas de origen inercial. Estas no se introducen como fuerzas nodales, sino como aceleraciones globales impuestas sobre la totalidad del modelo, ya que el solucionador las convierte en fuerzas de volumen elemento a elemento, multiplicando la masa de cada elemento por la aceleración prescrita, de modo que la distribución espacial de la carga inercial queda determinada por la distribución de masa del propio modelo. Las aceleraciones que definen estas cargas son:
 
 \begin{itemize}
     \item \textbf{Aceleración de gravedad:} uniforme, dirigida verticalmente hacia abajo y de magnitud $g = 9{,}81$~m/s$^2$.
     \item \textbf{Aceleración centrífuga:} dirigida radialmente hacia afuera, producida por la rotación del rotor y evaluada en la velocidad máxima de rotación $\Omega$ mediante la Ec.~\ref{eq:centrifugal_limit} (Sección~\ref{sec:vtip}). Por tratarse de un H-rotor de palas rectas paralelas al eje, el radio $R$ es constante a lo largo de la envergadura, de modo que la aceleración resulta uniforme en toda la pala y admite imponerse como un único campo global. El valor que corresponde a la consigna de rotación adoptada se presenta en el Capítulo~4.
 \end{itemize}
 
+Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $\gamma_f$ que las aerodinámicas, lo que se materializa imponiendo aceleraciones amplificadas, $\gamma_f \, g$ y $\gamma_f \, \Omega^2 R$, en lugar de sus valores nominales. El factor $\gamma_f$ no cubre la dispersión estadística de la carga, sino las desviaciones desfavorables respecto de su valor característico y las incertidumbres del modelo de carga (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, incertidumbres que una carga determinística presenta igualmente en la masa real de la pala, en su distribución y en la consigna de rotación. Que la norma reserve el valor $\gamma_f = 0{,}9$ para las cargas gravitatorias que alivian la respuesta, y las trate como favorables solo en ese caso (nota 18 de la Tabla 3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, confirma que cuando la gravedad es desfavorable se mayora como cualquier otra carga. En la pala analizada ambas cargas inerciales son desfavorables, ya que la centrífuga flecta los voladizos en el mismo sentido que la componente aerodinámica gobernante y la gravedad actúa en la dirección de la envergadura sobre una pala vertical. La misma nota admite reducir el factor combinado cuando la respuesta debida a la gravedad puede calcularse por separado; esa reducción no se aplica aquí, por lo que la mayoración es la del caso general.
+
 \subsubsection{Discretización de la malla}
 
-La pala se discretiza mediante elementos sólidos tridimensionales de tipo hexaédrico dominante, discretización que \textcite{HAND2021} emplean y validan para el análisis estructural por elementos finitos de palas de \gls{vawt}. El calificativo dominante indica que en las regiones donde la geometría no admite el barrido hexaédrico, como las transiciones de espesor y los encuentros con el larguero, el mallador recurre localmente a elementos de transición.
+La pala se representa mediante su superficie media y se discretiza con elementos de cascarón, a los que el espesor de pared se asigna como propiedad de sección en lugar de resolverse con elementos a través del laminado. La geometría justifica esa elección, ya que el espesor de pared de $8$~mm es del orden de una centésima parte de la cuerda y de una milésima de la envergadura, proporción en la que las hipótesis cinemáticas del cascarón son válidas. La norma específica de palas contempla de forma expresa el análisis por elementos finitos con elementos de cascarón para la verificación de los paneles, según se desprende de las opciones que su Sección 6.6.5.6 asocia al factor $\gamma_{m4}$~\parencite{IEC61400-5}. Piel y larguero comparten los nodos de sus aristas de intersección, de modo que el conjunto se comporta como una estructura continua sin necesidad de definir uniones.
 
-Para garantizar la independencia de los resultados respecto del tamaño de malla, se realiza un análisis de convergencia variando progresivamente la densidad de elementos hasta que la variación en la tensión principal máxima entre mallas sucesivas sea inferior al $5\%$, umbral establecido en la literatura para análisis de elementos finitos~\parencite{Qin2026} y empleado en estudios de palas eólicas~\parencite{Hameed2015,Boudounit2020}. Este procedimiento elimina la influencia de concentradores de esfuerzos propios de la discretización.
+Para garantizar la independencia de los resultados respecto del tamaño de malla se realizan dos estudios de convergencia, uno por cada magnitud que decide una verificación. El primero recorre densidades crecientes hasta que la variación de la tensión principal máxima entre mallas sucesivas sea inferior al $5\%$, umbral establecido en la literatura para análisis de elementos finitos~\parencite{Qin2026} y empleado en estudios de palas eólicas~\parencite{Hameed2015,Boudounit2020}. El segundo se realiza sobre el autovalor de pandeo, tal como exige la Sección 6.6.5.6 de la norma IEC 61400-5, que da por suficiente la densidad de malla cuando el autovalor de pandeo lineal no varía más de un $5\%$ al duplicar la densidad en la región del modelo pertinente al modo analizado~\parencite{IEC61400-5}. Ambos estudios son necesarios, ya que la tensión y el autovalor convergen a ritmos distintos, y el segundo es el que condiciona el veredicto de estabilidad. Los tamaños de elemento ensayados y las variaciones obtenidas se presentan en el Capítulo~4.
 
-A partir del análisis se obtienen la tensión principal máxima ($\sigma_1$), las deformaciones unitarias y los desplazamientos nodales. La verificación de resistencia última se realiza mediante el criterio de máxima tensión principal, apropiado para materiales compuestos de matriz polimérica con comportamiento frágil~\parencite{Moraras2023}. Al representar el laminado como un sólido homogéneo, la verificación aborda la rotura gobernada por las fibras y no resuelve los mecanismos interlaminares descritos en la Sección~\ref{sec:comportamiento_laminado}. El criterio se aplica comparando $\sigma_{1,\max}$ con la resistencia última factoreada del material, cuyas propiedades mecánicas proporciona el fabricante de la turbina.
+La tensión se lee en zona regular del laminado y no en las discontinuidades geométricas del modelo. La terminación del vendaje de refuerzo produce un cambio brusco de espesor que, en un modelo de cascarón sin chaflán, genera una concentración cuya magnitud crece al refinar la malla en lugar de estabilizarse, comportamiento propio de una singularidad y no de una tensión física. Ese punto se excluye por tanto de la verificación y se trata por separado en el Capítulo~4.
+
+A partir del análisis se obtienen la tensión principal máxima ($\sigma_1$), las deformaciones unitarias y los desplazamientos nodales. La verificación de resistencia última se realiza mediante el criterio de máxima tensión principal, apropiado para materiales compuestos de matriz polimérica con comportamiento frágil~\parencite{Moraras2023}. Al representar el laminado como un material isótropo equivalente de espesor único, la verificación aborda la rotura gobernada por las fibras y no resuelve los mecanismos interlaminares descritos en la Sección~\ref{sec:comportamiento_laminado}. El criterio se aplica comparando $\sigma_{1,\max}$ con la resistencia última factoreada del material, cuyas propiedades mecánicas proporciona el fabricante de la turbina.
 
 \subsubsection{Verificación de estabilidad (pandeo)}
 \label{sec:pandeo_met}
 
-La verificación de estabilidad exigida por la Sección 7.6.4 de la norma IEC 61400-1~\parencite{IEC61400-1} se realiza mediante un análisis de pandeo lineal por autovalores (\textit{Eigenvalue Buckling}) en Ansys, según el planteamiento de la Ec.~\ref{eq:pandeo_autovalores} de la Sección~\ref{sec:pandeo_teoria}, acoplado a las soluciones estáticas de ambos casos de carga última (DLC 1.1 y 1.3), de las cuales hereda la malla, las cargas y las condiciones de borde. La simulación entrega el multiplicador de carga (\textit{load multiplier}, $LM$) de cada modo, es decir, el factor por el que deberían amplificarse las cargas aplicadas para alcanzar la inestabilidad elástica, y se extraen los tres primeros modos.
+La Sección 7.6.4 de la norma IEC 61400-1 exige que las partes resistentes de un componente no a prueba de fallos no pandeen bajo la carga de diseño, y que ningún componente pandee bajo la carga característica~\parencite{IEC61400-1}. Esa verificación se realiza mediante un análisis de pandeo lineal por autovalores (\textit{Eigenvalue Buckling}) en Ansys, según el planteamiento de la Ec.~\ref{eq:pandeo_autovalores} de la Sección~\ref{sec:pandeo_teoria}, acoplado a las soluciones estáticas de ambos casos de carga última (DLC 1.1 y 1.3), de las cuales hereda la malla, las cargas y las condiciones de borde. La simulación entrega el multiplicador de carga (\textit{load multiplier}, $LM$) de cada modo, es decir, el factor por el que deberían amplificarse las cargas aplicadas para alcanzar la inestabilidad elástica, y se extraen los tres primeros modos.
 
-Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia con los mismos factores parciales de la verificación de resistencia última, según la Ec.~\ref{eq:criterio_pandeo}:
+Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia, según la Ec.~\ref{eq:criterio_pandeo}:
 
 \begin{equation}
-    LM \geq \gamma_m \cdot \gamma_n = 1{,}30
+    LM \geq \gamma_m \cdot \gamma_n = 1{,}20
     \label{eq:criterio_pandeo}
 \end{equation}
 
-donde $\gamma_m = 1{,}30$ y $\gamma_n = 1{,}00$ son los factores parciales de resistencia última de la Tabla~\ref{tab:factores_seguridad}. El criterio exige, por tanto, que el modo crítico no se alcance antes de amplificar las cargas de diseño en un $30\%$.
+donde $\gamma_n = 1{,}00$ es el factor de consecuencia de falla de la Tabla~\ref{tab:factores_seguridad} y $\gamma_m = 1{,}20$ es el factor de material que la Sección 7.6.2.4 de la norma IEC 61400-1 prescribe de forma específica para el pandeo global de cascarones curvos, entre los que menciona expresamente las palas~\parencite{IEC61400-1}. Ese valor, menor que el $1{,}30$ de la rotura por tracción o compresión, es el que la Sección 7.6.4 remite para la verificación de estabilidad~\parencite{IEC61400-1}. El criterio exige, por tanto, que el modo crítico no se alcance antes de amplificar las cargas de diseño en un $20\%$.
+
+La segunda condición de la Sección 7.6.4, que ningún componente pandee bajo la carga característica, se satisface siempre que $LM \geq 1 / \gamma_f$ sobre las mismas cargas de diseño, umbral menos exigente que el de la Ec.~\ref{eq:criterio_pandeo} para los dos casos de carga analizados, de modo que esta última gobierna la verificación.
 
 Cabe señalar que el método lineal por autovalores no incorpora imperfecciones geométricas ni efectos no lineales, a los que los cascarones de pared delgada son sensibles, por lo que sus resultados constituyen una cota superior de la carga crítica real (Sección~\ref{sec:pandeo_teoria}).
 

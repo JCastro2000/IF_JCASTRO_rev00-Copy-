@@ -21,3 +21,5 @@ sync_overleaf.py
 *.synctex.gz
 *.toc
 main.pdf
+# PNG de inspeccion que acompana a cada figura regenerada
+Figuras/**/estaciones_delta_s.png

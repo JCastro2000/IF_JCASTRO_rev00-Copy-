@@ -42,14 +42,14 @@ B_EXP   = -0.045     # exponente de Basquin de la curva S-N
 
 # --- Factores parciales de seguridad (Tabla 3 de la norma) --------------
 GAMMA_F = 1.00       # cargas de fatiga (Sección 7.6.3.1)
-GAMMA_M = 1.70       # material compuesto
+GAMMA_M = 2.00       # material compuesto, COV de 15 % a 20 %
 GAMMA_N = 1.15       # consecuencia de falla
 
 # En fatiga los tres factores se aplican de forma acumulativa sobre la
 # amplitud de tensión, en lugar de reducir la resistencia. Ambas vías son
 # equivalentes, pero factorar la carga permite conservar la curva S-N
 # nominal del material tal como la reporta el ensayo.
-GAMMA_TOTAL = GAMMA_F * GAMMA_M * GAMMA_N    # = 1,955
+GAMMA_TOTAL = GAMMA_F * GAMMA_M * GAMMA_N    # = 2,300
 
 # --- Recurso eólico y vida de diseño ------------------------------------
 WEIBULL_K = 2.09
