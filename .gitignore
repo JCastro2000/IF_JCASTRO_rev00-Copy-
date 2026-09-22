@@ -23,3 +23,5 @@ sync_overleaf.py
 main.pdf
 # PNG de inspeccion que acompana a cada figura regenerada
 Figuras/**/estaciones_delta_s.png
+Figuras/**/curva_potencia.png
+Figuras/**/convergencia_ventana.png

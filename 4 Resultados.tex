@@ -218,55 +218,66 @@ Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden 
 
 \begin{table}[H]
     \centering
-    \caption{Parámetros operacionales promedio de la turbina por velocidad de viento ($\Delta\theta = 5^\circ$, $N = 6$ semillas por velocidad).}
+    \caption[Parámetros operacionales promedio de la turbina.]{Parámetros operacionales promedio de la turbina por velocidad de viento ($\Delta\theta = 5^\circ$, $N = 6$ semillas por velocidad, ventana de $600$~s). $C_p$ se refiere al cubo de la velocidad media nominal y $C_p^{*}$ a la potencia que el campo turbulento transporta efectivamente.}
     \label{tab:curva_potencia}
-    \begin{tabular}{lcccc}
+    \begin{tabular}{lccccc}
         \hline
-        $V$ (m/s) & RPM & TSR & $P_{med}$ (kW) & $C_{p,med}$ \\
+        $V$ (m/s) & RPM & $\lambda$ & $P_{med}$ (kW) & $C_{p}$ & $C_{p}^{*}$ \\
         \hline
-        $2$  & $6{,}7$  & $3{,}882$ & $1{,}0$    & $0{,}447$ \\
-        $4$  & $13{,}6$ & $3{,}853$ & $8{,}5$    & $0{,}452$ \\
-        $6$  & $20{,}0$ & $3{,}734$ & $26{,}3$   & $0{,}438$ \\
-        $8$  & $26{,}6$ & $3{,}701$ & $61{,}7$   & $0{,}431$ \\
-        $10$ & $33{,}3$ & $3{,}667$ & $121{,}4$  & $0{,}421$ \\
-        $12$ & $39{,}5$ & $3{,}698$ & $201{,}5$  & $0{,}432$ \\
-        $14$ & $42{,}0$ & $3{,}078$ & $349{,}8$  & $0{,}437$ \\
-        $16$ & $42{,}0$ & $2{,}689$ & $485{,}0$  & $0{,}422$ \\
-        $18$ & $42{,}0$ & $2{,}391$ & $503{,}4$  & $0{,}327$ \\
-        $20$ & $42{,}0$ & $2{,}152$ & $423{,}5$  & $0{,}205$ \\
-        $22$ & $42{,}0$ & $1{,}956$ & $369{,}3$  & $0{,}137$ \\
-        $24$ & $42{,}0$ & $1{,}793$ & $336{,}3$  & $0{,}094$ \\
+        $2$ & $7{,}00$ & $3{,}800$ & $1{,}3$ & $0{,}548$ & $0{,}263$ \\
+        $4$ & $14{,}00$ & $3{,}800$ & $11{,}1$ & $0{,}592$ & $0{,}431$ \\
+        $6$ & $21{,}01$ & $3{,}800$ & $36{,}6$ & $0{,}581$ & $0{,}474$ \\
+        $8$ & $28{,}01$ & $3{,}800$ & $84{,}9$ & $0{,}568$ & $0{,}491$ \\
+        $10$ & $35{,}01$ & $3{,}800$ & $164{,}0$ & $0{,}561$ & $0{,}499$ \\
+        $12$ & $42{,}00$ & $3{,}799$ & $280{,}9$ & $0{,}557$ & $0{,}503$ \\
+        $14$ & $42{,}00$ & $3{,}256$ & $430{,}0$ & $0{,}537$ & $0{,}490$ \\
+        $16$ & $42{,}00$ & $2{,}849$ & $511{,}5$ & $0{,}428$ & $0{,}394$ \\
+        $18$ & $42{,}00$ & $2{,}533$ & $490{,}6$ & $0{,}288$ & $0{,}267$ \\
+        $20$ & $42{,}00$ & $2{,}279$ & $437{,}1$ & $0{,}187$ & $0{,}174$ \\
+        $22$ & $42{,}00$ & $2{,}072$ & $397{,}0$ & $0{,}128$ & $0{,}119$ \\
+        $24$ & $42{,}00$ & $1{,}899$ & $379{,}2$ & $0{,}094$ & $0{,}088$ \\
         \hline
     \end{tabular}
 \end{table}
 
-La progresión de la velocidad de rotación confirma el funcionamiento de la estrategia de control y delimita dos regímenes de operación. Por debajo de $12$~m/s la ley $K$-$\omega^2$ acelera el rotor de forma aproximadamente proporcional al viento~\parencite{Johnson2006}, con lo que el TSR se mantiene entre $3{,}67$ y $3{,}88$, en torno al $\lambda_{opt} = 3{,}80$ de diseño. A partir de $14$~m/s la rotación alcanza su límite de $42$~rpm y permanece en él, mientras el TSR decae hasta $1{,}79$ a $24$~m/s, alejando el punto de operación del óptimo aerodinámico.
+La progresión de la velocidad de rotación reproduce exactamente la consigna de la Sección~\ref{sec:giro_prescrito} y delimita los dos regímenes de operación. Hasta $12$~m/s la rotación sigue la ley $\Omega = \lambda_{opt} V / R$ y el \gls{tsr} se mantiene en $3{,}800$, con una desviación de una milésima en el último punto que solo refleja el redondeo de la consigna a centésimas de rpm. A partir de $14$~m/s la rotación permanece en su límite de $42$~rpm y el \gls{tsr} decae hasta $1{,}899$ a $24$~m/s, alejando el punto de operación del óptimo aerodinámico.
 
-Estas simulaciones permiten además verificar a posteriori la validez de las polares empleadas, ya que el número de Reynolds máximo que registran, $Re_{max} = 5{,}94 \times 10^6$ a $V = 24$~m/s, es coherente con la cota teórica de $5{,}46 \times 10^6$ de la Sección~\ref{sec:reynolds}, y la diferencia proviene de las fluctuaciones instantáneas de velocidad inducidas por la turbulencia. Ambos valores quedan cubiertos por el rango de polares adoptado, por lo que en ningún instante se extrapolan datos aerodinámicos fuera del dominio caracterizado.
+Estas simulaciones permiten además verificar a posteriori la validez de las polares empleadas. La velocidad relativa máxima que alcanza la pala, $W_{max} = \Omega R + V = 69{,}6$~m/s a $V = 24$~m/s, corresponde a $Re_{max} = 5{,}38 \times 10^6$, cifra contenida en la cota teórica de la Sección~\ref{sec:reynolds} sobre la que se decidió el rango de polares. En ningún instante se extrapolan, por tanto, datos aerodinámicos fuera del dominio caracterizado.
 
-La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia promedio de las simulaciones LLFVW en función de la velocidad de viento. Ambas curvas reproducen los dos regímenes descritos, ya que la potencia aumenta de forma sostenida hasta un máximo de $503{,}4$~kW a $V = 18$~m/s y disminuye después hasta $336{,}3$~kW a $V = 24$~m/s, mientras que el coeficiente de potencia se mantiene en una meseta de $0{,}42$--$0{,}45$ hasta $V = 16$~m/s, con el rotor operando en torno a $\lambda_{opt}$, y decae hasta $0{,}094$ a $V = 24$~m/s una vez alcanzado el límite de velocidad de rotación. La línea discontinua en la Figura~\ref{fig:curva_potencia}b indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
+\subsection{Longitud de la ventana de análisis}
+\label{sec:ventana_analisis}
+
+Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s que adopta la campaña basta para que sus promedios sean estables, ya que de ella dependen todas las cifras de esta sección y las cargas de las siguientes. La Figura~\ref{fig:convergencia_ventana} recoge, para las seis semillas de $12$~m/s, la potencia media acumulada desde el inicio de la ventana útil hasta cada instante.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{Figuras/Figuras Resultados/convergencia_ventana.pdf}
+    \caption[Convergencia de la potencia media con la ventana de promediado.]{Potencia media acumulada en función de la longitud de la ventana de promediado, para las seis semillas de $V = 12$~m/s. La zona sombreada marca los primeros $100$~s y la línea discontinua la media de las seis realizaciones sobre la ventana completa.}
+    \label{fig:convergencia_ventana}
+\end{figure}
+
+El resultado justifica la exigencia normativa por sí solo. Sobre una ventana de $100$~s las seis semillas entregan entre $194{,}8$ y $333{,}2$~kW, un rango del $52\%$ en torno a su media, mientras que sobre los $600$~s completos quedan entre $270{,}6$ y $287{,}0$~kW, un rango del $5{,}8\%$. Una ventana corta no promedia las estructuras de mayor escala del campo de Mann, cuya longitud característica es comparable al tamaño del rotor, de modo que cada realización queda dominada por el tramo de viento que le tocó y el resultado deja de ser representativo. Los diez minutos que la norma fija como período de observación son, en este rotor, la ventana a partir de la cual la media se estabiliza.
+
+\subsection{Curva de potencia y coeficiente de potencia}
+
+La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}5$~kW a $V = 16$~m/s y disminuye después hasta $379{,}2$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. La línea discontinua del panel (b) indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/curva_potencia.pdf}
-    \caption{(a) Potencia media y (b) coeficiente de potencia promedio, en función de la velocidad de viento. Los puntos son el promedio de las $6$ realizaciones estocásticas simuladas por velocidad, y las barras verticales indican $\pm 1$ desviación estándar (STD) entre ellas.}
+    \caption[Curva de potencia y coeficiente de potencia del rotor.]{(a) Potencia media y (b) coeficiente de potencia, en función de la velocidad de viento. Los puntos son el promedio de las $6$ realizaciones estocásticas simuladas por velocidad, y las barras verticales indican $\pm 1$ desviación estándar entre ellas. La curva azul emplea la definición convencional, referida al cubo de la velocidad media, y la verde la potencia que el campo turbulento transporta realmente.}
     \label{fig:curva_potencia}
 \end{figure}
 
-La barra de dispersión del primer punto de la Figura~\ref{fig:curva_potencia}b es notablemente mayor que las restantes, con una desviación estándar de $0{,}077$ en $C_p$ frente a valores entre $0{,}002$ y $0{,}020$ en el resto del rango. El origen está en la turbulencia que prescribe el NTM, ya que la desviación estándar del viento crece con la velocidad media, pero de forma menos que proporcional (Ec.~\ref{eq:ntm_sigma}), de modo que su valor relativo aumenta al bajar $V$, hasta alcanzar un $43\%$ a $2$~m/s frente a un $15\%$ a $12$~m/s. El rotor no puede seguir fluctuaciones de esa magnitud, de modo que su TSR instantáneo se dispersa con una desviación estándar de $1{,}01$ a $2$~m/s, más del triple de la que registra a $12$~m/s, y cada semilla promedia así un tramo distinto de la curva de $C_p$ frente a TSR. La dispersión no compromete las verificaciones de este capítulo, ya que la carga extrema de diseño proviene del instante registrado a $24$~m/s (Sección~\ref{sec:resultados_uls}) y el $98{,}3\%$ del daño por fatiga se concentra en las tres velocidades más altas (Sección~\ref{sec:resultados_fatiga}), de modo que la contribución de la condición de $2$~m/s a ambos estados límite es marginal.
+El coeficiente de potencia requiere una precisión sobre su definición, sin la cual los valores del panel (b) resultan engañosos. La curva de potencia de un aerogenerador se construye por convención refiriendo la potencia media a la velocidad media del intervalo, esto es, $C_p = \overline{P} / (\tfrac{1}{2}\rho A \overline{V}^3)$. Esa definición supone implícitamente que la potencia que el flujo transporta es proporcional al cubo de su media, lo que solo es cierto con viento uniforme. Bajo viento turbulento la potencia disponible corresponde a la media del cubo de la velocidad, $\langle u^3 \rangle$, que por la desigualdad de Jensen es siempre mayor que $\overline{V}^3$. El cociente entre ambas se midió directamente sobre las cajas de turbulencia de la campaña, promediando $u^3$ en el tiempo y sobre el rectángulo que barre el rotor, y vale $1{,}08$ a $24$~m/s, $1{,}12$ a $12$~m/s y $2{,}10$ a $2$~m/s, siguiendo el crecimiento de la intensidad de turbulencia relativa al bajar la velocidad media (Ec.~\ref{eq:ntm_sigma}).
 
-El coeficiente de potencia de la meseta, $0{,}42$--$0{,}45$, iguala o supera el extremo superior del intervalo reportado para configuraciones H-Darrieus ($0{,}35$--$0{,}42$, Tabla~\ref{tab:tabla_vawt}) y alcanza el margen que \textcite{Essahraoui2026} atribuyen a rotores optimizados, hasta $0{,}45$. Queda así dentro de lo alcanzable por esta familia de máquinas, a diferencia del $C_{p,max} = 0{,}574$ que estima el barrido preliminar (Sección~\ref{sec:tsr_optimo}). La brecha entre ambas cifras no evidencia una inconsistencia entre métodos, sino que obedece a dos causas, una física y otra estadística. La física es la limitación del DMST ya descrita en la Sección~\ref{sec:metodos_aerodinamicos}, que las simulaciones LLFVW sí resuelven. La estadística surge de la operación bajo viento turbulento, ya que el DMST evalúa $C_{p,max}$ en un único punto estacionario, exactamente en $\lambda_{opt}$, mientras que la turbina simulada nunca permanece en ese punto.
+La consecuencia es directa. Referido a $\overline{V}^3$, el coeficiente de potencia alcanza $0{,}592$ a $4$~m/s, valor que coincide con el límite de Betz y que ningún rotor real puede sostener. No se trata de una violación del límite, sino de la inconsistencia entre el numerador y el denominador de la definición convencional, que compara la potencia extraída de un flujo turbulento con la que transportaría un flujo uniforme de la misma velocidad media. Referido a la potencia efectivamente disponible, el coeficiente $C_p^{*}$ de la última columna de la Tabla~\ref{tab:curva_potencia} alcanza su máximo de $0{,}503$ a $12$~m/s y se mantiene por debajo del límite de Betz en todo el rango, con un margen que en el punto de diseño es del $15\%$. Es esta segunda magnitud la que admite lectura física, y es la que se emplea al comparar con otros rotores.
 
-La Figura~\ref{fig:serie_temporal_control} recorre esa segunda cadena causal para una simulación representativa a $V = 12$~m/s. La velocidad de viento incidente, panel (a), se recupera de la salida de QBlade como $V = \Omega R/\lambda$ y corresponde al campo generado por el modelo de Mann (Sección~\ref{sec:modelo_mann}); fluctúa entre $8{,}2$ y $15{,}4$~m/s en torno a una media de $11{,}7$~m/s, con una desviación estándar de $1{,}20$~m/s, un $4\%$ menor que los $1{,}25$~m/s que prescribe el NTM del emplazamiento (Sección~\ref{sec:ntm}). El panel (b) muestra que el rotor sigue esas fluctuaciones de forma suavizada, en torno a una media de $39{,}6$~rpm, ya que su inercia le impide acelerar y frenar al ritmo del viento~\parencite{Johnson2006}. El panel (c) recoge la consecuencia de ese desfase, dado que el TSR es el cociente entre ambas magnitudes y se dispersa entre $2{,}99$ y $4{,}94$ en lugar de mantenerse fijo en $\lambda_{opt}$. Para aislar el aporte del controlador, el mismo panel superpone el TSR que resultaría del mismo viento con la rotación fija en el promedio registrado ($39{,}6$~rpm). En ese escenario contrafactual la dispersión aumenta un $32\%$ (desviación estándar de $0{,}387$ frente a $0{,}292$), de modo que el controlador $K$-$\omega^2$ no solo centra el TSR en torno al óptimo, con una media de $3{,}69$ frente a $3{,}80$, sino que además reduce activamente su dispersión.
+La dispersión entre semillas sigue el mismo patrón. La desviación estándar de $C_p$ pasa del $11{,}7\%$ de su media a $2$~m/s al $1{,}0\%$ a $24$~m/s, y el origen está en la turbulencia que prescribe el NTM, ya que su desviación estándar crece con la velocidad media pero de forma menos que proporcional (Ec.~\ref{eq:ntm_sigma}), de modo que su valor relativo aumenta al bajar $V$. Con la rotación prescrita, el \gls{tsr} nominal es idéntico en las seis semillas de una misma velocidad, y toda la dispersión proviene por tanto del campo de viento y no del punto de operación. La dispersión no compromete las verificaciones de este capítulo, ya que la carga extrema de diseño proviene del extremo superior del rango de velocidades (Sección~\ref{sec:resultados_uls}) y el daño por fatiga se concentra igualmente en las velocidades altas (Sección~\ref{sec:resultados_fatiga}), de modo que la contribución de la condición de $2$~m/s a ambos estados límite es marginal.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.95\textwidth]{Figuras/Figuras Resultados/serie_temporal_control.pdf}
-    \caption[Serie temporal de viento, velocidad de rotación y TSR.]{Serie temporal de (a) velocidad de viento incidente, (b) velocidad de rotación y (c) TSR, para una simulación representativa a $V = 12$~m/s, semilla $1$. Las líneas discontinuas indican la media de la realización en (a) y (b), y $\lambda_{opt}$ en (c).}
-    \label{fig:serie_temporal_control}
-\end{figure}
+El valor máximo de $C_p^{*} = 0{,}503$ supera el intervalo de $0{,}35$ a $0{,}42$ que \textcite{Essahraoui2026} reportan para configuraciones H-Darrieus, e incluso el $0{,}45$ que la misma fuente atribuye a rotores optimizados (Tabla~\ref{tab:tabla_vawt}). La comparación, sin embargo, no enfrenta magnitudes equivalentes. Ese intervalo procede de máquinas completas medidas en operación, de modo que incorpora las pérdidas de generador y transmisión, la rugosidad superficial real, las tolerancias de fabricación y el acabado de pala. El valor obtenido aquí es un resultado numérico de aerodinámica limpia, calculado con polares ideales sobre una geometría sin imperfecciones y sin ninguna pérdida mecánica ni eléctrica, y constituye por tanto una cota superior del rendimiento alcanzable por esta máquina. Es el mismo razonamiento con que la Sección~\ref{sec:tsr_optimo} explica la sobreestimación del barrido DMST preliminar, y es la razón por la que el coeficiente de potencia no se emplea en este trabajo como magnitud de verificación, sino como indicador de que el punto de operación adoptado es el correcto.
 
-La Tabla~\ref{tab:comparacion_adim} contrasta el rotor en estudio con las dos máquinas H-rotor de referencia de la Sección~\ref{sec:turbinas_referencia}~\parencite{Mollerstrom2019}, sobre los parámetros normalizados allí definidos. A $V = 12$~m/s la turbina del proyecto entrega $P = 201{,}5$~kW con $C_p = 0{,}432$, cifra equivalente a la potencia nominal de la T1-turbine y de la ANew-M1, ambas de $200$~kW a esa misma velocidad, y lo hace con un área de barrido intermedia entre las de ambas máquinas.
+La Tabla~\ref{tab:comparacion_adim} contrasta el rotor en estudio con las dos máquinas H-rotor de referencia de la Sección~\ref{sec:turbinas_referencia}~\parencite{Mollerstrom2019}, sobre los parámetros normalizados allí definidos. A $V = 12$~m/s la turbina del proyecto entrega $P = 280{,}9$~kW con $C_p^{*} = 0{,}503$, del orden de la potencia nominal de la T1-turbine y de la ANew-M1, ambas de $200$~kW a esa misma velocidad, y lo hace con un área de barrido intermedia entre las de ambas máquinas.
 
 \begin{table}[H]
     \centering
@@ -279,21 +290,21 @@ La Tabla~\ref{tab:comparacion_adim} contrasta el rotor en estudio con las dos m�
         Diámetro $D$ (m)         & $20{,}73$ & $26{,}0$ & $24{,}0$ & ---\\
         Altura $H$ (m)           & $23{,}0$  & $24{,}0$ & $15{,}0$\textsuperscript{b} & ---\\
         Área barrida $A$ (m$^2$) & $476{,}8$ & $624$    & $360$ & ---\\
-        Potencia a $12$ m/s (kW) & $201{,}5$ & $200$    & $200$ & ---\\
-        $P/A$ (W/m$^2$)          & $423$     & $321$    & $556$ & $200$--$500$\textsuperscript{c}\\
+        Potencia a $12$ m/s (kW) & $280{,}9$ & $200$    & $200$ & ---\\
+        $P/A$ (W/m$^2$)          & $589$     & $321$    & $556$ & $200$--$500$\textsuperscript{c}\\
         $\lambda$                & $3{,}80$  & $3{,}8$\textsuperscript{d} & --- & $2$--$5$\textsuperscript{e}\\
         $\sigma$                 & $0{,}318$ & ---      & --- & $0{,}15$--$0{,}45$\textsuperscript{e}\\
-        $C_{p,max}$              & $0{,}45$  & ---      & --- & $0{,}35$--$0{,}42$\textsuperscript{e,f}\\
+        $C_{p,max}^{*}$          & $0{,}50$  & ---      & --- & $0{,}35$--$0{,}42$\textsuperscript{e,f}\\
         \hline
         \multicolumn{5}{p{0.95\textwidth}}{\footnotesize \textsuperscript{a}Datos de \textcite{Mollerstrom2019}, Tabla~\ref{tab:hrotor_rpm}. \textsuperscript{b}Estimada como $A/D$ a partir de los datos de la fuente. \textsuperscript{c}Rango característico de un aerogenerador moderno~\parencite{Mollerstrom2019}. \textsuperscript{d}TSR objetivo documentado para la T1-turbine (Tabla~\ref{tab:t1_params})~\parencite{Mollerstrom2017,Mollerstrom2016}. \textsuperscript{e}Rango reportado para configuraciones H-Darrieus~\parencite{Essahraoui2026}, Tabla~\ref{tab:tabla_vawt}. \textsuperscript{f}La misma fuente reporta hasta $0{,}45$ para rotores optimizados.}
     \end{tabular}
 \end{table}
 
-La potencia específica del rotor en estudio se sitúa entre la de la T1-turbine y la de la ANew-M1, dentro del rango propio de un aerogenerador moderno~\parencite{Mollerstrom2019}, y su $\lambda_{opt} = 3{,}80$ coincide con el \gls{tsr} objetivo documentado para la T1-turbine~\parencite{Mollerstrom2017}. La solidez y el coeficiente de potencia caen igualmente dentro de sus rangos de referencia~\parencite{Essahraoui2026}. El dimensionamiento y el punto de operación del rotor resultan, por tanto, consistentes con los de las máquinas construidas de esta familia y escala.
+La potencia específica del rotor en estudio supera ligeramente el rango propio de un aerogenerador moderno~\parencite{Mollerstrom2019} y queda por encima de la de ambas máquinas de referencia. La diferencia sigue a la del coeficiente de potencia y comparte con ella la misma explicación, ya que enfrenta un cálculo aerodinámico sin pérdidas a máquinas completas medidas en operación. El $\lambda_{opt} = 3{,}80$ coincide, en cambio, con el \gls{tsr} objetivo documentado para la T1-turbine~\parencite{Mollerstrom2017}, y la solidez cae dentro de su rango de referencia~\parencite{Essahraoui2026}. El dimensionamiento geométrico y el punto de operación del rotor resultan, por tanto, consistentes con los de las máquinas construidas de esta familia y escala, y la discrepancia se concentra en el rendimiento, que es precisamente la magnitud que el modelo sobreestima.
 
-El pico de $P_{max} = 503{,}4$~kW a $V = 18$~m/s corresponde a $1056$~W/m$^2$. Esta cifra no describe el dimensionamiento nominal de la máquina, sino la capacidad de sobrecarga instantánea del rotor operando fuera de su punto de diseño, y resulta del orden de los valores máximos reportados históricamente para VAWT~\parencite{Mollerstrom2019}.
+El pico de $P_{max} = 511{,}5$~kW a $V = 16$~m/s corresponde a $1073$~W/m$^2$. Esta cifra no describe el dimensionamiento nominal de la máquina, sino la capacidad de sobrecarga instantánea del rotor operando fuera de su punto de diseño, y resulta del orden de los valores máximos reportados históricamente para VAWT~\parencite{Mollerstrom2019}.
 
-La caída del coeficiente de potencia para $V > 16$~m/s es consecuencia directa de la estrategia de control, ya que al alcanzar el límite de velocidad de rotación de $42$~rpm el TSR decrece de $3{,}7$ a $1{,}8$, alejándose del $\lambda_{opt} = 3{,}80$. La pérdida es deliberada, ya que sostener el TSR óptimo a $24$~m/s exigiría girar a $84$~rpm, el doble del límite adoptado, con lo que las cargas centrífugas, proporcionales a $\Omega^2$, se cuadruplicarían. Dado que las velocidades superiores a $20$~m/s representan solo el $0{,}48\%$ de las horas del año en el emplazamiento, esto es, $42$~h/año (Sección~\ref{sec:recurso_eolico}), el costo energético de esa decisión es marginal frente al alivio estructural que proporciona.
+La caída del coeficiente de potencia para $V > 14$~m/s es consecuencia directa del límite de velocidad de rotación, ya que una vez alcanzadas las $42$~rpm el \gls{tsr} decrece de $3{,}80$ a $1{,}90$, alejándose del $\lambda_{opt} = 3{,}80$. La pérdida es deliberada, ya que sostener el TSR óptimo a $24$~m/s exigiría girar a $84$~rpm, el doble del límite adoptado, con lo que las cargas centrífugas, proporcionales a $\Omega^2$, se cuadruplicarían. Dado que las velocidades superiores a $20$~m/s representan solo el $0{,}48\%$ de las horas del año en el emplazamiento, esto es, $42$~h/año (Sección~\ref{sec:recurso_eolico}), el costo energético de esa decisión es marginal frente al alivio estructural que proporciona.
 
 \section{Cargas aerodinámicas para DLC 1.1}
 \label{sec:resultados_uls}
