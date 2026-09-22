@@ -9,7 +9,7 @@
 \section*{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
 \label{anexo:dlc11}
 
-Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en la carga de diseño del DLC 1.1, siguiendo el procedimiento del Anexo F de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
+Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en la carga de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
 
 \subsection*{Parámetros de entrada}
 
@@ -18,7 +18,7 @@ Los parámetros del emplazamiento provienen de la caracterización del recurso e
 \begin{pycode}
 # -*- coding: utf-8 -*-
 """
-DLC 1.1 - Extrapolación de cargas extremas según el Anexo F de IEC 61400-1.
+DLC 1.1 - Extrapolación de cargas extremas según el Anexo G de IEC 61400-1.
 Entrada : 72 series temporales de fuerzas por estación (12 V x 6 semillas).
 Salida  : carga característica F_k a 50 años y carga de diseño F_d.
 """
@@ -54,13 +54,13 @@ PE_TARGET = T_OBS / T_RETURN
 
 # Factor parcial de carga. La norma admite reducirlo de 1,35 a 1,25 para
 # el DLC 1.1 cuando la carga se obtiene por extrapolación estadística
-# según el Anexo F (Sección 7.6.2.1, nota al pie de la Tabla 3).
+# según el Anexo G (Sección 7.6.2.1, nota al pie de la Tabla 3).
 GAMMA_F = 1.25
 \end{pycode}
 
 \subsection*{Reducción del vector de cargas a una solicitación escalar}
 
-QBlade entrega, en cada paso de tiempo, la fuerza por unidad de longitud en las $24$ estaciones y en las dos direcciones del sistema local de la pala contenidas en el plano del perfil: $F_x$ normal a la cuerda y $F_y$ en el sentido de la cuerda. La extrapolación del Anexo F opera sobre una única variable de carga, por lo que ese vector debe reducirse a un escalar en cada instante.
+QBlade entrega, en cada paso de tiempo, la fuerza por unidad de longitud en las $24$ estaciones y en las dos direcciones del sistema local de la pala contenidas en el plano del perfil: $F_x$ normal a la cuerda y $F_y$ en el sentido de la cuerda. La extrapolación del Anexo G opera sobre una única variable de carga, por lo que ese vector debe reducirse a un escalar en cada instante.
 
 \begin{pycode}
 def fuerza_equivalente(fx, fy):
@@ -116,7 +116,7 @@ def maximo_de_la_realizacion(ruta_csv):
 
 \subsection*{Ajuste de la distribución de extremos por velocidad}
 
-Para cada velocidad de viento se dispone de seis máximos, uno por semilla. El Anexo F modela su distribución mediante una función de Gumbel, cuyos parámetros se estiman por el método de los momentos según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
+Para cada velocidad de viento se dispone de seis máximos, uno por semilla. El Anexo G modela su distribución mediante una función de Gumbel, cuyos parámetros se estiman por el método de los momentos según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
 
 \begin{pycode}
 GAMMA_EULER = 0.5772156649   # constante de Euler-Mascheroni
@@ -124,7 +124,7 @@ GAMMA_EULER = 0.5772156649   # constante de Euler-Mascheroni
 def ajuste_gumbel(maximos):
     """
     Ajusta una distribución de Gumbel por el método de los momentos, tal
-    como prescribe la Sección F.1 del Anexo F:
+    como prescribe la Sección G.3.2 del Anexo G:
 
         beta = sqrt(6)/pi * s          mu = x_medio - gamma_E * beta
 
@@ -172,7 +172,7 @@ mu_V        = np.array([parametros[V][0] for V in V_ensayadas])
 beta_V      = np.array([parametros[V][1] for V in V_ensayadas])
 
 # --- Paso 3: llevar mu y beta a la malla de integración ----------------
-# El Anexo F integra sobre todo el rango operacional y no solo sobre las
+# El Anexo G integra sobre todo el rango operacional y no solo sobre las
 # velocidades simuladas. Entre ellas se interpola linealmente; fuera del
 # rango ensayado np.interp mantiene el valor del extremo más próximo.
 V_bins = np.arange(0.5, 25.5, 1.0)
@@ -187,7 +187,7 @@ p_bins /= np.sum(p_bins * dV)
 
 def excedencia_largo_plazo(F):
     """
-    Probabilidad de excedencia de largo plazo (Anexo F):
+    Probabilidad de excedencia de largo plazo (Anexo G):
 
         P_e(F) = integral_V  P(F_tot > F | V) * p_Weibull(V) dV
 
@@ -216,7 +216,7 @@ F_d = GAMMA_F * F_k
 
 \subsection*{Del escalar a las fuerzas por estación}
 
-El Anexo F entrega un único valor escalar, que se distribuye en las 24 estaciones con que se instrumentó la pala. Para preservar la correlación espacial entre ellas, el perfil se toma del instante de máxima solicitación global de la realización que registró la mayor solicitación y se escala de manera uniforme, conforme a la Sección 7.5 de la norma.
+El Anexo G entrega un único valor escalar, que se distribuye en las 24 estaciones con que se instrumentó la pala. Para preservar la correlación espacial entre ellas, el perfil se toma del instante de máxima solicitación global de la realización que registró la mayor solicitación y se escala de manera uniforme, conforme a la Sección 7.5 de la norma.
 
 \begin{pycode}
 # fx_crit, fy_crit son las fuerzas compañeras por unidad de longitud en

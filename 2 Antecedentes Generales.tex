@@ -465,7 +465,7 @@ El efecto de estos dos parámetros sobre la forma de la distribución se ilustra
 \section{Marco normativo y condiciones de diseño}
 \label{sec:marco-normativo}
 
-La determinación de las cargas y la verificación estructural no dependen únicamente de modelos numéricos, sino también del cumplimiento de procedimientos establecidos por normas internacionales, que aseguran la integridad estructural ante condiciones ambientales extremas. La norma IEC 61400-1 establece los requisitos generales de diseño y seguridad para aerogeneradores terrestres y marinos~\parencite{IEC61400-1}, mientras que la norma IEC 61400-3 extiende estos lineamientos al entorno offshore en lo relativo a cargas hidrodinámicas y condiciones de viento en mar abierto~\parencite{IEC61400-3}.
+La determinación de las cargas y la verificación estructural no dependen únicamente de modelos numéricos, sino también del cumplimiento de procedimientos establecidos por normas internacionales, que aseguran la integridad estructural ante condiciones ambientales extremas. La norma IEC 61400-1 establece los requisitos generales de diseño y seguridad para aerogeneradores terrestres y marinos~\parencite{IEC61400-1}, mientras que la norma IEC 61400-3 extiende estos lineamientos al entorno offshore en lo relativo a cargas hidrodinámicas y condiciones de viento en mar abierto~\parencite{IEC61400-3-1}.
 
 \subsection{Parámetros de diseño y condiciones de carga}
 \label{sec:condiciones_diseno}
@@ -495,7 +495,7 @@ Para el caso específico de las VAWT, todas las variables climáticas y de veloc
 
 La norma IEC 61400-1 recomienda el modelo de cizalladura uniforme de Mann~\parencite{IEC61400-1,Mann1994} para la síntesis de turbulencia tridimensional. Se trata de un modelo \textit{espectral} porque no resuelve las ecuaciones de la dinámica de fluidos en el espacio físico, sino que define un tensor espectral de velocidades, esto es, una descripción de cómo se reparte la energía turbulenta entre remolinos de distinto tamaño y orientación, expresada en función del número de onda. El modelo parte del espectro isótropo de von Kármán y le aplica la distorsión que produce una cizalladura media uniforme, con lo que reproduce la anisotropía real de la turbulencia atmosférica: los remolinos no tienen la misma intensidad ni forma en todas las direcciones, sino que se elongan en la dirección del flujo~\parencite{IEC61400-1}.
 
-El modelo queda determinado por tres parámetros que el Anexo B de la IEC 61400-1 fija a partir de las condiciones ya definidas para la clase de emplazamiento:
+El modelo queda determinado por tres parámetros que el Anexo C de la IEC 61400-1 fija a partir de las condiciones ya definidas para la clase de emplazamiento:
 
 \begin{itemize}
     \item Un parámetro de \textbf{intensidad}, $\sigma_{iso}$, que establece el nivel de energía cinética turbulenta del campo generado y que la norma vincula a la desviación estándar representativa mediante $\sigma_{iso} = 0{,}55\,\sigma_{NTM}$. En la formulación original del modelo se expresa como $\alpha\varepsilon^{2/3}$, siendo $\varepsilon$ la tasa de disipación turbulenta~\parencite{Mann1994}.
@@ -527,7 +527,7 @@ Conviene matizar la delimitación al régimen de producción de potencia a la lu
 \subsection{Extrapolación estadística de cargas extremas}
 \label{sec:extrapolacion_teoria}
 
-Para determinar la carga característica del DLC 1.1 a partir de simulaciones con flujo turbulento, la norma remite a su Anexo F, de carácter informativo~\parencite{IEC61400-1}. El problema que este anexo resuelve es directo: la pala falla si la tensión en algún punto supera la resistencia del material, de modo que verificarla exige conocer la mayor carga que experimentará en su vida útil. Esa carga no puede medirse ni simularse directamente, ya que simular veinte años de operación es inviable y en la práctica solo se dispone de unas pocas realizaciones de diez minutos, cuyo máximo observado es casi con certeza menor que el que llegará a ocurrir en dos décadas. La pregunta relevante no es entonces cuál fue el máximo simulado, sino qué tan grande puede ser uno que todavía no se ha observado, interrogante que el Anexo F responde mediante teoría de valores extremos~\parencite{IEC61400-1}.
+Para determinar la carga característica del DLC 1.1 a partir de simulaciones con flujo turbulento, la norma remite a su Anexo G, de carácter informativo~\parencite{IEC61400-1}. El problema que este anexo resuelve es directo: la pala falla si la tensión en algún punto supera la resistencia del material, de modo que verificarla exige conocer la mayor carga que experimentará en su vida útil. Esa carga no puede medirse ni simularse directamente, ya que simular veinte años de operación es inviable y en la práctica solo se dispone de unas pocas realizaciones de diez minutos, cuyo máximo observado es casi con certeza menor que el que llegará a ocurrir en dos décadas. La pregunta relevante no es entonces cuál fue el máximo simulado, sino qué tan grande puede ser uno que todavía no se ha observado, interrogante que el Anexo G responde mediante teoría de valores extremos~\parencite{IEC61400-1}.
 
 El razonamiento se apoya en dos ideas. La primera es que, para una velocidad de viento dada, la carga sobre la pala puede tratarse como un proceso aleatorio estacionario: sus propiedades estadísticas no cambian mientras esa condición de viento se mantenga. La segunda es que los máximos de ese proceso ocurren suficientemente separados en el tiempo como para considerarlos estadísticamente independientes entre sí. Bajo esos supuestos, el comportamiento del máximo de un conjunto grande de observaciones deja de depender del detalle del proceso y converge hacia una familia acotada de distribuciones, resultado clásico de la teoría de valores extremos~\parencite{Gumbel1958}. Entre ellas, la distribución de Gumbel describe los máximos provenientes de procesos con cola de tipo exponencial y queda definida por la Ec.~\ref{eq:gumbel_anexof}:
 
@@ -572,14 +572,14 @@ F_d = \gamma_f \cdot F_k
 
 donde $F_d$ es la carga de diseño con que se verifica la estructura, $F_k$ la carga característica obtenida de la extrapolación y $\gamma_f$ el factor parcial de seguridad aplicado a la carga. Para el DLC 1.1 la Tabla 3 asigna $\gamma_f = 1{,}25$, menor que el $1{,}35$ general, porque al haberse realizado ya una extrapolación estadística explícita hasta los 50 años, parte del conservadurismo que el factor general debe cubrir está incorporado en la propia carga característica.
 
-El desarrollo completo del procedimiento, incluidos los criterios de verificación del ajuste de la distribución y los métodos alternativos de agregación de máximos, se encuentra en el Anexo F de la IEC 61400-1~\parencite{IEC61400-1}.
+El desarrollo completo del procedimiento, incluidos los criterios de verificación del ajuste de la distribución y los métodos alternativos de agregación de máximos, se encuentra en el Anexo G de la IEC 61400-1~\parencite{IEC61400-1}.
 
 \subsection{Evaluación del daño acumulado por fatiga}
 \label{sec:anexo_g_antecedentes}
 
 La verificación anterior responde a si la pala resiste la carga más severa de su vida. La fatiga plantea una pregunta distinta y, para una pala de VAWT, más exigente: si sobrevive la repetición de cargas que individualmente no la dañarían. Como se describió en la Sección~\ref{sec:dynamicstall}, cada revolución del rotor somete a la pala a un ciclo completo de carga, de modo que en veinte años se acumulan del orden de $10^9$ ciclos. El daño no proviene entonces de un evento extremo, sino de la suma de millones de solicitaciones moderadas.
 
-Para el DLC 1.2 la norma remite igualmente a un anexo informativo, el Anexo G~\parencite{IEC61400-1}, que organiza el cálculo en cuatro pasos, cada uno de los cuales responde a una necesidad concreta. La Figura~\ref{fig:rainflow_sn} los ilustra sobre un segmento de serie temporal a una sola velocidad de viento, unidad básica del procedimiento.
+Para el DLC 1.2 la norma remite igualmente a un anexo informativo, el Anexo H~\parencite{IEC61400-1}, que organiza el cálculo en cuatro pasos, cada uno de los cuales responde a una necesidad concreta. La Figura~\ref{fig:rainflow_sn} los ilustra sobre un segmento de serie temporal a una sola velocidad de viento, unidad básica del procedimiento.
 
 El primero es identificar los ciclos. Una serie temporal de carga real no es una sinusoide limpia sino una señal irregular, con oscilaciones grandes interrumpidas por otras pequeñas, y no resulta evidente qué máximo debe emparejarse con qué mínimo para constituir un ciclo. La respuesta tiene fundamento físico: el daño se asocia a cada lazo de histéresis cerrado en el diagrama tensión-deformación del material, de modo que el emparejamiento correcto es el que reconstruye esos lazos, y eso es exactamente lo que hace el algoritmo de conteo Rainflow, devolviendo un conjunto de ciclos caracterizados por su amplitud $S_a$ y su tensión media $S_m$, según se representa en el panel (a) de la Figura~\ref{fig:rainflow_sn}. El método fue propuesto por \textcite{Matsuishi1968}, quienes lo describieron por analogía con el agua de lluvia escurriendo sobre un tejado de pagoda, de donde toma su nombre; su formulación algorítmica normalizada corresponde a la práctica ASTM E1049-85~\parencite{ASTM_E1049}.
 
@@ -615,7 +615,7 @@ donde $D$ es el daño acumulado, magnitud adimensional que expresa la fracción 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Antecedentes/rainflow_sn.pdf}
-    \caption[Procedimiento de fatiga del Anexo G de la IEC 61400-1.]{Procedimiento de fatiga del Anexo G de la IEC 61400-1 sobre un segmento ilustrativo de serie temporal: (a) ciclos identificados por el conteo Rainflow, (b) espectro de ciclos resultante y (c) aporte de cada rango al daño, evaluado con la curva S-N factoreada (Ec.~\ref{eq:sn_basquin}) para el GFRP empleado en este trabajo.}
+    \caption[Procedimiento de fatiga del Anexo H de la IEC 61400-1.]{Procedimiento de fatiga del Anexo H de la IEC 61400-1 sobre un segmento ilustrativo de serie temporal: (a) ciclos identificados por el conteo Rainflow, (b) espectro de ciclos resultante y (c) aporte de cada rango al daño, evaluado con la curva S-N factoreada (Ec.~\ref{eq:sn_basquin}) para el GFRP empleado en este trabajo.}
     \label{fig:rainflow_sn}
 \end{figure}
 

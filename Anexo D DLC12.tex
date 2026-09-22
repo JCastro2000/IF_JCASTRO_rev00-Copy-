@@ -9,7 +9,7 @@
 \section*{Procesamiento de cargas del DLC 1.2: daño acumulado por fatiga}
 \label{anexo:dlc12}
 
-Este anexo reproduce el código que evalúa el estado límite de fatiga a partir de las series temporales de cargas, siguiendo el Anexo G de IEC 61400-1~\parencite{IEC61400-1}. Se omiten las rutinas de exportación y de generación de figuras.
+Este anexo reproduce el código que evalúa el estado límite de fatiga a partir de las series temporales de cargas, siguiendo el Anexo H de IEC 61400-1~\parencite{IEC61400-1}. Se omiten las rutinas de exportación y de generación de figuras.
 
 A diferencia de los casos de resistencia última, la variable de carga no es la fuerza total integrada sino el momento flector resultante en la sección crítica. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
 
@@ -18,7 +18,7 @@ A diferencia de los casos de resistencia última, la variable de carga no es la 
 \begin{pycode}
 # -*- coding: utf-8 -*-
 """
-DLC 1.2 - Verificación del estado límite de fatiga (Anexo G, IEC 61400-1).
+DLC 1.2 - Verificación del estado límite de fatiga (Anexo H, IEC 61400-1).
 Entrada : 72 series temporales de fuerzas por estación (12 V x 6 semillas).
 Salida  : daño acumulado de Palmgren-Miner en la vida de diseño.
 """
@@ -215,7 +215,7 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
 D_anual = sum(float(np.mean(danio_por_V[V])) for V in danio_por_V)
 D_vida  = D_anual * ANIOS
 
-# Criterio de verificación del Anexo G: la pala cumple si el daño
+# Criterio de verificación del Anexo H: la pala cumple si el daño
 # acumulado en la vida de diseño no alcanza la unidad.
 cumple = D_vida < 1.0
 \end{pycode}
