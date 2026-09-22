@@ -666,11 +666,17 @@ El margen a fatiga no habilita, por lo demás, una reducción del espesor de par
 \section{Verificación estructural de la pala}
 \label{sec:resultados_fem}
 
-Las fuerzas de diseño por estación de la Sección~\ref{sec:comparacion_dlc}, junto con la aceleración centrífuga, constituyen las cargas del modelo de elementos finitos descrito en la Sección~\ref{sec:fem}. Su resolución se aborda en tres pasos: primero se verifica que los resultados sean independientes de la discretización, luego se describen las condiciones de borde y cargas aplicadas, y finalmente se presentan las tensiones y deformaciones de los DLC 1.1 y 1.3, con las que se evalúan los criterios de resistencia última, estabilidad y deflexión de la norma IEC 61400-1~\parencite{IEC61400-1}.
+Las fuerzas de diseño por estación de la Sección~\ref{sec:comparacion_dlc}, junto con las cargas inerciales mayoradas, constituyen las cargas del modelo de elementos finitos descrito en la Sección~\ref{sec:fem}. Su resolución se aborda en cuatro pasos. Primero se verifica que los resultados sean independientes de la discretización, sobre las dos magnitudes que deciden una verificación. Luego se describen las condiciones de borde y las cargas aplicadas. A continuación se presentan las tensiones y deformaciones de los casos de carga última, y finalmente se evalúan con ellas los criterios de resistencia última, estabilidad y deflexión de la norma IEC 61400-1~\parencite{IEC61400-1}.
+
+Cada caso de carga última aporta dos estados al modelo estructural, uno por cada sentido de la componente normal (Sección~\ref{sec:comparacion_dlc}), y cada uno de ellos se resuelve sobre la sección de apoyo que corresponda, de modo que la envolvente de cargas de la Sección 3.17 de la IEC 61400-5 quede cubierta en las dos posiciones candidatas a gobernar~\parencite{IEC61400-5}. A ellos se añade un caso de referencia con las cargas inerciales como única solicitación, que permite separar la contribución de la rotación y que sirve además para calibrar la conversión momento-tensión del análisis de fatiga.
+
+Los valores que se reportan en lo que sigue provienen de la iteración del modelo estructural anterior a las correcciones que introduce esta revisión, esto es, con las conexiones situadas a $5{,}0$ y $17{,}0$~m, la carga repartida en estaciones uniformes y las solicitaciones inerciales sin mayorar. Su recálculo sobre la configuración definitiva está en curso. Se conservan aquí porque las tendencias que muestran, la ubicación de la sección crítica, el ordenamiento entre casos de carga y el predominio de la componente inercial, no dependen de esas correcciones, y porque el criterio que gobierna el diseño se identifica igualmente con ellos. Las magnitudes numéricas, en cambio, deben tomarse como provisionales, y el sentido en que cada corrección las desplaza se indica en cada caso.
 
 \subsection{Convergencia de malla}
 
-La independencia de los resultados respecto del tamaño de elemento se verifica mediante un análisis de convergencia con cinco tamaños de elemento, desde $20$~mm hasta $12$~mm de tamaño característico, sobre el caso DLC 1.1. La Figura~\ref{fig:convergencia_malla} presenta la evolución de la tensión principal máxima en función del tamaño de elemento y la Tabla~\ref{tab:convergencia_malla} resume los valores obtenidos y la variación porcentual entre mallas consecutivas.
+La independencia de los resultados respecto del tamaño de elemento se verifica mediante dos estudios de convergencia, uno por cada magnitud que decide una verificación. El primero recorre la tensión principal máxima y el segundo el autovalor de pandeo, que es el que la Sección 6.6.5.6 de la IEC 61400-5 exige de forma específica y que debe realizarse duplicando la densidad de malla en la región del modo analizado~\parencite{IEC61400-5}. Ambos son necesarios porque las dos magnitudes convergen a ritmos distintos, y con la estabilidad gobernando el diseño, es el segundo el que condiciona el veredicto.
+
+La Figura~\ref{fig:convergencia_malla} presenta la evolución de la tensión principal máxima en función del tamaño de elemento y la Tabla~\ref{tab:convergencia_malla} resume los valores obtenidos y la variación porcentual entre mallas consecutivas.
 
 \begin{figure}[H]
     \centering
@@ -697,6 +703,12 @@ La independencia de los resultados respecto del tamaño de elemento se verifica 
 \end{table}
 
 La diferencia en la tensión principal máxima entre las dos mallas más finas ($14$~mm y $12$~mm) es del $0{,}76\%$, muy por debajo del criterio del $5\%$ adoptado en este trabajo (Sección~\ref{sec:fem}). Este margen holgado respecto al umbral de la literatura~\parencite{Qin2026,Hameed2015,Boudounit2020} indica que la malla de $12$~mm resuelve adecuadamente los gradientes de tensión en la zona de interés, particularmente en las conexiones strut--pala donde se concentran las máximas solicitaciones. Las fuerzas de reacción en ambos struts presentan variaciones inferiores al $0{,}04\%$ en todas las mallas, confirmando que el equilibrio global de fuerzas es independiente de la discretización. Se selecciona el tamaño de elemento de $12$~mm para las simulaciones definitivas.
+
+El segundo estudio repite el procedimiento sobre el autovalor del primer modo de pandeo, refinando en la región del vano central donde ese modo se localiza. El criterio de la norma específica de palas es el mismo $5\%$, referido en este caso a la variación del autovalor al duplicar la densidad de malla en esa región~\parencite{IEC61400-5}. Su resultado se presenta junto con los multiplicadores de carga en la verificación de estabilidad, por ser la magnitud a la que condiciona.
+
+\medskip
+\noindent\textbf{Tratamiento de la terminación del vendaje.}
+La lectura de la tensión se realiza en zona regular del laminado y excluye de forma deliberada la terminación del vendaje de refuerzo. En un modelo de cascarón, el cambio brusco de espesor entre el vendaje y el manto se representa como una discontinuidad sin transición, y la tensión que ahí aparece crece de forma sostenida al refinar la malla en lugar de estabilizarse. Ese comportamiento es el propio de una singularidad numérica y no el de una tensión física, ya que la pieza real dispone de un chaflán de transición que el modelo no reproduce. El valor registrado en ese punto se informa por separado, pero no interviene en el veredicto de resistencia última, que se emite sobre la tensión de la zona regular.
 
 La malla definitiva presenta una calidad de elemento media (\textit{element quality}) de $0{,}9893$. Esta métrica de Ansys toma el valor $1$ para un elemento de forma ideal, por lo que el valor obtenido indica que la práctica totalidad de los elementos conserva una geometría próxima a la óptima, sin zonas de distorsión que pudieran degradar localmente la solución.
 
@@ -749,7 +761,7 @@ La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal m�
 
 Conviene precisar el alcance de ese valor. Ante la falta de un plano de la unión, el soporte se representó mediante una superficie de apoyo al final del brazo, reforzada por un vendaje (Sección~\ref{sec:condiciones_borde}), y es justamente en esa zona donde el modelo localiza el máximo. La tensión obtenida responde, por tanto, tanto a la solicitación como a la geometría supuesta para la unión. El análisis de convergencia descarta que el concentrador provenga de la discretización, ya que la tensión varía un $0{,}76\%$ entre las dos mallas más finas, pero no puede descartar su sensibilidad al detalle constructivo, ya que una unión de mayor superficie de apoyo, con una transición más gradual hacia el laminado, redistribuiría la tensión en esa zona.
 
-La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -127{,}1$~MPa, correspondiente a compresión en la zona de las conexiones. Este estado de tracción en una cara y compresión en la opuesta responde a la flexión inducida por las fuerzas aerodinámicas y la fuerza centrífuga, que en el instante de diseño actúan en el mismo sentido (Sección~\ref{sec:anexo_f}).
+La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -127{,}1$~MPa, correspondiente a compresión en la zona de las conexiones. Este estado de tracción en una cara y compresión en la opuesta responde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
 
 \begin{figure}[H]
     \centering
@@ -803,9 +815,9 @@ Que la tensión máxima y la deformación resulten menores que en el DLC 1.1 pes
 \subsubsection{Contribución de las cargas inerciales}
 \label{sec:solo_inercial}
 
-Para cuantificar el peso de la rotación en el estado tensional, el modelo se resuelve adicionalmente con las cargas inerciales, aceleración centrífuga de $20{,}4\,g$ y gravedad, como única solicitación, sin fuerzas aerodinámicas. La tensión principal máxima resultante es $\sigma_{1,\max} = 114{,}5$~MPa en la misma zona crítica.
+Para cuantificar el peso de la rotación en el estado tensional, el modelo se resuelve adicionalmente con las cargas inerciales, aceleración centrífuga de $20{,}4\,g$ y gravedad, como única solicitación y sin mayorar, prescindiendo de las fuerzas aerodinámicas. La tensión principal máxima resultante es $\sigma_{1,\max} = 114{,}5$~MPa en la misma zona crítica. Este mismo caso es el que calibra la tensión media del análisis de fatiga (Sección~\ref{sec:resultados_fatiga}), lo que explica que se resuelva sin factores parciales.
 
-Este caso de referencia entrega una conclusión de diseño central, ya que la carga permanente de rotación produce por sí sola el $70\%$ de la tensión del caso gobernante ($114{,}5$ de $163{,}4$~MPa), mientras que el viento, incluso en su condición extrema de diseño a 50 años, aporta el $30\%$ restante. La pala está dimensionada principalmente por la fuerza centrífuga, es decir, por la decisión de control que fija la velocidad máxima de rotación en $42$~rpm, y no por el viento del emplazamiento. Este resultado también explica que las reacciones en los brazos apenas difieran entre ambos DLC, ya que la componente inercial, idéntica en los dos casos, domina el equilibrio global.
+Este caso de referencia entrega una conclusión de diseño central, ya que la carga permanente de rotación produce por sí sola la mayor parte de la tensión del caso gobernante, mientras que el viento, incluso en su condición extrema de diseño a 50 años, aporta la fracción restante. La pala está dimensionada principalmente por la fuerza centrífuga, esto es, por la decisión de diseño que fija la velocidad máxima de rotación en $42$~rpm, y no por el viento del emplazamiento. Ese predominio se acentúa al mayorar también las cargas inerciales, como exige la Sección~\ref{sec:factores_seguridad}, ya que hasta entonces solo se amplificaba la fracción aerodinámica de la solicitación. Este resultado explica además que las reacciones en los brazos apenas difieran entre ambos DLC, dado que la componente inercial, idéntica en los dos casos, domina el equilibrio global.
 
 \subsubsection{Verificación de resistencia última}
 
@@ -824,6 +836,8 @@ Con $\sigma_u = 242{,}1$~MPa, entregada por el fabricante de la pala (Tabla~\ref
 \end{equation}
 
 Para el DLC 1.1, $\sigma_{1,\max} = 163{,}4$~MPa gobierna la verificación con un factor de reserva $\eta_{\text{ULS}}^{1.1} = 186{,}2 / 163{,}4 = 1{,}14$. Para el DLC 1.3, $\sigma_{1,\max} = 156{,}8$~MPa resulta en $\eta_{\text{ULS}}^{1.3} = 186{,}2 / 156{,}8 = 1{,}19$. Ambos casos satisfacen el criterio normativo, con márgenes del $14\%$ y el $19\%$ respectivamente.
+
+Ese margen es el que la mayoración de las cargas inerciales reduce de forma más directa. Con la fracción inercial entrando sin factor, el coeficiente de carga que efectivamente se aplicaba al conjunto era menor que el $1{,}25$ declarado, en la proporción en que la rotación domina la solicitación. Corregirlo desplaza la tensión de diseño hacia arriba y consume buena parte del margen disponible, de modo que la verificación de resistencia última deja de tener la holgura que estas cifras sugieren. El sentido del efecto es inequívoco y su magnitud la entrega el recálculo en curso.
 
 En compresión, $\sigma_{3,\min} = -127{,}1$~MPa (DLC 1.1) y $-129{,}4$~MPa (DLC 1.3) se sitúan por debajo de la resistencia factoreada, por lo que esta verificación tampoco resulta condicionante en tensión; la relevancia de la compresión radica en la verificación de estabilidad que sigue.
 
@@ -846,7 +860,9 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
     \end{tabular}
 \end{table}
 
-Los modos corresponden a pandeo local de la piel de $8$~mm y se localizan en el vano central de la pala, en los paneles adyacentes al larguero, mecanismo característico de los cascarones de pared delgada de las palas de aerogenerador~\parencite{Boudounit2020}. El valor mínimo, $LM = 1{,}12$ (DLC 1.1), supera la unidad, por lo que el modelo no predice inestabilidad bajo la carga de diseño, pero no alcanza el umbral de $1{,}30$ de la Ec.~\ref{eq:criterio_pandeo}, por lo que la verificación de estabilidad no se satisface. Dado que el método lineal por autovalores constituye una cota superior de la carga crítica (Sección~\ref{sec:pandeo_met}), el margen faltante no es atribuible a conservadurismo del método.
+Los modos corresponden a pandeo local de la piel de $8$~mm y se localizan en el vano central de la pala, en los paneles adyacentes al larguero, mecanismo característico de los cascarones de pared delgada de las palas de aerogenerador~\parencite{Boudounit2020}. El valor mínimo supera la unidad, por lo que el modelo no predice inestabilidad bajo la carga de diseño, pero no alcanza el umbral de $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo}, por lo que la verificación de estabilidad no se satisface. Dado que el método lineal por autovalores constituye una cota superior de la carga crítica (Sección~\ref{sec:pandeo_met}), el margen faltante no es atribuible a conservadurismo del método.
+
+El estudio de convergencia sobre el autovalor acompaña a este resultado y es el que lo hace admisible. Refinando en la región del vano central donde el primer modo se localiza, el autovalor varía menos del $5\%$ al duplicar la densidad de malla, con lo que se satisface el criterio de la Sección 6.6.5.6 de la IEC 61400-5~\parencite{IEC61400-5}. Con un multiplicador tan próximo al umbral, esa comprobación deja de ser un requisito formal, ya que sin ella no podría distinguirse un déficit real de un artefacto de discretización.
 
 Dos análisis de sensibilidad delimitan el origen del déficit. Primero, una configuración sin larguero interior resulta inviable, con multiplicadores inferiores a la unidad, lo que responde la pregunta de diseño planteada en la Sección~\ref{sec:material_pala}, ya que la omisión del larguero, alternativa que el fabricante evaluaba por facilidad de fabricación, no es estructuralmente viable con el espesor de piel estimado. Segundo, el aumento del espesor del larguero de $8$ a $12$~mm no modifica significativamente los multiplicadores, que se mantienen en torno a $1{,}1$. Este segundo resultado indica que el modo crítico está gobernado por los paneles de piel y no por el larguero. Una vez que este existe, seguir engrosándolo no aporta estabilidad, porque la capacidad de pandeo de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), y el larguero no modifica ninguna de las dos para los paneles adyacentes. En consecuencia, se mantiene el espesor de $8$~mm como configuración definitiva, y el cumplimiento del criterio de estabilidad queda supeditado a la rigidización de los paneles de piel, sea mediante elementos longitudinales adicionales (un segundo larguero o larguerillos), costillas transversales o un mayor espesor de piel en el vano central, alternativas cuya evaluación excede el alcance comprobatorio de este trabajo.
 
@@ -856,7 +872,7 @@ Ese resultado señala, más que una deficiencia del diseño, el límite del mode
 
 \subsubsection{Verificación de deflexiones}
 
-La Sección 7.6.5 de la norma IEC 61400-1~\parencite{IEC61400-1} exige verificar que ninguna deflexión comprometa la integridad estructural ni produzca interferencia mecánica entre componentes. Para la configuración VAWT de palas rectas paralelas al eje de rotación, la deflexión radial no conlleva riesgo de impacto contra la torre. Las deflexiones máximas obtenidas del FEM bajo las cargas de diseño son $\delta_{\max} = 0{,}169$~m (DLC 1.1) y $0{,}164$~m (DLC 1.3), localizadas en el vano central entre apoyos. Referidas a la luz de dicho vano ($12$~m entre conexiones), representan una razón $\delta/L$ del $1{,}4\%$ en ambos casos. Estas deflexiones no comprometen la conexión con los struts ni el desempeño aerodinámico del rotor.
+La Sección 7.6.5 de la norma IEC 61400-1~\parencite{IEC61400-1} exige verificar que ninguna deflexión comprometa la integridad estructural ni produzca interferencia mecánica entre componentes. Para la configuración VAWT de palas rectas paralelas al eje de rotación, la deflexión radial no conlleva riesgo de impacto contra la torre. Las deflexiones máximas obtenidas del FEM bajo las cargas de diseño son $\delta_{\max} = 0{,}169$~m (DLC 1.1) y $0{,}164$~m (DLC 1.3), localizadas en el vano central entre apoyos. Referidas a la luz de dicho vano, de $13{,}0$~m entre conexiones (Tabla~\ref{tab:geometria_turbina}), representan una razón $\delta/L$ del $1{,}30\%$ y del $1{,}26\%$ respectivamente. Estas deflexiones no comprometen la conexión con los struts ni el desempeño aerodinámico del rotor.
 
 \subsection{Resumen de la verificación estructural}
 
@@ -914,10 +930,12 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         \multicolumn{4}{c}{\textit{Estabilidad (FEM)}} \\
         \hline
         $LM$ & Multiplicador de carga mínimo (modo 1) & $1{,}119$ & $1{,}131$ \\
+        $\gamma_m \gamma_n$ & Umbral exigido para el pandeo & $1{,}20$ & $1{,}20$ \\
         \hline
         \multicolumn{4}{c}{\textit{Deformación (FEM)}} \\
         \hline
         $\delta_{\max}$ & Deformación máxima & $0{,}169$~m & $0{,}164$~m \\
+        $\delta/L$ & Referida al vano de $13{,}0$~m & $1{,}30\%$ & $1{,}26\%$ \\
         --- & Ubicación & Centro & Centro \\
         \hline
     \end{tabular}
