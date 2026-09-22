@@ -309,45 +309,84 @@ La caída del coeficiente de potencia para $V > 14$~m/s es consecuencia directa 
 \section{Cargas aerodinámicas para DLC 1.1}
 \label{sec:resultados_uls}
 
-Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. Para el DLC 1.1, los seis valores de $F_{max}$ por velocidad, el máximo de la fuerza total integrada $F_{tot}(t)$ en cada simulación (Sección~\ref{sec:anexo_f}), se ajustan a una distribución de Gumbel~\parencite{Gumbel1958}; la Tabla~\ref{tab:cargas_extremas} presenta los parámetros resultantes, junto con $F_{obs,max}$, el mayor de esos seis valores observados a cada velocidad.
+Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G se aplica de forma independiente a las trece magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en sus dos sentidos, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo, y la fuerza total integrada como indicador global. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica y la carga de diseño de cada una.
 
 \begin{table}[H]
     \centering
-    \caption{Parámetros del ajuste de Gumbel para $F_{tot}$ por velocidad de viento ($N = 6$ semillas).}
+    \caption[Cargas características y de diseño del DLC 1.1.]{Carga característica a 50 años y carga de diseño del DLC 1.1 para las trece magnitudes extrapoladas, con $\gamma_f = 1{,}25$.}
+    \label{tab:dlc11_magnitudes}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Magnitud} & $F_k$ & $F_d$ \\
+        \hline
+        \multicolumn{3}{c}{\textit{Apoyo inferior, $z = 5{,}0$~m}} \\
+        \hline
+        $M_x$, sentido positivo & $17{,}85$ & $22{,}31$ \\
+        $M_x$, sentido negativo & $3{,}24$  & $4{,}04$  \\
+        $M_y$, sentido positivo & $65{,}04$ & $81{,}30$ \\
+        $M_y$, sentido negativo & $63{,}50$ & $79{,}37$ \\
+        Resultante $M_{res}$    & $67{,}72$ & $84{,}64$ \\
+        Envolvente $M_{env}$    & $65{,}14$ & $81{,}43$ \\
+        \hline
+        \multicolumn{3}{c}{\textit{Apoyo superior, $z = 18{,}0$~m}} \\
+        \hline
+        $M_x$, sentido positivo & $21{,}22$ & $26{,}53$ \\
+        $M_x$, sentido negativo & $3{,}76$  & $4{,}70$  \\
+        $M_y$, sentido positivo & $78{,}62$ & $98{,}27$ \\
+        $M_y$, sentido negativo & $61{,}93$ & $77{,}41$ \\
+        Resultante $M_{res}$    & $81{,}24$ & $101{,}55$ \\
+        Envolvente $M_{env}$    & $78{,}74$ & $98{,}42$ \\
+        \hline
+        \multicolumn{3}{c}{\textit{Indicador global}} \\
+        \hline
+        Fuerza total $F_{tot}$ & $121{,}38$ & $151{,}73$ \\
+        \hline
+        \multicolumn{3}{p{0.62\textwidth}}{\footnotesize Los momentos se expresan en kN$\cdot$m y la fuerza total en kN.}
+    \end{tabular}
+\end{table}
+
+Tres lecturas se desprenden de la tabla. La primera es que el apoyo superior resulta más solicitado que el inferior en todas las magnitudes, con una resultante un $20\%$ mayor. Ambos voladizos miden $5{,}0$~m, de modo que la asimetría no es geométrica sino de recurso, ya que el voladizo superior ocupa la parte alta del rotor, donde el perfil de cizalladura entrega mayor velocidad de viento. La segunda es que la componente $M_y$, generada por la fuerza normal a la cuerda, domina sobre $M_x$ en un factor cercano a cuatro, lo que confirma que la flexión fuera del plano del perfil gobierna la solicitación de la pala. La tercera es que la envolvente direccional queda por debajo de la resultante en ambos apoyos, un $3{,}1\%$ en el superior, relación que se cumple por construcción, ya que el máximo sobre doce direcciones discretas no puede superar el módulo del vector y solo lo iguala cuando este apunta exactamente a una de ellas. Esa diferencia acota, por tanto, el error de discretización angular que introduce el enfoque de doce direcciones de la Sección 6.1.4.3 de la IEC 61400-5~\parencite{IEC61400-5}.
+
+Las magnitudes que siguen se ilustran sobre la envolvente direccional del apoyo superior, por ser la sección más solicitada. Los seis valores de $M_{env,max}$ por velocidad se ajustan a una distribución de Gumbel~\parencite{Gumbel1958}, y la Tabla~\ref{tab:cargas_extremas} presenta los parámetros resultantes junto con el mayor de esos seis valores observados a cada velocidad.
+
+\begin{table}[H]
+    \centering
+    \caption{Parámetros del ajuste de Gumbel para $M_{env}$ en el apoyo superior, por velocidad de viento ($N = 6$ semillas).}
     \label{tab:cargas_extremas}
     \begin{tabular}{lccc}
         \hline
-        $V$ (m/s) & $\mu_j$ (kN) & $\beta_j$ (kN) & $F_{obs,max}$ (kN) \\
+        $V$ (m/s) & $\mu_j$ (kN$\cdot$m) & $\beta_j$ (kN$\cdot$m) & $M_{obs,max}$ (kN$\cdot$m) \\
         \hline
-        $2$  & $1{,}460$  & $0{,}15$  & $1{,}760$ \\
-        $4$  & $6{,}190$  & $0{,}96$  & $9{,}230$ \\
-        $6$  & $11{,}43$ & $0{,}90$  & $14{,}05$ \\
-        $8$  & $19{,}66$ & $0{,}78$  & $21{,}60$ \\
-        $10$ & $31{,}50$ & $1{,}36$  & $34{,}61$ \\
-        $12$ & $42{,}42$ & $1{,}99$  & $47{,}06$ \\
-        $14$ & $53{,}34$ & $0{,}97$  & $55{,}29$ \\
-        $16$ & $63{,}10$ & $1{,}36$  & $66{,}66$ \\
-        $18$ & $73{,}42$ & $1{,}91$  & $78{,}17$ \\
-        $20$ & $84{,}70$ & $0{,}85$  & $86{,}04$ \\
-        $22$ & $88{,}20$ & $1{,}26$  & $90{,}81$ \\
-        $24$ & $100{,}8$ & $2{,}44$ & $106{,}8$ \\
+        $2$ & $1{,}14$ & $0{,}056$ & $1{,}29$ \\
+        $4$ & $3{,}64$ & $0{,}164$ & $3{,}97$ \\
+        $6$ & $7{,}46$ & $0{,}328$ & $8{,}24$ \\
+        $8$ & $12{,}81$ & $0{,}379$ & $13{,}46$ \\
+        $10$ & $19{,}55$ & $0{,}534$ & $20{,}72$ \\
+        $12$ & $28{,}38$ & $0{,}973$ & $30{,}68$ \\
+        $14$ & $33{,}18$ & $1{,}199$ & $35{,}72$ \\
+        $16$ & $39{,}25$ & $1{,}445$ & $42{,}18$ \\
+        $18$ & $44{,}71$ & $2{,}160$ & $48{,}83$ \\
+        $20$ & $50{,}21$ & $1{,}763$ & $52{,}99$ \\
+        $22$ & $56{,}58$ & $1{,}656$ & $59{,}32$ \\
+        $24$ & $62{,}45$ & $1{,}968$ & $65{,}86$ \\
         \hline
     \end{tabular}
 \end{table}
 
-Los parámetros $\mu_j$ y $\beta_j$ corresponden a la localización y escala de la distribución de Gumbel~\parencite{Gumbel1958}, estimados por el método de los momentos sobre los seis máximos observados a cada velocidad (Sección~\ref{sec:anexo_f}). Tanto $\mu_j$ como $F_{obs,max}$ crecen monótonamente con $V$, en línea con la dependencia $F \propto V^2$ de las fuerzas aerodinámicas. La Figura~\ref{fig:cargas_maximas} muestra la dispersión de estos máximos por velocidad junto con los percentiles $50\%$, $90\%$ y $99\%$ de las distribuciones ajustadas.
+Los parámetros $\mu_j$ y $\beta_j$ corresponden a la localización y escala de la distribución de Gumbel~\parencite{Gumbel1958}, estimados por el método de los momentos sobre los seis máximos observados a cada velocidad (Sección~\ref{sec:anexo_f}). Ambos crecen monótonamente con $V$, y el crecimiento de $\mu_j$ se atenúa a partir de $14$~m/s, donde la saturación de la velocidad de rotación deja de aumentar la velocidad relativa al mismo ritmo que el viento. La Figura~\ref{fig:cargas_maximas} muestra la dispersión de estos máximos por velocidad junto con los percentiles $50\%$, $90\%$ y $99\%$ de las distribuciones ajustadas.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figuras/Figuras Resultados/cargas_maximas_global.pdf}
-    \caption{Fuerza total máxima integrada por simulación y percentiles de Gumbel por velocidad de viento.}
+    \includegraphics[width=0.95\textwidth]{Figuras/Figuras Resultados/cargas_maximas_global.pdf}
+    \caption[Máximos por realización y percentiles de Gumbel.]{Máximo de la envolvente direccional en el apoyo superior por simulación, y percentiles $50\%$, $90\%$ y $99\%$ de las distribuciones de Gumbel ajustadas a cada velocidad de viento.}
     \label{fig:cargas_maximas}
 \end{figure}
-La dispersión de puntos para una misma velocidad refleja que, aunque las seis simulaciones comparten la misma velocidad media y la misma intensidad de turbulencia objetivo, cada una corresponde a una semilla distinta del campo de viento de Mann (Sección~\ref{sec:modelo_mann}), es decir, a una secuencia distinta de ráfagas; el $F_{max}$ que arroja cada simulación depende de la ráfaga más severa efectivamente contenida en esa realización particular, no solo de los parámetros estadísticos que todas comparten.
 
-Esa dispersión se ensancha con la velocidad de viento, en línea con el parámetro de escala $\beta_j$ de la Tabla~\ref{tab:cargas_extremas}, que pasa de $0{,}15$~kN a $2$~m/s a $2{,}44$~kN a $24$~m/s. Como la separación entre percentiles de una distribución de Gumbel es proporcional a $\beta_j$~\parencite{Gumbel1958}, la distancia entre los percentiles $50\%$ y $99\%$ crece de $0{,}6$ a $10{,}3$~kN entre ambos extremos del rango. El crecimiento responde a dos efectos que actúan en el mismo sentido, ya que las fuerzas aerodinámicas dependen del cuadrado de la velocidad relativa (Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}) y la desviación estándar absoluta del viento que prescribe el NTM también aumenta con $V$ (Ec.~\ref{eq:ntm_sigma})~\parencite{IEC61400-1}. En términos relativos, en cambio, la dispersión se estrecha, ya que esa separación equivale al $44\%$ de $\mu_j$ a $2$~m/s y solo al $10\%$ a $24$~m/s.
+La dispersión de puntos para una misma velocidad refleja que, aunque las seis simulaciones comparten la misma velocidad media y la misma intensidad de turbulencia objetivo, cada una corresponde a una semilla distinta del campo de viento de Mann (Sección~\ref{sec:modelo_mann}), es decir, a una secuencia distinta de ráfagas. El máximo que arroja cada simulación depende de la ráfaga más severa efectivamente contenida en esa realización particular, y no solo de los parámetros estadísticos que todas comparten.
 
-El crecimiento de $\beta_j$ no es monótono, sino que oscila entre velocidades contiguas. Ello es esperable, dado que cada $\beta_j$ se estima sobre solo seis observaciones. Un remuestreo de la propia distribución ajustada, con $2 \times 10^5$ muestras de tamaño seis, sitúa el error estándar relativo del estimador por momentos de $\beta$ en un $41\%$, con el $90\%$ de las estimaciones comprendido entre $0{,}42$ y $1{,}62$ veces el valor real. La oscilación observada es, por tanto, del orden de la incertidumbre que impone el tamaño de muestra y no revela una deficiencia del ajuste. Aun así, las curvas de percentiles muestran que el modelo de Gumbel envuelve adecuadamente las observaciones, ya que las $72$ quedan por debajo del percentil $99\%$ de su velocidad. La calidad del ajuste se examina con mayor detalle en la Figura~\ref{fig:gumbel_pp}, que presenta el papel de probabilidad de Gumbel para cuatro velocidades representativas.
+Esa dispersión se ensancha con la velocidad de viento, en línea con el parámetro de escala $\beta_j$ de la Tabla~\ref{tab:cargas_extremas}, que pasa de $0{,}056$ a $1{,}968$~kN$\cdot$m entre los extremos del rango. Como la separación entre percentiles de una distribución de Gumbel es proporcional a $\beta_j$~\parencite{Gumbel1958}, la distancia entre los percentiles $50\%$ y $99\%$ crece de $0{,}24$ a $8{,}33$~kN$\cdot$m. El crecimiento responde a dos efectos que actúan en el mismo sentido, ya que las fuerzas aerodinámicas dependen del cuadrado de la velocidad relativa (Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}) y la desviación estándar absoluta del viento que prescribe el NTM también aumenta con $V$ (Ec.~\ref{eq:ntm_sigma})~\parencite{IEC61400-1}. En términos relativos, en cambio, la dispersión se estrecha, ya que esa separación equivale al $21\%$ de $\mu_j$ a $2$~m/s y solo al $13\%$ a $24$~m/s.
+
+El crecimiento de $\beta_j$ no es estrictamente monótono, sino que oscila entre velocidades contiguas. Ello es esperable, dado que cada $\beta_j$ se estima sobre solo seis observaciones. Un remuestreo de la propia distribución ajustada, con $2 \times 10^5$ muestras de tamaño seis, sitúa el error estándar relativo del estimador por momentos de $\beta$ en un $41\%$, con el $90\%$ de las estimaciones comprendido entre $0{,}42$ y $1{,}62$ veces el valor real. La oscilación observada es, por tanto, del orden de la incertidumbre que impone el tamaño de muestra y no revela una deficiencia del ajuste. Aun así, las curvas de percentiles muestran que el modelo de Gumbel envuelve adecuadamente las observaciones, ya que las $72$ quedan por debajo del percentil $99\%$ de su velocidad. La calidad del ajuste se examina con mayor detalle en la Figura~\ref{fig:gumbel_pp}, que presenta el papel de probabilidad de Gumbel para cuatro velocidades representativas.
 
 \begin{figure}[H]
     \centering
@@ -359,29 +398,24 @@ El crecimiento de $\beta_j$ no es monótono, sino que oscila entre velocidades c
 
 El papel de probabilidad es una representación en la que la distribución ajustada se convierte en una recta, de modo que la calidad del ajuste puede evaluarse a simple vista~\parencite{Gumbel1958}. Se construye aplicando a la función de distribución acumulada de Gumbel (Ec.~\ref{eq:gumbel_anexof}) la transformación $-\ln(-\ln(\Phi))$, que la reduce a $(F - \mu_j)/\beta_j$, una función lineal de la carga. El eje vertical de cada panel es esa variable reducida, y a cada uno de los seis máximos ordenados de menor a mayor se le asigna una probabilidad empírica de no excedencia $i/(n+1)$, con $i$ el orden del dato y $n = 6$. Si la distribución describe correctamente los datos, los puntos así construidos deben alinearse sobre la recta de pendiente $1/\beta_j$ que define el ajuste.
 
-Las cuatro velocidades representativas, que cubren el rango bajo ($V = 6$~m/s), medio ($12$~m/s), alto ($18$~m/s) y extremo ($24$~m/s) del espectro operacional, presentan coeficientes de determinación $R^2$ entre $0{,}833$ y $0{,}963$, valores razonables para ajustes sobre solo seis observaciones, lo que respalda el uso de la distribución de Gumbel para modelar los máximos de $F_{tot}$.
+Las cuatro velocidades representativas, que cubren el rango bajo ($V = 6$~m/s), medio ($12$~m/s), alto ($18$~m/s) y extremo ($24$~m/s) del espectro operacional, presentan coeficientes de determinación $R^2$ de $0{,}970$, $0{,}962$, $0{,}892$ y $0{,}761$ respectivamente, valores razonables para ajustes sobre solo seis observaciones, lo que respalda el uso de la distribución de Gumbel para modelar estos máximos.
 
-En la Figura \ref{fig:gumbel_pp}d, se ve que tres de sus seis puntos se alinean verticalmente y se apartan de la recta. No se trata de un defecto del ajuste, sino de que esas tres semillas arrojan máximos prácticamente idénticos, comprendidos entre $100{,}459$ y $100{,}462$~kN, con una diferencia máxima de $3$~N que equivale al $0{,}003\%$ de la carga. Al compartir abscisa y diferir solo en su posición de graficado, esos tres puntos quedan forzosamente sobre una vertical, que ninguna recta puede seguir. La coincidencia proviene del régimen de operación, ya que a $24$~m/s el rotor gira en su límite de velocidad y la variación de la carga a lo largo de la revolución, idéntica en todas las semillas por depender solo de la rotación, domina sobre la contribución turbulenta que las diferencia. De ahí que el recorrido relativo de los máximos se reduzca del $29\%$ de la media a $6$~m/s a un $7\%$ a $24$~m/s, pese a que en términos absolutos la dispersión crece.
+El descenso de $R^2$ con la velocidad de viento tiene una explicación de régimen de operación y no de ajuste. A medida que el rotor se aleja del punto de diseño, la variación de la carga a lo largo de la revolución, que depende solo de la rotación y es por tanto idéntica en las seis semillas, gana peso frente a la contribución turbulenta que las diferencia. Los máximos se agrupan en consecuencia y el recorrido relativo de los seis se reduce del $15{,}9\%$ de su media a $6$~m/s a un $9{,}0\%$ a $24$~m/s, pese a que en términos absolutos la dispersión crece. Con seis puntos cada vez más próximos entre sí, la variabilidad de posición que introduce la probabilidad empírica $i/(n+1)$ pesa relativamente más y el coeficiente de determinación cae sin que el ajuste empeore en términos de carga.
 
-La carga característica $F_k$, correspondiente al período de retorno de $50$ años, y la carga de diseño $F_d$, que resulta de mayorarla por el factor parcial, se obtienen a partir de esta distribución mediante el procedimiento de bisección descrito en la Sección~\ref{sec:anexo_f}.
-
-La probabilidad de excedencia objetivo de la Ec.~\ref{eq:fk_criterion}, con $T_{obs} = 600$~s y $T_{retorno} = 50$ años, resulta:
+La carga característica $F_k$, correspondiente al período de retorno de $50$ años, y la carga de diseño $F_d$, que resulta de mayorarla por el factor parcial, se obtienen a partir de esta distribución mediante el procedimiento de bisección descrito en la Sección~\ref{sec:anexo_f}. La probabilidad de excedencia objetivo de la Ec.~\ref{eq:fk_criterion}, con $T_{obs} = 600$~s y $T_{retorno} = 50$ años, resulta:
 
 \begin{equation}
-    P_e(F_k) = \frac{600\ \text{s}}{50 \times 365{,}25 \times 24 \times 3600\ \text{s}} = 3{,}8 \times 10^{-7}
+    P_e(F_k) = \frac{600\ \text{s}}{50 \times 365{,}25 \times 24 \times 3600\ \text{s}} = 3{,}803 \times 10^{-7}
     \label{eq:fk_criterion_num}
 \end{equation}
 
-La carga característica global para un período de retorno de 50 años, esto es, el valor de $F_{max}$ que satisface la Ec.~\ref{eq:fk_criterion_num}, es $F_{tot,k} = 116{,}9$~kN. La carga de diseño para el DLC 1.1 según el Anexo G de IEC 61400-1~\parencite{IEC61400-1} se obtiene aplicando el factor de seguridad parcial $\gamma_f = 1{,}25$, según la Ec.~\ref{eq:Fd_dlc11_res}:
+Este valor constituye una primera verificación del procedimiento implementado. La Sección 7.6.2.2 de la norma establece que la carga característica del DLC 1.1 debe corresponder a una probabilidad de excedencia del mayor valor en cualquier intervalo de diez minutos menor o igual a $3{,}8 \times 10^{-7}$, cifra que la norma da como equivalente al período de retorno de $50$ años~\parencite{IEC61400-1}. El cociente $T_{obs}/T_{retorno}$ que emplea la Ec.~\ref{eq:fk_criterion_num}, deducido de forma independiente a partir de la definición de período de retorno, reproduce esa cifra normativa hasta su última cifra significativa.
 
-\begin{equation}
-F_{tot,d} = \gamma_f \cdot F_{tot,k} = 1{,}25 \times 116{,}9 = 146{,}1\ \text{kN}
-\label{eq:Fd_dlc11_res}
-\end{equation}
+Las cargas características y de diseño que resultan de aplicar la bisección a cada magnitud son las de la Tabla~\ref{tab:dlc11_magnitudes}. La verificación estructural se conduce sobre los dos apoyos, ya que la envolvente de cargas que define la Sección 3.17 de la IEC 61400-5 abarca todas las posiciones a lo largo de la envergadura y no solo la más solicitada~\parencite{IEC61400-5}. Cada apoyo aporta por ello su propio perfil de fuerzas de diseño, construido con el procedimiento de fuerzas compañeras de la Sección~\ref{sec:anexo_f} a partir del instante en que su magnitud gobernante alcanza el máximo de toda la campaña.
 
-El instante de máxima solicitación global entre las 72 simulaciones ocurre a $V = 24$~m/s (semilla 4, $t = 188{,}3$~s), con $F_{tot} = 106{,}8$~kN; las fuerzas compañeras de ese instante se escalan por el factor $146{,}1/106{,}8 = 1{,}368$ para construir el perfil de diseño.
+Para el apoyo superior ese instante ocurre en la realización de $V = 24$~m/s y semilla $6$, en $t = 84{,}42$~s, con $M_{env} = 65{,}86$~kN$\cdot$m, de modo que las fuerzas compañeras se escalan por el factor $98{,}42/65{,}86 = 1{,}494$. Para el apoyo inferior el instante gobernante es el de la realización de $V = 24$~m/s y semilla $2$, en $t = 110{,}18$~s, con $M_{env} = 56{,}50$~kN$\cdot$m y un factor de $81{,}43/56{,}50 = 1{,}441$. Ambos instantes gobernantes se sitúan en el extremo superior del rango de velocidades, resultado coherente con que la carga aerodinámica crezca de forma monótona con el viento hasta el corte.
 
-La distribución de esta carga a lo largo de la envergadura, esto es, las fuerzas de diseño por estación $F_{d,x}[p]$ y $F_{d,y}[p]$ para las 24 estaciones de la pala, se presenta en la Sección~\ref{sec:comparacion_dlc}, junto con la del DLC 1.3, una vez determinada la carga de este último.
+La distribución de estas cargas a lo largo de la envergadura, esto es, las fuerzas de diseño por estación $F_{d,x}[p]$ y $F_{d,y}[p]$ para las 21 estaciones de la pala, se presenta en la Sección~\ref{sec:comparacion_dlc}, junto con la del DLC 1.3, una vez determinada la carga de este último.
 
 \section{Cargas aerodinámicas para DLC 1.3}
 \label{sec:resultados_dlc13}
