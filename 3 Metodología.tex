@@ -47,7 +47,7 @@ La norma IEC 61400-1~\parencite{IEC61400-1} define la velocidad media anual ($V_
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{\alph{enumi})}
-    \item \textbf{Ajuste por cizalladura vertical:} Se extrae la serie horaria de la reconstrucción climatológica en el nivel de extracción original ($z = 5{,}5$ m) y se extrapola a la altura del centro del rotor ($z = 21{,}3$ m) aplicando el perfil de viento normal (\gls{nwp}) descrito en la Sección~\ref{sec:condiciones_diseno} mediante la Ec.~\ref{eq:nwp_ley_potencia}, con el exponente de cizalladura $\alpha_z = 0{,}12$ adoptado para el emplazamiento offshore.
+    \item \textbf{Ajuste por cizalladura vertical:} Se extrae la serie horaria de la reconstrucción climatológica en el nivel de extracción original ($z = 5{,}5$ m) y se extrapola a la altura del centro del rotor ($z = 21{,}3$ m) aplicando el perfil de viento normal (\gls{nwp}) descrito en la Sección~\ref{sec:condiciones_diseno} mediante la Ec.~\ref{eq:nwp_ley_potencia}, con el exponente de cizalladura $\alpha_z = 0{,}14$ que la norma IEC 61400-3-1 fija para emplazamientos marinos~\parencite{IEC61400-3-1}.
 
     \item \textbf{Cálculo de la media aritmética:} Sobre la serie ya extrapolada a la altura del centro del rotor, se calcula la media mediante la Ec.~\ref{eq:media_aritmetica}:
     \begin{equation}
@@ -79,26 +79,37 @@ La norma IEC 61400-1~\parencite{IEC61400-1} define la velocidad media anual ($V_
     \end{equation}
 \end{enumerate}
 
-\subsubsection{Caracterización de la turbulencia según IEC 61400-3}
+\subsubsection{Caracterización de la turbulencia según IEC 61400-3-1}
 \label{sec:ntm}
 
-Para caracterizar la turbulencia del flujo incidente se aplica el modelo de turbulencia normal (NTM) que la norma IEC 61400-3~\parencite{IEC61400-3-1} adopta para emplazamientos offshore, y cuya formulación se recoge en la Ec.~\ref{eq:ntm_sigma} de la Sección~\ref{sec:condiciones_diseno}. Esa expresión queda definida por dos parámetros, la intensidad de turbulencia de referencia $I_{ref}$ y el parámetro de ordenada $b_{NTM}$, que la norma tabula según la categoría de turbulencia asignada al emplazamiento~\parencite{IEC61400-1}.
+Para caracterizar la turbulencia del flujo incidente se aplica el modelo de turbulencia normal (NTM) que la norma IEC 61400-3-1~\parencite{IEC61400-3-1} adopta para emplazamientos marinos, y cuya formulación se recoge en la Ec.~\ref{eq:ntm_sigma} de la Sección~\ref{sec:condiciones_diseno}. Esa expresión queda definida por dos parámetros, la intensidad de turbulencia de referencia $I_{ref}$ y el parámetro de ordenada $b_{NTM}$, que la norma tabula según la categoría de turbulencia asignada al emplazamiento~\parencite{IEC61400-1}.
 
-La Sección 12.3 de IEC 61400-3~\parencite{IEC61400-3-1} establece que, a falta de datos de turbulencia del emplazamiento, la desviación estándar de la velocidad puede estimarse a partir de la rugosidad de la superficie del mar. Esa rugosidad no es un valor fijo, sino que crece con la velocidad del viento, porque es el propio viento el que levanta el oleaje que la produce. La norma recoge ese acoplamiento mediante la relación de \textcite{Charnock1955}, que vincula la longitud de rugosidad con la velocidad de fricción del flujo, según la Ec.~\ref{eq:charnock_z0}:
+La Sección 6.4.3.3 de IEC 61400-3-1~\parencite{IEC61400-3-1} establece el procedimiento aplicable cuando no se dispone de datos de turbulencia del emplazamiento, condición en la que se encuentra este trabajo, y que permite estimar la desviación estándar de la velocidad a partir de la rugosidad de la superficie del mar. Esa rugosidad no es un valor fijo, sino que crece con la velocidad del viento, porque es el propio viento el que levanta el oleaje que la produce. La norma recoge ese acoplamiento mediante la relación de \textcite{Charnock1955}, que vincula la longitud de rugosidad con la velocidad de fricción del flujo, según la Ec.~\ref{eq:charnock_z0}:
 
 \begin{equation}
     z_0 = \frac{A_C}{g} \left[ \frac{\kappa \, V_{hub}}{\ln \left( z_{hub} / z_0 \right)} \right]^2
     \label{eq:charnock_z0}
 \end{equation}
 
-donde $z_0$ es la longitud de rugosidad de la superficie del mar (medida en metros), $g$ la aceleración de gravedad, la constante de von Kármán $\kappa = 0{,}4$ y la constante de Charnock $A_C$, que la norma fija en $0{,}011$ para mar abierto~\parencite{IEC61400-3-1}. La expresión es implícita, ya que $z_0$ aparece en ambos miembros, y se resuelve por iteración numérica. Con la rugosidad así obtenida, la desviación estándar representativa se calcula según la Ec.~\ref{eq:charnock_sigma}:
+donde $z_0$ es la longitud de rugosidad de la superficie del mar (medida en metros), $g$ la aceleración de gravedad, la constante de von Kármán $\kappa = 0{,}4$ y $A_C$ la constante de Charnock. La norma ofrece dos valores para esta última, $0{,}011$ para mar abierto y $0{,}034$ para emplazamientos próximos a la costa, y establece en su nota 8 la regla para elegir entre ambos al recomendar el uso del valor más alto salvo que datos específicos del emplazamiento confirmen lo contrario~\parencite{IEC61400-3-1}. Dado que la serie empleada para caracterizar el recurso es una reconstrucción de velocidad que no incorpora información de turbulencia, y es precisamente esa ausencia la que motiva el recurso a la relación de Charnock, se adopta $A_C = 0{,}034$. La expresión es implícita, ya que $z_0$ aparece en ambos miembros, y se resuelve por iteración numérica.
+
+Con la rugosidad así obtenida, la desviación estándar representativa se calcula según la Ec.~\ref{eq:charnock_sigma}:
 
 \begin{equation}
-    \sigma_{NTM} = \frac{V_{hub}}{\ln \left( z_{hub} / z_0 \right)} + 1{,}28 \cdot 1{,}44 \cdot I_{ref}
+    \sigma_{NTM} = \frac{V_{hub}}{\ln \left( z_{hub} / z_0 \right)} + 1{,}28 \cdot d \cdot I_{15}
     \label{eq:charnock_sigma}
 \end{equation}
 
-donde $I_{ref}$ interviene evaluado a $V_{hub} = 15$~m/s, ya que la norma lo define precisamente como el valor esperado de la intensidad de turbulencia a esa velocidad~\parencite{IEC61400-1}. Conviene precisar que esta velocidad de $15$~m/s es un punto fijo de la norma IEC 61400-1.
+donde $d = 4$~m/s es el valor que la propia ecuación fija para emplazamientos marinos e $I_{15}$ la intensidad de turbulencia evaluada a $V_{hub} = 15$~m/s, punto fijo con que la norma IEC 61400-1 la caracteriza~\parencite{IEC61400-1}. La nota 9 de esa misma cláusula advierte que dicho valor difiere del de $1{,}44$~m/s que la IEC 61400-1 emplea para emplazamientos terrestres, y lo atribuye a que en algunos emplazamientos marinos se han registrado desviaciones considerablemente mayores~\parencite{IEC61400-3-1}.
+
+La expresión resulta a su vez implícita en $I_{15}$, puesto que esta aparece en el segundo término y queda definida, al mismo tiempo, por la propia desviación evaluada a $15$~m/s. Al ser lineal admite solución cerrada, según la Ec.~\ref{eq:i15_cerrada}:
+
+\begin{equation}
+    I_{15} = \frac{15}{\left( 15 - 1{,}28 \, d \right) \ln \left( z_{hub} / z_0 \right)}
+    \label{eq:i15_cerrada}
+\end{equation}
+
+La intensidad así obtenida determina la categoría de turbulencia del emplazamiento por comparación con los valores que la IEC 61400-1 tabula para las categorías A, B y C. El resultado se presenta en el Capítulo~4.
 
 \subsubsection{Generación del campo de viento turbulento}
 \label{sec:campo_turbulento}
@@ -302,7 +313,7 @@ Para la resolución de la inducción del rotor se utiliza el método \gls{llfvw}
 
 Se habilita la auto-inducción de la estela (\textit{Wake Rollup}), sin la cual los filamentos no se deforman bajo su propio campo inducido y la estela deja de ser libre, condición que el método requiere para resolver la interacción de la pala con su propia estela. Se incluyen tanto los vórtices de arrastre (\textit{trailing}), que recogen la variación de la circulación ligada a lo largo de la envergadura, como los de desprendimiento (\textit{shed}), que recogen su variación en el tiempo. \textcite{marten2019qblade} señala que la circulación de estos últimos tiende a cero en simulaciones estacionarias con flujo incidente constante, caso en que su omisión acelera el cálculo sin pérdida apreciable. Esa condición no se cumple aquí, ya que el flujo incidente es turbulento y la circulación ligada varía además con el acimut a lo largo de cada revolución.
 
-El transporte de los nodos de la estela (\textit{Wake Convection}) se configura en modo local, en el que la velocidad de convección se evalúa en la posición de cada nodo, en lugar de emplear la velocidad constante a la altura del centro del rotor o el perfil medio de la capa límite~\parencite{QBladeDocsAero2024}. Esta opción es la consistente con un campo de viento turbulento generado mediante el modelo de Mann, cuyas fluctuaciones varían en el espacio y en el tiempo.
+El transporte de los nodos de la estela (\textit{Wake Convection}) se configura a la altura del centro del rotor, opción en la que los nodos se convectan con una velocidad de referencia única, en lugar de evaluarla en la posición instantánea de cada nodo o de tomarla del perfil medio de la capa límite~\parencite{QBladeDocsAero2024}. El criterio responde a la naturaleza del transporte que el método debe representar, ya que una lámina de vorticidad se desplaza con el flujo de gran escala y con su propia autoinducción, no con cada fluctuación turbulenta que la atraviesa. Evaluar la velocidad de convección nodo a nodo sobre un campo de Mann incorpora al transporte las escalas pequeñas de la turbulencia, que desplazan los nodos unos respecto de otros, dispersan la lámina y degradan artificialmente la coherencia de la estela y, con ella, la inducción que esta ejerce sobre el rotor.
 
 La resolución del método LLFVW requiere definir los parámetros que controlan la discretización de la estela y el modelado de los vórtices, los cuales determinan la estabilidad numérica y la resolución espacial de la simulación. Estos parámetros se resumen en la Tabla~\ref{tab:parametros_estela}.
 
@@ -319,8 +330,8 @@ La resolución del método LLFVW requiere definir los parámetros que controlan 
         Wake Relaxation Factor & $0{,}5$ & — \\
         Máximo de elementos de estela & $2 \times 10^5$ & — \\
         Distancia de truncamiento & $30$ & radios de rotor \\
-        Wake Reduction Factor & $0{,}004$ & — \\
-        Wake Zones (N/1/2/3) & $1$ / $4$ / $8$ / $12$ & revoluciones del rotor \\
+        Wake Reduction Factor & $0{,}02$ & — \\
+        Wake Zones (N/1/2/3), anchos & $1$ / $2$ / $4$ / $5$ & revoluciones del rotor \\
         Refinamiento Streamwise (1/2/3) & $2$ / $2$ / $2$ & revoluciones del rotor \\
         Refinamiento Spanwise (1/2/3) & $1$ / $1$ / $2$ & revoluciones del rotor \\
         \hline
@@ -340,7 +351,7 @@ La resolución del método LLFVW requiere definir los parámetros que controlan 
     \end{tabular}
 \end{table}
 
-Los valores adoptados provienen de la configuración con que \textcite{marten2019qblade} simula rotores Darrieus en QBlade, o se derivan de los criterios que esa misma fuente y la documentación del programa establecen. La longitud total de la estela, de $12$ revoluciones, es la que el autor reporta para su caso \gls{vawt} y la que, al \gls{tsr} de diseño, mantiene el error del coeficiente de potencia por debajo del $1\%$. Las zonas en que esa longitud se subdivide responden al método de engrosamiento progresivo de la estela, que reduce la resolución del reticulado por un factor entero cada vez que los filamentos alcanzan la edad que delimita cada zona; los factores en la dirección de la corriente reproducen el valor de $2$ del ejemplo documentado por el autor, mientras que en la dirección de la envergadura el engrosamiento se reserva para la última zona, la más alejada del rotor y la de menor influencia sobre la inducción. El factor de reducción adaptativa, de $0{,}004$, descarta los filamentos cuya circulación cae por debajo de esa fracción de la máxima presente en la estela~\parencite{QBladeDocsAero2024}, con lo que la misma fuente reporta una disminución del número de elementos a la mitad sin efecto apreciable sobre la exactitud; es además un valor más conservador que el que allí se emplea para \gls{vawt}, ya que descarta menos filamentos. El factor de relajación de la estela, de $0{,}5$, gobierna el desvanecimiento progresivo del vórtice de arranque, cuyo efecto sobre la solución se diluye así a medida que la estela se desarrolla~\parencite{QBladeDocsAero2024}. La distancia de truncamiento, expresada en radios de rotor, y el máximo de elementos operan como topes sobre el crecimiento del reticulado.
+Los valores adoptados provienen de la configuración con que \textcite{marten2019qblade} simula rotores Darrieus en QBlade, o se derivan de los criterios que esa misma fuente y la documentación del programa establecen. La longitud total de la estela, de $12$ revoluciones, es la que el autor reporta para su caso \gls{vawt} y la que, al \gls{tsr} de diseño, mantiene el error del coeficiente de potencia por debajo del $1\%$. Las zonas en que esa longitud se subdivide responden al método de engrosamiento progresivo de la estela, que reduce la resolución del reticulado por un factor entero cada vez que los filamentos alcanzan la edad que delimita cada zona. Los valores que las definen son \textit{anchos} y no límites acumulados, de modo que la longitud total de la estela es su suma~\parencite{QBladeDocsAero2024}; los cuatro adoptados totalizan por tanto las $12$ revoluciones indicadas, conservando para la zona más cercana al rotor una revolución completa a resolución plena y repartiendo las restantes en proporción creciente. Los factores en la dirección de la corriente reproducen el valor de $2$ del ejemplo documentado por el autor, mientras que en la dirección de la envergadura el engrosamiento se reserva para la última zona, la más alejada del rotor y la de menor influencia sobre la inducción. El factor de reducción adaptativa, de $0{,}02$, descarta los filamentos cuya circulación cae por debajo de esa fracción de la máxima presente en la estela~\parencite{QBladeDocsAero2024}; es el valor que \textcite{marten2019qblade} verifica sobre un rotor \gls{vawt}, caso en el que reporta una reducción sustancial del número de elementos sin efecto apreciable sobre la exactitud de la solución. El factor de relajación de la estela, de $0{,}5$, gobierna el desvanecimiento progresivo del vórtice de arranque, cuyo efecto sobre la solución se diluye así a medida que la estela se desarrolla~\parencite{QBladeDocsAero2024}. La distancia de truncamiento, expresada en radios de rotor, y el máximo de elementos operan como topes sobre el crecimiento del reticulado.
 
 En el modelado de los vórtices, ambos radios de núcleo se definen como fracción de la cuerda local~\parencite{QBladeDocsAero2024}: el de la estela, de $0{,}1$, corresponde al $10\%$ que el autor propone como tamaño inicial del núcleo de los filamentos que se desprenden del borde de fuga, y el ligado, de $0{,}3$, fija el núcleo de los vórtices adheridos a la pala. La viscosidad turbulenta de $100$ es la que \textcite{marten2019qblade} reporta para su caso \gls{vawt}, y junto con los radios interviene en la ley con que el núcleo del vórtice crece a lo largo del tiempo. Activar el estiramiento de vórtices incorpora a esa misma ley la tasa de deformación del filamento, de modo que el núcleo responde al alargamiento que sufre al convectarse; el factor máximo de estiramiento, de $50$, es el umbral de deformación acumulada a partir del cual el filamento se retira de la estela~\parencite{QBladeDocsAero2024}.
 
@@ -689,7 +700,7 @@ donde $\sigma_{1,\max}$ es la tensión principal máxima bajo la carga de diseñ
 
 \medskip
 \noindent\textbf{Conteo de ciclos Rainflow.}
-Cada una de las 72 series temporales de tensión $\sigma(t)$, con una duración efectiva de $T_{sim} = 550$~s, se procesa mediante el algoritmo de conteo de ciclos Rainflow (Anexo H, Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, cuyo fundamento se expone en la Sección~\ref{sec:anexo_g_antecedentes}. La implementación empleada sigue la formulación de cuatro puntos normalizada en la práctica ASTM E1049-85~\parencite{ASTM_E1049}, correspondiente al método propuesto originalmente por \textcite{Matsuishi1968}. El algoritmo descompone la señal en ciclos individuales caracterizados por su amplitud $\sigma_a$ y su tensión media $\sigma_m$, preservando la secuencia de carga tal como ocurre en la simulación.
+Cada una de las 72 series temporales de tensión $\sigma(t)$, con una duración efectiva de $T_{obs} = 600$~s, se procesa mediante el algoritmo de conteo de ciclos Rainflow (Anexo H, Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, cuyo fundamento se expone en la Sección~\ref{sec:anexo_g_antecedentes}. La implementación empleada sigue la formulación de cuatro puntos normalizada en la práctica ASTM E1049-85~\parencite{ASTM_E1049}, correspondiente al método propuesto originalmente por \textcite{Matsuishi1968}. El algoritmo descompone la señal en ciclos individuales caracterizados por su amplitud $\sigma_a$ y su tensión media $\sigma_m$, preservando la secuencia de carga tal como ocurre en la simulación.
 
 \medskip
 \noindent\textbf{Corrección por tensión media.}
@@ -724,7 +735,7 @@ donde $\sigma_u = 242{,}1$~MPa (resistencia última entregada por el fabricante 
 
 \medskip
 \noindent\textbf{Construcción del espectro colectivo anual.}
-Cada simulación de $T_{sim} = 550$~s corresponde a una velocidad de viento fija $V_j$ y produce, mediante Rainflow, un conjunto de ciclos de fatiga $(\sigma_a, \sigma_m)$. Estos ciclos representan la operación continua del aerogenerador durante $550$~s a dicha velocidad. Para construir el espectro representativo de un año completo, los ciclos de cada velocidad se expanden proporcionalmente a la fracción de tiempo que el viento permanece en ese intervalo en el emplazamiento.
+Cada simulación de $T_{obs} = 600$~s corresponde a una velocidad de viento fija $V_j$ y produce, mediante Rainflow, un conjunto de ciclos de fatiga $(\sigma_a, \sigma_m)$. Estos ciclos representan la operación continua del aerogenerador durante $600$~s a dicha velocidad. Para construir el espectro representativo de un año completo, los ciclos de cada velocidad se expanden proporcionalmente a la fracción de tiempo que el viento permanece en ese intervalo en el emplazamiento.
 
 La fracción de tiempo anual asociada a la velocidad $V_j$ se obtiene de la distribución de Weibull que caracteriza el sitio (Ec.~\ref{eq:weibull_pdf_general}), según la Ec.~\ref{eq:tiempo_anual}:
 
@@ -733,12 +744,12 @@ La fracción de tiempo anual asociada a la velocidad $V_j$ se obtiene de la dist
     \label{eq:tiempo_anual}
 \end{equation}
 
-donde $f_W(V_j)$ es la densidad de probabilidad Weibull evaluada en $V_j$, $\Delta V = 2$~m/s es el ancho del intervalo de velocidad, y $365{,}25 \cdot 24 \cdot 3600$ es la duración de un año calendario en segundos, considerando el promedio de $365{,}25$ días que incorpora los años bisiestos; no es un valor prescrito por la norma, sino la conversión que lleva la densidad de probabilidad a una tasa temporal. La Tabla~\ref{tab:weibull_fatiga} en el Capítulo~4 presenta, para las doce velocidades $V_j$ del rango operacional, los valores de $f_W(V_j)$, $t_j$ y el factor de escalamiento temporal $t_j / T_{sim}$.
+donde $f_W(V_j)$ es la densidad de probabilidad Weibull evaluada en $V_j$, $\Delta V = 2$~m/s es el ancho del intervalo de velocidad, y $365{,}25 \cdot 24 \cdot 3600$ es la duración de un año calendario en segundos, considerando el promedio de $365{,}25$ días que incorpora los años bisiestos; no es un valor prescrito por la norma, sino la conversión que lleva la densidad de probabilidad a una tasa temporal. La Tabla~\ref{tab:weibull_fatiga} en el Capítulo~4 presenta, para las doce velocidades $V_j$ del rango operacional, los valores de $f_W(V_j)$, $t_j$ y el factor de escalamiento temporal $t_j / T_{obs}$.
 
 El número de ciclos anuales atribuibles a la velocidad $V_j$ se calcula escalando los ciclos simulados (Ecuación H.7 del Anexo H de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:espectro_anual}:
 
 \begin{equation}
-    n_{j}^{\text{anual}} = \bar{n}_{j}^{\text{sim}} \cdot \frac{t_j}{T_{sim}}
+    n_{j}^{\text{anual}} = \bar{n}_{j}^{\text{sim}} \cdot \frac{t_j}{T_{obs}}
     \label{eq:espectro_anual}
 \end{equation}
 
