@@ -9,90 +9,165 @@
 \section*{Fuerzas de diseño por estación para ingreso al modelo FEM}
 \label{anexo:fuerzas}
 
-Las tablas siguientes presentan, para cada una de las 24 estaciones de la pala, la fuerza aerodinámica que entrega la simulación y la fuerza puntual con que esa estación se carga en el modelo de elementos finitos, para los dos casos de carga de estado límite último. Todos los valores se expresan en valor absoluto; la orientación de las componentes $x$ e $y$, en el sistema local de la pala, corresponde a la Figura~\ref{fig:ejes_locales}.
+Las tablas de este anexo entregan, para cada una de las $21$ estaciones de la pala, la
+fuerza aerodinámica que la simulación registra y la fuerza puntual con que esa estación
+se carga en el modelo de elementos finitos. Se presentan cuatro tablas, una por cada
+combinación de caso de carga último y sentido de la componente normal, según se explica
+en la Sección~\ref{sec:comparacion_dlc}.
 
-Las dos primeras columnas de fuerza, $F_{sim,x}$ y $F_{sim,y}$, son la fuerza aerodinámica por unidad de longitud [N/m] que QBlade entrega en cada estación: para el DLC 1.1, la del instante de máxima solicitación global en la realización que registró la mayor solicitación; para el DLC 1.3, el promedio por estación de ese mismo valor entre las seis semillas a la velocidad gobernante (Sección~\ref{sec:anexo_f} y Sección~\ref{sec:anexo_dlc13} del Capítulo~3). Multiplicar esa fuerza lineal por la longitud de pala $\Delta s_i$ que representa cada estación (Sección~\ref{sec:anexo_f}) la convierte en la fuerza puntual equivalente de ese tramo. Las dos últimas columnas, $F_{d,x}$ y $F_{d,y}$, son la fuerza puntual [N] efectivamente aplicada como carga remota en el centroide de cada estación del modelo FEM: la anterior, además, escalada uniformemente hasta la carga de diseño según el factor $F_d / F_{tot}(t_{max})$ del DLC 1.1 (Sección~\ref{sec:anexo_f}) o el factor $\gamma_f$ del DLC 1.3 (Sección~\ref{sec:anexo_dlc13}).
+Las columnas se interpretan como sigue.
+
+\begin{itemize}
+    \item \textbf{Est.} numera las estaciones desde la base de la pala hacia su extremo
+          superior, y \textbf{z} es la cota del centroide de cada una sobre la base, que
+          es el punto en que la carga remota debe aplicarse en el modelo.
+    \item \textbf{$\Delta s$} es la longitud de pala que representa la estación. Los
+          $21$ valores suman por construcción los $23{,}000$~m de envergadura.
+    \item \textbf{$F_{sim,n}$} y \textbf{$F_{sim,t}$} son la fuerza aerodinámica por
+          unidad de longitud que entrega la simulación, en N/m.
+    \item \textbf{$F_{d,n}$} y \textbf{$F_{d,t}$} son la fuerza puntual de diseño, en N,
+          que resulta de multiplicar la anterior por $\Delta s$ y por el factor de
+          escalamiento del caso.
+\end{itemize}
+
+Los valores conservan su signo, y el signo es el que fija el sistema local de la pala de
+la Figura~\ref{fig:ejes_locales}, determinado por medición en la
+Sección~\ref{sec:ejes_locales_res}. La componente normal $F_n$ es \textbf{positiva hacia
+el eje del rotor} y negativa hacia afuera, esto es, en el sentido de la fuerza
+centrífuga. La componente tangencial $F_t$ es \textbf{positiva en el sentido del
+movimiento de la pala}, que en un H-rotor apunta hacia el borde de ataque. Respetar
+ambos signos al ingresar las cargas es indispensable, ya que de ellos depende si la
+solicitación aerodinámica se suma o se resta a la inercial.
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas por estación para el DLC 1.1: fuerza lineal simulada y fuerza puntual de diseño aplicada.}
+    \caption{Fuerzas por estación para el DLC 1.1, carga normal hacia el eje del rotor.}
     \label{tab:anexo_fuerzas_dlc11}
-    \begin{tabular}{ccrrrr}
+    \begin{tabular}{ccrrrrr}
         \hline
-        \textbf{Est.} & $\mathbf{z}$ \textbf{[m]} & \textbf{$F_{sim,x}$ [N/m]} & \textbf{$F_{sim,y}$ [N/m]} & \textbf{$F_{d,x}$ [N]} & \textbf{$F_{d,y}$ [N]} \\
+        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
         \hline
-         1 &  0 &    899 &     99 &  1~230 &    135 \\
-         2 &  1 &  3~852 &  1~134 &  5~273 &  1~552 \\
-         3 &  2 &  4~187 &  1~334 &  5~717 &  1~822 \\
-         4 &  3 &  4~345 &  1~430 &  5~946 &  1~957 \\
-         5 &  4 &  4~446 &  1~475 &  6~085 &  2~019 \\
-         6 &  5 &  4~536 &  1~492 &  6~208 &  2~042 \\
-         7 &  6 &  4~645 &  1~554 &  6~343 &  2~122 \\
-         8 &  7 &  4~744 &  1~614 &  6~494 &  2~210 \\
-         9 &  8 &  4~831 &  1~673 &  6~612 &  2~290 \\
-        10 &  9 &  4~898 &  1~718 &  6~704 &  2~352 \\
-        11 & 10 &  4~951 &  1~754 &  6~776 &  2~400 \\
-        12 & 11 &  4~958 &  1~757 &  6~770 &  2~399 \\
-        13 & 12 &  4~945 &  1~749 &  6~768 &  2~394 \\
-        14 & 13 &  4~913 &  1~731 &  6~724 &  2~369 \\
-        15 & 14 &  4~833 &  1~693 &  6~615 &  2~317 \\
-        16 & 15 &  4~736 &  1~647 &  6~482 &  2~254 \\
-        17 & 16 &  4~610 &  1~576 &  6~295 &  2~152 \\
-        18 & 17 &  4~473 &  1~482 &  6~122 &  2~028 \\
-        19 & 18 &  4~311 &  1~415 &  5~900 &  1~936 \\
-        20 & 19 &  4~184 &  1~345 &  5~727 &  1~841 \\
-        21 & 20 &  4~075 &  1~284 &  5~564 &  1~754 \\
-        22 & 21 &  3~942 &  1~209 &  5~396 &  1~654 \\
-        23 & 22 &  3~636 &  1~045 &  4~976 &  1~430 \\
-        24 & 23 &  1~453 &    222 &  1~988 &    303 \\
+        1 & 0{,}064 & 0{,}1284 & 821 & 34 & 158 & 6 \\
+        2 & 0{,}320 & 0{,}3825 & 2556 & 380 & 1461 & 217 \\
+        3 & 0{,}825 & 0{,}6279 & 3217 & 587 & 3019 & 551 \\
+        4 & 1{,}569 & 0{,}8594 & 3604 & 727 & 4628 & 934 \\
+        5 & 2{,}534 & 1{,}0716 & 3691 & 732 & 5911 & 1172 \\
+        6 & 3{,}700 & 1{,}2600 & 3783 & 740 & 7124 & 1393 \\
+        7 & 5{,}040 & 1{,}4201 & 3863 & 757 & 8198 & 1606 \\
+        8 & 6{,}524 & 1{,}5486 & 3853 & 760 & 8916 & 1760 \\
+        9 & 8{,}120 & 1{,}6424 & 3825 & 762 & 9388 & 1871 \\
+        10 & 9{,}791 & 1{,}6996 & 3911 & 798 & 9935 & 2027 \\
+        11 & 11{,}500 & 1{,}7188 & 4205 & 942 & 10801 & 2421 \\
+        12 & 13{,}209 & 1{,}6996 & 4520 & 1050 & 11480 & 2667 \\
+        13 & 14{,}880 & 1{,}6424 & 5118 & 1361 & 12563 & 3340 \\
+        14 & 16{,}476 & 1{,}5486 & 5641 & 1668 & 13055 & 3860 \\
+        15 & 17{,}960 & 1{,}4201 & 5940 & 1448 & 12605 & 3072 \\
+        16 & 19{,}300 & 1{,}2600 & 6021 & 1754 & 11336 & 3303 \\
+        17 & 20{,}466 & 1{,}0716 & 6059 & 1760 & 9703 & 2819 \\
+        18 & 21{,}431 & 0{,}8594 & 5677 & 1544 & 7291 & 1983 \\
+        19 & 22{,}175 & 0{,}6279 & 5223 & 1292 & 4902 & 1212 \\
+        20 & 22{,}680 & 0{,}3825 & 4615 & 1008 & 2638 & 576 \\
+        21 & 22{,}936 & 0{,}1284 & 2032 & 201 & 390 & 39 \\
         \hline
     \end{tabular}
 \end{table}
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas por estación para el DLC 1.3: fuerza lineal simulada (promedio de 6 semillas) y fuerza puntual de diseño aplicada.}
-    \label{tab:anexo_fuerzas_dlc13}
-    \begin{tabular}{ccrrrr}
+    \caption{Fuerzas por estación para el DLC 1.1, carga normal hacia afuera.}
+    \label{tab:anexo_fuerzas_dlc11_ext}
+    \begin{tabular}{ccrrrrr}
         \hline
-        \textbf{Est.} & $\mathbf{z}$ \textbf{[m]} & \textbf{$F_{sim,x}$ [N/m]} & \textbf{$F_{sim,y}$ [N/m]} & \textbf{$F_{d,x}$ [N]} & \textbf{$F_{d,y}$ [N]} \\
+        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
         \hline
-         1 &  0 &    982 &    115 &  1~327 &    155 \\
-         2 &  1 &  4~093 &  1~278 &  5~529 &  1~726 \\
-         3 &  2 &  4~425 &  1~489 &  5~964 &  2~006 \\
-         4 &  3 &  4~564 &  1~583 &  6~164 &  2~138 \\
-         5 &  4 &  4~635 &  1~625 &  6~261 &  2~195 \\
-         6 &  5 &  4~691 &  1~642 &  6~336 &  2~217 \\
-         7 &  6 &  4~760 &  1~664 &  6~414 &  2~242 \\
-         8 &  7 &  4~820 &  1~683 &  6~510 &  2~273 \\
-         9 &  8 &  4~871 &  1~700 &  6~579 &  2~296 \\
-        10 &  9 &  4~915 &  1~692 &  6~639 &  2~286 \\
-        11 & 10 &  4~953 &  1~682 &  6~690 &  2~272 \\
-        12 & 11 &  4~970 &  1~672 &  6~697 &  2~253 \\
-        13 & 12 &  4~968 &  1~665 &  6~710 &  2~249 \\
-        14 & 13 &  4~946 &  1~661 &  6~680 &  2~243 \\
-        15 & 14 &  4~876 &  1~679 &  6~586 &  2~268 \\
-        16 & 15 &  4~797 &  1~700 &  6~479 &  2~296 \\
-        17 & 16 &  4~739 &  1~695 &  6~386 &  2~285 \\
-        18 & 17 &  4~722 &  1~669 &  6~379 &  2~255 \\
-        19 & 18 &  4~727 &  1~669 &  6~385 &  2~254 \\
-        20 & 19 &  4~757 &  1~617 &  6~425 &  2~184 \\
-        21 & 20 &  4~714 &  1~610 &  6~353 &  2~169 \\
-        22 & 21 &  4~609 &  1~582 &  6~225 &  2~137 \\
-        23 & 22 &  4~332 &  1~411 &  5~851 &  1~906 \\
-        24 & 23 &  1~776 &    300 &  2~399 &    405 \\
+        1 & 0{,}064 & 0{,}1284 & $-$328 & $-$26 & $-$60 & $-$5 \\
+        2 & 0{,}320 & 0{,}3825 & $-$1591 & 58 & $-$873 & 32 \\
+        3 & 0{,}825 & 0{,}6279 & $-$2008 & 119 & $-$1809 & 107 \\
+        4 & 1{,}569 & 0{,}8594 & $-$2183 & 147 & $-$2693 & 182 \\
+        5 & 2{,}534 & 1{,}0716 & $-$2112 & 118 & $-$3249 & 182 \\
+        6 & 3{,}700 & 1{,}2600 & $-$1919 & 77 & $-$3471 & 140 \\
+        7 & 5{,}040 & 1{,}4201 & $-$1871 & 64 & $-$3812 & 131 \\
+        8 & 6{,}524 & 1{,}5486 & $-$2134 & 101 & $-$4742 & 224 \\
+        9 & 8{,}120 & 1{,}6424 & $-$2216 & 126 & $-$5224 & 296 \\
+        10 & 9{,}791 & 1{,}6996 & $-$2595 & 196 & $-$6331 & 477 \\
+        11 & 11{,}500 & 1{,}7188 & $-$3199 & 317 & $-$7891 & 782 \\
+        12 & 13{,}209 & 1{,}6996 & $-$3373 & 335 & $-$8228 & 817 \\
+        13 & 14{,}880 & 1{,}6424 & $-$3709 & 418 & $-$8741 & 986 \\
+        14 & 16{,}476 & 1{,}5486 & $-$4239 & 573 & $-$9421 & 1273 \\
+        15 & 17{,}960 & 1{,}4201 & $-$4885 & 811 & $-$9957 & 1653 \\
+        16 & 19{,}300 & 1{,}2600 & $-$5122 & 920 & $-$9262 & 1664 \\
+        17 & 20{,}466 & 1{,}0716 & $-$5156 & 928 & $-$7929 & 1427 \\
+        18 & 21{,}431 & 0{,}8594 & $-$4762 & 752 & $-$5873 & 927 \\
+        19 & 22{,}175 & 0{,}6279 & $-$4148 & 530 & $-$3738 & 477 \\
+        20 & 22{,}680 & 0{,}3825 & $-$3407 & 328 & $-$1870 & 180 \\
+        21 & 22{,}936 & 0{,}1284 & $-$1430 & 12 & $-$264 & 2 \\
         \hline
     \end{tabular}
 \end{table}
 
-\newpage
-\section*{Serie temporal de fatiga}
-
-La Figura~\ref{fig:anexo_serie_temporal} presenta una serie temporal representativa del procesamiento de fatiga para $V = 10$~m/s. El panel superior muestra la evolución de la tensión $\sigma(t) = K_{aero} \cdot M_{res}(t) + \sigma_{in}$ durante los $550$~s de simulación efectiva, mientras que el panel inferior presenta el histograma de amplitudes de tensión obtenido mediante el algoritmo de conteo Rainflow.
-
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{Figuras/Figuras Resultados/serie_temporal_ejemplo.pdf}
-    \caption{Serie temporal de tensión y espectro de amplitudes Rainflow para $V = 10$~m/s (semilla 1).}
-    \label{fig:anexo_serie_temporal}
-\end{figure}
+    \caption{Fuerzas por estación para el DLC 1.3, carga normal hacia el eje del rotor.}
+    \label{tab:anexo_fuerzas_dlc13}
+    \begin{tabular}{ccrrrrr}
+        \hline
+        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
+        \hline
+        1 & 0{,}064 & 0{,}1284 & 890 & 41 & 154 & 7 \\
+        2 & 0{,}320 & 0{,}3825 & 2739 & 441 & 1414 & 228 \\
+        3 & 0{,}825 & 0{,}6279 & 3280 & 614 & 2781 & 521 \\
+        4 & 1{,}569 & 0{,}8594 & 3545 & 706 & 4113 & 819 \\
+        5 & 2{,}534 & 1{,}0716 & 3858 & 817 & 5582 & 1182 \\
+        6 & 3{,}700 & 1{,}2600 & 3995 & 859 & 6796 & 1460 \\
+        7 & 5{,}040 & 1{,}4201 & 4108 & 929 & 7876 & 1780 \\
+        8 & 6{,}524 & 1{,}5486 & 4114 & 888 & 8600 & 1855 \\
+        9 & 8{,}120 & 1{,}6424 & 3956 & 862 & 8773 & 1910 \\
+        10 & 9{,}791 & 1{,}6996 & 4180 & 958 & 9592 & 2199 \\
+        11 & 11{,}500 & 1{,}7188 & 4115 & 947 & 9547 & 2196 \\
+        12 & 13{,}209 & 1{,}6996 & 4601 & 1133 & 10556 & 2600 \\
+        13 & 14{,}880 & 1{,}6424 & 4727 & 1195 & 10481 & 2650 \\
+        14 & 16{,}476 & 1{,}5486 & 4924 & 1229 & 10294 & 2570 \\
+        15 & 17{,}960 & 1{,}4201 & 5196 & 1346 & 9962 & 2581 \\
+        16 & 19{,}300 & 1{,}2600 & 5501 & 1523 & 9356 & 2591 \\
+        17 & 20{,}466 & 1{,}0716 & 5750 & 1545 & 8319 & 2236 \\
+        18 & 21{,}431 & 0{,}8594 & 5757 & 1674 & 6679 & 1943 \\
+        19 & 22{,}175 & 0{,}6279 & 5485 & 1508 & 4650 & 1279 \\
+        20 & 22{,}680 & 0{,}3825 & 4809 & 1141 & 2483 & 589 \\
+        21 & 22{,}936 & 0{,}1284 & 2213 & 248 & 384 & 43 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Fuerzas por estación para el DLC 1.3, carga normal hacia afuera.}
+    \label{tab:anexo_fuerzas_dlc13_ext}
+    \begin{tabular}{ccrrrrr}
+        \hline
+        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
+        \hline
+        1 & 0{,}064 & 0{,}1284 & $-$428 & $-$25 & $-$74 & $-$4 \\
+        2 & 0{,}320 & 0{,}3825 & $-$1939 & 110 & $-$1001 & 57 \\
+        3 & 0{,}825 & 0{,}6279 & $-$2466 & 207 & $-$2091 & 175 \\
+        4 & 1{,}569 & 0{,}8594 & $-$2778 & 277 & $-$3223 & 322 \\
+        5 & 2{,}534 & 1{,}0716 & $-$3111 & 359 & $-$4501 & 520 \\
+        6 & 3{,}700 & 1{,}2600 & $-$3246 & 384 & $-$5522 & 653 \\
+        7 & 5{,}040 & 1{,}4201 & $-$3245 & 375 & $-$6222 & 719 \\
+        8 & 6{,}524 & 1{,}5486 & $-$3306 & 393 & $-$6912 & 821 \\
+        9 & 8{,}120 & 1{,}6424 & $-$3448 & 450 & $-$7646 & 998 \\
+        10 & 9{,}791 & 1{,}6996 & $-$3391 & 431 & $-$7781 & 990 \\
+        11 & 11{,}500 & 1{,}7188 & $-$3566 & 495 & $-$8275 & 1148 \\
+        12 & 13{,}209 & 1{,}6996 & $-$3870 & 561 & $-$8879 & 1287 \\
+        13 & 14{,}880 & 1{,}6424 & $-$3931 & 564 & $-$8715 & 1249 \\
+        14 & 16{,}476 & 1{,}5486 & $-$4049 & 584 & $-$8464 & 1222 \\
+        15 & 17{,}960 & 1{,}4201 & $-$4293 & 678 & $-$8230 & 1301 \\
+        16 & 19{,}300 & 1{,}2600 & $-$4485 & 775 & $-$7629 & 1319 \\
+        17 & 20{,}466 & 1{,}0716 & $-$4685 & 851 & $-$6778 & 1232 \\
+        18 & 21{,}431 & 0{,}8594 & $-$4742 & 838 & $-$5501 & 973 \\
+        19 & 22{,}175 & 0{,}6279 & $-$4346 & 661 & $-$3684 & 561 \\
+        20 & 22{,}680 & 0{,}3825 & $-$3594 & 402 & $-$1856 & 207 \\
+        21 & 22{,}936 & 0{,}1284 & $-$1552 & 27 & $-$269 & 5 \\
+        \hline
+    \end{tabular}
+\end{table}
+
