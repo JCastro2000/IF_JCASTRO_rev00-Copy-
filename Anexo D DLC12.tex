@@ -60,8 +60,8 @@ GAMMA_N = 1.15       # consecuencia de falla
 GAMMA_TOTAL = GAMMA_F * GAMMA_M * GAMMA_N    # = 2,300
 
 # --- Recurso eólico y vida de diseño ------------------------------------
-WEIBULL_K = 2.09
-WEIBULL_C = 8.97      # [m/s]
+WEIBULL_K = 2.0879
+WEIBULL_C = 9.2156    # [m/s], a la altura del centro del rotor
 V_LISTA   = list(range(2, 26, 2))
 DV        = 2.0       # ancho del intervalo de velocidad [m/s]
 T_OBS     = 600.0     # ventana útil de cada realización [s]
@@ -69,10 +69,12 @@ T_YEAR    = 365.25 * 24 * 3600.0
 ANIOS     = 20        # vida de diseño [años]
 
 # Tensiones principales máximas obtenidas del FEM en la sección crítica:
-# la primera bajo la carga de diseño completa del DLC 1.1 y la segunda con
-# las cargas inerciales como única solicitación. Su diferencia es la parte
-# que escala con el momento aerodinámico.
-SIGMA_1_MAX = 163.399  # [MPa] carga de diseño completa
+# la primera bajo la solicitación completa del DLC 1.1 SIN MAYORAR y la
+# segunda con las cargas inerciales como única solicitación, también sin
+# mayorar. Su diferencia es la parte que escala con el momento
+# aerodinámico. Se calibran sobre cargas características porque en fatiga
+# la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo.
+SIGMA_1_MAX = 163.399  # [MPa] solicitación completa
 SIGMA_IN    = 114.5    # [MPa] solo centrífuga y gravedad
 \end{pycode}
 
@@ -108,14 +110,15 @@ def momento_resultante(fx, fy):
 Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es proporcional al momento flector. La constante de proporcionalidad se obtiene de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico y se descuenta de la calibración para reincorporarse después como tensión media.
 
 \begin{pycode}
-# fx_d, fy_d son las fuerzas de diseño por estación del DLC 1.1, es decir
-# las mismas que se aplicaron en el modelo de elementos finitos.
-M_res_d = momento_resultante(fx_d, fy_d) / 1000.0     # [kN*m]
+# fn_k, ft_k son las fuerzas por estación del instante gobernante del
+# DLC 1.1 SIN mayorar, es decir las mismas que se aplicaron en las dos
+# corridas de calibración del modelo de elementos finitos.
+M_res_k = momento_resultante(fn_k, ft_k) / 1000.0     # [kN*m]
 
 # K_aero traduce momento aerodinámico a tensión. Solo la diferencia entre
 # la tensión del caso completo y la del caso inercial depende del momento;
 # calibrar sobre la tensión total inflaría la amplitud de todos los ciclos.
-K_AERO = (SIGMA_1_MAX - SIGMA_IN) / M_res_d           # [MPa/(kN*m)]
+K_AERO = (SIGMA_1_MAX - SIGMA_IN) / M_res_k           # [MPa/(kN*m)]
 \end{pycode}
 
 \subsection*{Corrección por tensión media, curva S-N y conteo de ciclos}
