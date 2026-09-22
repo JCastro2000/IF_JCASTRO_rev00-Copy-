@@ -680,18 +680,24 @@ Ambos estudios se ejecutan sobre el mismo barrido paramétrico de cuatro tamaño
 
 \begin{table}[H]
     \centering
-    \caption[Análisis de convergencia de malla.]{Análisis de convergencia de malla sobre la tensión principal máxima y sobre el autovalor del primer modo de pandeo, para cuatro tamaños de elemento.}
+    \caption[Análisis de convergencia de malla.]{Análisis de convergencia de malla sobre la tensión principal máxima, en tres sondas, y sobre el autovalor de los tres primeros modos de pandeo, para cuatro tamaños máximos de cara.}
     \label{tab:convergencia_malla}
     \begin{tabular}{ccccccc}
         \hline
-        \textbf{Tamaño} & \textbf{Elementos} & \multicolumn{3}{c}{$\sigma_{1,\max}$ \textbf{(MPa)}} & \multicolumn{2}{c}{\textbf{Pandeo}} \\
-        \cline{3-5} \cline{6-7}
-        \textbf{(mm)} & & Global & Una cara & Vendaje & $LM$ & $\Delta LM$ (\%) \\
+        \textbf{Tamaño} & \multicolumn{3}{c}{$\sigma_{1,\max}$ \textbf{(MPa)}} & \multicolumn{3}{c}{\textbf{Multiplicador de carga} $LM$} \\
+        \cline{2-4} \cline{5-7}
+        \textbf{(mm)} & Zona regular & Vendaje & Tercera sonda & Modo 1 & Modo 2 & Modo 3 \\
         \hline
-        $50$ & $21\,012$  & $163{,}73$ & $162{,}69$ & $159{,}99$ & $0{,}55183$ & --- \\
-        $35$ & $42\,883$  & $169{,}46$ & $164{,}63$ & $175{,}74$ & $0{,}54639$ & $-0{,}99$ \\
-        $25$ & $84\,051$  & $163{,}37$ & $158{,}37$ & $192{,}99$ & $0{,}52920$ & $-3{,}15$ \\
-        $18$ & $162\,135$ & $170{,}58$ & $161{,}01$ & $187{,}77$ & $0{,}52429$ & $-0{,}93$ \\
+        $50$ & $149{,}61$ & $149{,}88$ & $95{,}55$  & $0{,}58014$ & $0{,}58579$ & $0{,}64633$ \\
+        $35$ & $147{,}98$ & $160{,}34$ & $99{,}28$  & $0{,}57487$ & $0{,}58055$ & $0{,}64038$ \\
+        $25$ & $144{,}90$ & $176{,}35$ & $98{,}79$  & $0{,}57131$ & $0{,}57700$ & $0{,}63626$ \\
+        $18$ & $147{,}83$ & $173{,}06$ & $108{,}29$ & $0{,}56940$ & $0{,}57508$ & $0{,}63392$ \\
+        \hline
+        \multicolumn{7}{c}{\textit{Variación entre mallas sucesivas} (\%)} \\
+        \hline
+        $35$ & $-1{,}09$ & $+6{,}98$ & $+3{,}90$ & $-0{,}91$ & $-0{,}89$ & $-0{,}92$ \\
+        $25$ & $-2{,}08$ & $+9{,}99$ & $-0{,}49$ & $-0{,}62$ & $-0{,}61$ & $-0{,}64$ \\
+        $18$ & $+2{,}02$ & $-1{,}87$ & $+9{,}61$ & $-0{,}34$ & $-0{,}33$ & $-0{,}37$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -699,25 +705,31 @@ Ambos estudios se ejecutan sobre el mismo barrido paramétrico de cuatro tamaño
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/convergencia_malla.pdf}
-    \caption[Convergencia de malla de la tensión y del autovalor de pandeo.]{(a) Tensión principal máxima, leída como máximo global de la pala, como máximo acotado a una cara y mediante una sonda en la terminación del vendaje. (b) Autovalor del primer modo de pandeo. Ambos en función del tamaño característico de elemento.}
+    \caption[Convergencia de malla de la tensión y del autovalor de pandeo.]{(a) Tensión principal máxima en las tres sondas instrumentadas. (b) Multiplicador de carga de los tres primeros modos de pandeo, con el umbral normativo y el correspondiente a la carga característica. Ambos en función del tamaño máximo de cara de la malla.}
     \label{fig:convergencia_malla}
 \end{figure}
 
 \medskip
 \noindent\textbf{Convergencia del autovalor de pandeo.}
-El autovalor desciende de forma monótona al refinar y se aplana, comportamiento que es el esperable, ya que una malla gruesa resulta artificialmente rígida y sobreestima la carga crítica. Ninguna duplicación de densidad lo desplaza más de un $3{,}15\%$, y la última solo un $0{,}93\%$, de modo que el criterio del $5\%$ de la Sección 6.6.5.6 de la IEC 61400-5 se satisface en cada paso~\parencite{IEC61400-5}. Entre los extremos del barrido la variación acumulada es del $4{,}99\%$. Una extrapolación de Richardson sobre los tres últimos puntos, con el orden de convergencia medido de los propios datos, sitúa el valor asintótico en $0{,}522$, apenas un $0{,}4\%$ por debajo del de la malla más fina, lo que confirma que la asíntota está prácticamente alcanzada. Se adopta como resultado el valor medido de $18$~mm y no el extrapolado, por tratarse de una cifra calculada y no inferida.
+Los tres modos descienden de forma monótona al refinar y se aplanan, comportamiento que es el esperable, ya que una malla gruesa resulta artificialmente rígida y sobreestima la carga crítica. Ningún paso desplaza el autovalor más de un $0{,}92\%$, y el último solo un $0{,}34\%$, muy por debajo del $5\%$ que exige la Sección 6.6.5.6 de la IEC 61400-5~\parencite{IEC61400-5}. Entre los extremos del barrido la variación acumulada es del $1{,}85\%$. Una extrapolación de Richardson sobre los tres últimos puntos, con el orden de convergencia medido de los propios datos ($p = 1{,}89$), sitúa el valor asintótico en $0{,}567$, un $0{,}4\%$ por debajo del de la malla más fina, lo que confirma que la asíntota está alcanzada. Se adopta como resultado el valor medido de $18$~mm y no el extrapolado, por tratarse de una cifra calculada y no inferida.
+
+Los tres modos son además paralelos entre sí, con variaciones prácticamente idénticas en cada refinamiento, lo que indica que responden al mismo mecanismo y no a tres fenómenos distintos.
 
 \medskip
 \noindent\textbf{Convergencia de la tensión.}
-La tensión requiere una lectura más cuidadosa, porque el máximo sobre una región no es una magnitud que converja de forma monótona. Al refinar, el elemento donde se localiza el pico cambia de posición, de modo que el valor oscila aunque el campo de tensión esté resuelto. Eso es lo que muestra la serie del máximo global, que oscila un $4{,}3\%$ sin tendencia definida, y la del máximo acotado a una cara, que lo hace un $3{,}9\%$. Ambas quedan por debajo del criterio del $5\%$ adoptado en este trabajo~\parencite{Qin2026,Hameed2015,Boudounit2020}, y la dispersión residual proviene del desplazamiento del punto de máximo dentro de la región, no de falta de resolución. Sobre una sonda fija en zona regular del laminado la dispersión baja al $3{,}7\%$ y el valor de la malla más fina es de $169{,}37$~MPa, que es el que se emplea en la verificación.
+La tensión requiere una lectura más cuidadosa, porque el máximo sobre una región no es una magnitud que converja de forma monótona. Al refinar, el elemento donde se localiza el pico cambia de posición, de modo que el valor oscila aunque el campo de tensión esté resuelto. La sonda de zona regular muestra exactamente ese comportamiento, con una dispersión del $3{,}19\%$ y sin tendencia definida, por debajo del criterio del $5\%$ adoptado en este trabajo~\parencite{Qin2026,Hameed2015,Boudounit2020}. Su valor en la malla más fina, $147{,}83$~MPa, es el que se emplea en la verificación.
+
+Las otras dos sondas no admiten esa lectura. La situada en la terminación del vendaje presenta una tendencia creciente del $15{,}5\%$ entre los extremos del barrido, y la tercera un $13{,}3\%$, concentrado además en el último refinamiento. Ninguna de las dos satisface el criterio de convergencia y ambas se tratan por separado.
 
 \medskip
-\noindent\textbf{Tratamiento de la terminación del vendaje.}
-La tercera serie de la Tabla~\ref{tab:convergencia_malla} se comporta de manera distinta a las otras dos y por eso se informa por separado. Corresponde a una sonda situada en la terminación del vendaje de refuerzo, sobre la línea en que el larguero encuentra la piel, y su valor crece un $9{,}8\%$ en cada uno de los dos primeros refinamientos, acumulando un $17{,}4\%$ de tendencia sostenida. Un valor que crece de forma sistemática al refinar, en lugar de estabilizarse, es la firma de una singularidad y no la de una tensión física.
+\noindent\textbf{Tratamiento de las sondas no convergentes.}
+La sonda del vendaje corresponde a la terminación del refuerzo, sobre la línea en que el larguero encuentra la piel, y su valor crece cerca de un $10\%$ en cada uno de los dos primeros refinamientos. Un valor que crece de forma sistemática al refinar, en lugar de estabilizarse, es la firma de una singularidad y no la de una tensión física.
 
 El origen es geométrico y doble. En ese punto concurren un salto de espesor, del vendaje de $20$~mm al manto, y la unión de la piel con el larguero, que en un modelo de superficies es una arista donde se encuentran tres cascarones con ángulo vivo. La solución elástica en una arista de ese tipo no está acotada, de modo que la tensión que entrega el modelo mide únicamente lo fina que es la malla. La pieza real no presenta esa discontinuidad, ya que un laminado no pasa de $20$ a $8$~mm de golpe sino escalonando capas a lo largo de varios centímetros, y la unión piel-larguero tiene un radio de acuerdo.
 
-En consecuencia, ese punto se excluye del veredicto de resistencia última, que se emite sobre la zona regular, y la limitación se declara de forma explícita. Es la misma cuestión que ya se señaló al advertir que la verificación de las uniones queda fuera del alcance de este trabajo, vista ahora desde el lado del modelo. Resolverla exige reproducir el chaflán del vendaje y el acuerdo de la unión, refinamiento geométrico que se recoge entre las recomendaciones del Capítulo~5.
+En consecuencia, ese punto se excluye del veredicto de resistencia última, que se emite sobre la zona regular, y la limitación se declara de forma explícita. Es la misma cuestión que ya se señaló al advertir que la verificación de las uniones queda fuera del alcance de este trabajo, vista ahora desde el lado del modelo. Resolverla exige reproducir el chaflán del vendaje y el acuerdo de la unión, refinamiento geométrico que se recoge entre las recomendaciones del Capítulo~5. Conviene consignar, en cualquier caso, que su valor se mantiene por debajo de la resistencia factoreada en las cuatro mallas, con un máximo de $176{,}35$~MPa frente a los $186{,}2$~MPa admisibles, de modo que la singularidad no compromete el resultado aunque no pueda cuantificarse con este modelo.
+
+La tercera sonda registra tensiones sustancialmente menores, con un máximo de $108{,}29$~MPa que corresponde a un factor de reserva de $1{,}72$, por lo que no interviene en la verificación. Su salto del $9{,}61\%$ en el último refinamiento no se sostiene, sin embargo, sobre la explicación anterior, ya que no se sitúa en una discontinuidad geométrica. Lo más probable es que el máximo se desplace a otra región dentro del dominio de la sonda, efecto que se resolvería midiendo sobre un punto fijo en lugar de sobre una región. Al no gobernar ninguna verificación, esa comprobación se deja como refinamiento del procedimiento y no como condición del resultado.
 
 La malla definitiva presenta una calidad de elemento media (\textit{element quality}) de $0{,}9893$. Esta métrica de Ansys toma el valor $1$ para un elemento de forma ideal, por lo que el valor obtenido indica que la práctica totalidad de los elementos conserva una geometría próxima a la óptima, sin zonas de distorsión que pudieran degradar localmente la solución.
 
@@ -759,7 +771,7 @@ Se reportan primero las tensiones y la deformación bajo las cargas del DLC 1.1,
 
 \subsubsection{Tensiones principales}
 
-La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima en ambas caras de la pala (intradós y extradós), junto con un detalle de la zona crítica. El valor máximo en zona regular del laminado, $\sigma_{1,\max} = 169{,}37$~MPa, se localiza en la zona de conexión con el strut inferior ($z = 5$~m).
+La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima en ambas caras de la pala (intradós y extradós), junto con un detalle de la zona crítica. El valor máximo en zona regular del laminado, $\sigma_{1,\max} = 147{,}83$~MPa, se localiza en la zona de conexión con el strut inferior ($z = 5$~m).
 
 \begin{figure}[H]
     \centering
@@ -844,7 +856,7 @@ Con $\sigma_u = 242{,}1$~MPa, entregada por el fabricante de la pala (Tabla~\ref
     \label{eq:sigma_ud_res}
 \end{equation}
 
-Para el DLC 1.1, $\sigma_{1,\max} = 169{,}37$~MPa en zona regular gobierna la verificación con un factor de reserva $\eta_{\text{ULS}}^{1.1} = 186{,}2 / 169{,}37 = 1{,}10$. Para el DLC 1.3, la tensión resulta menor y el factor de reserva correspondientemente mayor. Ambos casos satisfacen el criterio normativo, si bien el margen del caso gobernante es del $10\%$ y no admite calificarse de holgado.
+Para el DLC 1.1, $\sigma_{1,\max} = 147{,}83$~MPa en zona regular resulta en un factor de reserva $\eta_{\text{ULS}}^{1.1} = 186{,}2 / 147{,}83 = 1{,}26$. Para el DLC 1.3 la tensión resulta menor y el factor de reserva correspondientemente mayor. Ambos casos satisfacen el criterio normativo con un margen del orden del $26\%$.
 
 Ese margen del $10\%$ es estrecho y la mayoración de las cargas inerciales lo reduce todavía más. Con la fracción inercial entrando sin factor, el coeficiente de carga que efectivamente se aplicaba al conjunto era menor que el $1{,}25$ declarado, en la proporción en que la rotación domina la solicitación. Corregirlo desplaza la tensión de diseño hacia arriba y consume el margen disponible, de modo que la resistencia última pasa de cumplir con holgura, como indicaba la iteración anterior del análisis, a hacerlo de forma ajustada o a no hacerlo. El sentido del efecto es inequívoco y su magnitud la entrega el recálculo en curso.
 
@@ -862,24 +874,24 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
         \hline
         \textbf{Magnitud} & \textbf{DLC 1.1} \\
         \hline
-        $LM$ del primer modo & $0{,}524$ \\
-        Recorrido de los tres primeros modos & $0{,}524$--$0{,}547$ \\
+        $LM$ del primer modo & $0{,}569$ \\
+        Recorrido de los tres primeros modos & $0{,}569$--$0{,}634$ \\
         Umbral exigido, $\gamma_m \gamma_n$ & $1{,}20$ \\
-        Factor de aprovechamiento, $LM / (\gamma_m \gamma_n)$ & $0{,}44$ \\
-        Factor que falta para cumplir & $2{,}29$ \\
+        Factor de aprovechamiento, $LM / (\gamma_m \gamma_n)$ & $0{,}47$ \\
+        Factor que falta para cumplir & $2{,}11$ \\
         \hline
     \end{tabular}
 \end{table}
 
 Los modos corresponden a pandeo local de la piel de $8$~mm y se localizan en el panel más delgado del vano central, hacia el borde de fuga, mecanismo característico de los cascarones de pared delgada de las palas de aerogenerador~\parencite{Boudounit2020}. Que los tres primeros queden agrupados en un recorrido de apenas un $4\%$ indica que el panel completo está igualmente solicitado y que no se trata de un punto singular, sino de una región entera con capacidad insuficiente.
 
-El resultado es inequívoco y más severo de lo que el margen de resistencia última anticipaba. Con $LM = 0{,}524$ frente al umbral de $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo}, el factor de aprovechamiento es de $0{,}44$ y falta un factor $2{,}29$ para cumplir. El multiplicador no solo no alcanza el umbral, sino que queda por debajo de la unidad, lo que significa que el modelo predice inestabilidad bajo la propia carga de diseño. Tampoco satisface la segunda condición de la Sección 7.6.4, que exige que ningún componente pandee bajo la carga característica, ya que el umbral correspondiente es $1/\gamma_f = 0{,}80$ y el multiplicador obtenido tampoco lo alcanza~\parencite{IEC61400-1}. Dado que el método lineal por autovalores constituye una cota superior de la carga crítica (Sección~\ref{sec:pandeo_met}), el déficit no es atribuible a conservadurismo del método, y la carga crítica real será menor que la calculada.
+El resultado es inequívoco y más severo de lo que el margen de resistencia última anticipaba. Con $LM = 0{,}569$ frente al umbral de $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo}, el factor de aprovechamiento es de $0{,}47$ y falta un factor $2{,}11$ para cumplir. El multiplicador no solo no alcanza el umbral, sino que queda por debajo de la unidad, lo que significa que el modelo predice inestabilidad bajo la propia carga de diseño. Tampoco satisface la segunda condición de la Sección 7.6.4, que exige que ningún componente pandee bajo la carga característica, ya que el umbral correspondiente es $1/\gamma_f = 0{,}80$ y el multiplicador obtenido tampoco lo alcanza~\parencite{IEC61400-1}. Dado que el método lineal por autovalores constituye una cota superior de la carga crítica (Sección~\ref{sec:pandeo_met}), el déficit no es atribuible a conservadurismo del método, y la carga crítica real será menor que la calculada.
 
 El estudio de convergencia sobre el autovalor es lo que hace admisible este veredicto. Sin él no podría distinguirse un déficit real de un artefacto de discretización, y con un resultado tan alejado del umbral esa distinción es lo que separa una conclusión de diseño de un error de modelo.
 
 Dos análisis de sensibilidad delimitan el origen del déficit. Primero, la configuración sin larguero interior resulta claramente peor, lo que responde la pregunta de diseño planteada en la Sección~\ref{sec:material_pala}, ya que la omisión del larguero, alternativa que el fabricante evaluaba por facilidad de fabricación, no es estructuralmente viable con el espesor de piel estimado. Segundo, el aumento del espesor del larguero de $8$ a $12$~mm no modifica significativamente los multiplicadores. Este segundo resultado indica que el modo crítico está gobernado por los paneles de piel y no por el larguero. Una vez que este existe, seguir engrosándolo no aporta estabilidad, porque la capacidad de pandeo de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), y el larguero no modifica ninguna de las dos para los paneles adyacentes.
 
-Esa misma relación cuadrática indica hacia dónde debe dirigirse el refuerzo y permite comparar las dos vías disponibles a igualdad de criterio. Cubrir el factor $2{,}29$ engrosando el panel exige multiplicar su espesor por $\sqrt{2{,}29} = 1{,}51$, lo que sobre el panel de borde de fuga del vano central supone del orden de un centenar de kilogramos añadidos a una pala de $760$~kg. Partir ese mismo panel en dos mediante un larguerillo longitudinal reduce a la mitad su ancho no apoyado y cuadruplica por tanto su capacidad, con una masa añadida de poco más de diez kilogramos. La diferencia entre ambas alternativas es de un orden de magnitud en masa para un mismo resultado, y señala la rigidización por subdivisión del panel, y no el engrosamiento, como la vía eficiente. En consecuencia, se mantiene el espesor de $8$~mm como configuración analizada, y el cumplimiento del criterio de estabilidad queda supeditado a una rigidización de los paneles de piel cuyo dimensionamiento excede el alcance comprobatorio de este trabajo.
+Esa misma relación cuadrática indica hacia dónde debe dirigirse el refuerzo y permite comparar las dos vías disponibles a igualdad de criterio. Cubrir el factor $2{,}11$ engrosando el panel exige multiplicar su espesor por $\sqrt{2{,}11} = 1{,}45$, lo que sobre el panel de borde de fuga del vano central supone del orden de un centenar de kilogramos añadidos a una pala de $760$~kg. Partir ese mismo panel en dos mediante un larguerillo longitudinal reduce a la mitad su ancho no apoyado y cuadruplica por tanto su capacidad, con una masa añadida de poco más de diez kilogramos. La diferencia entre ambas alternativas es de un orden de magnitud en masa para un mismo resultado, y señala la rigidización por subdivisión del panel, y no el engrosamiento, como la vía eficiente. En consecuencia, se mantiene el espesor de $8$~mm como configuración analizada, y el cumplimiento del criterio de estabilidad queda supeditado a una rigidización de los paneles de piel cuyo dimensionamiento excede el alcance comprobatorio de este trabajo.
 
 Que sea la estabilidad, y no la resistencia última, el criterio que no se satisface merece detenerse, porque no es el resultado que cabría anticipar. La razón es que ambos criterios interrogan propiedades distintas del laminado. La resistencia depende de cuánta tensión soporta el material, y en ella la pala conserva un factor de reserva de $1{,}10$. El pandeo, en cambio, depende de la rigidez del panel y de su geometría, y crece con el cuadrado de la razón entre el espesor de la piel y el ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), de modo que un cascarón puede abollarse muy por debajo de la resistencia de su material. El contraste que entregan ambos criterios, un $10\%$ de margen en uno y un déficit de más del doble en el otro, es precisamente la manifestación de esa diferencia.
 
@@ -932,7 +944,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         \hline
         \multicolumn{4}{c}{\textit{Tensiones (FEM)}} \\
         \hline
-        $\sigma_{1,\max}$ & Tensión principal máxima, zona regular & $169{,}37$~MPa & $156{,}8$~MPa \\
+        $\sigma_{1,\max}$ & Tensión principal máxima, zona regular & $147{,}83$~MPa & $156{,}8$~MPa \\
         $\sigma_{3,\min}$ & Tensión principal mínima & $-127{,}1$~MPa & $-129{,}4$~MPa \\
         \hline
         \multicolumn{4}{c}{\textit{Verificación del factor de seguridad}} \\
@@ -940,13 +952,13 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         $\sigma_u/(\gamma_m \gamma_n)$ & Resistencia factoreada & $186{,}2$~MPa & $186{,}2$~MPa \\
         $\gamma_m$ & Factor parcial de material & $1{,}30$ & $1{,}30$ \\
         $\gamma_n$ & Factor de consecuencia de falla & $1{,}00$ & $1{,}00$ \\
-        $\eta_{\text{ULS}}$ & Factor de reserva ($\sigma_u/(\gamma_m \gamma_n)/\sigma_{1,\max}$) & $1{,}10$ & $1{,}19$ \\
+        $\eta_{\text{ULS}}$ & Factor de reserva ($\sigma_u/(\gamma_m \gamma_n)/\sigma_{1,\max}$) & $1{,}26$ & $1{,}19$ \\
         \hline
         \multicolumn{4}{c}{\textit{Estabilidad (FEM)}} \\
         \hline
-        $LM$ & Multiplicador de carga mínimo (modo 1) & $0{,}524$ & --- \\
+        $LM$ & Multiplicador de carga mínimo (modo 1) & $0{,}569$ & --- \\
         $\gamma_m \gamma_n$ & Umbral exigido para el pandeo & $1{,}20$ & $1{,}20$ \\
-        $\eta_{\text{pandeo}}$ & Factor de aprovechamiento & $0{,}44$ & --- \\
+        $\eta_{\text{pandeo}}$ & Factor de aprovechamiento & $0{,}47$ & --- \\
         \hline
         \multicolumn{4}{c}{\textit{Deformación (FEM)}} \\
         \hline
@@ -958,4 +970,4 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
-Los factores de reserva obtenidos ($\eta_{\text{ULS}} \geq 1{,}10$) y el daño acumulado por fatiga ($D_{20} = 6{,}00 \times 10^{-3} \ll 1{,}0$) confirman que la pala satisface los criterios normativos de resistencia última y fatiga establecidos en IEC 61400-1~\parencite{IEC61400-1}, y las deformaciones máximas se mantienen dentro de márgenes que no comprometen la operación del rotor. La verificación de estabilidad, en cambio, no se satisface, y no lo hace por un margen estrecho, ya que el multiplicador de carga del primer modo, $LM = 0{,}524$, no alcanza siquiera la unidad. El modelo predice por tanto inestabilidad de los paneles de piel bajo la propia carga de diseño, y la estabilidad gobierna el dimensionamiento con claridad. El caso de referencia con cargas exclusivamente inerciales cuantifica además la fracción de la tensión del caso gobernante que proviene de la rotación, resultado que vincula el dimensionamiento estructural con la velocidad máxima de giro y que se desarrolla en el Capítulo~5.
+Los factores de reserva obtenidos ($\eta_{\text{ULS}} \geq 1{,}19$) y el daño acumulado por fatiga ($D_{20} = 6{,}00 \times 10^{-3} \ll 1{,}0$) confirman que la pala satisface los criterios normativos de resistencia última y fatiga establecidos en IEC 61400-1~\parencite{IEC61400-1}, y las deformaciones máximas se mantienen dentro de márgenes que no comprometen la operación del rotor. La verificación de estabilidad, en cambio, no se satisface, y no lo hace por un margen estrecho, ya que el multiplicador de carga del primer modo, $LM = 0{,}569$, no alcanza siquiera la unidad. El modelo predice por tanto inestabilidad de los paneles de piel bajo la propia carga de diseño, y la estabilidad gobierna el dimensionamiento con claridad. El caso de referencia con cargas exclusivamente inerciales cuantifica además la fracción de la tensión del caso gobernante que proviene de la rotación, resultado que vincula el dimensionamiento estructural con la velocidad máxima de giro y que se desarrolla en el Capítulo~5.
