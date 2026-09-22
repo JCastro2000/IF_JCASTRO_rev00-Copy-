@@ -285,7 +285,9 @@ La definición de la turbina en QBlade requiere establecer dos esquemas de discr
 \label{fig:panelado_aerodinamico}
 \end{figure}
 
-\textbf{Estaciones de extracción de cargas:} La pala se discretiza en 23 elementos uniformemente espaciados ($\Delta = 0{,}0435$), definiendo 24 estaciones desde la raíz ($s = 0$) hasta la punta ($s = 1$), separadas aproximadamente $1$~m entre sí, criterio con que se resolvió instrumentar la pala. En cada una de esas estaciones se dispone un sensor, lo que con tres palas resulta en 72 puntos de medición. Cada sensor registra las fuerzas aerodinámicas en los tres ejes del sistema local de la pala, cuyas direcciones se definen en la Figura~\ref{fig:ejes_locales}, las coordenadas y velocidades en el sistema de referencia global, las aceleraciones lineales y angulares, y los datos aerodinámicos correspondientes a cada estación (ángulo de ataque local, velocidades relativas y coeficientes aerodinámicos). De esta configuración se obtienen las series temporales completas de fuerzas incidentes a lo largo de la envergadura, que constituyen la entrada directa del análisis por elementos finitos de la pala (Sección~\ref{sec:fem}).
+\textbf{Estaciones de extracción de cargas:} Las fuerzas aerodinámicas se extraen en los centros de los mismos $21$ paneles que definen la discretización aerodinámica, de modo que la carga registrada corresponde a la sección en que el método resuelve efectivamente la circulación y no exige interpolar entre dos mallas distintas. Cada estación entrega las componentes normal y tangencial de la fuerza por unidad de longitud en el sistema local de la pala, cuyas direcciones se definen en la Figura~\ref{fig:ejes_locales}, junto con los datos aerodinámicos de la sección, esto es, el ángulo de ataque local, la velocidad relativa y los coeficientes aerodinámicos. De esta configuración se obtienen las series temporales completas de fuerzas incidentes a lo largo de la envergadura, que constituyen la entrada directa del análisis por elementos finitos de la pala (Sección~\ref{sec:fem}).
+
+El reparto adoptado satisface las dos exigencias que la Sección 6.1.4.3 de la IEC 61400-5 establece sobre la discretización de las cargas de pala~\parencite{IEC61400-5}. La primera es disponer de cargas en un mínimo de doce secciones a lo largo de la envergadura, número que las $21$ estaciones superan con holgura. La segunda es que la separación entre secciones no exceda el doble de la cuerda menor, límite que en esta pala de cuerda constante de $1{,}1$~m son $2{,}2$~m y que el panel más ancho, de $1{,}719$~m, respeta. La distribución de tipo coseno concentra además las estaciones hacia los extremos de la pala, que es donde los gradientes de circulación resultan mayores y donde una discretización uniforme perdería resolución.
 
 \begin{figure}[H]
 \centering
@@ -575,30 +577,59 @@ A continuación se describe el procesamiento aplicado a las series temporales de
 \subsubsection{DLC 1.1 --- estado límite último}
 \label{sec:anexo_f}
 
-El procedimiento de extrapolación estadística del Anexo G, informativo, de la IEC 61400-1~\parencite{IEC61400-1} determina la carga característica a 50 años a partir de los máximos observados en simulaciones de corta duración. La norma exige aplicar el Anexo G sobre una única señal escalar (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}: en este trabajo dicha señal se construye como la fuerza total integrada sobre la pala, $F_{tot}(t)$. Todo el procedimiento que sigue proviene de ese anexo, por lo que sus secciones se citan de forma reiterada a lo largo de los pasos que se detallan a continuación.
+El procedimiento de extrapolación estadística del Anexo G, informativo, de la IEC 61400-1~\parencite{IEC61400-1} determina la carga característica a 50 años a partir de los máximos observados en simulaciones de corta duración. La norma exige aplicarlo sobre efectos de carga escalares, tomados de uno en uno (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}, y en este trabajo esos efectos son los momentos flectores en las dos secciones en que la pala se apoya en los brazos. Todo el procedimiento que sigue proviene de ese anexo, por lo que sus secciones se citan de forma reiterada a lo largo de los pasos que se detallan a continuación.
 
 \medskip
-\noindent\textbf{Señal escalar de carga.}
-Cada una de las 72 simulaciones produce, en cada paso temporal, 24 pares de fuerzas aerodinámicas por unidad de longitud $(F_{x,l,i}, F_{y,l,i})$ distribuidas a lo largo de la envergadura de la pala. El subíndice $l$ indica que las componentes se expresan en el sistema local de la pala (Figura~\ref{fig:ejes_locales}) y el subíndice $i$ identifica la estación de medición. Los subíndices $x$ e $y$ corresponden a las dos direcciones de ese sistema contenidas en el plano del perfil: $x$ es normal a la cuerda e $y$ corre a lo largo de ella hacia el borde de fuga. Ambas componentes se reúnen en una sola señal $F_{tot}(t)$ mediante el módulo del vector que forman en cada estación, ponderado por la longitud de pala que esa estación representa, según la Ec.~\ref{eq:F_tot}:
+\noindent\textbf{Efectos de carga que se extrapolan.}
+Cada una de las 72 simulaciones produce, en cada paso temporal, $21$ pares de fuerzas aerodinámicas por unidad de longitud $(F_{x,l,i}, F_{y,l,i})$ distribuidas a lo largo de la envergadura de la pala. El subíndice $l$ indica que las componentes se expresan en el sistema local de la pala (Figura~\ref{fig:ejes_locales}) y el subíndice $i$ identifica la estación. Los subíndices $x$ e $y$ corresponden a las dos direcciones de ese sistema contenidas en el plano del perfil, siendo $x$ normal a la cuerda e $y$ paralela a ella.
+
+Conforme a lo establecido en la Sección~\ref{sec:extrapolacion_teoria}, la extrapolación opera sobre los efectos de carga en las secciones de apoyo. Para cada una de las dos conexiones con los brazos se calcula el momento flector que produce el voladizo que esa conexión sostiene, descompuesto en las dos direcciones del sistema local, según las Ecs.~\ref{eq:M_apoyo}:
+
+\begin{align}
+    M_{x}(t) &= \sum_{i \in \Omega} F_{y,l,i}(t) \, \Delta s_i \, \left| z_i - z_{ap} \right| \nonumber \\
+    M_{y}(t) &= \sum_{i \in \Omega} F_{x,l,i}(t) \, \Delta s_i \, \left| z_i - z_{ap} \right|
+    \label{eq:M_apoyo}
+\end{align}
+
+donde $\Omega$ reúne las estaciones situadas en el voladizo correspondiente, $z_{ap}$ es la cota de la sección de apoyo y $\left| z_i - z_{ap} \right|$ el brazo con que actúa cada estación. Cortar en el apoyo y sumar únicamente el voladizo libre hace que el momento quede estáticamente determinado a partir de las cargas aerodinámicas, sin depender de las condiciones de contorno del resto de la pala. El vano central entre apoyos no admite ese tratamiento, ya que su solicitación depende de las reacciones, y se resuelve por ello en el modelo de elementos finitos bajo el perfil de diseño.
+
+De esas dos componentes se derivan las magnitudes que caracterizan la solicitación de la sección. La resultante, Ec.~\ref{eq:M_res}, es el módulo del vector que ambas forman:
 
 \begin{equation}
-    F_{tot}(t) = \sum_{i=1}^{24} \sqrt{F_{x,l,i}^2(t) + F_{y,l,i}^2(t)} \cdot \Delta s_i
+    M_{res}(t) = \sqrt{M_x^2(t) + M_y^2(t)}
+    \label{eq:M_res}
+\end{equation}
+
+La envolvente direccional, Ec.~\ref{eq:M_env}, es el mayor de los momentos proyectados sobre un conjunto de doce direcciones repartidas uniformemente en la sección, que es el enfoque avanzado que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente a falta de un análisis específico de criticidad~\parencite{IEC61400-5}:
+
+\begin{equation}
+    M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}
+    \label{eq:M_env}
+\end{equation}
+
+Al recorrer las doce direcciones el círculo completo, la proyección cubre los dos sentidos de cada componente sin necesidad de tomar valor absoluto.
+
+La extrapolación se aplica por separado a cada una de estas magnitudes en cada una de las dos secciones de apoyo. Las componentes $M_x$ y $M_y$ llevan signo, y el extremo de diseño de una magnitud predominantemente negativa se encuentra en su mínimo, de modo que cada componente se extrapola en sus dos sentidos, tomando como variable de extremos primero $M$ y después $-M$. Resultan así ocho extremos de componente, dos por cada una de las cuatro combinaciones de componente y apoyo, a los que se añaden la resultante y la envolvente direccional de cada apoyo, que son no negativas por construcción y no admiten esa duplicidad. Con la fuerza total que se define a continuación, el procedimiento entrega trece magnitudes extrapoladas de forma independiente, lo que permite además evaluar el criterio de omisión del DLC 1.1 magnitud a magnitud, según exige la Sección 7.4.2 de la norma~\parencite{IEC61400-1}.
+
+Se conserva adicionalmente la fuerza total integrada sobre la pala, Ec.~\ref{eq:F_tot}, como indicador global de la solicitación:
+
+\begin{equation}
+    F_{tot}(t) = \sum_{i=1}^{21} \sqrt{F_{x,l,i}^2(t) + F_{y,l,i}^2(t)} \cdot \Delta s_i
     \label{eq:F_tot}
 \end{equation}
 
-donde $\Delta s_i$ es la longitud de pala que concentra la estación $i$, y el producto convierte la fuerza por unidad de longitud que entrega cada sensor en la fuerza, en newton, del tramo que le corresponde. Las 24 estaciones se reparten uniformemente sobre los $23$~m de envergadura, como se ve en la Figura~\ref{fig:delta_s}.
+donde $\Delta s_i$ es la longitud de pala que concentra la estación $i$, y el producto convierte la fuerza por unidad de longitud en la fuerza, en newton, del tramo que le corresponde. La raíz cuadrada reúne las dos componentes en el módulo de la fuerza que actúa sobre cada estación, magnitud siempre positiva, de modo que la suma a lo largo de la envergadura no admite cancelaciones entre estaciones con carga de sentido opuesto y recoge la solicitación completa que soporta la pala. Los $\Delta s_i$ suman por construcción los $23{,}000$~m de envergadura, condición necesaria para que la integración espacial no introduzca un error de cierre, y se reparten según la distribución de tipo coseno que recoge la Figura~\ref{fig:delta_s}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{Figuras/Figuras Metodología/estaciones_delta_s.pdf}
-\caption[Tramo de pala que representa cada estación.]{Tramo de pala $\Delta s_i$ que representa cada una de las 24 estaciones.}
+\caption[Tramo de pala que representa cada estación.]{Tramo de pala $\Delta s_i$ que representa cada una de las $21$ estaciones.}
 \label{fig:delta_s}
 \end{figure}
- La raíz reúne las dos componentes en el módulo de la fuerza que actúa sobre cada estación, magnitud siempre positiva, de modo que la suma a lo largo de la envergadura no admite cancelaciones entre estaciones con carga de sentido opuesto y recoge la solicitación completa que soporta la pala.
 
 \medskip
 \noindent\textbf{Máximos por simulación y ajuste de Gumbel.}
-Para cada velocidad de viento $V_j$ se dispone de $6$ simulaciones, una por semilla estocástica del campo de viento turbulento (Sección~\ref{sec:campo_turbulento}), de modo que las seis representan realizaciones independientes de un mismo proceso estocástico. De cada una se extrae el mayor valor que alcanza $F_{tot}(t)$ sobre el intervalo $t \geq 50$~s (Sección~\ref{sec:velocidades_simulacion}). Ese valor se denota $F_{max}$ y es la variable sobre la que opera todo el procedimiento que sigue: cada realización aporta una observación, de modo que a la velocidad $V_j$ se cuenta con seis. Extraer un único máximo por realización es coherente con la definición normativa de la carga característica, referida al mayor valor que se presenta en un intervalo de diez minutos (Sección 7.6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
+Los pasos que siguen se describen sobre una magnitud genérica $F$, que designa a cualquiera de las trece recién definidas, y se ejecutan de forma independiente para cada una de ellas. Para cada velocidad de viento $V_j$ se dispone de $6$ simulaciones, una por semilla estocástica del campo de viento turbulento (Sección~\ref{sec:campo_turbulento}), de modo que las seis representan realizaciones independientes de un mismo proceso estocástico. De cada una se extrae el mayor valor que alcanza $F(t)$ sobre el intervalo $t \geq 50$~s (Sección~\ref{sec:velocidades_simulacion}). Ese valor se denota $F_{max}$ y es la variable sobre la que opera todo el procedimiento, ya que cada realización aporta una observación y a la velocidad $V_j$ se cuenta por tanto con seis. Extraer un único máximo por realización es coherente con la definición normativa de la carga característica, referida al mayor valor que se presenta en un intervalo de diez minutos (Sección 7.6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
 
 Sobre esas seis observaciones se ajusta la distribución de Gumbel presentada en la Sección~\ref{sec:extrapolacion_teoria}, cuya función de distribución acumulada es la Ec.~\ref{eq:gumbel_anexof}, evaluada aquí en $F = F_{max}$. Sus dos parámetros, el de posición $\mu_j$ y el de escala $\beta_j$, se estiman por el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra. Para la distribución de Gumbel la media vale $\mu_j + \gamma_E \beta_j$ y la varianza $\pi^2 \beta_j^2 / 6$~\parencite{Gumbel1958}, de donde se despejan los estimadores de las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}:
 
@@ -653,7 +684,9 @@ La carga característica $F_k$ es un valor estadístico; la carga de diseño $F_
 
 \medskip
 \noindent\textbf{Perfil espacial de fuerzas de diseño.}
-El Anexo G de la IEC 61400-1~\parencite{IEC61400-1} proporciona un único valor escalar $F_d$, que debe distribuirse a lo largo de la envergadura para cargar el modelo de elementos finitos. Esa distribución se resuelve en las mismas 24 estaciones con que se decidió instrumentar la pala (Sección~\ref{sec:discretizacion}), obteniéndose un vector de 24 fuerzas de diseño $(F_{d,x}[p], F_{d,y}[p])$, una por estación. Para preservar la correlación espacial entre estaciones, el perfil de carga se extrae del instante de máxima solicitación global en la realización que registró la mayor solicitación (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}: se capturan las fuerzas compañeras $F_x[p], F_y[p]$ en ese $t_{max}$ y se escalan uniformemente por el factor $F_d / F_{tot}(t_{max})$. Este enfoque garantiza que la distribución espacial de fuerzas que ingresa al FEM sea la que entrega la simulación aerodinámica en ese único instante, con la correlación entre estaciones que ella misma produce, y no una combinación artificial de máximos independientes por estación que no ocurrieron simultáneamente; y que la magnitud global sea consistente con la carga de diseño a 50 años, ya que todas las estaciones provienen del mismo instante de la simulación. Las fuerzas se transfieren al modelo estructural conservando su signo, de modo que la dirección de aplicación reproduce la del instante gobernante. La Tabla~\ref{tab:anexo_fuerzas_dlc11} del \hyperref[anexo:fuerzas]{Anexo~A} presenta, para las 24 estaciones, tanto la fuerza $F_{sim,x}[p], F_{sim,y}[p]$ que entrega la simulación en el instante $t_{max}$ como la fuerza puntual de diseño $F_{d,x}[p], F_{d,y}[p]$ que resulta de escalarla y de aplicarla como carga remota en el modelo FEM; las direcciones $x$ e $y$ corresponden a los ejes locales de la Figura~\ref{fig:ejes_locales}.
+El Anexo G de la IEC 61400-1~\parencite{IEC61400-1} proporciona un valor escalar de diseño por magnitud, y cargar el modelo de elementos finitos exige convertir uno de ellos en una distribución de fuerzas a lo largo de la envergadura. La magnitud que gobierna esa conversión es la envolvente direccional en el apoyo inferior, $M_{env}$ de la Ec.~\ref{eq:M_env} evaluada en $z_{ap} = 5{,}0$~m, elegida por ser la sección en que el modelo estructural localiza la tensión máxima y por recoger, en una sola cifra, el peor de los doce sentidos de flexión que admite esa sección. La distribución se resuelve en las mismas 21 estaciones con que se decidió instrumentar la pala (Sección~\ref{sec:discretizacion}), obteniéndose un vector de 21 fuerzas de diseño $(F_{d,x}[p], F_{d,y}[p])$, una por estación.
+
+Para preservar la correlación espacial entre estaciones, el perfil de carga se extrae del instante $t_{max}$ en que esa magnitud gobernante alcanza su máximo sobre el conjunto de las 72 realizaciones (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}. En ese instante se capturan las fuerzas compañeras $F_x[p], F_y[p]$, concepto que el Anexo I de la norma define como el conjunto de cargas que actúan simultáneamente con el extremo analizado~\parencite{IEC61400-1}, y se escalan uniformemente por el factor $M_{env,d} / M_{env}(t_{max})$. Este enfoque garantiza que la distribución espacial de fuerzas que ingresa al FEM sea la que entrega la simulación aerodinámica en ese único instante, con la correlación entre estaciones que ella misma produce, y no una combinación artificial de máximos independientes por estación que no ocurrieron simultáneamente; y que la magnitud global sea consistente con la carga de diseño a 50 años, ya que todas las estaciones provienen del mismo instante de la simulación. Las fuerzas se transfieren al modelo estructural conservando su signo, de modo que la dirección de aplicación reproduce la del instante gobernante. La Tabla~\ref{tab:anexo_fuerzas_dlc11} del \hyperref[anexo:fuerzas]{Anexo~A} presenta, para las 21 estaciones, tanto la fuerza $F_{sim,x}[p], F_{sim,y}[p]$ que entrega la simulación en el instante $t_{max}$ como la fuerza puntual de diseño $F_{d,x}[p], F_{d,y}[p]$ que resulta de escalarla y de aplicarla como carga remota en el modelo FEM; las direcciones $x$ e $y$ corresponden a los ejes locales de la Figura~\ref{fig:ejes_locales}.
 
 \bigskip
 \subsubsection{DLC 1.2 --- fatiga}
@@ -786,20 +819,24 @@ Para el DLC 1.3, la norma prescribe un método alternativo al Anexo G. Las carga
 
 \medskip
 \noindent\textbf{Extracción de máximos.}
-La fuerza total integrada $F_{tot}(t)$ es la misma señal escalar definida en la Ec.~\ref{eq:F_tot} para el DLC 1.1: la integración es espacial, sobre las 24 estaciones de la pala en cada instante, y por sí sola no incluye ninguna búsqueda de máximos. Se calcula de igual forma para cada una de las simulaciones del DLC 1.3 y, a partir de ella, para cada velocidad $V_j$ ($j = 1,\dots,5$, correspondientes a $V = 16$, $18$, $20$, $22$ y $24$~m/s) se extraen los $6$ máximos $F_{tot,\max}(V_j, s)$ con $s = 1,\dots,6$, sobre el intervalo $t \geq 50$~s.
+Las magnitudes que se procesan son las trece definidas para el DLC 1.1, obtenidas de las mismas Ecs.~\ref{eq:M_apoyo} a~\ref{eq:F_tot} y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Cada una se calcula de igual forma para las $30$ simulaciones de este caso y, para cada velocidad $V_j$ ($j = 1,\dots,5$, correspondientes a $V = 16$, $18$, $20$, $22$ y $24$~m/s), se extraen los $6$ máximos $F_{\max}(V_j, s)$ con $s = 1,\dots,6$, sobre el intervalo $t \geq 50$~s. La integración de la Ec.~\ref{eq:F_tot} es espacial, sobre las estaciones de la pala en cada instante, y por sí sola no incluye ninguna búsqueda de máximos.
 
 \medskip
 \noindent\textbf{Carga característica por velocidad.}
-A diferencia del DLC 1.1, donde el Anexo G ajusta una distribución de extremos y extrapola sobre todo el rango operacional, la Sección 7.6.2 de la norma IEC 61400-1~\parencite{IEC61400-1} define aquí la carga característica sin extrapolación temporal: para una velocidad de viento dada, es la media de los máximos de las realizaciones estocásticas disponibles a esa velocidad. Para cada una de las cinco velocidades $V_j$ ensayadas en el DLC 1.3, la carga característica $F_k(V_j)$ se calcula, en consecuencia, como el promedio aritmético de los $6$ máximos $F_{tot,\max}(V_j, s)$ obtenidos en el paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
+A diferencia del DLC 1.1, donde el Anexo G ajusta una distribución de extremos y extrapola sobre todo el rango operacional, la Sección 7.6.2 de la norma IEC 61400-1~\parencite{IEC61400-1} define aquí la carga característica sin extrapolación temporal: para una velocidad de viento dada, es la media de los máximos de las realizaciones estocásticas disponibles a esa velocidad. Para cada una de las cinco velocidades $V_j$ ensayadas en el DLC 1.3, la carga característica $F_k(V_j)$ se calcula, en consecuencia, como el promedio aritmético de los $6$ máximos $F_{\max}(V_j, s)$ obtenidos en el paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
 
 \begin{equation}
-    F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{tot,\max}(V_j, s)
+    F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s)
     \label{eq:dlc13_Fk_local}
 \end{equation}
 
-donde $F_{tot,\max}(V_j, s)$ es el máximo de $F_{tot}(t)$ de la simulación de semilla $s$ a la velocidad $V_j$, extraído en el paso anterior. Este cálculo se repite de forma independiente para cada una de las cinco velocidades ensayadas, lo que entrega un conjunto de cinco cargas características $F_k(V_j)$, una por velocidad.
+donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$, extraído en el paso anterior. Este cálculo se repite de forma independiente para cada una de las cinco velocidades ensayadas y para cada una de las trece magnitudes.
 
-La carga característica global del DLC 1.3, $F_k$, es la mayor de esas cinco cargas, y la velocidad que la produce se denomina velocidad gobernante, $V_{gob}$, por ser la que domina el caso de carga. Esta carga se amplifica por el factor $\gamma_f = 1{,}35$; ver su justificación en la Sección~\ref{sec:factores_seguridad}. El perfil espacial de diseño se construye como la media por estación de los perfiles compañeros de las $6$ semillas a la velocidad gobernante, amplificada por el mismo factor, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
+La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de sus cinco cargas por velocidad, y la velocidad que la produce se denomina velocidad gobernante, $V_{gob}$, por ser la que domina el caso de carga. Esta carga se amplifica por el factor $\gamma_f = 1{,}35$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
+
+Disponer de las trece magnitudes en ambos casos de carga es lo que permite aplicar el criterio de la Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando la carga de diseño del DLC 1.3 resulta mayor. La comparación se realiza magnitud a magnitud, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas; el resultado de esa comparación se presenta en el Capítulo~4.
+
+El perfil espacial de diseño se construye sobre la misma magnitud gobernante que en el DLC 1.1, pero de forma coherente con la definición de carga característica que rige aquí. De cada una de las seis semillas de la velocidad gobernante se captura el perfil de fuerzas compañeras en el instante en que esa semilla alcanza su propio máximo, y el perfil de diseño es la media por estación de los seis, amplificada por $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que la Ec.~\ref{eq:dlc13_Fk_local} aplica a la magnitud escalar, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
 
 \section{Etapa 3: análisis estructural}
 
@@ -848,7 +885,7 @@ Las propiedades disponibles del laminado son las de la Tabla~\ref{tab:material_p
 \subsection{Análisis por modelado de elementos finitos de la pala}
 \label{sec:fem}
 
-El análisis estructural de la pala se realiza en el software Ansys. En correlación con los objetivos propuestos, se modela únicamente una pala, excluyendo los struts, la torre y el sistema de flotación del dominio de cálculo. La exclusión del sistema de flotación responde, además, a la falta de datos para modelarlo: el fabricante no entrega su geometría ni sus propiedades, información que resguarda por confidencialidad comercial. La discretización emplea las mismas 24 estaciones adoptadas para instrumentar la pala en QBlade (Sección~\ref{sec:discretizacion}), lo que permite trasladar directamente las cargas sin requerir interpolación entre dominios.
+El análisis estructural de la pala se realiza en el software Ansys. En correlación con los objetivos propuestos, se modela únicamente una pala, excluyendo los struts, la torre y el sistema de flotación del dominio de cálculo. La exclusión del sistema de flotación responde, además, a la falta de datos para modelarlo: el fabricante no entrega su geometría ni sus propiedades, información que resguarda por confidencialidad comercial. La discretización emplea las mismas 21 estaciones adoptadas para instrumentar la pala en QBlade (Sección~\ref{sec:discretizacion}), lo que permite trasladar directamente las cargas sin requerir interpolación entre dominios.
 
 \subsubsection{Condiciones de borde}
 \label{sec:condiciones_borde}
