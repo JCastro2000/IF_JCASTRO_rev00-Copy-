@@ -9,9 +9,9 @@
 \section*{Procesamiento de cargas del DLC 1.3: media de los máximos con turbulencia extrema}
 \label{anexo:dlc13}
 
-Este anexo reproduce el código que determina la carga de diseño del DLC 1.3, que la norma resuelve por una vía distinta de la del DLC 1.1. Al tratarse de un caso con modelo de turbulencia extrema, IEC 61400-1~\parencite{IEC61400-1} no exige extrapolación temporal a $50$ años: la carga característica es la media de los máximos de las realizaciones estocásticas (Sección 7.6.2). Se omiten las rutinas de exportación y de generación de figuras.
+Este anexo reproduce el código que determina las cargas de diseño del DLC 1.3, que la norma resuelve por una vía distinta de la del DLC 1.1. Al tratarse de un caso con modelo de turbulencia extrema, IEC 61400-1~\parencite{IEC61400-1} no exige extrapolación temporal a $50$ años, ya que la carga característica es la media de los máximos de las realizaciones estocásticas (Sección 7.6.2.2). Se omiten las rutinas de exportación y de generación de figuras.
 
-La reducción del vector de cargas a la solicitación escalar $F_{tot}(t)$ es idéntica a la del Anexo B, por lo que aquí se reutiliza la misma función.
+Las funciones que reducen el vector de cargas a los efectos de carga en las secciones de apoyo son idénticas a las del Anexo B, por lo que aquí se reutilizan sin repetirlas. Esa identidad no es una comodidad de programación, sino una condición del análisis, ya que el criterio de omisión de la Sección 7.4.2 exige comparar ambos casos magnitud a magnitud y esa comparación solo es válida si ambas se calculan igual.
 
 \subsection*{Parámetros de entrada}
 
@@ -20,21 +20,14 @@ La reducción del vector de cargas a la solicitación escalar $F_{tot}(t)$ es id
 """
 DLC 1.3 - Carga última con modelo de turbulencia extrema (ETM).
 Entrada : 30 series temporales (5 velocidades x 6 semillas).
-Salida  : carga característica F_k, carga de diseño F_d y el perfil
-          espacial de fuerzas por estación.
+Salida  : carga característica F_k y carga de diseño F_d de las trece
+          magnitudes, y el perfil espacial de fuerzas por estación.
 """
-import csv, glob, os
+import glob, json, os, re
 from collections import defaultdict
 import numpy as np
 
-BLADE_LENGTH = 23.0
-N_POS        = 24
-POS     = np.linspace(0.0, 1.0, N_POS)
-SEG_LEN = np.full(N_POS, BLADE_LENGTH / (N_POS - 1))
-
-T_DISCARD = 50.0     # tramo inicial descartado [s]. La norma exige
-                     # eliminar al menos los 5 s iniciales, o mas si
-                     # es necesario (Seccion 7.5).
+from anexo_b import (DELTA_S, efectos_de_carga, T_DISCARD)
 
 # Velocidades evaluadas. Como las fuerzas aerodinámicas crecen con V^2, la
 # condición más adversa se ubica en el extremo superior del rango
@@ -45,105 +38,89 @@ V_ENSAYADAS = [16, 18, 20, 22, 24]
 # extrapolación estadística (Sección 7.6.2.2, Tabla 3). A diferencia del
 # DLC 1.1, aquí no aplica la reducción a 1,25.
 GAMMA_F = 1.35
+
+MAGNITUD_GOBERNANTE = 'M_env_apoyo_sup'   # sección más solicitada
 \end{pycode}
 
-\subsection*{Máximo y perfil compañero de cada realización}
+\subsection*{Máximos y perfiles compañeros por realización}
 
-A diferencia del DLC 1.1, donde basta el valor escalar máximo, aquí se conserva además el perfil de fuerzas del instante en que ese máximo ocurre. Ese perfil es el que después se promedia entre semillas para construir la distribución espacial de diseño.
+A diferencia del DLC 1.1, donde el perfil de diseño proviene de un único instante de toda la campaña, aquí se conserva el perfil compañero de cada semilla, tomado en el instante en que esa semilla alcanza su propio máximo. Esos seis perfiles se promedian después estación por estación.
 
 \begin{pycode}
-def fuerza_equivalente(fx, fy):
-    """
-    Solicitación global de la pala en un instante, idéntica a la definida
-    en el Anexo B:
-        F_tot(t) = suma_i  sqrt( Fx_i(t)^2 + Fy_i(t)^2 ) * L_seg,i
-    """
-    return float(np.sum(np.sqrt(fx ** 2 + fy ** 2) * SEG_LEN))
+maximos  = defaultdict(lambda: defaultdict(list))  # [magnitud][V] = 6 máximos
+perfiles = defaultdict(list)                       # [V] = 6 perfiles compañeros
 
+for ruta in sorted(glob.glob('sim_DLC13_*_forces.csv')):
+    m = re.search(r'sim_DLC13_(\d+)_V(\d+)_S(\d+)_forces\.csv', ruta)
+    v = int(m.group(2))
+    if v not in V_ENSAYADAS:
+        continue                      # red de seguridad; el patrón ya filtra
 
-def procesar_realizacion(ruta_csv):
-    """
-    Devuelve el máximo de F_tot(t) de una realización y el perfil de
-    fuerzas compañeras del instante en que se alcanza ese máximo.
+    t, fn, ft = leer_csv(ruta)        # fn, ft en [n_pasos, N_PAN], N/m
+    util = t >= T_DISCARD
+    ef = efectos_de_carga(fn[util], ft[util])
 
-    Conservar el perfil, y no solo el escalar, permite después construir
-    una distribución espacial coherente con la carga global.
-    """
-    with open(ruta_csv) as fh:
-        lector   = csv.reader(fh)
-        cabecera = next(lector)
-        col_t  = 0
-        col_fx = [i for i, c in enumerate(cabecera) if c.startswith('Fx_')]
-        col_fy = [i for i, c in enumerate(cabecera) if c.startswith('Fy_')]
+    for nombre, serie in ef.items():
+        maximos[nombre][v].append(float(serie.max()))
 
-        f_max  = 0.0
-        fx_max = np.zeros(N_POS)
-        fy_max = np.zeros(N_POS)
-
-        for fila in lector:
-            if float(fila[col_t]) < T_DISCARD:
-                continue
-            fx = np.array([float(fila[i]) for i in col_fx])
-            fy = np.array([float(fila[i]) for i in col_fy])
-            f_tot = fuerza_equivalente(fx, fy)
-
-            if f_tot > f_max:
-                f_max  = f_tot
-                fx_max = fx.copy()   # perfil compañero del instante crítico
-                fy_max = fy.copy()
-
-    return f_max, fx_max, fy_max
+    # Perfil compañero del instante de máxima solicitación de ESTA semilla.
+    j = int(np.argmax(ef[MAGNITUD_GOBERNANTE]))
+    perfiles[v].append((fn[util][j].copy(), ft[util][j].copy()))
 \end{pycode}
 
 \subsection*{Carga característica y velocidad gobernante}
 
 \begin{pycode}
-# --- Paso 1: procesar las realizaciones, agrupadas por velocidad -------
-maximos = defaultdict(list)   # F_tot máximo de cada semilla
-perfiles = defaultdict(list)  # perfil compañero de cada semilla
+resultados = {}
+for nombre, por_v in maximos.items():
+    # La norma define aquí la carga característica como la MEDIA de los
+    # máximos de las realizaciones, sin extrapolación temporal. Es la
+    # diferencia esencial respecto del DLC 1.1, donde se ajusta una
+    # distribución de extremos y se extrapola a 50 años.
+    medias = {v: float(np.mean(por_v[v])) for v in sorted(por_v)}
 
-for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
-    partes = os.path.basename(ruta).replace('_forces.csv', '').split('_')
-    V = int(partes[2][1:])
-    if V not in V_ENSAYADAS:
-        continue
-    f_max, fx_max, fy_max = procesar_realizacion(ruta)
-    maximos[V].append(f_max)
-    perfiles[V].append((fx_max, fy_max))
-
-# --- Paso 2: carga característica de cada velocidad --------------------
-# La norma define aquí la carga característica como la MEDIA de los
-# máximos de las realizaciones, sin extrapolación temporal. Es la
-# diferencia esencial respecto del DLC 1.1, donde se ajustaba una
-# distribución de extremos y se extrapolaba a 50 años.
-F_k_por_V = {V: float(np.mean(maximos[V])) for V in maximos}
-
-# --- Paso 3: velocidad gobernante y carga característica global --------
-# La carga característica del caso es la mayor entre las velocidades
-# evaluadas, y la velocidad que la produce es la gobernante.
-V_gob = max(F_k_por_V, key=F_k_por_V.get)
-F_k   = F_k_por_V[V_gob]
-
-# --- Paso 4: carga de diseño -------------------------------------------
-F_d = GAMMA_F * F_k
+    # La carga característica del caso es la mayor entre las velocidades
+    # evaluadas, y la velocidad que la produce es la gobernante.
+    v_gob = max(medias, key=medias.get)
+    resultados[nombre] = {'F_k': medias[v_gob],
+                          'F_d': GAMMA_F * medias[v_gob],
+                          'V_gobernante': v_gob,
+                          'medias': medias}
 \end{pycode}
 
 \subsection*{Perfil espacial de diseño}
 
-El perfil que ingresa al modelo de elementos finitos se construye como la media por estación de los perfiles compañeros de las seis semillas a la velocidad gobernante, amplificada por el mismo factor $\gamma_f$. De este modo la distribución espacial resulta consistente con la carga global, que también es una media entre semillas.
+El perfil que ingresa al modelo de elementos finitos se construye como la media por estación de los perfiles compañeros de las seis semillas a la velocidad gobernante, amplificada por el mismo factor $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que se aplica a la magnitud escalar, de modo que la distribución resulta consistente con la carga global.
 
 \begin{pycode}
-# --- Paso 5: media por estación de los perfiles compañeros -------------
-# Se promedian las seis semillas de la velocidad gobernante estación por
-# estación. El promedio se toma sobre las fuerzas con signo, de manera
-# que se conserva la dirección de aplicación de la carga.
-fx_gob = np.mean([p[0] for p in perfiles[V_gob]], axis=0)
-fy_gob = np.mean([p[1] for p in perfiles[V_gob]], axis=0)
+v_gob = resultados[MAGNITUD_GOBERNANTE]['V_gobernante']
+
+# Media por estación de las seis semillas de la velocidad gobernante. El
+# promedio se toma sobre las fuerzas CON SIGNO, de manera que se conserva
+# la dirección de aplicación de la carga.
+fn_gob = np.mean([p[0] for p in perfiles[v_gob]], axis=0)
+ft_gob = np.mean([p[1] for p in perfiles[v_gob]], axis=0)
 
 # Fuerzas de diseño por estación [N]: se pasa de fuerza por unidad de
 # longitud a fuerza por segmento y se aplica el factor parcial de carga.
-Fd_x = fx_gob * SEG_LEN * GAMMA_F
-Fd_y = fy_gob * SEG_LEN * GAMMA_F
+Fd_n = fn_gob * DELTA_S * GAMMA_F
+Fd_t = ft_gob * DELTA_S * GAMMA_F
 \end{pycode}
 
-Las fuerzas resultantes se recogen en la Tabla~\ref{tab:anexo_fuerzas_dlc13} del Anexo A, junto con la fuerza lineal simulada de la que provienen.
+\subsection*{Criterio de omisión del DLC 1.1}
+
+Disponer de las trece magnitudes en ambos casos permite evaluar el criterio de la Sección 7.4.2, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando las cargas de diseño del DLC 1.3 superan a las suyas. La comparación se realiza magnitud a magnitud y el resultado se presenta en la Sección~\ref{sec:criterio_omision}.
+
+\begin{pycode}
+with open('resultados_DLC11.json') as fh:
+    dlc11 = json.load(fh)['resultados']
+
+# El DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en TODAS las
+# magnitudes. Basta una en que no lo haga para que ambos casos deban
+# conservarse en la verificación.
+gobierna_13 = {nombre: resultados[nombre]['F_d'] > dlc11[nombre]['F_d']
+               for nombre in resultados}
+omitible = all(gobierna_13.values())
+\end{pycode}
+
+Las fuerzas resultantes se recogen en las tablas del Anexo~A, junto con la fuerza lineal simulada de la que provienen.

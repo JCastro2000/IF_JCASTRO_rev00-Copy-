@@ -9,47 +9,54 @@
 \section*{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
 \label{anexo:dlc11}
 
-Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en la carga de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
+Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en las cargas de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
 
-\subsection*{Parámetros de entrada}
+\subsection*{Geometría y parámetros de entrada}
 
-Los parámetros del emplazamiento provienen de la caracterización del recurso eólico y los normativos de la Tabla~\ref{tab:factores_seguridad}.
+La pala se discretiza en los mismos $21$ paneles de reparto coseno con que se resuelve la aerodinámica, de modo que la carga se lee donde el método calcula efectivamente la circulación (Sección~\ref{sec:discretizacion}).
 
 \begin{pycode}
 # -*- coding: utf-8 -*-
 """
 DLC 1.1 - Extrapolación de cargas extremas según el Anexo G de IEC 61400-1.
 Entrada : 72 series temporales de fuerzas por estación (12 V x 6 semillas).
-Salida  : carga característica F_k a 50 años y carga de diseño F_d.
+Salida  : carga característica F_k a 50 años y carga de diseño F_d de cada
+          una de las trece magnitudes, y el perfil espacial de diseño.
 """
-import csv, glob, os
+import csv, glob, json, math, os, re
 from collections import defaultdict
 import numpy as np
 
-# --- Geometría de la pala y discretización del sensor -------------------
-BLADE_LENGTH = 23.0        # envergadura de la pala [m]
-N_POS        = 24          # estaciones de medición sobre la envergadura
+# --- Geometría de la pala y discretización ------------------------------
+# Los bordes de panel siguen el reparto coseno, que concentra estaciones
+# hacia los extremos, donde los gradientes de circulación son mayores. Los
+# anchos suman por construcción la envergadura exacta, de modo que la
+# integración espacial no introduce error de cierre.
+ENVERGADURA = 23.0
+N_PAN   = 21
+BORDES  = 0.5 * ENVERGADURA * (1.0 - np.cos(np.linspace(0.0, np.pi, N_PAN + 1)))
+Z_PAN   = 0.5 * (BORDES[:-1] + BORDES[1:])   # centro de panel [m]
+DELTA_S = np.diff(BORDES)                    # ancho de panel [m]
 
-# Posición normalizada de cada estación y longitud de pala que representa.
-# Las 24 estaciones están igualmente espaciadas, de modo que cada una
-# concentra la carga de un tramo de 1,0 m.
-POS     = np.linspace(0.0, 1.0, N_POS)
-SEG_LEN = np.full(N_POS, BLADE_LENGTH / (N_POS - 1))
+# Secciones de apoyo: las dos conexiones con los brazos, que son la "raíz"
+# de la pala en el sentido de la Sección 3.1 de IEC 61400-5.
+Z_APOYO_INF = 5.0
+Z_APOYO_SUP = 18.0
 
-# --- Recurso eólico del emplazamiento -----------------------------------
-WEIBULL_K = 2.09           # factor de forma de Weibull
-WEIBULL_C = 8.97           # factor de escala de Weibull [m/s], a z_hub
+# Direcciones de la envolvente. IEC 61400-5 6.1.4.3 da por suficiente un
+# conjunto repartido uniformemente en al menos doce direcciones.
+N_DIRECCIONES = 12
 
 # --- Parámetros normativos ----------------------------------------------
 T_DISCARD = 50.0                       # tramo inicial descartado [s]. La
                                        # norma exige eliminar al menos los
                                        # 5 s iniciales, o mas si es
                                        # necesario (Seccion 7.5).
-T_OBS     = 600.0                      # duración de cada realización [s]
-T_RETURN  = 50 * 365 * 24 * 3600.0     # período de retorno de 50 años [s]
+T_OBS     = 600.0                      # ventana útil de cada realización [s]
+T_RETURN  = 50 * 365.25 * 24 * 3600.0  # período de retorno de 50 años [s]
 
-# Probabilidad de excedencia objetivo: una ventana de observación de 600 s
-# dentro de un período de retorno de 50 años (~3,81e-7).
+# Probabilidad de excedencia objetivo. La Sección 7.6.2.2 de la norma
+# declara ese mismo valor, 3,8e-7, como el máximo admisible.
 PE_TARGET = T_OBS / T_RETURN
 
 # Factor parcial de carga. La norma admite reducirlo de 1,35 a 1,25 para
@@ -58,65 +65,87 @@ PE_TARGET = T_OBS / T_RETURN
 GAMMA_F = 1.25
 \end{pycode}
 
-\subsection*{Reducción del vector de cargas a una solicitación escalar}
+\subsection*{Efectos de carga que se extrapolan}
 
-QBlade entrega, en cada paso de tiempo, la fuerza por unidad de longitud en las $24$ estaciones y en las dos direcciones del sistema local de la pala contenidas en el plano del perfil: $F_x$ normal a la cuerda y $F_y$ en el sentido de la cuerda. La extrapolación del Anexo G opera sobre una única variable de carga, por lo que ese vector debe reducirse a un escalar en cada instante.
+QBlade entrega, en cada paso de tiempo, la fuerza por unidad de longitud en las $21$ estaciones y en las dos direcciones del sistema local de la pala contenidas en el plano del perfil. De ese vector se derivan los efectos de carga sobre los que opera la extrapolación, que son los momentos flectores en las dos secciones de apoyo.
 
 \begin{pycode}
-def fuerza_equivalente(fx, fy):
+def fuerzas_puntuales(fn_lin, ft_lin):
+    """Pasa de fuerza por unidad de longitud [N/m] a fuerza de panel [N]."""
+    return fn_lin * DELTA_S, ft_lin * DELTA_S
+
+
+def momentos_en_apoyo(fn_lin, ft_lin, z_c, lado):
     """
-    Reduce el vector de cargas de un instante a una solicitación escalar.
+    Momento flector en una sección de apoyo, producido por el voladizo que
+    esa sección sostiene.
 
-    Multiplicar la fuerza por unidad de longitud de cada estación por la
-    longitud de pala que esa estación representa entrega la fuerza en
-    newton de cada tramo; su suma es la solicitación global de la pala en
-    ese instante:
+    Cortando en el apoyo y sumando solo el voladizo libre, el resultado
+    queda estáticamente determinado y no depende de las condiciones de
+    contorno. El vano central entre apoyos no lo está, y por eso se
+    resuelve en el modelo de elementos finitos y no aquí.
 
-        F_tot(t) = suma_i  sqrt( Fx_i(t)^2 + Fy_i(t)^2 ) * L_seg,i
-
-    Las dos componentes se combinan en el módulo del vector que forman
-    en cada estación, y no se suman con signo. El módulo es siempre
-    positivo, de modo que la suma a lo largo de la envergadura no admite
-    cancelaciones entre estaciones con carga de sentido opuesto y recoge
-    la solicitación completa que soporta la pala.
+    Devuelve (m_x, m_y): m_x lo genera la componente tangencial y flecta
+    en torno al eje local X; m_y lo genera la normal y flecta en torno a Y.
     """
-    return float(np.sum(np.sqrt(fx ** 2 + fy ** 2) * SEG_LEN))
+    fn, ft = fuerzas_puntuales(fn_lin, ft_lin)
+    if lado == 'inf':
+        sel   = Z_PAN < z_c
+        brazo = z_c - Z_PAN[sel]
+    else:
+        sel   = Z_PAN > z_c
+        brazo = Z_PAN[sel] - z_c
+    m_x = (ft[..., sel] * brazo).sum(axis=-1)
+    m_y = (fn[..., sel] * brazo).sum(axis=-1)
+    return m_x, m_y
 
 
-def maximo_de_la_realizacion(ruta_csv):
+def envolvente_direccional(m_x, m_y, n=N_DIRECCIONES):
     """
-    Devuelve el máximo de F_tot(t) de una realización.
+    Máximo del momento proyectado sobre n direcciones repartidas
+    uniformemente en la sección (IEC 61400-5 6.1.4.3, enfoque avanzado).
 
-    Se descartan los primeros T_DISCARD segundos. La norma obliga a
-    eliminar de todo intervalo de análisis con viento turbulento los
-    datos iniciales, porque las condiciones con que arranca la
-    simulación afectan la estadística de cargas al comienzo del
-    período simulado (Sección 7.5).
+    Al recorrer las n direcciones el círculo completo, la proyección cubre
+    los dos sentidos de cada componente y no hace falta tomar valor
+    absoluto. Por construcción el resultado nunca supera el módulo del
+    vector, y solo lo iguala cuando este apunta a una de las direcciones.
     """
-    with open(ruta_csv) as fh:
-        lector   = csv.reader(fh)
-        cabecera = next(lector)
+    th   = np.linspace(0.0, 2.0 * math.pi, n, endpoint=False)
+    proy = (np.outer(np.atleast_1d(m_x), np.cos(th))
+            + np.outer(np.atleast_1d(m_y), np.sin(th)))
+    return proy.max(axis=1)
 
-        # Las columnas de fuerza se identifican por su prefijo; el resto
-        # (tiempo, Cp, potencia, rpm) no interviene en este cálculo.
-        col_t  = 0
-        col_fx = [i for i, c in enumerate(cabecera) if c.startswith('Fx_')]
-        col_fy = [i for i, c in enumerate(cabecera) if c.startswith('Fy_')]
 
-        f_max = 0.0
-        for fila in lector:
-            if float(fila[col_t]) < T_DISCARD:
-                continue
-            fx = np.array([float(fila[i]) for i in col_fx])
-            fy = np.array([float(fila[i]) for i in col_fy])
-            f_max = max(f_max, fuerza_equivalente(fx, fy))
+def f_total(fn_lin, ft_lin):
+    """Fuerza total integrada sobre la envergadura, en norma euclídea."""
+    fn, ft = fuerzas_puntuales(fn_lin, ft_lin)
+    return np.hypot(fn, ft).sum(axis=-1)
 
-    return f_max
+
+def efectos_de_carga(fn_lin, ft_lin):
+    """Las trece magnitudes que se extrapolan, para una serie completa."""
+    mx_i, my_i = momentos_en_apoyo(fn_lin, ft_lin, Z_APOYO_INF, 'inf')
+    mx_s, my_s = momentos_en_apoyo(fn_lin, ft_lin, Z_APOYO_SUP, 'sup')
+    return {
+        # Componentes con signo, en sus dos sentidos: el extremo de diseño
+        # de una magnitud predominantemente negativa está en su mínimo, y
+        # la norma pide los valores extremos, que son ambos.
+        'M_x_apoyo_inf_pos': mx_i, 'M_x_apoyo_inf_neg': -mx_i,
+        'M_y_apoyo_inf_pos': my_i, 'M_y_apoyo_inf_neg': -my_i,
+        'M_x_apoyo_sup_pos': mx_s, 'M_x_apoyo_sup_neg': -mx_s,
+        'M_y_apoyo_sup_pos': my_s, 'M_y_apoyo_sup_neg': -my_s,
+        # No negativas por construcción.
+        'M_res_apoyo_inf': np.hypot(mx_i, my_i),
+        'M_env_apoyo_inf': envolvente_direccional(mx_i, my_i),
+        'M_res_apoyo_sup': np.hypot(mx_s, my_s),
+        'M_env_apoyo_sup': envolvente_direccional(mx_s, my_s),
+        'F_tot': f_total(fn_lin, ft_lin),
+    }
 \end{pycode}
 
 \subsection*{Ajuste de la distribución de extremos por velocidad}
 
-Para cada velocidad de viento se dispone de seis máximos, uno por semilla. El Anexo G modela su distribución mediante una función de Gumbel, cuyos parámetros se estiman por el método de los momentos según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
+De cada realización se extrae el máximo de cada magnitud sobre la ventana útil. Para cada velocidad de viento se dispone así de seis máximos, uno por semilla, a los que el Anexo G ajusta una distribución de Gumbel por el método de los momentos, según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
 
 \begin{pycode}
 GAMMA_EULER = 0.5772156649   # constante de Euler-Mascheroni
@@ -129,7 +158,7 @@ def ajuste_gumbel(maximos):
         beta = sqrt(6)/pi * s          mu = x_medio - gamma_E * beta
 
     donde s es la desviación estándar muestral de los máximos y x_medio su
-    promedio. Devuelve el parámetro de localización mu y el de escala beta.
+    promedio.
     """
     x    = np.asarray(maximos, dtype=float)
     beta = np.sqrt(6.0) / np.pi * np.std(x, ddof=1)
@@ -139,102 +168,133 @@ def ajuste_gumbel(maximos):
 
 def excedencia_gumbel(F, mu, beta):
     """
-    Probabilidad de que F_tot supere el valor F en una realización de
-    600 s a una velocidad de viento dada:
+    Probabilidad de que la magnitud supere el valor F en una realización
+    de 600 s a una velocidad de viento dada:
 
-        P(F_tot > F | V) = 1 - exp( -exp( -(F - mu) / beta ) )
+        P(S > F | V) = 1 - exp( -exp( -(F - mu) / beta ) )
     """
     return 1.0 - np.exp(-np.exp(-(F - mu) / beta))
-
-
-def weibull_pdf(V, k, c):
-    """Densidad de probabilidad de Weibull de la velocidad del viento."""
-    return (k / c) * (V / c) ** (k - 1) * np.exp(-(V / c) ** k)
 \end{pycode}
 
 \subsection*{Agregación y carga característica}
 
-La probabilidad de excedencia de largo plazo pondera la probabilidad condicional de cada velocidad por el tiempo que el viento permanece en ella. La carga característica $F_k$ es aquella cuya probabilidad de excedencia iguala la del período de retorno de $50$ años.
+La probabilidad de excedencia de largo plazo pondera la probabilidad condicional de cada velocidad por el tiempo que el viento permanece en ella. Esa ponderación emplea la frecuencia empírica de la serie del emplazamiento y no la Weibull ajustada, por las razones expuestas en la Sección~\ref{sec:anexo_f}.
 
 \begin{pycode}
-# --- Paso 1: máximo de cada realización, agrupado por velocidad ---------
-maximos = defaultdict(list)
-for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
-    # Nombre del archivo: sim_037_V14_S1_forces.csv -> V = 14 m/s, semilla 1
-    partes = os.path.basename(ruta).replace('_forces.csv', '').split('_')
-    V = int(partes[2][1:])
-    maximos[V].append(maximo_de_la_realizacion(ruta))
+# Frecuencia empírica por banda de 1 m/s, contada sobre los 38 años de la
+# serie extrapolada a la altura del centro del rotor. La Sección G.3.4
+# admite ponderar por la Weibull "o la que resulte apropiada"; aquí la
+# apropiada es la empírica, porque la Weibull subestima la banda alta y
+# ese sesgo va en contra del margen.
+with open('distribucion_viento.json') as fh:
+    PESO = {float(k): v for k, v in json.load(fh)['bandas'].items()}
 
-# --- Paso 2: un Gumbel por velocidad, ajustado sobre sus 6 semillas -----
-parametros  = {V: ajuste_gumbel(maximos[V]) for V in sorted(maximos)}
-V_ensayadas = np.array(sorted(parametros), dtype=float)
-mu_V        = np.array([parametros[V][0] for V in V_ensayadas])
-beta_V      = np.array([parametros[V][1] for V in V_ensayadas])
-
-# --- Paso 3: llevar mu y beta a la malla de integración ----------------
-# El Anexo G integra sobre todo el rango operacional y no solo sobre las
-# velocidades simuladas. Entre ellas se interpola linealmente; fuera del
-# rango ensayado np.interp mantiene el valor del extremo más próximo.
-V_bins = np.arange(0.5, 25.5, 1.0)
-dV     = 1.0
-mu_bins   = np.interp(V_bins, V_ensayadas, mu_V)
-beta_bins = np.interp(V_bins, V_ensayadas, beta_V)
-
-# Peso de cada intervalo de velocidad, normalizado a probabilidad total 1.
-p_bins  = weibull_pdf(V_bins, WEIBULL_K, WEIBULL_C)
-p_bins /= np.sum(p_bins * dV)
+V_IN, V_OUT, DV = 2.0, 25.0, 1.0
 
 
-def excedencia_largo_plazo(F):
+def malla_de_integracion(v_sim, mus, betas):
     """
-    Probabilidad de excedencia de largo plazo (Anexo G):
+    Bandas sobre las que se integra, y los parámetros de Gumbel
+    interpolados en ellas.
 
-        P_e(F) = integral_V  P(F_tot > F | V) * p_Weibull(V) dV
+    La malla cubre solo el rango operacional. Por debajo de V_in el rotor
+    no produce y la interpolación le asignaría la Gumbel de V_in, que es
+    una distribución de cargas que ahí no existe; por encima de V_out la
+    turbina está detenida y sus cargas son las de los DLC 6.x.
+    """
+    centros = np.arange(V_IN + DV / 2.0, V_OUT, DV)
+    return (centros,
+            np.interp(centros, v_sim, mus),
+            np.interp(centros, v_sim, betas))
+
+
+def excedencia_largo_plazo(F, centros, mus, betas):
+    """
+    Probabilidad de excedencia de largo plazo (Anexo G, Ec. G.2):
+
+        P_e(F) = suma_V  P(S > F | V) * p(V)
 
     Combina la distribución de extremos condicional a cada velocidad con
-    la distribución de velocidades del emplazamiento.
+    la frecuencia con que esa velocidad ocurre en el emplazamiento.
     """
-    return float(np.sum(excedencia_gumbel(F, mu_bins, beta_bins) * p_bins * dV))
+    return float(sum(excedencia_gumbel(F, mu, beta) * PESO[v]
+                     for v, mu, beta in zip(centros, mus, betas)))
 
 
-# --- Paso 4: F_k por bisección -----------------------------------------
-# P_e es monótona decreciente en F, de modo que la bisección converge sin
-# ambigüedad al único valor que satisface P_e(F_k) = PE_TARGET.
-F_lo = 0.0
-F_hi = 3.0 * max(max(v) for v in maximos.values())
-for _ in range(100):
-    F_mid = 0.5 * (F_lo + F_hi)
-    if excedencia_largo_plazo(F_mid) > PE_TARGET:
-        F_lo = F_mid      # todavía se excede con demasiada frecuencia
-    else:
-        F_hi = F_mid
-F_k = 0.5 * (F_lo + F_hi)
+def carga_caracteristica(centros, mus, betas):
+    """
+    F_k por bisección. P_e es monótona decreciente en F, de modo que la
+    bisección converge sin ambigüedad al único valor que satisface
+    P_e(F_k) = PE_TARGET.
+    """
+    lo, hi = 0.0, max(mus) + 60.0 * max(betas)
+    for _ in range(300):
+        med = 0.5 * (lo + hi)
+        if excedencia_largo_plazo(med, centros, mus, betas) > PE_TARGET:
+            lo = med
+        else:
+            hi = med
+    return 0.5 * (lo + hi)
+\end{pycode}
 
-# --- Paso 5: carga de diseño (Ec. 29, Sección 7.6.1.2) -----------------
-F_d = GAMMA_F * F_k
+\subsection*{Recorrido de las realizaciones y cargas de diseño}
+
+El procedimiento anterior se aplica de forma independiente a cada una de las trece magnitudes. En el mismo recorrido se localiza el instante gobernante, que es aquel en que la magnitud elegida para escalar el perfil alcanza su máximo sobre el conjunto de las 72 realizaciones.
+
+\begin{pycode}
+MAGNITUD_GOBERNANTE = 'M_env_apoyo_sup'   # sección más solicitada
+
+maximos = defaultdict(lambda: defaultdict(list))
+mejor   = {'valor': -np.inf}
+
+for ruta in sorted(glob.glob('sim_DLC11_*_forces.csv')):
+    # Nombre del archivo: sim_DLC11_068_V24_S2_forces.csv -> V = 24, semilla 2
+    m = re.search(r'sim_DLC11_(\d+)_V(\d+)_S(\d+)_forces\.csv', ruta)
+    v, semilla = int(m.group(2)), int(m.group(3))
+
+    t, fn, ft = leer_csv(ruta)          # fn, ft en [n_pasos, N_PAN], N/m
+    util = t >= T_DISCARD               # descarte del transitorio inicial
+    ef = efectos_de_carga(fn[util], ft[util])
+
+    for nombre, serie in ef.items():
+        maximos[nombre][v].append(float(serie.max()))
+
+    # Instante gobernante, para el perfil espacial de diseño.
+    serie = ef[MAGNITUD_GOBERNANTE]
+    j = int(np.argmax(serie))
+    if serie[j] > mejor['valor']:
+        mejor = {'valor': float(serie[j]), 't': float(t[util][j]),
+                 'V': v, 'semilla': semilla,
+                 'fn': fn[util][j].copy(), 'ft': ft[util][j].copy()}
+
+resultados = {}
+for nombre, por_v in maximos.items():
+    vs    = sorted(por_v)
+    pares = [ajuste_gumbel(por_v[v]) for v in vs]
+    centros, mu_i, beta_i = malla_de_integracion(
+        np.array(vs, float),
+        np.array([p[0] for p in pares]),
+        np.array([p[1] for p in pares]))
+    fk = carga_caracteristica(centros, mu_i, beta_i)
+    resultados[nombre] = {'F_k': fk, 'F_d': GAMMA_F * fk}
 \end{pycode}
 
 \subsection*{Del escalar a las fuerzas por estación}
 
-El Anexo G entrega un único valor escalar, que se distribuye en las 24 estaciones con que se instrumentó la pala. Para preservar la correlación espacial entre ellas, el perfil se toma del instante de máxima solicitación global de la realización que registró la mayor solicitación y se escala de manera uniforme, conforme a la Sección 7.5 de la norma.
+El Anexo G entrega un valor escalar por magnitud, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil se toma del instante gobernante y se escala de manera uniforme, conforme a la Sección 7.5 de la norma. Las cargas que actúan simultáneamente con el extremo son las que el Anexo I denomina cargas compañeras.
 
 \begin{pycode}
-# fx_crit, fy_crit son las fuerzas compañeras por unidad de longitud en
-# las 24 estaciones, capturadas en el instante t_max de la realización
-# que produjo el mayor F_tot de todo el conjunto.
-
-F_tot_crit = fuerza_equivalente(fx_crit, fy_crit)
-
-# Factor único que lleva la solicitación de ese instante hasta la carga
-# de diseño, conservando intacta la forma del perfil a lo largo de la
-# envergadura.
-escala = F_d / F_tot_crit
+# Valor de la magnitud gobernante en el instante gobernante, y factor
+# único que lo lleva hasta la carga de diseño conservando intacta la forma
+# del perfil a lo largo de la envergadura.
+escala = resultados[MAGNITUD_GOBERNANTE]['F_d'] / mejor['valor']
 
 # Fuerzas de diseño por estación [N]. Se conserva el signo original, de
 # modo que la dirección de aplicación en el modelo estructural reproduce
-# la del instante gobernante.
-Fd_x = fx_crit * SEG_LEN * escala
-Fd_y = fy_crit * SEG_LEN * escala
+# la del instante gobernante: normal positiva hacia el eje del rotor y
+# tangencial positiva en el sentido del movimiento de la pala.
+Fd_n = mejor['fn'] * DELTA_S * escala
+Fd_t = mejor['ft'] * DELTA_S * escala
 \end{pycode}
 
-Las fuerzas resultantes se recogen en la Tabla~\ref{tab:anexo_fuerzas_dlc11} del Anexo A, junto con la fuerza lineal simulada de la que provienen.
+El mismo cálculo se repite con \texttt{MAGNITUD\_GOBERNANTE} apuntando al apoyo inferior, y con el extremo de $M_y$ en su sentido contrario, que selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga. Las cuatro distribuciones resultantes se recogen en las tablas del Anexo~A.
