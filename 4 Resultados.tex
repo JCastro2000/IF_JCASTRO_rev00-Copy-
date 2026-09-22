@@ -713,12 +713,12 @@ La Figura~\ref{fig:fem_cb} muestra el modelo con las condiciones de borde que de
 
 La aceleración centrífuga corresponde a la velocidad máxima de rotación $\Omega = 42$~rpm ($4{,}398$~rad/s) que, evaluada en la Ec.~\ref{eq:centrifugal_limit} con $R = 10{,}365$~m, resulta en $a_c = 200{,}5$~m/s$^2$ ($20{,}4\,g$), uniforme en toda la envergadura. Esa magnitud sitúa en su justa dimensión la consigna de $42$~rpm. Como la aceleración centrífuga es inversamente proporcional al radio (Ec.~\ref{eq:centrifugal_limit}), el menor radio del rotor en estudio implica una solicitación centrífuga un $29\%$ superior a la de la T1-turbine en su límite de diseño~\parencite{Mollerstrom2017}, pese a que ambas máquinas comparten la misma velocidad de punta. La admisibilidad de la consigna no se sustenta por tanto en la comparación con la literatura, sino en la verificación estructural que se desarrolla en esta sección.
 
-La Figura~\ref{fig:fem_fuerzas} muestra las fuerzas aerodinámicas de diseño $F_d$ del DLC 1.1 aplicadas como cargas remotas en los centroides de las 24 estaciones, conservando el signo del instante gobernante (Sección~\ref{sec:anexo_f}), en el cual la componente normal a la cuerda apunta hacia el extradós, coincidiendo con el sentido de la flexión inducida por la fuerza centrífuga, condición que hace de este el estado combinado más desfavorable.
+La Figura~\ref{fig:fem_fuerzas} muestra las fuerzas aerodinámicas de diseño $F_d$ aplicadas como cargas remotas en los centroides de las $21$ estaciones, conservando el signo que entrega la simulación (Sección~\ref{sec:anexo_f}). Ese signo es el que obliga a resolver cada caso de carga en sus dos sentidos. En el instante que maximiza la envolvente direccional, la componente normal apunta hacia el eje del rotor y se opone por tanto a la flexión que induce la fuerza centrífuga, de modo que el mayor extremo aerodinámico no coincide con el estado combinado más desfavorable. El segundo perfil de cada caso, tomado del extremo de $M_y$ en el sentido contrario, sí acumula ambas contribuciones, y es la comparación entre ambos la que determina el caso gobernante (Sección~\ref{sec:comparacion_dlc}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_fuerzas.png}
-    \caption{Fuerzas aerodinámicas de diseño aplicadas como cargas remotas en las 24 estaciones de la pala.}
+    \caption{Fuerzas aerodinámicas de diseño aplicadas como cargas remotas en las 21 estaciones de la pala.}
     \label{fig:fem_fuerzas}
 \end{figure}
 
@@ -871,12 +871,14 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         \textbf{Símbolo} & \textbf{Descripción} & \textbf{DLC 1.2 (NTM)} \\
         \hline
         $\gamma_f$ & Factor parcial de carga & $1{,}00$ \\
-        $\gamma_m \cdot \gamma_n$ & Factores parciales combinados & $1{,}96$ \\
+        $\gamma_m$ & Factor parcial de material (COV $15$--$20\%$) & $2{,}00$ \\
         $\gamma_n$ & Factor de consecuencia (CC2, fatiga) & $1{,}15$ \\
-        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $0{,}752$~MPa/(kN$\cdot$m) \\
+        $\gamma_f \gamma_m \gamma_n$ & Factor combinado sobre la amplitud & $2{,}30$ \\
+        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $0{,}836$~MPa/(kN$\cdot$m) \\
         $\sigma_{in}$ & Tensión media de origen inercial & $114{,}5$~MPa \\
-        $D_{\text{año}}$ & Daño anual acumulado & $3{,}22 \times 10^{-9}$ \\
-        $D_{20}$ & Daño acumulado en 20 años & $6{,}45 \times 10^{-8}$ \\
+        --- & Ciclos anuales contabilizados & $1{,}44 \times 10^{8}$ \\
+        $D_{\text{año}}$ & Daño anual acumulado & $3{,}00 \times 10^{-4}$ \\
+        $D_{20}$ & Daño acumulado en 20 años & $6{,}00 \times 10^{-3}$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -891,9 +893,10 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         \hline
         \multicolumn{4}{c}{\textit{Cargas de diseño}} \\
         \hline
-        $F_d$ & Carga de diseño global & $146{,}1$~kN & $152{,}1$~kN \\
-        $F_{d,x}$ & Fuerza máx.\ por estación, eje $X_l$ & $6{,}78$~kN/m & $6{,}71$~kN/m \\
-        $F_{d,y}$ & Fuerza máx.\ por estación, eje $Y_l$ & $2{,}40$~kN/m & $2{,}30$~kN/m \\
+        $M_{env,d}$ & Envolvente de diseño, apoyo superior & $98{,}42$~kN$\cdot$m & $88{,}64$~kN$\cdot$m \\
+        $M_{res,d}$ & Resultante de diseño, apoyo superior & $101{,}55$~kN$\cdot$m & $91{,}68$~kN$\cdot$m \\
+        $F_{d,n}$ & Fuerza máx.\ por estación, normal & $13{,}06$~kN & $10{,}56$~kN \\
+        $F_{d,t}$ & Fuerza máx.\ por estación, tangencial & $3{,}86$~kN & $2{,}65$~kN \\
         $\gamma_f$ & Factor parcial de carga & $1{,}25$ & $1{,}35$ \\
         \hline
         \multicolumn{4}{c}{\textit{Tensiones (FEM)}} \\
@@ -920,4 +923,4 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
-Los factores de reserva obtenidos ($\eta_{\text{ULS}} \geq 1{,}14$) y el daño acumulado por fatiga ($D_{20} = 6{,}45 \times 10^{-8} \ll 1{,}0$) confirman que la pala satisface los criterios normativos de resistencia última y fatiga establecidos en IEC 61400-1~\parencite{IEC61400-1}, y las deformaciones máximas se mantienen dentro de márgenes que no comprometen la operación del rotor. La verificación de estabilidad, en cambio, no se satisface, ya que el multiplicador de carga mínimo ($LM = 1{,}12 < 1{,}30$) muestra que el pandeo local de los paneles de piel gobierna el diseño. El caso de referencia con cargas exclusivamente inerciales cuantifica además que el $70\%$ de la tensión del caso gobernante proviene de la rotación, resultado que vincula el dimensionamiento estructural con la estrategia de control y que se desarrolla en el Capítulo~5.
+Los factores de reserva obtenidos ($\eta_{\text{ULS}} \geq 1{,}14$) y el daño acumulado por fatiga ($D_{20} = 6{,}00 \times 10^{-3} \ll 1{,}0$) confirman que la pala satisface los criterios normativos de resistencia última y fatiga establecidos en IEC 61400-1~\parencite{IEC61400-1}, y las deformaciones máximas se mantienen dentro de márgenes que no comprometen la operación del rotor. La verificación de estabilidad, en cambio, no se satisface, ya que el multiplicador de carga mínimo queda por debajo del umbral normativo, lo que muestra que el pandeo local de los paneles de piel gobierna el diseño. El caso de referencia con cargas exclusivamente inerciales cuantifica además la fracción de la tensión del caso gobernante que proviene de la rotación, resultado que vincula el dimensionamiento estructural con la velocidad máxima de giro y que se desarrolla en el Capítulo~5.
