@@ -1,17 +1,8 @@
-\chapter*{Anexo C}
-\addcontentsline{toc}{chapter}{Anexo C: Procesamiento de cargas del DLC 1.3}
-
-\setcounter{table}{0}
-\renewcommand{\thetable}{C.\arabic{table}}
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{C.\arabic{figure}}
-
-\section*{Procesamiento de cargas del DLC 1.3: media de los máximos con turbulencia extrema}
-\label{anexo:dlc13}
+\iniciaranexo{anexo:dlc13}{Procesamiento de cargas del DLC 1.3}{Procesamiento de cargas del DLC 1.3: media de los máximos con turbulencia extrema}
 
 Este anexo reproduce el código que determina las cargas de diseño del DLC 1.3, que la norma resuelve por una vía distinta de la del DLC 1.1. Al tratarse de un caso con modelo de turbulencia extrema, IEC 61400-1~\parencite{IEC61400-1} no exige extrapolación temporal a $50$ años, ya que la carga característica es la media de los máximos de las realizaciones estocásticas (Sección 7.6.2.2). Se omiten las rutinas de exportación y de generación de figuras.
 
-Las funciones que reducen el vector de cargas a los efectos de carga en las secciones de apoyo son idénticas a las del Anexo B, por lo que aquí se reutilizan sin repetirlas. Esa identidad no es una comodidad de programación, sino una condición del análisis, ya que el criterio de omisión de la Sección 7.4.2 exige comparar ambos casos magnitud a magnitud y esa comparación solo es válida si ambas se calculan igual.
+Las funciones que reducen el vector de cargas a los efectos de carga en las secciones de apoyo son idénticas a las del Anexo~\ref{anexo:dlc11}, por lo que aquí se reutilizan sin repetirlas. Esa identidad no es una comodidad de programación, sino una condición del análisis, ya que el criterio de omisión de la Sección 7.4.2 exige comparar ambos casos magnitud a magnitud y esa comparación solo es válida si ambas se calculan igual.
 
 \subsection*{Parámetros de entrada}
 
@@ -123,4 +114,4 @@ gobierna_13 = {nombre: resultados[nombre]['F_d'] > dlc11[nombre]['F_d']
 omitible = all(gobierna_13.values())
 \end{pycode}
 
-Las fuerzas resultantes se recogen en las tablas del Anexo~A, junto con la fuerza lineal simulada de la que provienen.
+Las fuerzas resultantes se recogen en las tablas del Anexo~\ref{anexo:fuerzas}, junto con la fuerza lineal simulada de la que provienen.

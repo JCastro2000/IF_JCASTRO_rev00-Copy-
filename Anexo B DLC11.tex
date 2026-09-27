@@ -1,13 +1,4 @@
-\chapter*{Anexo B}
-\addcontentsline{toc}{chapter}{Anexo B: Procesamiento de cargas del DLC 1.1}
-
-\setcounter{table}{0}
-\renewcommand{\thetable}{B.\arabic{table}}
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{B.\arabic{figure}}
-
-\section*{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
-\label{anexo:dlc11}
+\iniciaranexo{anexo:dlc11}{Procesamiento de cargas del DLC 1.1}{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
 
 Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en las cargas de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
 
@@ -297,4 +288,4 @@ Fd_n = mejor['fn'] * DELTA_S * escala
 Fd_t = mejor['ft'] * DELTA_S * escala
 \end{pycode}
 
-El mismo cálculo se repite con \texttt{MAGNITUD\_GOBERNANTE} apuntando al apoyo inferior, y con el extremo de $M_y$ en su sentido contrario, que selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga. Las cuatro distribuciones resultantes se recogen en las tablas del Anexo~A.
+El mismo cálculo se repite con \texttt{MAGNITUD\_GOBERNANTE} apuntando al apoyo inferior, y con el extremo de $M_y$ en su sentido contrario, que selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga. Las cuatro distribuciones resultantes se recogen en las tablas del Anexo~\ref{anexo:fuerzas}.

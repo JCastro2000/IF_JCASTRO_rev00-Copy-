@@ -301,6 +301,30 @@
 \titlespacing*{name=\chapter}{0pt}{0pt}{0pt}
 \titlespacing*{name=\chapter,numberless}{0pt}{0pt}{1.5em}
 
+% --- ANEXOS ---
+% La letra de cada anexo sale de un contador, no escrita a mano, de modo que
+% \ref{anexo:...} devuelve la letra y toda la numeracion se reordena sola si se
+% inserta, se mueve o se suprime alguno. Antes las letras iban literales y las
+% etiquetas resolvian al ultimo contador incrementado, que era la Seccion 5.3,
+% con lo que cualquier referencia cruzada a un anexo imprimia un numero erroneo.
+% El \refstepcounter previo al \label es lo que hace que la etiqueta capture la
+% letra, ya que ni \chapter* ni \section* incrementan contador alguno.
+\newcounter{anexo}
+\renewcommand{\theanexo}{\Alph{anexo}}
+
+% #1 etiqueta | #2 titulo breve, para el indice | #3 titulo completo
+\newcommand{\iniciaranexo}[3]{%
+  \refstepcounter{anexo}%
+  \label{#1}%
+  \chapter*{Anexo \theanexo}%
+  \addcontentsline{toc}{chapter}{Anexo \theanexo: #2}%
+  \setcounter{table}{0}%
+  \renewcommand{\thetable}{\theanexo.\arabic{table}}%
+  \setcounter{figure}{0}%
+  \renewcommand{\thefigure}{\theanexo.\arabic{figure}}%
+  \section*{#3}%
+}
+
 \titleformat{name=\section}[block]
   {\normalfont\fontsize{12}{14}\selectfont\bfseries}
   {}
