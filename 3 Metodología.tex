@@ -438,6 +438,23 @@ Los dos límites del rango operacional se adoptan igualmente por criterio de dis
     \end{tabular}
 \end{table}
 
+\subsubsection{Ejecución de la campaña mediante la interfaz SIL}
+\label{sec:sil}
+
+La configuración descrita en los apartados anteriores se establece en la interfaz gráfica de QBlade y se conserva en un único archivo de definición de simulación. La ejecución de la campaña, en cambio, no se realiza desde esa interfaz, sino a través de la interfaz \gls{sil} (\textit{Software In Loop}) que el programa expone como biblioteca de enlace dinámico, gobernada desde una rutina propia escrita en Python. La distinción importa y conviene declararla, porque de ella dependen tanto la reproducibilidad del conjunto como la posibilidad misma de satisfacer el número de realizaciones que la norma exige.
+
+El procedimiento es el siguiente. La rutina carga el archivo de definición, que es el mismo para las $174$ simulaciones y fija la geometría del rotor, la discretización de la pala, los modelos aerodinámicos y los parámetros de estela. Sobre esa base impone, caso por caso, únicamente lo que distingue a cada simulación: la caja de turbulencia correspondiente a la velocidad y la semilla, el paso temporal que resulta del incremento acimutal constante y de la velocidad de rotación prescrita (Sección~\ref{sec:discretizacion_temporal}), y esa misma velocidad de rotación con su tiempo de rampa. La simulación avanza después paso a paso, y en cada uno se extraen por nombre de canal el coeficiente de potencia instantáneo, la velocidad de rotación, la relación de velocidad de punta, el torque aerodinámico y las $21$ parejas de fuerza normal y tangencial por unidad de longitud en las estaciones instrumentadas, que se vuelcan a un archivo de texto por simulación.
+
+Tres razones justifican esta forma de ejecución frente a la operación manual de la interfaz.
+
+La primera es de \textbf{viabilidad}. La Sección 7.6.2.2 de la norma IEC 61400-1 exige quince realizaciones por velocidad en la banda superior del rango operacional~\parencite{IEC61400-1}, lo que sitúa la campaña en $144$ simulaciones para el DLC 1.1 y $30$ para el DLC 1.3. Cada una recorre $650$~s de tiempo físico en unos treinta mil pasos y exporta cuarenta y dos canales de fuerza en cada uno de ellos, con una caja de turbulencia propia de casi $400$~MB. Configurar ese conjunto a mano no es una cuestión de paciencia, sino una fuente de error, porque exigiría reproducir $174$ veces una misma configuración sin registro de qué valor se empleó en cada corrida.
+
+La segunda es de \textbf{trazabilidad}. Todos los parámetros de la campaña residen en un único archivo de configuración del que la rutina los lee, de modo que cada simulación queda unívocamente determinada por su velocidad de viento y su semilla, y el conjunto entero es regenerable. Las semillas son deterministas y se asignan por bloques disjuntos según el modelo de turbulencia, lo que garantiza que ninguna realización del modelo normal coincida con una del extremo.
+
+La tercera es de \textbf{verificación}. La rutina contrasta en cada simulación las cotas de las estaciones que informa el programa contra las del reparto adoptado, y admite un desplazamiento constante entre ambos sistemas de referencia pero exige que la forma del reparto coincida dentro de una tolerancia de $0{,}02$~m. Esa comprobación se ejecuta en las $174$ corridas y es la que asegura que los brazos de momento con que después se integran las cargas se corresponden con las estaciones donde realmente se midieron.
+
+Conviene precisar, por último, que las capturas de la interfaz que ilustran los apartados anteriores documentan la \textit{definición} del modelo, que sí se construye gráficamente, y no la ejecución de la campaña, que es automatizada. Ambas cosas son complementarias, ya que la interfaz fija el modelo y la interfaz \gls{sil} lo resuelve tantas veces como casos requiere la norma.
+
 \subsection{Selección de casos de carga según IEC 61400-1}
 
 Los casos de carga de diseño (\acrshort{dlc}) se seleccionan conforme a la Sección 7 de la norma IEC 61400-1~\parencite{IEC61400-1}, adaptados a la configuración \gls{vawt} con base en el estudio de \textcite{Galinos2015}. El alcance del trabajo abarca la situación de producción de potencia, delimitación fundamentada en la Sección~\ref{sec:dlc_seleccion}. Dentro de esa situación la norma define cinco casos, de los cuales se adoptan los tres de naturaleza estocástica: DLC 1.1 (operación normal, NTM, ULS), DLC 1.2 (operación normal, NTM, fatiga) y DLC 1.3 (operación normal, ETM, ULS).
