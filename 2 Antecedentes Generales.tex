@@ -175,6 +175,30 @@ donde:
 
 Ambos coeficientes no son independientes, sino que se relacionan a través de la relación de velocidad de punta mediante $C_p = \lambda C_m$~\parencite{Essahraoui2026}.
 
+\subsubsection{Número de Reynolds}
+\label{sec:reynolds}
+
+Los parámetros anteriores describen la cinemática del rotor, pero no el régimen del flujo que baña a la pala. Ese régimen lo fija el número de Reynolds, parámetro adimensional que expresa la razón entre las fuerzas inerciales y las fuerzas viscosas del flujo, y que se define según la Ec.~\ref{eq:reynolds}~\parencite{Anderson2016}:
+
+\begin{equation}
+    Re = \frac{\rho \, V_\infty \, L}{\mu} = \frac{V_\infty \, L}{\nu}
+    \label{eq:reynolds}
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $V_\infty$ es la velocidad característica del flujo respecto del cuerpo (m/s).
+    \item $L$ es una longitud característica de la geometría (m).
+    \item $\rho$ y $\mu$ son la densidad y la viscosidad dinámica del fluido.
+    \item $\nu = \mu / \rho$ es la viscosidad cinemática (m$^2$/s).
+\end{itemize}
+
+Su relevancia no está en el valor en sí, sino en el principio de semejanza dinámica que lo sustenta. Dos flujos sobre cuerpos geométricamente semejantes presentan los mismos coeficientes adimensionales si comparten el número de Reynolds y el número de Mach~\parencite{Anderson2016}. De ahí que los coeficientes $C_l$, $C_d$ y $C_m$ de un perfil no sean constantes del perfil, sino funciones del ángulo de ataque para un $Re$ dado, y que las polares se tabulen por tanto para una familia de valores de $Re$ y no para uno solo (Sección~\ref{sec:polares}).
+
+Para un perfil alar la longitud característica es la cuerda $c$ y la velocidad es la relativa que el perfil percibe, de modo que el parámetro pertinente es el número de Reynolds basado en la cuerda, $Re_c$, que \textcite{Essahraoui2026} identifican entre los que gobiernan la comparación entre configuraciones de VAWT. Esa distinción no es formal en una máquina de eje vertical. En una \gls{hawt} cada sección de pala describe una circunferencia contenida en un plano perpendicular al viento y su velocidad relativa es prácticamente constante a lo largo del giro, mientras que en una \gls{vawt} la velocidad relativa $W$ resulta de la composición del viento incidente con la velocidad tangencial y varía de forma continua dentro de una misma revolución (Sección~\ref{sec:cinematica}). El número de Reynolds oscila en consecuencia dentro de cada vuelta, y no solo entre velocidades de viento distintas, lo que obliga a que el conjunto de polares cubra todo el rango que la pala recorre y no únicamente el valor asociado a la condición nominal.
+
+La magnitud de ese rango condiciona además qué fenómenos de capa límite resultan relevantes, ya que la sensibilidad del perfil al número de Reynolds es mayor en regímenes bajos y moderados, donde aparece la burbuja de separación laminar descrita en la Sección~\ref{sec:polares}. El rango operacional que efectivamente alcanza la pala de este trabajo se determina en la Metodología, a partir de la velocidad relativa máxima y de las propiedades del aire del emplazamiento, y se reporta en el Capítulo~4.
+
 \subsection{Cinemática de la pala y ángulo de ataque}
 \label{sec:cinematica}
 
@@ -260,7 +284,7 @@ La pérdida aerodinámica, o \textit{stall}, es el fenómeno que fija el límite
 
 El borde de ataque es el extremo redondeado que enfrenta al flujo y el borde de fuga el extremo afilado opuesto. La recta que los une es la cuerda, de longitud $c$. La superficie superior, o extradós, es aquella sobre la cual el flujo se acelera y la presión disminuye, por lo que se denomina lado de succión; la inferior, o intradós, constituye el lado de presión. El espesor máximo $t$ caracteriza la esbeltez del perfil y, en la familia \gls{naca} de cuatro dígitos, se expresa como porcentaje de la cuerda. El ángulo de ataque $\alpha$ es el que forma la cuerda con la velocidad relativa $W$, según se definió en la Sección~\ref{sec:cinematica}.
 
-La interacción entre el perfil y el flujo incidente produce una fuerza aerodinámica resultante que conviene descomponer respecto de la dirección de $W$: la sustentación es su componente perpendicular a $W$, y la resistencia (o arrastre), su componente paralela, en el sentido del flujo. Para comparar perfiles y condiciones de vuelo distintas, ambas se adimensionalizan dividiéndolas por la presión dinámica del flujo y el área de referencia, obteniéndose el coeficiente de sustentación $C_l$ y el coeficiente de resistencia $C_d$; de manera análoga se define el coeficiente de momento $C_m$, asociado al giro que la distribución de presiones induce sobre el perfil. Los tres dependen principalmente del ángulo de ataque $\alpha$ y, en menor medida, del número de Reynolds $Re$, razón entre las fuerzas inerciales y las viscosas del flujo, que caracteriza cuánto influye la viscosidad sobre su comportamiento. Las curvas de $C_l$, $C_d$ y $C_m$ en función de $\alpha$ para un $Re$ dado constituyen la polar aerodinámica del perfil, que se retoma con mayor detalle en la Sección~\ref{sec:polares}.
+La interacción entre el perfil y el flujo incidente produce una fuerza aerodinámica resultante que conviene descomponer respecto de la dirección de $W$: la sustentación es su componente perpendicular a $W$, y la resistencia (o arrastre), su componente paralela, en el sentido del flujo. Para comparar perfiles y condiciones de vuelo distintas, ambas se adimensionalizan dividiéndolas por la presión dinámica del flujo y el área de referencia, obteniéndose el coeficiente de sustentación $C_l$ y el coeficiente de resistencia $C_d$; de manera análoga se define el coeficiente de momento $C_m$, asociado al giro que la distribución de presiones induce sobre el perfil. Los tres dependen principalmente del ángulo de ataque $\alpha$ y, en menor medida, del número de Reynolds $Re$ definido en la Sección~\ref{sec:reynolds}. Las curvas de $C_l$, $C_d$ y $C_m$ en función de $\alpha$ para un $Re$ dado constituyen la polar aerodinámica del perfil, que se retoma con mayor detalle en la Sección~\ref{sec:polares}.
 
 \subsubsection{Pérdida estática}
 
