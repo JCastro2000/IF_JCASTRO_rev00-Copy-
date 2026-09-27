@@ -224,6 +224,22 @@
   {\shorthandoff{"<>}\lstset{style=estilopython,#1}}
   {}
 
+% Archivos de definicion de QBlade: texto plano, sin resaltado de lenguaje. El
+% comentario de cada linea va tras la clave, de modo que se resalta por delimitador.
+\lstdefinestyle{estiloconfig}{
+    style=estilopython,
+    language=,
+    morecomment=[l]{----},
+    morecomment=[s][\color{codcoment}\itshape]{\ -\ }{\^^M},
+    keywordstyle=\color{codclave}\bfseries,
+    numbers=none,
+    basicstyle=\ttfamily\tiny,
+}
+
+\lstnewenvironment{cfgcode}[1][]
+  {\shorthandoff{"<>}\lstset{style=estiloconfig,#1}}
+  {}
+
 % --- FORMATO DE ÍNDICES ---
 \addto\captionsspanish{
   \renewcommand{\contentsname}{Índice de Contenidos}
@@ -505,5 +521,6 @@ Se concluye que la pala satisface los criterios de resistencia última, fatiga y
 \include{Anexo C DLC13}
 \include{Anexo D DLC12}
 \include{Anexo E Fuerzas XY}
+\include{Anexo F QBlade}
 
 \end{document}
