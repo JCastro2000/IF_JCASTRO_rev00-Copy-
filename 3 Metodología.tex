@@ -52,30 +52,30 @@ La norma IEC 61400-1~\parencite{IEC61400-1} define la velocidad media anual ($V_
 
     \item \textbf{Cálculo de la media aritmética:} Sobre la serie ya extrapolada a la altura del centro del rotor, se calcula la media mediante la Ec.~\ref{eq:media_aritmetica}:
     \begin{equation}
-        V_{ave} = \frac{1}{N} \sum_{i=1}^{N} V_i
+        V_{ave} = \frac{1}{N} \sum_{i=1}^{N} V_i,
         \label{eq:media_aritmetica}
     \end{equation}
     donde $V_i$ es cada uno de los $N$ registros horarios de velocidad de la serie extrapolada.
 
     \item \textbf{Velocidad de referencia:} A partir de la velocidad media anual ya extrapolada a la altura del centro del rotor ($V_{ave}$ a $z = 21{,}3$ m), se determina la velocidad de referencia ($V_{ref}$) definida en la Sección 6.3.1.1 de la norma IEC 61400-1~\parencite{IEC61400-1} para la clasificación de emplazamientos, según la Ec.~\ref{eq:vave_vref}:
     \begin{equation}
-        V_{ave} = 0{,}2 \, V_{ref}
+        V_{ave} = 0{,}2 \, V_{ref}.
         \label{eq:vave_vref}
     \end{equation}
 
     \item \textbf{Modelado de la distribución de probabilidad:} Sobre la serie ya extrapolada a la altura del centro del rotor, la distribución de probabilidad de frecuencias ($f_W$) de la velocidad del viento se modela mediante la distribución de Weibull descrita en la Sección~\ref{sec:distribucion_viento}, cuyo ajuste permite describir la permanencia del viento en el emplazamiento. Al tratarse de una evaluación sitio-específica sobre un registro histórico, y no de la adopción de una clase estándar, ambos parámetros se ajustan por máxima verosimilitud~\parencite{Seguro2000}, en lugar de fijar $k = 2$ como en el modelo de Rayleigh de referencia. La función de densidad de probabilidad se expresa según la Ec.~\ref{eq:weibull_pdf_general}:
     \begin{equation}
-        f_W(V; k, c) = \frac{k}{c} \left( \frac{V}{c} \right)^{k-1} \exp\left[ -\left( \frac{V}{c} \right)^k \right]
+        f_W(V; k, c) = \frac{k}{c} \left( \frac{V}{c} \right)^{k-1} \exp\left[ -\left( \frac{V}{c} \right)^k \right],
     \label{eq:weibull_pdf_general}
     \end{equation}
     donde $k$ es el parámetro de forma (adimensional) y $c$ el parámetro de escala (m/s), ambos determinados a la altura del centro del rotor. La estimación por máxima verosimilitud sobre los $N$ registros $V_i$ de la serie resuelve primero el parámetro de forma como raíz de la Ec.~\ref{eq:weibull_mle_k}, que no admite solución explícita y se obtiene por iteración numérica:
     \begin{equation}
-        \frac{\sum_{i=1}^{N} V_i^{\,k} \ln V_i}{\sum_{i=1}^{N} V_i^{\,k}} - \frac{1}{k} - \frac{1}{N} \sum_{i=1}^{N} \ln V_i = 0
+        \frac{\sum_{i=1}^{N} V_i^{\,k} \ln V_i}{\sum_{i=1}^{N} V_i^{\,k}} - \frac{1}{k} - \frac{1}{N} \sum_{i=1}^{N} \ln V_i = 0,
         \label{eq:weibull_mle_k}
     \end{equation}
     y a partir de ese valor obtiene el parámetro de escala por sustitución directa, según la Ec.~\ref{eq:weibull_mle_c}:
     \begin{equation}
-        c = \left( \frac{1}{N} \sum_{i=1}^{N} V_i^{\,k} \right)^{1/k}
+        c = \left( \frac{1}{N} \sum_{i=1}^{N} V_i^{\,k} \right)^{1/k}.
         \label{eq:weibull_mle_c}
     \end{equation}
 \end{enumerate}
@@ -90,7 +90,7 @@ De las dos representaciones del NTM que admite la Enmienda~1 de la norma IEC 614
 La Sección 6.4.3.3 de IEC 61400-3-2~\parencite{IEC61400-3-2} establece el procedimiento aplicable cuando no se dispone de datos de turbulencia del emplazamiento, condición en la que se encuentra este trabajo, y que permite estimar la desviación estándar de la velocidad a partir de la rugosidad de la superficie del mar. Esa misma cláusula figura con idéntica numeración y expresiones en la norma IEC 61400-3-1, de turbinas marinas de cimentación fija~\parencite{IEC61400-3-1}, pero al tratarse de una máquina flotante la norma de aplicación es la Parte 3-2, cuyos requisitos prevalecen sobre los de sus referencias normativas en caso de discrepancia~\parencite{IEC61400-3-2}. Esa rugosidad no es un valor fijo, sino que crece con la velocidad del viento, porque es el propio viento el que levanta el oleaje que la produce. La norma recoge ese acoplamiento mediante la relación de \textcite{Charnock1955}, que vincula la longitud de rugosidad con la velocidad de fricción del flujo, según la Ec.~\ref{eq:charnock_z0}:
 
 \begin{equation}
-    z_0 = \frac{A_C}{g} \left[ \frac{\kappa \, V_{hub}}{\ln \left( z_{hub} / z_0 \right)} \right]^2
+    z_0 = \frac{A_C}{g} \left[ \frac{\kappa \, V_{hub}}{\ln \left( z_{hub} / z_0 \right)} \right]^2,
     \label{eq:charnock_z0}
 \end{equation}
 
@@ -99,7 +99,7 @@ donde $z_0$ es la longitud de rugosidad de la superficie del mar (medida en metr
 Con la rugosidad así obtenida, la desviación estándar representativa se calcula según la Ec.~\ref{eq:charnock_sigma}:
 
 \begin{equation}
-    \sigma_{NTM} = \frac{V_{hub}}{\ln \left( z_{hub} / z_0 \right)} + 1{,}28 \cdot d \cdot I_{15}
+    \sigma_{NTM} = \frac{V_{hub}}{\ln \left( z_{hub} / z_0 \right)} + 1{,}28 \cdot d \cdot I_{15},
     \label{eq:charnock_sigma}
 \end{equation}
 
@@ -108,7 +108,7 @@ donde $d = 4$~m/s es el valor que la propia ecuación fija para emplazamientos m
 La expresión resulta a su vez implícita en $I_{15}$, puesto que esta aparece en el segundo término y queda definida, al mismo tiempo, por la propia desviación evaluada a $15$~m/s. Al ser lineal admite solución cerrada, según la Ec.~\ref{eq:i15_cerrada}:
 
 \begin{equation}
-    I_{15} = \frac{15}{\left( 15 - 1{,}28 \, d \right) \ln \left( z_{hub} / z_0 \right)}
+    I_{15} = \frac{15}{\left( 15 - 1{,}28 \, d \right) \ln \left( z_{hub} / z_0 \right)}.
     \label{eq:i15_cerrada}
 \end{equation}
 
@@ -157,7 +157,7 @@ La norma IEC 61400-1~\parencite{IEC61400-1} incluye la temperatura y la densidad
 La viscosidad dinámica se calcula mediante la ley de Sutherland~\parencite{Sutherland1893}, correlación de referencia para la dependencia de la viscosidad de un gas con la temperatura y de uso estándar para el aire~\parencite{White2006}, según la Ec.~\ref{eq:sutherland}:
 
 \begin{equation}
-    \mu = \mu_0 \frac{T_0 + C}{T + C} \left( \frac{T}{T_0} \right)^{3/2}
+    \mu = \mu_0 \frac{T_0 + C}{T + C} \left( \frac{T}{T_0} \right)^{3/2},
     \label{eq:sutherland}
 \end{equation}
 
@@ -166,7 +166,7 @@ donde $T$ es la temperatura del aire, $\mu_0 = 1{,}7894 \times 10^{-5}$ kg/(m·s
 La densidad del aire se calcula mediante la ecuación de estado de los gases ideales~\parencite{Anderson2016}, aplicable al aire en el rango de presiones y temperaturas del emplazamiento, con $P_{atm} = 101325$ Pa ($1$ atm), valor de la presión atmosférica a nivel del mar según la atmósfera estándar~\parencite{Anderson2016}, de acuerdo con la Ec.~\ref{eq:densidad_aire}:
 
 \begin{equation}
-    \rho = \frac{P_{atm}}{R_a \cdot T}
+    \rho = \frac{P_{atm}}{R_a \cdot T},
     \label{eq:densidad_aire}
 \end{equation}
 
@@ -175,7 +175,7 @@ donde $R_a = 287{,}05$ J/(kg·K) es la constante del gas para el aire seco~\pare
 Ambas propiedades se combinan en la viscosidad cinemática, magnitud que interviene en el número de Reynolds y que se define como el cociente entre la viscosidad dinámica y la densidad~\parencite{White2006}, según la Ec.~\ref{eq:visc_cinematica}:
 
 \begin{equation}
-    \nu = \frac{\mu}{\rho}
+    \nu = \frac{\mu}{\rho},
     \label{eq:visc_cinematica}
 \end{equation}
 
@@ -194,19 +194,19 @@ Tanto QBlade como el método empleado se apoyan en polares que describen las car
 Debido a la cinemática de las \gls{vawt}, el perfil alar experimenta una velocidad relativa variable según su posición en la trayectoria circular, por lo que el número de Reynolds también varía durante la operación. Para determinar el intervalo operativo utilizado en el cálculo de polares, se evalúa la velocidad relativa $W$ en función del ángulo azimutal $\theta$, según la Ec.~\ref{eq:W_theta}:
 
 \begin{equation}
-    W(\theta) = V_{hub} \sqrt{1 + 2\lambda \cos\theta + \lambda^2}
+    W(\theta) = V_{hub} \sqrt{1 + 2\lambda \cos\theta + \lambda^2},
     \label{eq:W_theta}
 \end{equation}
 
 donde $V_{hub}$ es la velocidad del viento a la altura del centro del rotor y $\lambda$ la relación de velocidad de punta. Los valores extremos de $W$ ocurren en las posiciones de barlovento ($\theta = 0^\circ$) y sotavento ($\theta = 180^\circ$), donde la expresión se simplifica según las Ecs.~\ref{eq:W_max} y~\ref{eq:W_min}:
 
 \begin{equation}
-    W_{max} = V_{hub} + \Omega R
+    W_{max} = V_{hub} + \Omega R,
     \label{eq:W_max}
 \end{equation}
 
 \begin{equation}
-    W_{min} = |V_{hub} - \Omega R|
+    W_{min} = |V_{hub} - \Omega R|.
     \label{eq:W_min}
 \end{equation}
 
@@ -214,7 +214,7 @@ donde $V_{hub}$ es la velocidad del viento a la altura del centro del rotor y $\
 La condición operacional más exigente para el perfil corresponde a la velocidad de corte $V_{out}$ con el rotor girando a su velocidad máxima, resultando una velocidad relativa máxima $W_{max}$. Particularizando la definición general de la Ec.~\ref{eq:reynolds} al caso del perfil, con la cuerda como longitud característica y la velocidad relativa como velocidad del flujo (Sección~\ref{sec:reynolds}), el número de Reynolds máximo se calcula según la Ec.~\ref{eq:Re_max_theoretical}:
 
 \begin{equation}
-    Re_{max} = \frac{W_{max} \cdot c}{\bar{\nu}}
+    Re_{max} = \frac{W_{max} \cdot c}{\bar{\nu}},
     \label{eq:Re_max_theoretical}
 \end{equation}
 
@@ -395,7 +395,7 @@ Definir el criterio sobre el ángulo y no sobre el tiempo lo independiza de la v
 La velocidad de rotación se impone en cada simulación a partir de la definición de la relación de velocidad de punta, evaluada con el \gls{tsr} objetivo y la velocidad de viento del caso, y acotada por el límite máximo admisible del rotor, según la Ec.~\ref{eq:omega_prescrita}:
 
 \begin{equation}
-    \Omega(V) = \min\left( \frac{\lambda_{opt} \, V}{R} \, , \; \Omega_{max} \right)
+    \Omega(V) = \min\left( \frac{\lambda_{opt} \, V}{R} \, , \; \Omega_{max} \right).
     \label{eq:omega_prescrita}
 \end{equation}
 
@@ -562,14 +562,14 @@ El factor $\gamma_n$ distingue entre clases de componentes según la criticidad 
 La condición de estado límite último se expresa mediante la ecuación (32) de la norma IEC 61400-1~\parencite{IEC61400-1}, reproducida en la Ec.~\ref{eq:uls_verification}:
 
 \begin{equation}
-    \gamma_n \cdot \gamma_f \cdot F_k \leq \frac{f_k}{\gamma_m}
+    \gamma_n \cdot \gamma_f \cdot F_k \leq \frac{f_k}{\gamma_m},
     \label{eq:uls_verification}
 \end{equation}
 
 donde $F_k$ es la carga característica, $f_k$ es la resistencia característica del material, y los factores $\gamma_f$, $\gamma_m$ y $\gamma_n$ toman los valores indicados en la Tabla~\ref{tab:factores_seguridad} según el DLC correspondiente. Las cargas de diseño $F_d = \gamma_f \cdot F_k$ incorporan el factor de carga y constituyen la entrada directa al modelo de elementos finitos (Sección~\ref{sec:fem}). La verificación en tensión se reduce a la Ec.~\ref{eq:uls_stress}:
 
 \begin{equation}
-    \sigma_{\max} \leq \frac{\sigma_u}{\gamma_m \cdot \gamma_n}
+    \sigma_{\max} \leq \frac{\sigma_u}{\gamma_m \cdot \gamma_n},
     \label{eq:uls_stress}
 \end{equation}
 
@@ -628,7 +628,7 @@ Conforme a lo establecido en la Sección~\ref{sec:extrapolacion_teoria}, la extr
 
 \begin{align}
     M_{x}(t) &= \sum_{i \in \Omega} F_{y,l,i}(t) \, \Delta s_i \, \left| z_i - z_{ap} \right| \nonumber \\
-    M_{y}(t) &= \sum_{i \in \Omega} F_{x,l,i}(t) \, \Delta s_i \, \left| z_i - z_{ap} \right|
+    M_{y}(t) &= \sum_{i \in \Omega} F_{x,l,i}(t) \, \Delta s_i \, \left| z_i - z_{ap} \right|,
     \label{eq:M_apoyo}
 \end{align}
 
@@ -637,14 +637,14 @@ donde $\Omega$ reúne las estaciones situadas en el voladizo correspondiente, $z
 De esas dos componentes se derivan las magnitudes que caracterizan la solicitación de la sección. La resultante, Ec.~\ref{eq:M_res}, es el módulo del vector que ambas forman:
 
 \begin{equation}
-    M_{res}(t) = \sqrt{M_x^2(t) + M_y^2(t)}
+    M_{res}(t) = \sqrt{M_x^2(t) + M_y^2(t)}.
     \label{eq:M_res}
 \end{equation}
 
 La envolvente direccional, Ec.~\ref{eq:M_env}, es el mayor de los momentos proyectados sobre un conjunto de doce direcciones repartidas uniformemente en la sección, que es el enfoque avanzado que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente a falta de un análisis específico de criticidad~\parencite{IEC61400-5}:
 
 \begin{equation}
-    M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}
+    M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}.
     \label{eq:M_env}
 \end{equation}
 
@@ -655,7 +655,7 @@ La extrapolación se aplica por separado a cada una de estas magnitudes en cada 
 Se conserva adicionalmente la fuerza total integrada sobre la pala, Ec.~\ref{eq:F_tot}, como indicador global de la solicitación:
 
 \begin{equation}
-    F_{tot}(t) = \sum_{i=1}^{21} \sqrt{F_{x,l,i}^2(t) + F_{y,l,i}^2(t)} \cdot \Delta s_i
+    F_{tot}(t) = \sum_{i=1}^{21} \sqrt{F_{x,l,i}^2(t) + F_{y,l,i}^2(t)} \cdot \Delta s_i,
     \label{eq:F_tot}
 \end{equation}
 
@@ -675,12 +675,12 @@ Los pasos que siguen se describen sobre una magnitud genérica $F$, que designa 
 Sobre esas seis observaciones se ajusta la distribución de Gumbel presentada en la Sección~\ref{sec:extrapolacion_teoria}, cuya función de distribución acumulada es la Ec.~\ref{eq:gumbel_anexof}, evaluada aquí en $F = F_{max}$. Sus dos parámetros, el de posición $\mu_j$ y el de escala $\beta_j$, se estiman por el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra. Para la distribución de Gumbel la media vale $\mu_j + \gamma_E \beta_j$ y la varianza $\pi^2 \beta_j^2 / 6$~\parencite{Gumbel1958}, de donde se despejan los estimadores de las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}:
 
 \begin{equation}
-    \beta_j = \frac{\sqrt{6}}{\pi}\,\sigma_{max,j}
+    \beta_j = \frac{\sqrt{6}}{\pi}\,\sigma_{max,j},
     \label{eq:gumbel_beta}
 \end{equation}
 
 \begin{equation}
-    \mu_j = \overline{F}_{max,j} - \gamma_E\,\beta_j
+    \mu_j = \overline{F}_{max,j} - \gamma_E\,\beta_j,
     \label{eq:gumbel_mu}
 \end{equation}
 
@@ -691,7 +691,7 @@ donde $\overline{F}_{max,j}$ y $\sigma_{max,j}$ son la media y la desviación es
 La Gumbel ajustada en el paso anterior permite calcular, para una velocidad fija $V_j$, la probabilidad de que $F_{max}$ supere un nivel de carga dado. En lo que sigue ese nivel se designa también $F_{max}$, por tratarse de la misma variable recién definida. La probabilidad condicional es el complemento de la función de distribución, según la Ec.~\ref{eq:pe_cond}:
 
 \begin{equation}
-    P_e(F_{max} \mid V_j) = 1 - \Phi(F_{max}; \mu_j, \beta_j)
+    P_e(F_{max} \mid V_j) = 1 - \Phi(F_{max}; \mu_j, \beta_j).
     \label{eq:pe_cond}
 \end{equation}
 
@@ -706,7 +706,7 @@ Numéricamente, la integral se discretiza en bandas de ancho $\Delta V = 2$~m/s 
 Conviene señalar por qué la discretización se elige así y no más fina. Una malla de $1$~m/s obligaría a interpolar $\mu(V)$ y $\beta(V)$ sobre $23$ bandas, y la superior, centrada en $24{,}5$~m/s, quedaría sin ninguna velocidad simulada a su derecha, de manera que sus parámetros se extrapolarían de forma plana desde los de $24$~m/s. Como esa banda concentra del orden de dos tercios de la contribución a la excedencia que fija $F_k$, el resultado pasaría a depender de una extrapolación encubierta. Con bandas de $2$~m/s el problema desaparece por construcción, y el efecto sobre la carga característica es un incremento de entre el $0{,}6$ y el $1{,}2\%$ según la magnitud, o sea del lado conservador. La probabilidad de excedencia de largo plazo resulta según la Ec.~\ref{eq:pe_longterm}:
 
 \begin{equation}
-    P_e(F_{max}) = \sum_{m=1}^{N_V} \Bigl[1 - \exp\!\bigl(-e^{-(F_{max} - \mu(V_m))/\beta(V_m)}\bigr)\Bigr] \cdot p_m
+    P_e(F_{max}) = \sum_{m=1}^{N_V} \Bigl[1 - \exp\!\bigl(-e^{-(F_{max} - \mu(V_m))/\beta(V_m)}\bigr)\Bigr] \cdot p_m,
     \label{eq:pe_longterm}
 \end{equation}
 
@@ -719,7 +719,7 @@ En esta expresión cada velocidad se pondera por su frecuencia de ocurrencia anu
 La norma define la carga característica $F_k$ como aquella cuya probabilidad de ser superada en el período de retorno de diseño es exactamente $T_{obs} / T_{retorno}$, según la Ec.~\ref{eq:fk_criterion}:
 
 \begin{equation}
-    P_e(F_k) = \frac{T_{\text{obs}}}{T_{\text{retorno}}}
+    P_e(F_k) = \frac{T_{\text{obs}}}{T_{\text{retorno}}},
     \label{eq:fk_criterion}
 \end{equation}
 
@@ -754,7 +754,7 @@ El tramo que solicita a esa sección es el voladizo que ella sostiene, esto es, 
     \label{eq:Mx_fatiga} \\[4pt]
     M_y(t) &= \sum_{i:\, z_i < z_{crit}} F_{x,i}(t) \cdot (z_{crit} - z_i)
     \label{eq:My_fatiga} \\[4pt]
-    M_{res}(t) &= \sqrt{M_x^2(t) + M_y^2(t)}
+    M_{res}(t) &= \sqrt{M_x^2(t) + M_y^2(t)},
     \label{eq:Mres_fatiga}
 \end{align}
 
@@ -765,14 +765,14 @@ donde el subíndice $i$ recorre las $21$ estaciones en que se discretizó la pal
 Bajo la hipótesis de linealidad elástica del GFRP hasta rotura~\parencite{Huh2012,Moraras2023}, la tensión en el punto crítico admite descomponerse en dos contribuciones de naturaleza distinta. La aerodinámica fluctúa con el viento y es proporcional al momento flector resultante; la inercial, producida por la aceleración centrífuga y la gravedad, es constante mientras el rotor gira a su velocidad de consigna y no depende del momento aerodinámico. La historia de tensión en la sección crítica se construye en consecuencia según la Ec.~\ref{eq:sigma_from_M}:
 
 \begin{equation}
-    \sigma(t) = K_{aero} \cdot M_{res}(t) + \sigma_{in}
+    \sigma(t) = K_{aero} \cdot M_{res}(t) + \sigma_{in},
     \label{eq:sigma_from_M}
 \end{equation}
 
 donde $\sigma_{in}$ es la tensión principal máxima que el modelo FEM registra en la sección crítica bajo las cargas inerciales como única solicitación, y $K_{aero}$ el factor que traduce momento aerodinámico en tensión. Ambas corridas de calibración se resuelven con las cargas sin mayorar, coherentemente con el $\gamma_f = 1{,}00$ que rige en fatiga, de modo que la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo, según la Ec.~\ref{eq:sigma_eq}. El factor $K_{aero}$ se obtiene de esas mismas dos corridas, según la Ec.~\ref{eq:keff}:
 
 \begin{equation}
-    K_{aero} = \frac{\sigma_{1,\max} - \sigma_{in}}{M_{res,k}}
+    K_{aero} = \frac{\sigma_{1,\max} - \sigma_{in}}{M_{res,k}},
     \label{eq:keff}
 \end{equation}
 
@@ -791,7 +791,7 @@ Cada ciclo se refiere a media nula mediante el diagrama de vida constante descri
 La resistencia a fatiga del GFRP se modela mediante la ecuación de Basquin en su forma factorizada~\parencite{Basquin1910}. La norma prescribe que todos los factores parciales de seguridad se apliquen al rango de tensión cíclica (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:sigma_eq}:
 
 \begin{equation}
-    \sigma_{a,\text{eq}} = \gamma_f \cdot \gamma_m \cdot \gamma_n \cdot \sigma_{a,0}
+    \sigma_{a,\text{eq}} = \gamma_f \cdot \gamma_m \cdot \gamma_n \cdot \sigma_{a,0},
     \label{eq:sigma_eq}
 \end{equation}
 
@@ -800,14 +800,14 @@ donde $\sigma_{a,0}$ es la amplitud corregida por tensión media de la Ec.~\ref{
 La curva S-N de diseño, que relaciona la amplitud de tensión equivalente con el número de ciclos admisible, se expresa según la Ec.~\ref{eq:basquin_design}:
 
 \begin{equation}
-    \sigma_{a,\text{eq}} = \sigma_u \cdot (2N_f)^b
+    \sigma_{a,\text{eq}} = \sigma_u \cdot (2N_f)^b.
     \label{eq:basquin_design}
 \end{equation}
 
 Sustituyendo las Ecs.~\ref{eq:goodman} y~\ref{eq:sigma_eq} en la Ec.~\ref{eq:basquin_design} y despejando $N_f$ se obtiene la expresión utilizada en el cálculo de daño:
 
 \begin{equation}
-    N_{f} = \frac{1}{2}\left(\frac{\gamma_f \cdot \gamma_m \cdot \gamma_n}{\sigma_u} \cdot \frac{\sigma_{a}}{1 - \sigma_m / \sigma_u}\right)^{1/b}
+    N_{f} = \frac{1}{2}\left(\frac{\gamma_f \cdot \gamma_m \cdot \gamma_n}{\sigma_u} \cdot \frac{\sigma_{a}}{1 - \sigma_m / \sigma_u}\right)^{1/b},
     \label{eq:Nf_fatiga}
 \end{equation}
 
@@ -820,7 +820,7 @@ Cada simulación de $T_{obs} = 600$~s corresponde a una velocidad de viento fija
 La fracción de tiempo anual asociada a la velocidad $V_j$ se obtiene de la distribución de Weibull que caracteriza el sitio (Ec.~\ref{eq:weibull_pdf_general}), según la Ec.~\ref{eq:tiempo_anual}:
 
 \begin{equation}
-    t_j = f_W(V_j) \cdot \Delta V \cdot 365{,}25 \cdot 24 \cdot 3600 \quad [\text{s/año}]
+    t_j = f_W(V_j) \cdot \Delta V \cdot 365{,}25 \cdot 24 \cdot 3600 \quad [\text{s/año}],
     \label{eq:tiempo_anual}
 \end{equation}
 
@@ -829,7 +829,7 @@ donde $f_W(V_j)$ es la densidad de probabilidad Weibull evaluada en $V_j$, $\Del
 El número de ciclos anuales atribuibles a la velocidad $V_j$ se calcula escalando los ciclos simulados (Ecuación H.7 del Anexo H de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:espectro_anual}:
 
 \begin{equation}
-    n_{j}^{\text{anual}} = \bar{n}_{j}^{\text{sim}} \cdot \frac{t_j}{T_{obs}}
+    n_{j}^{\text{anual}} = \bar{n}_{j}^{\text{sim}} \cdot \frac{t_j}{T_{obs}},
     \label{eq:espectro_anual}
 \end{equation}
 
@@ -840,21 +840,21 @@ donde $\bar{n}_{j}^{\text{sim}}$ es el número promedio de ciclos de las $6$ sem
 El daño total por fatiga se evalúa mediante la regla de Palmgren-Miner~\parencite{Miner1945}, que asume acumulación lineal e independiente de cada ciclo, criterio que la norma adopta en su Anexo H, Sección H.1~\parencite{IEC61400-1}, según la Ec.~\ref{eq:palmgren_miner}:
 
 \begin{equation}
-    D_{\text{año}} = \sum_{i} \frac{n_i^{\text{anual}}}{N_{f,i}}
+    D_{\text{año}} = \sum_{i} \frac{n_i^{\text{anual}}}{N_{f,i}},
     \label{eq:palmgren_miner}
 \end{equation}
 
 donde $D_{\text{año}}$ es el daño acumulado por fatiga durante un año de operación, $n_i^{\text{anual}}$ es el número de ciclos anuales correspondientes a la amplitud de tensión $\sigma_{a,i}$, y $N_{f,i}$ es el número de ciclos admisible para dicha amplitud, determinado mediante la Ec.~\ref{eq:Nf_fatiga}. El daño total para la vida útil de diseño de $20$ años se obtiene por acumulación lineal, según la Ec.~\ref{eq:D20}:
 
 \begin{equation}
-    D_{20} = 20 \cdot D_{\text{año}}
+    D_{20} = 20 \cdot D_{\text{año}}.
     \label{eq:D20}
 \end{equation}
 
 La verificación del estado límite de fatiga exige que el daño acumulado no supere la unidad, según la Ec.~\ref{eq:fatiga_criterio} (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}:
 
 \begin{equation}
-    D_{20} \leq 1{,}0
+    D_{20} \leq 1{,}0.
     \label{eq:fatiga_criterio}
 \end{equation}
 
@@ -873,7 +873,7 @@ Las magnitudes que se procesan son las trece definidas para el DLC 1.1, obtenida
 A diferencia del DLC 1.1, donde el Anexo G ajusta una distribución de extremos y extrapola sobre todo el rango operacional, la Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1} define aquí la carga característica sin extrapolación temporal: para una velocidad de viento dada, es la media de los máximos de las realizaciones estocásticas disponibles a esa velocidad. Para cada una de las cinco velocidades $V_j$ ensayadas en el DLC 1.3, la carga característica $F_k(V_j)$ se calcula, en consecuencia, como el promedio aritmético de los $6$ máximos $F_{\max}(V_j, s)$ obtenidos en el paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
 
 \begin{equation}
-    F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s)
+    F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s),
     \label{eq:dlc13_Fk_local}
 \end{equation}
 
@@ -893,7 +893,7 @@ El perfil espacial de diseño se construye sobre la misma magnitud gobernante qu
 La pala está construida en material compuesto de polímero reforzado con fibra de vidrio (GFRP), fabricado mediante infusión al vacío. El perímetro $P$ de la sección transversal NACA 0018 se obtiene al integrar numéricamente el contorno normalizado del perfil de la Figura~\ref{fig:naca0018}, lo que entrega la relación de la Ec.~\ref{eq:perimetro_naca}:
 
 \begin{equation}
-    P \approx 2{,}08 \, c
+    P \approx 2{,}08 \, c,
     \label{eq:perimetro_naca}
 \end{equation}
 
@@ -972,7 +972,7 @@ La Sección 7.6.4 de la norma IEC 61400-1 exige que las partes resistentes de un
 Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia, según la Ec.~\ref{eq:criterio_pandeo}:
 
 \begin{equation}
-    LM \geq \gamma_m \cdot \gamma_n = 1{,}20
+    LM \geq \gamma_m \cdot \gamma_n = 1{,}20,
     \label{eq:criterio_pandeo}
 \end{equation}
 
@@ -986,7 +986,7 @@ El $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo} proviene de la norma general de d
 
 \begin{equation}
     LM \geq \gamma_{m0} \prod_{i=1}^{5} \gamma_{mi}
-    = 1{,}20 \cdot 1{,}00 \cdot 1{,}10 \cdot 1{,}00 \cdot (1{,}20 \cdot 1{,}25) \cdot 1{,}00 = 1{,}98
+    = 1{,}20 \cdot 1{,}00 \cdot 1{,}10 \cdot 1{,}00 \cdot (1{,}20 \cdot 1{,}25) \cdot 1{,}00 = 1{,}98,
     \label{eq:criterio_pandeo_p5}
 \end{equation}
 

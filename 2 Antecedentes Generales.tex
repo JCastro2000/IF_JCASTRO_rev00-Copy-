@@ -129,7 +129,7 @@ Un H-rotor está formado por un eje vertical, del cual se desprenden radialmente
 A diferencia de una \gls{hawt}, cuyo rotor barre un disco de área $\pi R^2$, el H-rotor barre la superficie lateral de un cilindro. El área proyectada frente al viento, que es la que interviene en los coeficientes adimensionales, corresponde por tanto al rectángulo de altura $H$ y ancho $D = 2R$, según la Ec.~\ref{eq:area_barrida}:
 
 \begin{equation}
-    A = 2RH
+    A = 2RH.
     \label{eq:area_barrida}
 \end{equation}
 
@@ -142,7 +142,7 @@ La particularidad física del rotor de eje vertical reside en que la pala se des
 El rendimiento aerodinámico y las cargas sobre una turbina tipo H-rotor están gobernados por la interacción entre la velocidad del viento y la velocidad de rotación del sistema. Esta interacción se caracteriza mediante la relación de velocidad de punta (TSR, por sus siglas en inglés), que se define como la velocidad tangencial de la punta de la pala sobre la velocidad del viento, según la Ec.~\ref{eq:tsr}\glsunset{tsr}:
 
 \begin{equation}
-    \lambda = \frac{\Omega R}{V_{hub}}
+    \lambda = \frac{\Omega R}{V_{hub}},
     \label{eq:tsr}
 \end{equation}
 
@@ -156,12 +156,12 @@ donde:
 Para caracterizar el rendimiento del rotor se definen los coeficientes adimensionales de potencia ($C_p$) y de momento o torque ($C_m$), presentados en las Ecs.~\ref{eq:cp} y~\ref{eq:cm}, que expresan qué fracción de la potencia disponible en el flujo aprovecha la turbina y qué torque desarrolla, respectivamente:
 
 \begin{equation}
-    C_p = \frac{P}{\frac{1}{2}\rho A V_{hub}^3}
+    C_p = \frac{P}{\frac{1}{2}\rho A V_{hub}^3},
     \label{eq:cp}
 \end{equation}
 
 \begin{equation}
-    C_m = \frac{M}{\frac{1}{2}\rho A R V_{hub}^2}
+    C_m = \frac{M}{\frac{1}{2}\rho A R V_{hub}^2},
     \label{eq:cm}
 \end{equation}
 
@@ -181,7 +181,7 @@ Ambos coeficientes no son independientes, sino que se relacionan a través de la
 Los parámetros anteriores describen la cinemática del rotor, pero no el régimen del flujo que baña a la pala. Ese régimen lo fija el número de Reynolds, parámetro adimensional que expresa la razón entre las fuerzas inerciales y las fuerzas viscosas del flujo, y que se define según la Ec.~\ref{eq:reynolds}~\parencite{Anderson2016}:
 
 \begin{equation}
-    Re = \frac{\rho \, V_\infty \, L}{\mu} = \frac{V_\infty \, L}{\nu}
+    Re = \frac{\rho \, V_\infty \, L}{\mu} = \frac{V_\infty \, L}{\nu},
     \label{eq:reynolds}
 \end{equation}
 
@@ -214,7 +214,7 @@ La velocidad que percibe el perfil no es la del viento incidente, sino la \textb
 En una \gls{hawt} el ángulo de ataque se mantiene relativamente constante en condiciones nominales. En un H-rotor, en cambio, la pala recorre posiciones a favor y en contra del viento dentro de una misma revolución, por lo que $\alpha$ experimenta una variación cíclica severa en función de la posición acimutal ($\theta$). Para un rotor de palas rectas, la cinemática básica define este ángulo según la Ec.~\ref{eq:alpha_theta}:
 
 \begin{equation}
-    \alpha(\theta) = \tan^{-1}\left(\frac{\sin\theta}{\lambda + \cos\theta}\right)
+    \alpha(\theta) = \tan^{-1}\left(\frac{\sin\theta}{\lambda + \cos\theta}\right),
     \label{eq:alpha_theta}
 \end{equation}
 
@@ -232,7 +232,7 @@ Esta variación cíclica induce fluctuaciones en las cargas aerodinámicas duran
 La solidez ($\sigma$) relaciona la superficie total de pala con el área barrida. Para un H-rotor de $N$ palas de cuerda $c$ y radio $R$, se define según la Ec.~\ref{eq:solidez}:
 
 \begin{equation}
-\sigma = \frac{Nc}{R}
+\sigma = \frac{Nc}{R}.
 \label{eq:solidez}
 \end{equation}
 
@@ -246,7 +246,7 @@ Conviene advertir que la literatura emplea dos convenciones para esta magnitud. 
 Sobre la pala en operación actúan tres tipos de carga: las aerodinámicas, las gravitatorias y las centrífugas, siendo estas dos últimas de naturaleza inercial y de carácter estacionario mientras la velocidad de rotación se mantenga constante~\parencite{Galinos2015}. Al describir la pala una trayectoria circular, la aceleración centrífuga a que queda sometida crece con el cuadrado de la velocidad de punta ($V_{tip} = \Omega R$), según la Ec.~\ref{eq:centrifugal_limit}:
 
 \begin{equation}
-    a_c = \Omega^2 R = \frac{V_{tip}^2}{R}
+    a_c = \Omega^2 R = \frac{V_{tip}^2}{R},
     \label{eq:centrifugal_limit}
 \end{equation}
 
@@ -321,7 +321,7 @@ En un H-rotor la pala recorre una circunferencia mientras el viento sopla en una
 El ángulo de ataque que percibe la pala queda determinado por la posición acimutal y por el \gls{tsr}, según la función $\alpha(\theta,\lambda)$ que expresa la Ec.~\ref{eq:alpha_theta}. Al derivar dicha expresión respecto de $\theta$ se obtiene que el extremo se alcanza en $\cos\theta = -1/\lambda$ y que su valor depende únicamente del \gls{tsr}, según la Ec.~\ref{eq:alpha_max}:
 
 \begin{equation}
-    \alpha_{max} = \arcsin\left(\frac{1}{\lambda}\right)
+    \alpha_{max} = \arcsin\left(\frac{1}{\lambda}\right).
     \label{eq:alpha_max}
 \end{equation}
 
@@ -434,7 +434,7 @@ La aceleración centrífuga de la Sección~\ref{sec:vtip} permite contrastar la 
 Despejada la relación de velocidad de punta (Ec.~\ref{eq:tsr}), se obtiene la velocidad de rotación que corresponde a un \gls{tsr} y a una velocidad de viento dados, según la Ec.~\ref{eq:omega_from_vtip}:
 
 \begin{equation}
-    \Omega = \frac{\lambda \, V}{R}
+    \Omega = \frac{\lambda \, V}{R}.
     \label{eq:omega_from_vtip}
 \end{equation}
 
@@ -455,7 +455,7 @@ El emplazamiento considerado para este estudio se sitúa mar adentro frente a la
 De acuerdo con la norma IEC 61400-1, la variabilidad de la velocidad del viento se modela mediante funciones de distribución de probabilidad. La norma adopta la distribución de Rayleigh como modelo de referencia para las clases estándar (I, II y III), la cual constituye un caso particular de la distribución de Weibull con parámetro de forma $k = 2$~\parencite{ennis2018}. Para evaluaciones sitio-específicas con registros históricos, se emplea la distribución de Weibull completa, dada por la Ec.~\ref{eq:weibull_cdf}:
 
 \begin{equation}
-    P_W(V_0) = 1 - \exp\left[-\left(\frac{V_0}{c}\right)^k\right]
+    P_W(V_0) = 1 - \exp\left[-\left(\frac{V_0}{c}\right)^k\right],
     \label{eq:weibull_cdf}
 \end{equation}
 
@@ -489,14 +489,14 @@ Para garantizar la integridad estructural, la caracterización del viento según
 \textbf{Condiciones normales de viento (NWC, por sus siglas en inglés):} Incluyen el perfil de viento normal (NWP, por sus siglas en inglés), el cual describe la variación de la velocidad con la altura ($z$) mediante la ley de potencia de la Ec.~\ref{eq:nwp_ley_potencia}, con un exponente de cizalladura $\alpha_z$ que la norma IEC 61400-3-1 fija en $0{,}14$ para las condiciones normales de viento en emplazamientos marinos~\parencite{IEC61400-3-1}\glsunset{nwc}\glsunset{nwp}:
 
 \begin{equation}
-    V(z) = V_{hub} \left(\frac{z}{z_{hub}}\right)^{\alpha_z}
+    V(z) = V_{hub} \left(\frac{z}{z_{hub}}\right)^{\alpha_z}.
     \label{eq:nwp_ley_potencia}
 \end{equation}
 
 Asimismo, el modelo de turbulencia normal (NTM, por sus siglas en inglés)\glsunset{ntm} define la desviación estándar representativa de la turbulencia ($\sigma_{NTM}$) como el cuantil del $90\%$ de la desviación estándar de la velocidad para cada velocidad a la altura de referencia, y la expresa como una función lineal de esta última, según la Ec.~\ref{eq:ntm_sigma}:
 
 \begin{equation}
-    \sigma_{NTM} = I_{ref} \left(0{,}75 \, V_{hub} + b_{NTM}\right)
+    \sigma_{NTM} = I_{ref} \left(0{,}75 \, V_{hub} + b_{NTM}\right),
     \label{eq:ntm_sigma}
 \end{equation}
 
@@ -519,7 +519,7 @@ El modelo queda determinado por tres parámetros que el Anexo C de la IEC 61400-
     \item Un \textbf{parámetro de anisotropía}, $\Gamma$, que cuantifica cuánto deforma la cizalladura a los remolinos y que la norma fija en $\Gamma = 3{,}9$ por ajuste al modelo espectral de Kaimal.
 \end{itemize}
 
-A partir de estos tres parámetros, el algoritmo de simulación~\parencite{Mann1998} sintetiza una \textbf{caja de turbulencia} mediante transformada rápida de Fourier: una grilla tridimensional de puntos, con dos direcciones transversales al viento y una longitudinal que se traduce en tiempo al asumir que el campo turbulento es transportado por el flujo medio sin deformarse (hipótesis de turbulencia congelada de Taylor), en la que cada punto almacena las tres componentes de la velocidad fluctuante. QBlade los recibe como entrada bajo las denominaciones \textit{Alpha Epsilon}, \textit{L Mann} y \textit{Gamma}, y recorre la grilla resultante a medida que la turbina gira, alimentando el modelo aerodinámico con series temporales de viento tridimensional~\parencite{marten2019qblade}.
+A partir de estos tres parámetros, el algoritmo de simulación~\parencite{Mann1998} sintetiza una \textbf{caja de turbulencia} mediante transformada rápida de Fourier: una grilla tridimensional de puntos, con dos direcciones transversales al viento y una longitudinal que se traduce en tiempo al asumir que el campo turbulento es transportado por el flujo medio sin deformarse (hipótesis de turbulencia congelada de Taylor), en la que cada punto almacena las tres componentes de la velocidad fluctuante. El rotor recorre después esa grilla a medida que gira, de modo que cada estación de pala interroga en cada instante un punto distinto del campo y recibe así una serie temporal de viento tridimensional, correlacionada en el espacio con la que reciben las demás.
 
 \subsection{Casos de carga de diseño}
 \label{sec:dlc_seleccion}
@@ -554,21 +554,21 @@ Respecto de las direcciones sobre las que debe construirse esa envolvente, la Se
 El razonamiento se apoya en dos ideas. La primera es que, para una velocidad de viento dada, la carga sobre la pala puede tratarse como un proceso aleatorio estacionario: sus propiedades estadísticas no cambian mientras esa condición de viento se mantenga. La segunda es que los máximos de ese proceso ocurren suficientemente separados en el tiempo como para considerarlos estadísticamente independientes entre sí. Bajo esos supuestos, el comportamiento del máximo de un conjunto grande de observaciones deja de depender del detalle del proceso y converge hacia una familia acotada de distribuciones, resultado clásico de la teoría de valores extremos~\parencite{Gumbel1958}. Entre ellas, la distribución de Gumbel describe los máximos provenientes de procesos con cola de tipo exponencial y queda definida por la Ec.~\ref{eq:gumbel_anexof}:
 
 \begin{equation}
-\Phi(F; \mu_j, \beta_j) = \exp\left[ -\exp\left( -\frac{F - \mu_j}{\beta_j} \right) \right]
+\Phi(F; \mu_j, \beta_j) = \exp\left[ -\exp\left( -\frac{F - \mu_j}{\beta_j} \right) \right],
 \label{eq:gumbel_anexof}
 \end{equation}
 
 donde $\Phi$ es la probabilidad acumulada de que el máximo de una realización de diez minutos no supere el nivel de carga $F$ (N o N$\cdot$m, según la componente que se analice); $F$ es el nivel de carga evaluado; $\mu_j$ es el parámetro de posición, que sitúa la distribución ajustada a la velocidad $V_j$ e indica el orden de magnitud de los máximos a esa velocidad; y $\beta_j$ es el parámetro de escala, que mide su dispersión, esto es, cuánto varían los máximos entre una realización y otra. Ambos parámetros se estiman a partir de los máximos observados mediante el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra~\parencite{Gumbel1958}. Lo relevante del ajuste no es reproducir los datos ya observados, sino describir la \textit{cola} de la distribución, la zona de cargas altas y poco frecuentes donde no hay observaciones y que es la que interesa extrapolar. La probabilidad de excedencia condicionada a una velocidad, Ec.~\ref{eq:pe_cond_anexof}, se lee entonces como la fracción de realizaciones de diez minutos a esa velocidad en que la carga superaría el nivel $F$:
 
 \begin{equation}
-P_e(F \mid V_j) = 1 - \Phi(F; \mu_j, \beta_j)
+P_e(F \mid V_j) = 1 - \Phi(F; \mu_j, \beta_j).
 \label{eq:pe_cond_anexof}
 \end{equation}
 
 La turbina, sin embargo, no opera siempre a la misma velocidad, y una carga muy alta puede ser probable a $24$~m/s y a la vez irrelevante si el emplazamiento casi nunca alcanza esa velocidad. El riesgo no se evalúa por eso velocidad por velocidad, sino ponderando cada una por el tiempo que el viento efectivamente permanece en ella, información que aporta la distribución de Weibull del sitio, $f_W(V)$. Esa ponderación es la integral de la Ec.~\ref{eq:pe_longterm_anexof}, que combina la severidad de cada condición con su frecuencia de ocurrencia:
 
 \begin{equation}
-P_e(F) = \int_{V_{in}}^{V_{out}} P_e(F \mid V) \cdot f_W(V) \, dV
+P_e(F) = \int_{V_{in}}^{V_{out}} P_e(F \mid V) \cdot f_W(V) \, dV,
 \label{eq:pe_longterm_anexof}
 \end{equation}
 
@@ -577,7 +577,7 @@ donde $P_e(F)$ es la probabilidad de excedencia de largo plazo del nivel de carg
 Queda por definir qué probabilidad resulta aceptable. Si la carga característica debe ser excedida, en promedio, una sola vez cada $T_{retorno}$, y cada realización representa un intervalo de duración $T_{obs}$, la probabilidad admisible por realización es el recíproco del número de intervalos que caben en el período de retorno, según la Ec.~\ref{eq:fk_anexof}:
 
 \begin{equation}
-P_e(F_k) = \frac{T_{obs}}{T_{retorno}}
+P_e(F_k) = \frac{T_{obs}}{T_{retorno}},
 \label{eq:fk_anexof}
 \end{equation}
 
@@ -588,7 +588,7 @@ Para el período de retorno de $50$ años y realizaciones de diez minutos, esta 
 Finalmente, $F_k$ es una estimación estadística y arrastra las incertidumbres del modelo aerodinámico, del número finito de realizaciones y del ajuste de la cola. La norma cubre ese margen mayorando la carga mediante un factor parcial de seguridad, según la Ec.~\ref{eq:fd_anexof}:
 
 \begin{equation}
-F_d = \gamma_f \cdot F_k
+F_d = \gamma_f \cdot F_k,
 \label{eq:fd_anexof}
 \end{equation}
 
@@ -610,7 +610,7 @@ El segundo paso es referir todos los ciclos a una condición común. La curva S-
 El instrumento habitual para incorporar ese efecto es el diagrama de vida constante, que convierte cada par $(S_a, S_m)$ en la amplitud equivalente a tensión media nula que produce el mismo daño, con lo que la curva S-N vuelve a ser aplicable. Su forma lineal es la de Goodman, Ec.~\ref{eq:goodman}:
 
 \begin{equation}
-S_{a,0} = \frac{S_a}{1 - \dfrac{S_m}{S_u}}
+S_{a,0} = \frac{S_a}{1 - \dfrac{S_m}{S_u}},
 \label{eq:goodman}
 \end{equation}
 
@@ -619,7 +619,7 @@ donde $S_{a,0}$ es la amplitud equivalente, $S_m$ la tensión media del ciclo y 
 El tercer paso es traducir cada ciclo en daño. Para ello se recurre a la curva S-N del material (del inglés \textit{stress-number of cycles}, tensión frente a número de ciclos, también llamada curva de Wöhler), que relaciona la amplitud de tensión aplicada con el número de ciclos que el material soporta antes de fallar bajo esa amplitud constante. Para compuestos y metales en régimen de alto número de ciclos, esta relación se describe adecuadamente mediante la ley potencial de Basquin, Ec.~\ref{eq:sn_basquin}:
 
 \begin{equation}
-S = S_f' \, (2N_f)^b
+S = S_f' \, (2N_f)^b,
 \label{eq:sn_basquin}
 \end{equation}
 
@@ -628,7 +628,7 @@ donde $S$ es la amplitud de tensión aplicada, que tras la corrección del paso 
 El cuarto paso es sumar. La hipótesis de Palmgren-Miner supone que cada ciclo consume una fracción de la vida del material igual a $1/N_i$, y que esas fracciones se acumulan de forma lineal e independiente del orden en que ocurren~\parencite{Miner1945}, lo que conduce a la Ec.~\ref{eq:miner_anexog}:
 
 \begin{equation}
-D = \sum_i \frac{n_i}{N_i}
+D = \sum_i \frac{n_i}{N_i},
 \label{eq:miner_anexog}
 \end{equation}
 
@@ -785,7 +785,7 @@ En una \gls{vawt} el número de Mach relevante no es el del viento incidente sin
 \textbf{Parámetro de Transición ($N_{crit}$):} Es el factor principal del modelo de transición $e^N$ utilizado para predecir el cambio natural de la capa límite de régimen laminar a turbulento sobre el perfil alar. El modelo se apoya en que, antes de la transición, las pequeñas perturbaciones presentes en la capa límite laminar (las ondas de Tollmien-Schlichting) se amplifican de forma exponencial al avanzar sobre el perfil. Si $A_0$ es la amplitud de la perturbación más inestable en el punto donde comienza a crecer y $A$ su amplitud en una posición posterior, el factor de amplificación $n$ se define según la Ec.~\ref{eq:en_transicion}:
 
 \begin{equation}
-n = \ln\left( \frac{A}{A_0} \right)
+n = \ln\left( \frac{A}{A_0} \right).
 \label{eq:en_transicion}
 \end{equation}
 
@@ -853,11 +853,11 @@ Debido a que los códigos de cálculo, por la razón expuesta en la Sección~\re
 La literatura ofrece más de uno; se repasan aquí los dos más difundidos, que responden a principios de construcción distintos. El de \textcite{viterna1982theoretical} no describe la física del flujo separado, sino que deduce la forma de la curva imponiendo tres condiciones sobre el tramo posterior a la pérdida: continuidad con la polar adherida en el ángulo de pérdida, un coeficiente de torque constante a lo largo de todo ese tramo, y el valor de arrastre que corresponde a $90^\circ$ según la relación de aspecto de la pala. La segunda condición es la que fija la forma, y proviene de una observación experimental sobre rotores regulados por pérdida, esto es, aquellos que a partir de cierta velocidad de viento operan intencionalmente en pérdida para limitar la potencia captada: en ellos el torque medido más allá de la pérdida resulta prácticamente independiente de la velocidad del viento y, por tanto, del ángulo de ataque. Las expresiones que satisfacen las tres condiciones son las Ecs.~\ref{eq:viterna_cl} y~\ref{eq:viterna_cd}:
 
 \begin{equation}
-C_l = A_1 \sin(2\alpha) + A_2 \frac{\cos^2\alpha}{\sin\alpha}
+C_l = A_1 \sin(2\alpha) + A_2 \frac{\cos^2\alpha}{\sin\alpha},
 \label{eq:viterna_cl}
 \end{equation}
 \begin{equation}
-C_d = B_1 \sin^2\alpha + B_2 \cos\alpha
+C_d = B_1 \sin^2\alpha + B_2 \cos\alpha,
 \label{eq:viterna_cd}
 \end{equation}
 
@@ -893,7 +893,7 @@ El modelo, desarrollado en la Agencia Sueca de Investigación de Defensa (FOI), 
 
 Función de transición ($f$): define el peso relativo entre el régimen de flujo adherido y el separado, según la Ec.~\ref{eq:mont_f}:
 \begin{equation}
-f = \frac{1}{1 + k \cdot \Delta\alpha^4}
+f = \frac{1}{1 + k \cdot \Delta\alpha^4},
 \label{eq:mont_f}
 \end{equation}
 
@@ -901,7 +901,7 @@ donde $\alpha$ corresponde al ángulo de ataque; $\Delta\alpha$ es su desplazami
 
 Coeficiente de sustentación ($C_l$): Se obtiene interpolando entre la línea de flujo potencial ($t$) y la curva de placa plana ($s$), según la Ec.~\ref{eq:mont_cl}:
 \begin{equation}
-C_L = f \cdot t + (1 - f) \cdot s
+C_L = f \cdot t + (1 - f) \cdot s.
 \label{eq:mont_cl}
 \end{equation}
 
@@ -916,7 +916,7 @@ La Figura~\ref{fig:montgomerie_st} ilustra esta interpolación para un perfil si
 
 Coeficiente de arrastre ($C_d$): queda fijado por el parámetro $C_{d90}$, el coeficiente de resistencia del perfil a $\alpha = 90^\circ$, esto es, cuando se comporta como una placa plana orientada perpendicularmente al flujo, valor que define la amplitud de toda la curva de arrastre en régimen separado según la Ec.~\ref{eq:mont_cd}:
 \begin{equation}
-C_{D, thinPlate} = C_{d90} \cdot \sin^2(\alpha)
+C_{D, thinPlate} = C_{d90} \cdot \sin^2(\alpha).
 \label{eq:mont_cd}
 \end{equation}
 
@@ -1011,7 +1011,7 @@ La resistencia del laminado no agota la verificación estructural. Como se antic
 La carga a la que un panel se vuelve inestable no depende solo del material, sino sobre todo de su geometría. Para una placa comprimida, la tensión crítica sigue la forma de la Ec.~\ref{eq:pandeo_placa}:
 
 \begin{equation}
-    \sigma_{cr} = k \, \frac{\pi^2 E}{12\left(1 - \nu^2\right)} \left(\frac{t}{b}\right)^2
+    \sigma_{cr} = k \, \frac{\pi^2 E}{12\left(1 - \nu^2\right)} \left(\frac{t}{b}\right)^2,
     \label{eq:pandeo_placa}
 \end{equation}
 
@@ -1020,7 +1020,7 @@ donde $t$ es el espesor de la placa, $b$ su ancho no apoyado, $E$ el módulo el�
 En una geometría real, con paneles de forma irregular y condiciones de borde que no responden a un caso tabulado, la carga crítica se obtiene numéricamente. El planteamiento habitual es el pandeo lineal por autovalores, que parte de la solución estática bajo las cargas aplicadas y busca el factor por el que habría que amplificarlas para que la rigidez del conjunto se anule, según la Ec.~\ref{eq:pandeo_autovalores}:
 
 \begin{equation}
-    \left( \left[ K \right] + LM \left[ K_{\sigma} \right] \right) \{\phi\} = \{0\}
+    \left( \left[ K \right] + LM \left[ K_{\sigma} \right] \right) \{\phi\} = \{0\},
     \label{eq:pandeo_autovalores}
 \end{equation}
 

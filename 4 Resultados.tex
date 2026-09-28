@@ -106,7 +106,7 @@ Esta cobertura resulta particularmente relevante en el extremo superior del rang
 Esa cobertura absorbe además la incertidumbre que introduce la variabilidad térmica del emplazamiento sobre el Reynolds. Al mantener fija la velocidad relativa $W$, el cociente entre los Reynolds que resultan de evaluar la Ec.~\ref{eq:Re_max_theoretical} con $\nu_{min}$ y con $\nu_{max}$ se reduce al cociente inverso de las viscosidades, según la Ec.~\ref{eq:sensibilidad_re}:
 
 \begin{equation}
-    \frac{Re(\nu_{min})}{Re(\nu_{max})} = \frac{Wc/\nu_{min}}{Wc/\nu_{max}} = \frac{\nu_{max}}{\nu_{min}}
+    \frac{Re(\nu_{min})}{Re(\nu_{max})} = \frac{Wc/\nu_{min}}{Wc/\nu_{max}} = \frac{\nu_{max}}{\nu_{min}},
     \label{eq:sensibilidad_re}
 \end{equation}
 
@@ -115,12 +115,12 @@ de modo que el Reynolds hereda exactamente la misma variación porcentual que la
 Las fuerzas de sustentación y arrastre por unidad de envergadura se expresan según las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}:
 
 \begin{equation}
-    F_L = \frac{1}{2}\rho W^2 c\, C_l(Re,\alpha)
+    F_L = \frac{1}{2}\rho W^2 c\, C_l(Re,\alpha),
     \label{eq:fuerza_sustentacion}
 \end{equation}
 
 \begin{equation}
-    F_D = \frac{1}{2}\rho W^2 c\, C_d(Re,\alpha)
+    F_D = \frac{1}{2}\rho W^2 c\, C_d(Re,\alpha),
     \label{eq:fuerza_arrastre}
 \end{equation}
 
@@ -211,7 +211,7 @@ La posición del óptimo, en cambio, cuenta con un respaldo independiente del m�
 Con el \gls{tsr} determinado queda fijada también la consigna de velocidad máxima de rotación. Aplicando el criterio de la Sección~\ref{sec:criterio_rotacion} con $\lambda = 3{,}80$ y la velocidad de viento nominal de $12$~m/s se obtiene la Ec.~\ref{eq:omega_diseno}:
 
 \begin{equation}
-    \Omega = \frac{\lambda \, V}{R} = \frac{3{,}8 \times 12}{10{,}365} = 4{,}398\ \text{rad/s} = 42{,}0\ \text{rpm}
+    \Omega = \frac{\lambda \, V}{R} = \frac{3{,}8 \times 12}{10{,}365} = 4{,}398\ \text{rad/s} = 42{,}0\ \text{rpm}.
     \label{eq:omega_diseno}
 \end{equation}
 
@@ -424,7 +424,7 @@ El descenso de $R^2$ con la velocidad de viento tiene una explicación de régim
 La carga característica $F_k$, correspondiente al período de retorno de $50$ años, y la carga de diseño $F_d$, que resulta de mayorarla por el factor parcial, se obtienen a partir de esta distribución mediante el procedimiento de bisección descrito en la Sección~\ref{sec:anexo_f}. La probabilidad de excedencia objetivo de la Ec.~\ref{eq:fk_criterion}, con $T_{obs} = 600$~s y $T_{retorno} = 50$ años, resulta:
 
 \begin{equation}
-    P_e(F_k) = \frac{600\ \text{s}}{50 \times 365{,}25 \times 24 \times 3600\ \text{s}} = 3{,}803 \times 10^{-7}
+    P_e(F_k) = \frac{600\ \text{s}}{50 \times 365{,}25 \times 24 \times 3600\ \text{s}} = 3{,}803 \times 10^{-7}.
     \label{eq:fk_criterion_num}
 \end{equation}
 
@@ -463,7 +463,7 @@ Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se pr
 La carga característica corresponde a la mayor media entre las velocidades simuladas, $F_k = 65{,}66$~kN$\cdot$m a $V = 24$~m/s, destacada en la Tabla~\ref{tab:dlc13_maximos}. Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
 
 \begin{equation}
-    M_{env,d} = \gamma_f \cdot F_k = 1{,}35 \times 65{,}66 = 88{,}64\ \text{kN}\cdot\text{m}
+    M_{env,d} = \gamma_f \cdot F_k = 1{,}35 \times 65{,}66 = 88{,}64\ \text{kN}\cdot\text{m}.
     \label{eq:Fd_dlc13_res}
 \end{equation}
 
@@ -630,7 +630,7 @@ La concentración se aprecia mejor sobre el espectro completo que sobre las velo
 Sumando las contribuciones de las doce velocidades, el daño anual acumulado según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 3{,}00 \times 10^{-4}$. Para la vida útil de diseño de $20$ años, el daño total asciende al valor de la Ec.~\ref{eq:D20_res}:
 
 \begin{equation}
-    D_{20} = 20 \cdot D_{\text{año}} = 6{,}00 \times 10^{-3}
+    D_{20} = 20 \cdot D_{\text{año}} = 6{,}00 \times 10^{-3}.
     \label{eq:D20_res}
 \end{equation}
 
@@ -845,14 +845,14 @@ Este caso de referencia entrega una conclusión de diseño central, ya que la ca
 La verificación de resistencia última emplea el criterio de máxima tensión principal, apropiado para materiales compuestos de matriz polimérica con comportamiento frágil~\parencite{Moraras2023}, según la Ec.~\ref{eq:criterio_uls}:
 
 \begin{equation}
-    \sigma_{1,\max} \leq \sigma_{u,d} = \frac{\sigma_u}{\gamma_m \cdot \gamma_n}
+    \sigma_{1,\max} \leq \sigma_{u,d} = \frac{\sigma_u}{\gamma_m \cdot \gamma_n}.
     \label{eq:criterio_uls}
 \end{equation}
 
 Con $\sigma_u = 242{,}1$~MPa, entregada por el fabricante de la pala (Tabla~\ref{tab:material_pala}), $\gamma_m = 1{,}30$ y $\gamma_n = 1{,}00$ según la Sección~\ref{sec:factores_seguridad}, la resistencia factoreada resulta según la Ec.~\ref{eq:sigma_ud_res}:
 
 \begin{equation}
-    \sigma_{u,d} = \frac{242{,}1}{1{,}30 \times 1{,}00} = 186{,}2\ \text{MPa}
+    \sigma_{u,d} = \frac{242{,}1}{1{,}30 \times 1{,}00} = 186{,}2\ \text{MPa}.
     \label{eq:sigma_ud_res}
 \end{equation}
 
