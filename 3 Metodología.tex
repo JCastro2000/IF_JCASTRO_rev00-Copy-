@@ -887,17 +887,10 @@ El perfil espacial de diseño se construye sobre la misma magnitud gobernante qu
 
 \section{Etapa 3: análisis estructural}
 
-\subsection{Material de la pala}
+\subsection{Material y definición estructural de la pala}
 \label{sec:material_pala}
 
-La pala está construida en material compuesto de polímero reforzado con fibra de vidrio (GFRP), fabricado mediante infusión al vacío. El perímetro $P$ de la sección transversal NACA 0018 se obtiene al integrar numéricamente el contorno normalizado del perfil de la Figura~\ref{fig:naca0018}, lo que entrega la relación de la Ec.~\ref{eq:perimetro_naca}:
-
-\begin{equation}
-    P \approx 2{,}08 \, c,
-    \label{eq:perimetro_naca}
-\end{equation}
-
-donde $c$ es la cuerda del perfil (Tabla~\ref{tab:geometria_turbina}). Con base en la masa total de la pala equivalente a $760$ kg, proporcionada por el fabricante de la turbina, la densidad del material ($\rho = 1\,800$~kg/m$^3$, Tabla~\ref{tab:material_pala}) y el perímetro de la Ec.~\ref{eq:perimetro_naca}, se estima un espesor de pared equivalente de $8$ mm para el modelo estructural. El modelo incorpora además un larguero interior que recorre la envergadura completa en la zona de espesor máximo del perfil. Ante la ausencia de una definición del laminado y de la estructura interna, el espesor del larguero se fija igual al del manto ($8$~mm); la sensibilidad de los resultados a este supuesto se evalúa en el análisis de estabilidad (Sección~\ref{sec:pandeo_met}). La incorporación del larguero añade del orden de un $8\%$ de masa respecto del valor nominal de la pala, desviación que se acepta por tratarse de un elemento estructuralmente necesario, como se demuestra en el Capítulo~4. Cabe señalar que la omisión del larguero interior es una alternativa que el fabricante evalúa para facilitar la fabricación de la pala. Las propiedades mecánicas del material se resumen en la Tabla~\ref{tab:material_pala}.
+La pala está construida en material compuesto de polímero reforzado con fibra de vidrio (GFRP), fabricado mediante infusión al vacío. Las propiedades mecánicas del material se resumen en la Tabla~\ref{tab:material_pala}.
 
 \begin{table}[H]
     \centering
@@ -911,10 +904,10 @@ donde $c$ es la cuerda del perfil (Tabla~\ref{tab:geometria_turbina}). Con base 
         Módulo elástico & $E$ & $38{,}208$ GPa & Fabricante de la pala\\
         Coeficiente de Poisson & $\nu$ & $0{,}30$ & Fabricante de la pala\\
         Resistencia última & $\sigma_u$ & $242{,}1$ MPa & Fabricante de la pala\\
-        Espesor de pared equivalente & — & $8$ mm & Estimado de la masa de la pala\\
         Exponente de fatiga & $b$ & $-0{,}045$ & Literatura~\parencite{Huh2012}\\
         \hline
-        \multicolumn{4}{l}{\footnotesize El tipo de material (GFRP fabricado por infusión al vacío) es dato del fabricante de la pala.}
+        \multicolumn{4}{l}{\footnotesize El tipo de material (GFRP fabricado por infusión al vacío) es dato del fabricante de la pala.}\\
+        \multicolumn{4}{l}{\footnotesize Los espesores del laminado se recogen por separado en la Tabla~\ref{tab:seccion_caracteristica}.}
     \end{tabular}
 \end{table}
 
@@ -928,6 +921,57 @@ El GFRP presenta un comportamiento elástico lineal hasta la rotura frágil~\par
 \end{figure}
 
 Las propiedades disponibles del laminado son las de la Tabla~\ref{tab:material_pala}: un módulo elástico, un coeficiente de Poisson y una resistencia única, esto es, un conjunto isótropo equivalente. Sobre esa base el material se modela como isótropo lineal. Dos condiciones del análisis hacen consistente esa representación. La primera es que la pala está construida íntegramente con el mismo laminado, de modo que el modelo no debe reproducir desajustes de rigidez entre la piel y el larguero. La segunda es que la verificación de resistencia última emplea el criterio de tensión principal máxima, que compara una tensión escalar con una resistencia única y no requiere descomponer el estado tensional en las direcciones del refuerzo. El alcance de la hipótesis se retoma en las conclusiones.
+
+\subsubsection{Sección característica}
+\label{sec:seccion_caracteristica}
+
+La definición del laminado proviene de un plano de sección transversal entregado por el fabricante de la turbina, identificado en él como sección característica de la pala. La sección corresponde a un larguero de cajón, formado por dos almas y por el engrosamiento del manto entre ellas, con carenados de menor espesor hacia el borde de ataque y hacia el de fuga. La Tabla~\ref{tab:seccion_caracteristica} reúne sus dimensiones.
+
+\begin{table}[H]
+    \centering
+    \caption{Definición de la sección característica de la pala, según el plano entregado por el fabricante de la turbina.}
+    \label{tab:seccion_caracteristica}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Elemento} & \textbf{Posición desde el borde de ataque} & \textbf{Espesor}\\
+        \hline
+        Carenado de borde de ataque & $0$ a $220$~mm & $5{,}2$~mm\\
+        Ala del larguero & $220$ a $560$~mm & $11{,}4$~mm\\
+        Carenado de borde de fuga & $560$~mm al borde de fuga & $5{,}2$~mm\\
+        Alma anterior & $220$~mm & $5{,}2$~mm\\
+        Alma posterior & $560$~mm & $5{,}2$~mm\\
+        \hline
+        \multicolumn{3}{l}{\footnotesize El ala del larguero se prolonga algunos centímetros más allá de cada alma.}
+    \end{tabular}
+\end{table}
+
+El plano entrega una única sección y no una distribución de espesores a lo largo de la envergadura, de modo que el modelo la aplica de forma uniforme en los $23$~m de la pala. Es una simplificación, ya que un laminado real suele reducir espesor hacia los extremos, y su alcance se acota en el apartado siguiente.
+
+\subsubsection{Contraste de masa del modelo}
+\label{sec:contraste_masa}
+
+La masa que resulta de extender la sección característica a toda la envergadura permite contrastar esa simplificación contra un dato independiente. El perímetro $P$ de la sección NACA 0018 se obtiene al integrar numéricamente el contorno normalizado del perfil de la Figura~\ref{fig:naca0018}, lo que entrega la relación de la Ec.~\ref{eq:perimetro_naca}:
+
+\begin{equation}
+    P \approx 2{,}08 \, c,
+    \label{eq:perimetro_naca}
+\end{equation}
+
+donde $c$ es la cuerda del perfil (Tabla~\ref{tab:geometria_turbina}). Con ese perímetro, la densidad de la Tabla~\ref{tab:material_pala} y los espesores de la Tabla~\ref{tab:seccion_caracteristica}, la sección característica entrega una pala de $735$~kg, frente a los $760$~kg que el fabricante declara como masa de la pala (Tabla~\ref{tab:geometria_turbina}), esto es, una diferencia del $3{,}3\%$.
+
+La concordancia no demuestra que el laminado sea constante a lo largo de la envergadura, ya que una pala que redujera espesor hacia los extremos y lo aumentara en las zonas de conexión podría arrojar la misma masa total. Lo que sí establece es que la sección característica, extendida a toda la pala, no introduce un exceso ni un defecto apreciable de material. Esa comprobación es pertinente porque las cargas inerciales son proporcionales a la masa y dominan la solicitación, según se muestra en el Capítulo~4.
+
+\subsubsection{Refuerzo de la zona de conexión}
+\label{sec:vendaje}
+
+El modelo incorpora en cada conexión un vendaje de refuerzo dispuesto concéntricamente alrededor del perímetro de la sección, que reproduce el engrosamiento local del laminado con que se resuelve la introducción de carga en una unión de este tipo. Su tramo de espesor pleno mide $8$~mm y $1\,000$~mm de longitud, y en cada extremo la transición hacia el manto se resuelve en dos escalones de $100$~mm, de $5{,}3$ y $2{,}6$~mm de espesor, con lo que el refuerzo alcanza $1\,400$~mm de longitud total. La transición reparte así los $8$~mm de espesor a lo largo de $200$~mm. Se modela escalonada y no continua porque el laminado real tampoco lo es, ya que el espesor desciende terminando capas sucesivas.
+
+El vendaje se representa como un cuerpo independiente del manto, con el que comparte los nodos de su superficie de contacto. Esa separación permite leer sus tensiones por separado, lo que una representación del conjunto como un espesor único no permitiría.
+
+\subsubsection{Posición de los planos de referencia}
+\label{sec:offsets}
+
+El modelo representa cada laminado por su superficie media y le asigna el espesor como propiedad de sección, de modo que la posición de esa superficie respecto de la geometría es un dato del modelo y no una consecuencia de él. El manto se desplaza hacia el interior y el vendaje hacia el exterior, ambos a partir de la superficie exterior del perfil, de manera que los dos laminados quedan apilados y no superpuestos. Es la disposición que corresponde a un vendaje laminado por fuera de la piel, y la única que reproduce la rigidez a flexión de la sección combinada, ya que situar ambos planos medios en la misma posición equivaldría a que los dos laminados ocuparan el mismo espesor.
 
 \subsection{Análisis por modelado de elementos finitos de la pala}
 \label{sec:fem}
@@ -952,22 +996,63 @@ Las fuerzas aerodinámicas se aplican según el procesamiento de datos específi
 
 Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $\gamma_f$ que las aerodinámicas, lo que se materializa imponiendo aceleraciones amplificadas, $\gamma_f \, g$ y $\gamma_f \, \Omega^2 R$, en lugar de sus valores nominales. El factor $\gamma_f$ no cubre la dispersión estadística de la carga, sino las desviaciones desfavorables respecto de su valor característico y las incertidumbres del modelo de carga (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, incertidumbres que una carga determinística presenta igualmente en la masa real de la pala, en su distribución y en la consigna de rotación. Que la norma reserve el valor $\gamma_f = 0{,}9$ para las cargas gravitatorias que alivian la respuesta, y las trate como favorables solo en ese caso (nota 18 de la Tabla 3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, confirma que cuando la gravedad es desfavorable se mayora como cualquier otra carga. En la pala analizada ambas cargas inerciales son desfavorables, ya que la centrífuga flecta los voladizos en el mismo sentido que la componente aerodinámica gobernante y la gravedad actúa en la dirección de la envergadura sobre una pala vertical. La misma nota admite reducir el factor combinado cuando la respuesta debida a la gravedad puede calcularse por separado; esa reducción no se aplica aquí, por lo que la mayoración es la del caso general.
 
-\subsubsection{Discretización de la malla}
+\subsubsection{Corridas del modelo}
+\label{sec:corridas_fem}
 
-La pala se representa mediante su superficie media y se discretiza con elementos de cascarón, a los que el espesor de pared se asigna como propiedad de sección en lugar de resolverse con elementos a través del laminado. La geometría justifica esa elección, ya que el espesor de pared de $8$~mm es del orden de una centésima parte de la cuerda y de una milésima de la envergadura, proporción en la que las hipótesis cinemáticas del cascarón son válidas. La norma específica de palas contempla de forma expresa el análisis por elementos finitos con elementos de cascarón para la verificación de los paneles, según se desprende de las opciones que su Sección 6.6.5.6 asocia al factor $\gamma_{m4}$~\parencite{IEC61400-5}. Piel y larguero comparten los nodos de sus aristas de intersección, de modo que el conjunto se comporta como una estructura continua sin necesidad de definir uniones.
+El modelo se resuelve en siete corridas que comparten geometría, material y condiciones de borde, y que responden a cuatro propósitos distintos. La Tabla~\ref{tab:corridas_fem} las reúne.
+
+\begin{table}[H]
+    \centering
+    \caption{Corridas del modelo de elementos finitos. Las aceleraciones se indican ya mayoradas por el factor parcial de cargas de cada caso.}
+    \label{tab:corridas_fem}
+    \begin{tabular}{clccccl}
+        \hline
+        \textbf{N.$^\circ$} & \textbf{Caso de carga} & \textbf{$a_c$ (m/s$^2$)} & \textbf{$g$ (m/s$^2$)} & \textbf{$\gamma_f$} & \textbf{Malla} & \textbf{Propósito}\\
+        \hline
+        1 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $50$~mm & Convergencia\\
+        2 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $35$~mm & Convergencia\\
+        3 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $25$~mm & Convergencia\\
+        4 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $18$~mm & Verificación\\
+        5 & DLC 1.3 & $270{,}68$ & $13{,}24$ & $1{,}35$ & $18$~mm & Verificación\\
+        6 & Solo inercial & $200{,}51$ & $9{,}81$ & $1{,}00$ & $18$~mm & Tensión media y masa\\
+        7 & Calibración & --- & --- & $1{,}00$ & $18$~mm & Momento a tensión\\
+        \hline
+    \end{tabular}
+\end{table}
+
+Las cuatro primeras aplican las cargas de diseño del DLC 1.1 sobre cuatro densidades de malla y constituyen el estudio de convergencia de la Sección~\ref{sec:malla}. La quinta aplica las del DLC 1.3 sobre la malla más fina, de modo que el segundo caso de estado límite último se evalúa sobre una discretización ya acreditada sin repetir el barrido.
+
+Las dos últimas no persiguen un veredicto sino separar las dos contribuciones de la carga, cosa que ninguna corrida combinada permite hacer.
+
+La corrida \textbf{solo inercial} impone únicamente las aceleraciones de gravedad y centrífuga, sin mayorar, y suprime las fuerzas aerodinámicas. Cumple dos funciones. Entrega la tensión que la pala soporta de forma permanente mientras el rotor gira, que es el término de tensión media que exige la corrección de Goodman en la verificación de fatiga (Sección~\ref{sec:anexo_g}). Y permite medir la masa del modelo a partir de las reacciones en los apoyos, con lo que se comprueba que la distribución de masa que el solucionador integra elemento a elemento coincide con la que declara la sección característica (Sección~\ref{sec:contraste_masa}).
+
+La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del DLC 1.1 sin mayorar y suprime las aceleraciones. Su objeto es determinar el factor que convierte el momento flector de las series temporales en tensión, ya que el recuento de ciclos se realiza sobre momentos y la curva S-N se expresa en tensiones. Al resolverse sin inercia, ese factor resulta del cociente directo entre la tensión que entrega el modelo y el momento de la carga con que se corrió, sin tener que descontar ninguna otra contribución.
+
+\medskip
+\noindent\textbf{Verificación del montaje por equilibrio global.}
+De cada corrida se extraen las reacciones de los dos apoyos en los tres ejes y se comprueba que su suma iguale la resultante de las cargas impuestas. La comprobación no es redundante, ya que las fuerzas aerodinámicas ingresan como cargas remotas en $21$ estaciones mientras las inerciales las genera el solucionador a partir de la masa de cada elemento, de manera que un error de signo, de unidad o de punto de aplicación en cualquiera de las dos vías se manifiesta como un desbalance. En la corrida solo inercial la comprobación es además una medida independiente de la masa, ya que las reacciones divididas por la aceleración impuesta deben entregar el mismo valor en el eje de la gravedad y en el de la centrífuga.
+
+\medskip
+\noindent\textbf{Magnitudes instrumentadas.}
+De cada corrida se extraen las tensiones principales máxima y mínima sobre cuatro regiones definidas por separado, el manto, cada una de las dos almas y el vendaje de refuerzo, en lugar de un único máximo sobre el modelo completo. La separación permite saber qué elemento gobierna cada caso y, sobre todo, distinguir las zonas en que el valor corresponde al campo de tensión resuelto de aquellas en que depende de la discretización. Se instrumentan además dos secciones fijas, las caras del manto contiguas a cada brazo de soporte, con las que se obtiene una lectura en una posición geométrica invariable entre mallas, a diferencia del máximo sobre una región, que cambia de elemento al refinar.
+
+\subsubsection{Discretización de la malla}
+\label{sec:malla}
+
+La pala se representa mediante su superficie media y se discretiza con elementos de cascarón, a los que el espesor de pared se asigna como propiedad de sección en lugar de resolverse con elementos a través del laminado. La geometría justifica esa elección, ya que el espesor de pared, comprendido entre $5{,}2$ y $11{,}4$~mm según el tramo (Tabla~\ref{tab:seccion_caracteristica}), es dos órdenes de magnitud menor que la cuerda y tres menor que la envergadura, proporción en la que las hipótesis cinemáticas del cascarón son válidas. La norma específica de palas contempla de forma expresa el análisis por elementos finitos con elementos de cascarón para la verificación de los paneles, según se desprende de las opciones que su Sección 6.6.5.6 asocia al factor $\gamma_{m4}$~\parencite{IEC61400-5}. Manto, almas y vendaje comparten los nodos de sus superficies y aristas de intersección, de modo que el conjunto se comporta como una estructura continua sin necesidad de definir uniones.
 
 Para garantizar la independencia de los resultados respecto del tamaño de malla se realizan dos estudios de convergencia, uno por cada magnitud que decide una verificación. El primero recorre densidades crecientes hasta que la variación de la tensión principal máxima entre mallas sucesivas sea inferior al $5\%$, umbral establecido en la literatura para análisis de elementos finitos~\parencite{Qin2026} y empleado en estudios de palas eólicas~\parencite{Hameed2015,Boudounit2020}. El segundo se realiza sobre el autovalor de pandeo, tal como exige la Sección 6.6.5.6 de la norma IEC 61400-5, que da por suficiente la densidad de malla cuando el autovalor de pandeo lineal no varía más de un $5\%$ al duplicar la densidad en la región del modelo pertinente al modo analizado~\parencite{IEC61400-5}. Ambos estudios son necesarios, ya que la tensión y el autovalor convergen a ritmos distintos, y el segundo es el que condiciona el veredicto de estabilidad. Los tamaños de elemento ensayados y las variaciones obtenidas se presentan en el Capítulo~4.
 
 La asimetría entre los dos criterios merece una aclaración, porque solo uno de ellos es normativo. Para el autovalor de pandeo la norma de palas fija un criterio cuantitativo explícito, el de la Sección 6.6.5.6 recién citada. Para la tensión no lo hace, ni esa norma ni la general de diseño, y aborda en su lugar la exactitud del modelo por la vía de un factor parcial, ya que su Sección 6.6.4.6 establece que $\gamma_{m4}$ debe recoger la incertidumbre asociada al método de análisis y al grado de verificación de este, y su tabla lo tarifa en $1{,}20$ cuando el cálculo de deformaciones no ha sido validado y en $1{,}00$ cuando lo ha sido mediante ensayo de pala~\parencite{IEC61400-5}. El umbral del $5\%$ sobre la tensión es por tanto un criterio propio de este trabajo, apoyado en la literatura citada, y no sustituye al factor parcial, que se aplica igualmente por no disponerse de ensayo (Sección~\ref{sec:pandeo_met}).
 
-La tensión se lee en zona regular del laminado y no en las discontinuidades geométricas del modelo. La terminación del vendaje de refuerzo produce un cambio brusco de espesor que, en un modelo de cascarón sin chaflán, genera una concentración cuya magnitud crece al refinar la malla en lugar de estabilizarse, comportamiento propio de una singularidad y no de una tensión física. Ese punto se excluye por tanto de la verificación y se trata por separado en el Capítulo~4.
+La tensión se lee sobre las regiones separadas que define la Sección~\ref{sec:corridas_fem} y no como un máximo único sobre el modelo completo. Esa separación es necesaria porque el modelo contiene discontinuidades geométricas, la terminación del vendaje de refuerzo y las aristas en que el manto encuentra las almas, en cuyo entorno la lectura requiere un examen propio. El criterio que las distingue es el comportamiento frente al refinamiento, ya que una concentración cuya magnitud crece de forma sostenida al refinar la malla, en lugar de estabilizarse, corresponde a una singularidad del modelo y no a una tensión física. El Capítulo~4 examina ese comportamiento sonda por sonda y declara cuáles de los valores obtenidos admiten emplearse en la verificación.
 
-A partir del análisis se obtienen la tensión principal máxima ($\sigma_1$), las deformaciones unitarias y los desplazamientos nodales. La verificación de resistencia última se realiza mediante el criterio de máxima tensión principal, apropiado para materiales compuestos de matriz polimérica con comportamiento frágil~\parencite{Moraras2023}. Al representar el laminado como un material isótropo equivalente de espesor único, la verificación aborda la rotura gobernada por las fibras y no resuelve los mecanismos interlaminares descritos en la Sección~\ref{sec:comportamiento_laminado}. El criterio se aplica comparando $\sigma_{1,\max}$ con la resistencia última factoreada del material, cuyas propiedades mecánicas proporciona el fabricante de la turbina.
+A partir del análisis se obtienen la tensión principal máxima ($\sigma_1$), las deformaciones unitarias y los desplazamientos nodales. La verificación de resistencia última se realiza mediante el criterio de máxima tensión principal, apropiado para materiales compuestos de matriz polimérica con comportamiento frágil~\parencite{Moraras2023}. Al representar el laminado como un material isótropo equivalente, la verificación aborda la rotura gobernada por las fibras y no resuelve los mecanismos interlaminares descritos en la Sección~\ref{sec:comportamiento_laminado}. El criterio se aplica comparando $\sigma_{1,\max}$ con la resistencia última factoreada del material, cuyas propiedades mecánicas proporciona el fabricante de la turbina.
 
 \subsubsection{Verificación de estabilidad (pandeo)}
 \label{sec:pandeo_met}
 
-La Sección 7.6.4 de la norma IEC 61400-1 exige que las partes resistentes de un componente no a prueba de fallos no pandeen bajo la carga de diseño, y que ningún componente pandee bajo la carga característica~\parencite{IEC61400-1}. Esa verificación se realiza mediante un análisis de pandeo lineal por autovalores (\textit{Eigenvalue Buckling}) en Ansys, según el planteamiento de la Ec.~\ref{eq:pandeo_autovalores} de la Sección~\ref{sec:pandeo_teoria}, acoplado a las soluciones estáticas de ambos casos de carga última (DLC 1.1 y 1.3), de las cuales hereda la malla, las cargas y las condiciones de borde. La simulación entrega el multiplicador de carga (\textit{load multiplier}, $LM$) de cada modo, es decir, el factor por el que deberían amplificarse las cargas aplicadas para alcanzar la inestabilidad elástica, y se extraen los tres primeros modos.
+La Sección 7.6.4 de la norma IEC 61400-1 exige que las partes resistentes de un componente no a prueba de fallos no pandeen bajo la carga de diseño, y que ningún componente pandee bajo la carga característica~\parencite{IEC61400-1}. Esa verificación se realiza mediante un análisis de pandeo lineal por autovalores (\textit{Eigenvalue Buckling}) en Ansys, según el planteamiento de la Ec.~\ref{eq:pandeo_autovalores} de la Sección~\ref{sec:pandeo_teoria}, acoplado a las soluciones estáticas de ambos casos de carga última (DLC 1.1 y 1.3), de las cuales hereda la malla, las cargas y las condiciones de borde. La simulación entrega el multiplicador de carga (\textit{load multiplier}, $LM$) de cada modo, es decir, el factor por el que deberían amplificarse las cargas aplicadas para alcanzar la inestabilidad elástica, y se extraen los diez primeros modos. El criterio de verificación recae sobre el primero, pero la extracción de los diez permite establecer si el mecanismo de inestabilidad es único o si concurren varios independientes, distinción que la propia norma de palas introduce en su Sección 6.6.5.6~\parencite{IEC61400-5} y que determina hacia dónde debe dirigirse un eventual refuerzo.
 
 Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia, según la Ec.~\ref{eq:criterio_pandeo}:
 
@@ -990,11 +1075,11 @@ El $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo} proviene de la norma general de d
     \label{eq:criterio_pandeo_p5}
 \end{equation}
 
-donde $\gamma_{m0} = 1{,}20$ es el factor base obligatorio de la Sección 6.6.4.2, $\gamma_{m1} = 1{,}00$ al no contabilizarse degradación ambiental, $\gamma_{m2} = 1{,}10$ por emplear módulos a temperatura ambiente, $\gamma_{m3} = 1{,}00$ al no contabilizarse efectos de fabricación, $\gamma_{m4}$ es el producto de $1{,}20$ por resolverse el pandeo con elementos finitos lineales y $1{,}25$ por no validarse el método mediante ensayo de pala, y $\gamma_{m5} = 1{,}00$ por caracterizarse las cargas en doce direcciones distribuidas~\parencite{IEC61400-5}.
+donde $\gamma_{m0} = 1{,}20$ es el factor base obligatorio de la Sección 6.6.4.2, $\gamma_{m1} = 1{,}00$ al no contabilizarse degradación ambiental, $\gamma_{m2} = 1{,}10$ por emplear módulos a temperatura ambiente, $\gamma_{m3} = 1{,}00$ al no contabilizarse efectos de fabricación, $\gamma_{m4}$ es el producto de $1{,}20$ por resolverse el pandeo con elementos finitos lineales y $1{,}25$ por no validarse el método mediante ensayo de pala, y $\gamma_{m5} = 1{,}00$ porque la carga extrema no se caracterizó sobre un conjunto discreto de direcciones sino sobre el módulo del momento resultante, esto es, sobre todas las direcciones del plano~\parencite{IEC61400-5}.
 
 La verificación se presenta contra ambos umbrales y se declara gobernante el más exigente, ya que la norma de palas es la específica del componente. Dos de sus factores dependen del método y no del material, de modo que están en manos del diseñador: $\gamma_{m4a}$ baja a $1{,}00$ si el pandeo se resuelve con un análisis geométricamente no lineal y $\gamma_{m4b}$ baja a $1{,}00$ con validación por ensayo de pala o de subcomponente, con lo que el umbral podría reducirse hasta $1{,}32$. La misma cláusula admite además verificar la estabilidad mediante ensayo a escala real con un factor combinado plano de $1{,}60$~\parencite{IEC61400-5}. Ninguna de esas dos vías está al alcance de este trabajo, de manera que el umbral aplicable es el de la Ec.~\ref{eq:criterio_pandeo_p5}.
 
 Cabe señalar que el método lineal por autovalores no incorpora imperfecciones geométricas ni efectos no lineales, a los que los cascarones de pared delgada son sensibles, por lo que sus resultados constituyen una cota superior de la carga crítica real (Sección~\ref{sec:pandeo_teoria}).
 
-Junto al caso base, con piel y larguero de $8$~mm, se resuelven dos variantes que acotan el origen del margen obtenido, ambas sobre el caso de carga gobernante y con idénticas condiciones de borde. La primera suprime el larguero interior, con lo que se evalúa la alternativa de fabricación que plantea el fabricante (Sección~\ref{sec:material_pala}). La segunda aumenta el espesor del larguero a $12$~mm, manteniendo la piel en $8$~mm, con lo que se comprueba la sensibilidad del resultado al supuesto adoptado para ese espesor ante la falta de una definición del laminado. Ambas variantes permiten discriminar si la capacidad del conjunto la gobierna el larguero o los paneles de piel, distinción que determina hacia dónde debe dirigirse un eventual refuerzo.
+La localización de los modos sobre la pala completa es por sí sola un resultado de la verificación, ya que discrimina si la capacidad del conjunto la gobierna el larguero o los paneles de manto, y en este último caso cuál de ellos. Esa distinción determina hacia dónde debe dirigirse un eventual refuerzo y se desarrolla en el Capítulo~4.
 
