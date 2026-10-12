@@ -1,24 +1,32 @@
 \iniciaranexo{anexo:fuerzas}{Fuerzas de diseño por estación}{Fuerzas de diseño por estación para ingreso al modelo FEM}
 
-Este anexo reúne la solicitación completa de entrada de las tres corridas del modelo de
-elementos finitos, de modo que baste con él para reproducirlas. La
-Tabla~\ref{tab:anexo_entradas_fem} resume las tres, con las aceleraciones inerciales que
-cada una impone y sus fuerzas aerodinámicas integradas, y las tres tablas siguientes
-entregan el detalle por estación.
+Este anexo reúne la solicitación completa de entrada del modelo de elementos finitos, de
+modo que baste con él para reproducirla. Las siete corridas que describe la
+Sección~\ref{sec:corridas_fem} responden a cuatro estados de carga distintos, ya que las
+cuatro del barrido de malla comparten la solicitación del DLC 1.1 y difieren únicamente
+en la discretización. La Tabla~\ref{tab:anexo_entradas_fem} resume los cuatro estados, con
+las aceleraciones inerciales que cada uno impone y sus fuerzas aerodinámicas integradas,
+y las tablas siguientes entregan el detalle por estación de los tres que llevan carga
+aerodinámica.
 
-Las tres corridas son las dos de estado límite último, una por caso de carga, y la de
-calibración de fatiga. Todas llevan la componente normal dirigida hacia afuera, que es
-la que resulta solidaria con la deformación centrífuga y gobierna la verificación según
-se establece en la Sección~\ref{sec:comparacion_dlc}.
+Los dos estados de estado límite último llevan la componente normal dirigida hacia
+afuera, que es la que resulta solidaria con la deformación centrífuga y gobierna la
+verificación según se establece en la Sección~\ref{sec:comparacion_dlc}.
 
 \vspace{0.5em}
 \noindent\textbf{Aceleraciones inerciales.}
 Se aplican como campos de aceleración global sobre toda la masa del modelo, mayoradas
 por el mismo factor parcial de carga que las aerodinámicas, según se justifica en la
 Sección~\ref{sec:factores_seguridad}. La centrífuga nominal es $\Omega^2 R$ evaluada a la
-velocidad de rotación máxima, y la gravedad actúa vertical y hacia abajo. La corrida de
-calibración emplea ambas sin mayorar, ya que su objeto es entregar la tensión bajo carga
-característica.
+velocidad de rotación máxima, y la gravedad actúa vertical y hacia abajo.
+
+Los dos estados restantes aíslan cada contribución por separado, según se justifica en la
+Sección~\ref{sec:corridas_fem}. El estado solo inercial impone únicamente las dos
+aceleraciones, sin mayorar y sin fuerzas aerodinámicas, y entrega la tensión media que
+exige la verificación de fatiga. El estado de calibración hace lo contrario, aplica el
+perfil del DLC 1.1 sin mayorar y suprime las aceleraciones, de modo que la tensión que
+entrega es proporcional al momento de esa misma carga y permite obtener el factor de
+conversión momento-tensión como un cociente directo.
 
 \vspace{0.5em}
 \noindent\textbf{Columnas de las tablas por estación.}
@@ -33,7 +41,7 @@ característica.
           unidad de longitud que entrega la simulación, en N/m.
     \item \textbf{$F_{d,n}$} y \textbf{$F_{d,t}$} son la fuerza puntual de diseño, en N,
           que resulta de multiplicar la anterior por $\Delta s$ y por el factor de
-          escalamiento del caso.
+          escalamiento del estado.
 \end{itemize}
 
 Los valores conservan su signo, y el signo es el que fija el sistema local de la pala de
@@ -47,56 +55,58 @@ solicitación aerodinámica se suma o se resta a la inercial.
 
 \begin{table}[H]
     \centering
-    \caption{Solicitación de entrada de las tres corridas del modelo de elementos finitos.}
+    \caption{Solicitación de entrada de los cuatro estados de carga del modelo de elementos finitos.}
     \label{tab:anexo_entradas_fem}
     \begin{tabular}{llcrrrr}
         \hline
-        \textbf{Corrida} & \textbf{Caso} & $\mathbf{\gamma_f}$ & \textbf{g} [m/s$^2$] & $\mathbf{a_c}$ [m/s$^2$] & $\mathbf{\sum F_{d,n}}$ [kN] & $\mathbf{\sum F_{d,t}}$ [kN] \\
+        \textbf{Estado} & \textbf{Corridas} & $\mathbf{\gamma_f}$ & \textbf{g} [m/s$^2$] & $\mathbf{a_c}$ [m/s$^2$] & $\mathbf{\sum F_{d,n}}$ [kN] & $\mathbf{\sum F_{d,t}}$ [kN] \\
         \hline
-        FEM 1 & DLC 1.1 & 1{,}25 & 12{,}26 & 250{,}6 & $-$106{,}7 & 12{,}1 \\
-        FEM 2 & DLC 1.3 & 1{,}35 & 13{,}24 & 270{,}7 & $-$113{,}3 & 15{,}8 \\
-        FEM 3 & calibración de fatiga & 1{,}00 & 9{,}81 & 200{,}5 & $-$85{,}4 & 9{,}7 \\
+        DLC 1.1 & 1 a 4 & 1{,}25 & 12{,}26 & 250{,}6 & $-$136{,}0 & 21{,}6 \\
+        DLC 1.3 & 5 & 1{,}35 & 13{,}24 & 270{,}7 & $-$113{,}3 & 15{,}8 \\
+        Solo inercial & 6 & 1{,}00 & 9{,}81 & 200{,}5 & --- & --- \\
+        Calibración de fatiga & 7 & 1{,}00 & --- & --- & 78{,}3 & 10{,}3 \\
         \hline
+        \multicolumn{7}{p{0.95\textwidth}}{\footnotesize Las sumas de fuerza conservan el signo de cada estación, de modo que no coinciden con la resultante en módulo. Los guiones indican que ese estado no impone la solicitación correspondiente.}
     \end{tabular}
 \end{table}
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas por estación para la corrida FEM 1, DLC 1.1.}
-    \label{tab:anexo_fuerzas_fem1}
+    \caption{Fuerzas aerodinámicas por estación del estado DLC 1.1.}
+    \label{tab:anexo_fuerzas_dlc11}
     \begin{tabular}{ccrrrrr}
         \hline
         \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
         \hline
-        1 & 0{,}064 & 0{,}1284 & $-$328 & $-$26 & $-$61 & $-$5 \\
-        2 & 0{,}320 & 0{,}3825 & $-$1591 & 58 & $-$884 & 32 \\
-        3 & 0{,}825 & 0{,}6279 & $-$2008 & 119 & $-$1831 & 108 \\
-        4 & 1{,}569 & 0{,}8594 & $-$2183 & 147 & $-$2725 & 184 \\
-        5 & 2{,}534 & 1{,}0716 & $-$2112 & 118 & $-$3288 & 184 \\
-        6 & 3{,}700 & 1{,}2600 & $-$1919 & 77 & $-$3512 & 141 \\
-        7 & 5{,}040 & 1{,}4201 & $-$1871 & 64 & $-$3858 & 133 \\
-        8 & 6{,}524 & 1{,}5486 & $-$2134 & 101 & $-$4799 & 227 \\
-        9 & 8{,}120 & 1{,}6424 & $-$2216 & 126 & $-$5287 & 299 \\
-        10 & 9{,}791 & 1{,}6996 & $-$2595 & 196 & $-$6406 & 483 \\
-        11 & 11{,}500 & 1{,}7188 & $-$3199 & 317 & $-$7986 & 791 \\
-        12 & 13{,}209 & 1{,}6996 & $-$3373 & 335 & $-$8326 & 827 \\
-        13 & 14{,}880 & 1{,}6424 & $-$3709 & 418 & $-$8846 & 998 \\
-        14 & 16{,}476 & 1{,}5486 & $-$4239 & 573 & $-$9534 & 1288 \\
-        15 & 17{,}960 & 1{,}4201 & $-$4885 & 811 & $-$10076 & 1672 \\
-        16 & 19{,}300 & 1{,}2600 & $-$5122 & 920 & $-$9373 & 1684 \\
-        17 & 20{,}466 & 1{,}0716 & $-$5156 & 928 & $-$8024 & 1444 \\
-        18 & 21{,}431 & 0{,}8594 & $-$4762 & 752 & $-$5943 & 939 \\
-        19 & 22{,}175 & 0{,}6279 & $-$4148 & 530 & $-$3783 & 483 \\
-        20 & 22{,}680 & 0{,}3825 & $-$3407 & 328 & $-$1893 & 182 \\
-        21 & 22{,}936 & 0{,}1284 & $-$1430 & 12 & $-$267 & 2 \\
+        1 & 0{,}064 & 0{,}1284 & $-$251 & $-$22 & $-$47 & $-$4 \\
+        2 & 0{,}320 & 0{,}3825 & $-$1357 & 46 & $-$759 & 26 \\
+        3 & 0{,}825 & 0{,}6279 & $-$1722 & 92 & $-$1582 & 84 \\
+        4 & 1{,}569 & 0{,}8594 & $-$1960 & 124 & $-$2465 & 156 \\
+        5 & 2{,}534 & 1{,}0716 & $-$2297 & 178 & $-$3602 & 279 \\
+        6 & 3{,}700 & 1{,}2600 & $-$2800 & 286 & $-$5163 & 527 \\
+        7 & 5{,}040 & 1{,}4201 & $-$3372 & 440 & $-$7008 & 914 \\
+        8 & 6{,}524 & 1{,}5486 & $-$4189 & 700 & $-$9492 & 1585 \\
+        9 & 8{,}120 & 1{,}6424 & $-$4602 & 868 & $-$11061 & 2085 \\
+        10 & 9{,}791 & 1{,}6996 & $-$3802 & 751 & $-$9456 & 1868 \\
+        11 & 11{,}500 & 1{,}7188 & $-$5106 & 1004 & $-$12842 & 2525 \\
+        12 & 13{,}209 & 1{,}6996 & $-$4703 & 786 & $-$11698 & 1955 \\
+        13 & 14{,}880 & 1{,}6424 & $-$4498 & 682 & $-$10810 & 1639 \\
+        14 & 16{,}476 & 1{,}5486 & $-$4556 & 681 & $-$10325 & 1542 \\
+        15 & 17{,}960 & 1{,}4201 & $-$4675 & 737 & $-$9716 & 1531 \\
+        16 & 19{,}300 & 1{,}2600 & $-$4879 & 815 & $-$8995 & 1503 \\
+        17 & 20{,}466 & 1{,}0716 & $-$5106 & 930 & $-$8007 & 1459 \\
+        18 & 21{,}431 & 0{,}8594 & $-$5126 & 903 & $-$6447 & 1135 \\
+        19 & 22{,}175 & 0{,}6279 & $-$4559 & 659 & $-$4189 & 606 \\
+        20 & 22{,}680 & 0{,}3825 & $-$3697 & 381 & $-$2069 & 213 \\
+        21 & 22{,}936 & 0{,}1284 & $-$1557 & 17 & $-$293 & 3 \\
         \hline
     \end{tabular}
 \end{table}
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas por estación para la corrida FEM 2, DLC 1.3.}
-    \label{tab:anexo_fuerzas_fem2}
+    \caption{Fuerzas aerodinámicas por estación del estado DLC 1.3.}
+    \label{tab:anexo_fuerzas_dlc13}
     \begin{tabular}{ccrrrrr}
         \hline
         \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
@@ -128,33 +138,33 @@ solicitación aerodinámica se suma o se resta a la inercial.
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas por estación para la corrida FEM 3, calibración de fatiga.}
-    \label{tab:anexo_fuerzas_fem3}
+    \caption{Fuerzas aerodinámicas por estación del estado Calibración de fatiga.}
+    \label{tab:anexo_fuerzas_calib}
     \begin{tabular}{ccrrrrr}
         \hline
         \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
         \hline
-        1 & 0{,}064 & 0{,}1284 & $-$262 & $-$21 & $-$49 & $-$4 \\
-        2 & 0{,}320 & 0{,}3825 & $-$1273 & 46 & $-$707 & 26 \\
-        3 & 0{,}825 & 0{,}6279 & $-$1606 & 95 & $-$1465 & 87 \\
-        4 & 1{,}569 & 0{,}8594 & $-$1747 & 118 & $-$2180 & 147 \\
-        5 & 2{,}534 & 1{,}0716 & $-$1690 & 95 & $-$2630 & 147 \\
-        6 & 3{,}700 & 1{,}2600 & $-$1536 & 62 & $-$2810 & 113 \\
-        7 & 5{,}040 & 1{,}4201 & $-$1496 & 52 & $-$3086 & 106 \\
-        8 & 6{,}524 & 1{,}5486 & $-$1707 & 81 & $-$3839 & 182 \\
-        9 & 8{,}120 & 1{,}6424 & $-$1773 & 100 & $-$4230 & 240 \\
-        10 & 9{,}791 & 1{,}6996 & $-$2076 & 156 & $-$5125 & 386 \\
-        11 & 11{,}500 & 1{,}7188 & $-$2559 & 254 & $-$6388 & 633 \\
-        12 & 13{,}209 & 1{,}6996 & $-$2699 & 268 & $-$6661 & 661 \\
-        13 & 14{,}880 & 1{,}6424 & $-$2967 & 335 & $-$7077 & 798 \\
-        14 & 16{,}476 & 1{,}5486 & $-$3391 & 458 & $-$7627 & 1031 \\
-        15 & 17{,}960 & 1{,}4201 & $-$3908 & 649 & $-$8061 & 1338 \\
-        16 & 19{,}300 & 1{,}2600 & $-$4098 & 736 & $-$7499 & 1347 \\
-        17 & 20{,}466 & 1{,}0716 & $-$4125 & 742 & $-$6419 & 1155 \\
-        18 & 21{,}431 & 0{,}8594 & $-$3809 & 602 & $-$4755 & 751 \\
-        19 & 22{,}175 & 0{,}6279 & $-$3319 & 424 & $-$3027 & 386 \\
-        20 & 22{,}680 & 0{,}3825 & $-$2726 & 263 & $-$1514 & 146 \\
-        21 & 22{,}936 & 0{,}1284 & $-$1144 & 10 & $-$213 & 2 \\
+        1 & 0{,}064 & 0{,}1284 & 1081 & 82 & 205 & 16 \\
+        2 & 0{,}320 & 0{,}3825 & 3513 & 884 & 1984 & 499 \\
+        3 & 0{,}825 & 0{,}6279 & 4048 & 1200 & 3754 & 1112 \\
+        4 & 1{,}569 & 0{,}8594 & 4180 & 1049 & 5306 & 1332 \\
+        5 & 2{,}534 & 1{,}0716 & 3990 & 1076 & 6315 & 1704 \\
+        6 & 3{,}700 & 1{,}2600 & 3741 & 993 & 6960 & 1848 \\
+        7 & 5{,}040 & 1{,}4201 & 1948 & 68 & 4084 & 142 \\
+        8 & 6{,}524 & 1{,}5486 & 2133 & 153 & 4877 & 349 \\
+        9 & 8{,}120 & 1{,}6424 & 2134 & 163 & 5177 & 396 \\
+        10 & 9{,}791 & 1{,}6996 & 2114 & 129 & 5307 & 324 \\
+        11 & 11{,}500 & 1{,}7188 & 2070 & 116 & 5254 & 296 \\
+        12 & 13{,}209 & 1{,}6996 & 1874 & 82 & 4703 & 206 \\
+        13 & 14{,}880 & 1{,}6424 & 1746 & 79 & 4235 & 190 \\
+        14 & 16{,}476 & 1{,}5486 & 1817 & 100 & 4155 & 229 \\
+        15 & 17{,}960 & 1{,}4201 & 1752 & 82 & 3673 & 172 \\
+        16 & 19{,}300 & 1{,}2600 & 1593 & 42 & 2963 & 79 \\
+        17 & 20{,}466 & 1{,}0716 & 1699 & 66 & 2689 & 104 \\
+        18 & 21{,}431 & 0{,}8594 & 1711 & 79 & 2171 & 100 \\
+        19 & 22{,}175 & 0{,}6279 & 2991 & 802 & 2774 & 743 \\
+        20 & 22{,}680 & 0{,}3825 & 2644 & 709 & 1493 & 401 \\
+        21 & 22{,}936 & 0{,}1284 & 1285 & 168 & 244 & 32 \\
         \hline
     \end{tabular}
 \end{table}
