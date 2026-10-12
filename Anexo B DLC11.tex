@@ -10,7 +10,8 @@ La pala se discretiza en los mismos $21$ paneles de reparto coseno con que se re
 # -*- coding: utf-8 -*-
 """
 DLC 1.1 - Extrapolación de cargas extremas según el Anexo G de IEC 61400-1.
-Entrada : 72 series temporales de fuerzas por estación (12 V x 6 semillas).
+Entrada : 144 series temporales de fuerzas por estación (12 V; 6 semillas
+          bajo 10 m/s y 15 desde esa velocidad).
 Salida  : carga característica F_k a 50 años y carga de diseño F_d de cada
           una de las trece magnitudes, y el perfil espacial de diseño.
 """
@@ -230,7 +231,7 @@ def carga_caracteristica(centros, mus, betas):
 
 \subsection*{Recorrido de las realizaciones y cargas de diseño}
 
-El procedimiento anterior se aplica de forma independiente a cada una de las trece magnitudes. En el mismo recorrido se localiza el instante gobernante, que es aquel en que la magnitud elegida para escalar el perfil alcanza su máximo sobre el conjunto de las 72 realizaciones.
+El procedimiento anterior se aplica de forma independiente a cada una de las trece magnitudes. En el mismo recorrido se localiza el instante gobernante, que es aquel en que la magnitud elegida para escalar el perfil alcanza su máximo sobre el conjunto de las 144 realizaciones.
 
 \begin{pycode}
 MAGNITUD_GOBERNANTE = 'M_env_apoyo_sup'   # sección más solicitada
