@@ -577,6 +577,21 @@ donde $\sigma_{\max}$ es la mayor tensión principal que entrega el modelo de el
 
 Para el DLC 1.1 y DLC 1.3, la resistencia factoreada se obtiene como $\sigma_u / (\gamma_m \cdot \gamma_n)$, con $\gamma_m = 1{,}30$ y $\gamma_n = 1{,}00$ según la Tabla~\ref{tab:factores_seguridad}. Los valores numéricos se presentan en el Capítulo~4.
 
+\medskip
+\noindent\textbf{El umbral que exige la norma de palas.}
+El $\gamma_m = 1{,}30$ anterior proviene de la norma general de diseño, que lo presenta como un factor general destinado a cubrir la variabilidad intrínseca de la resistencia, y que advierte en la misma Sección 7.6.2.4 que para obtener el factor global es necesario contabilizar además los efectos de escala, las tolerancias y la degradación por acciones externas~\parencite{IEC61400-1}. La norma específica de palas es el documento que realiza esa contabilidad, y su Sección 6.6.5.2 la desglosa en los factores que recoge la Ec.~\ref{eq:sigma_ud_p5}:
+
+\begin{equation}
+    \sigma_{u,d} = \frac{\sigma_u}{\gamma_{m0} \prod_{i=1}^{5} \gamma_{mi}}
+    = \frac{242{,}1}{1{,}20 \cdot 1{,}20 \cdot 1{,}10 \cdot 1{,}30 \cdot 1{,}20 \cdot 1{,}00}
+    = \frac{242{,}1}{2{,}471} = 97{,}98\ \text{MPa},
+    \label{eq:sigma_ud_p5}
+\end{equation}
+
+donde $\gamma_{m0} = 1{,}20$ es el factor base obligatorio de la Sección 6.6.4.2, $\gamma_{m1} = 1{,}20$ por emplearse propiedades a temperatura ambiente y en seco sin contabilizar degradación, $\gamma_{m2} = 1{,}10$ por estar las propiedades ensayadas a temperatura ambiente, $\gamma_{m3} = 1{,}30$ por realizarse el análisis con propiedades nominales de diseño, $\gamma_{m4} = 1{,}20$ por no validarse el cálculo de deformaciones mediante ensayo de pala y $\gamma_{m5} = 1{,}00$ porque la carga extrema no se caracterizó sobre un conjunto discreto de direcciones sino sobre el módulo del momento resultante~\parencite{IEC61400-5}.
+
+Que ambos umbrales difieran en un factor cercano a dos no responde a dos criterios en competencia. La propia norma general establece la jerarquía en su Sección 7.6.2.5, al disponer que los factores parciales de resistencia se apliquen según los códigos de diseño reconocidos y admitir la Sección 7.6.2.4 únicamente como alternativa~\parencite{IEC61400-1}. Para una pala ese código reconocido existe y es la norma IEC 61400-5, que a su vez declara que su $\gamma_m$ está destinado a cubrir la incertidumbre entre la resistencia medida en probeta y la que presenta el laminado en la pala construida~\parencite{IEC61400-5}. La verificación se presenta en consecuencia contra ambos umbrales y se declara gobernante el de la norma de palas.
+
 \subsubsection{Verificación de fatiga}
 
 En la verificación de fatiga, todos los factores parciales ($\gamma_f = 1{,}00$, $\gamma_m = 2{,}00$, $\gamma_n = 1{,}15$) se aplican al rango de tensión cíclica, según lo prescrito en la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}. La curva S-N resultante (Ec.~\ref{eq:basquin_design}) y el procedimiento completo de cálculo de daño se detallan en la Sección~\ref{sec:anexo_g} (DLC 1.2).
