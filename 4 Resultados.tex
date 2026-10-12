@@ -942,7 +942,9 @@ La norma de palas admite además dos vías alternativas de verificación que est
 
 \subsubsection{Verificación de deflexiones}
 
-La Sección 7.6.5 de la norma IEC 61400-1~\parencite{IEC61400-1} exige verificar que ninguna deflexión comprometa la integridad estructural ni produzca interferencia mecánica entre componentes. Para la configuración VAWT de palas rectas paralelas al eje de rotación, la deflexión radial no conlleva riesgo de impacto contra la torre. Las deflexiones máximas obtenidas del FEM bajo las cargas de diseño se localizan en el vano central entre apoyos y se refieren a la luz de dicho vano, de $13{,}0$~m entre conexiones (Tabla~\ref{tab:geometria_turbina}). \textbf{[Valores pendientes de extraer de las corridas definitivas.]}
+La Sección 7.6.5 de la norma IEC 61400-1~\parencite{IEC61400-1} exige verificar que ninguna deflexión comprometa la integridad estructural ni produzca interferencia mecánica entre componentes. Para la configuración VAWT de palas rectas paralelas al eje de rotación, la deflexión radial no conlleva riesgo de impacto contra la torre. Las deflexiones máximas obtenidas del FEM bajo las cargas de diseño son $\delta_{\max} = 0{,}396$~m (DLC 1.1) y $0{,}326$~m (DLC 1.3), localizadas en el vano central entre apoyos. Referidas a la luz de dicho vano, de $13{,}0$~m entre conexiones (Tabla~\ref{tab:geometria_turbina}), representan una razón $\delta/L$ del $3{,}05\%$ y del $2{,}51\%$ respectivamente. En los voladizos la deflexión es sustancialmente menor, con $0{,}127$ y $0{,}171$~m en el superior y $0{,}066$ y $0{,}073$~m en el inferior, lo que confirma que es la flexión del vano la que gobierna el desplazamiento del conjunto.
+
+Esas deflexiones no comprometen la conexión con los brazos ni, por la configuración de palas rectas paralelas al eje, la distancia a la torre. Sí conviene consignar que una flecha del orden del $3\%$ de la luz modifica la posición relativa de la pala respecto de su trayectoria nominal, efecto que el modelo aerodinámico no incorpora, ya que las cargas se calcularon sobre la geometría indeformada.
 
 \subsection{Resumen de la verificación estructural}
 \label{sec:resumen_verificacion}
@@ -1010,6 +1012,11 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         \hline
         --- & Masa del modelo por las reacciones & \multicolumn{2}{c}{$850{,}9$~kg} \\
         --- & Cierre del equilibrio en los tres ejes & \multicolumn{2}{c}{$< 0{,}001\%$} \\
+        \hline
+        \multicolumn{4}{c}{\textit{Deformación (FEM)}} \\
+        \hline
+        $\delta_{\max}$ & Deformación máxima, vano central & $0{,}396$~m & $0{,}326$~m \\
+        $\delta/L$ & Referida al vano de $13{,}0$~m & $3{,}05\%$ & $2{,}51\%$ \\
         \hline
     \end{tabular}
 \end{table}
