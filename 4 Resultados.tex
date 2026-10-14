@@ -1,6 +1,6 @@
 \chapter{Resultados}
 
-Los resultados se presentan siguiendo la secuencia de la metodología expuesta en el Capítulo~3, de modo que cada conjunto de valores se apoya en el anterior. Se parte de la caracterización del emplazamiento (recurso eólico, propiedades termofísicas del aire y rango del número adimencional de Reynolds), que fija las condiciones ambientales de todo el análisis. Sobre esa base se exponen la caracterización aerodinámica del perfil NACA 0018 y las simulaciones aerodinámicas del rotor, de las cuales se obtienen las series temporales de fuerzas sobre la pala. A partir de dichas series se determinan las cargas de diseño de los casos DLC 1.1 y 1.3 y el espectro de fatiga del DLC 1.2, conforme a IEC 61400-1~\parencite{IEC61400-1}; las primeras constituyen la entrada al modelo de elementos finitos. El capítulo cierra con la verificación estructural de la pala, donde las tensiones y deformaciones obtenidas se contrastan con los criterios de resistencia última, estabilidad, deflexión y fatiga que establece la norma.
+Los resultados se presentan siguiendo la secuencia de la metodología expuesta en el Capítulo~3, de modo que cada conjunto de valores se apoya en el anterior. Se parte de la caracterización del emplazamiento (recurso eólico, propiedades termofísicas del aire y rango del número adimencional de Reynolds), que fija las condiciones ambientales de todo el análisis. Sobre esa base se exponen la caracterización aerodinámica del perfil NACA 0018 y las simulaciones aerodinámicas del rotor, de las cuales se obtienen las series temporales de fuerzas sobre la pala. A partir de dichas series se determinan las cargas de diseño de los casos DLC 1.1 y 1.3 y el espectro de fatiga del DLC 1.2, conforme a IEC 61400-1~\parencite{IEC61400-1}; las primeras constituyen la entrada al modelo de elementos finitos. El capítulo cierra con la verificación estructural de la pala, donde las tensiones y los desplazamientos obtenidos se contrastan con los criterios de resistencia última, estabilidad, deflexión y fatiga que establece la norma.
 
 \section{Caracterización del recurso eólico}
 \label{sec:recurso_eolico}
@@ -666,7 +666,7 @@ El margen a fatiga no habilita, por lo demás, una reducción del espesor de par
 \section{Verificación estructural de la pala}
 \label{sec:resultados_fem}
 
-Las fuerzas de diseño por estación de la Sección~\ref{sec:comparacion_dlc}, junto con las cargas inerciales mayoradas, constituyen las cargas del modelo de elementos finitos descrito en la Sección~\ref{sec:fem}. Su resolución se aborda en cuatro pasos. Primero se verifica que los resultados sean independientes de la discretización, sobre las dos magnitudes que deciden una verificación. Luego se describen las condiciones de borde y las cargas aplicadas. A continuación se presentan las tensiones y deformaciones de los casos de carga última, y finalmente se evalúan con ellas los criterios de resistencia última, estabilidad y deflexión de la norma IEC 61400-1~\parencite{IEC61400-1}.
+Las fuerzas de diseño por estación de la Sección~\ref{sec:comparacion_dlc}, junto con las cargas inerciales mayoradas, constituyen las cargas del modelo de elementos finitos descrito en la Sección~\ref{sec:fem}. Su resolución se aborda en cuatro pasos. Primero se verifica que los resultados sean independientes de la discretización, sobre las dos magnitudes que deciden una verificación. Luego se describen las condiciones de borde y las cargas aplicadas. A continuación se presentan las tensiones y los desplazamientos de los casos de carga última, y finalmente se evalúan con ellas los criterios de resistencia última, estabilidad y deflexión de la norma IEC 61400-1~\parencite{IEC61400-1}.
 
 Cada caso de carga última aporta dos estados al modelo estructural, uno por cada sentido de la componente normal (Sección~\ref{sec:comparacion_dlc}), y cada uno de ellos se resuelve sobre la sección de apoyo que corresponda, de modo que la envolvente de cargas de la Sección 3.17 de la IEC 61400-5 quede cubierta en las dos posiciones candidatas a gobernar~\parencite{IEC61400-5}. A ellos se añade un caso de referencia con las cargas inerciales como única solicitación, que permite separar la contribución de la rotación y que sirve además para calibrar la conversión momento-tensión del análisis de fatiga.
 
@@ -767,7 +767,7 @@ La Figura~\ref{fig:fem_detalle_union} presenta el detalle constructivo de la uni
 
 \subsection{Resultados del análisis estructural}
 
-Se reportan primero las tensiones y la deformación bajo las cargas del DLC 1.1, caso gobernante de la resistencia última, y a continuación las correspondientes al DLC 1.3. Adicionalmente, se presenta un caso de referencia resuelto únicamente con las cargas inerciales (aceleración centrífuga y gravedad, sin fuerzas aerodinámicas), que permite cuantificar la contribución de la rotación al estado tensional.
+Se reportan primero las tensiones y el desplazamiento bajo las cargas del DLC 1.1, caso gobernante de la resistencia última, y a continuación las correspondientes al DLC 1.3. Adicionalmente, se presenta un caso de referencia resuelto únicamente con las cargas inerciales (aceleración centrífuga y gravedad, sin fuerzas aerodinámicas), que permite cuantificar la contribución de la rotación al estado tensional.
 
 \subsubsection{Tensiones principales}
 
@@ -793,14 +793,14 @@ La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,
     \label{fig:fem_min11}
 \end{figure}
 
-\subsubsection{Deformación}
+\subsubsection{Desplazamiento}
 
-La Figura~\ref{fig:fem_deformacion11} presenta la deformación total de la pala bajo las cargas de diseño del DLC 1.1. La deformación máxima es de $0{,}286$~m y ocurre en la zona central de la pala, entre ambos apoyos.
+La Figura~\ref{fig:fem_deformacion11} presenta el desplazamiento de la pala bajo las cargas de diseño del DLC 1.1, entendido como la distancia que recorre cada sección respecto de su posición original. El máximo, de $286{,}2$~mm, ocurre en el centro del vano entre las dos conexiones. Las puntas de los voladizos alcanzan $240{,}0$~mm la superior y $156{,}3$~mm la inferior, valores del mismo orden que el del vano porque el apoyo deformable permite el giro de la conexión y los voladizos acompañan la flexión del tramo central (Sección~\ref{sec:condiciones_borde}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_deformacion11.png}
-    \caption{Deformación total, DLC 1.1.}
+    \caption[Desplazamiento de la pala, DLC 1.1.]{Desplazamiento de la pala bajo las cargas del DLC 1.1, en mm, respecto de su posición sin carga. Se indican los valores en las puntas de los dos voladizos y en el centro del vano.}
     \label{fig:fem_deformacion11}
 \end{figure}
 
@@ -824,16 +824,16 @@ En compresión, la tensión principal mínima (Figura~\ref{fig:fem_min13}) alcan
     \label{fig:fem_min13}
 \end{figure}
 
-La deformación total (Figura~\ref{fig:fem_deformacion13}) alcanza un máximo de $0{,}260$~m, nuevamente en la zona central entre apoyos.
+El desplazamiento (Figura~\ref{fig:fem_deformacion13}) alcanza un máximo de $260{,}0$~mm, nuevamente en el centro del vano.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_deformacion13.png}
-    \caption{Deformación total, DLC 1.3.}
+    \caption{Desplazamiento de la pala, DLC 1.3, en mm respecto de su posición sin carga.}
     \label{fig:fem_deformacion13}
 \end{figure}
 
-Que la tensión máxima y la deformación resulten menores que en el DLC 1.1 pese a la mayor carga global tiene su origen en la distribución de las fuerzas. Ambos casos se resuelven con idénticas condiciones de borde y aceleraciones, por lo que la única diferencia entre ellos es el perfil de carga por estación. El DLC 1.1, extraído de un único instante de la simulación, concentra mayor carga en el vano central entre apoyos, cuya flexión solicita las conexiones y produce la flecha máxima del vano, mientras que el DLC 1.3, construido como media de máximos por estación, distribuye la carga de forma más suave hacia los voladizos (Sección~\ref{sec:comparacion_dlc}), lo que se refleja en una compresión levemente mayor pero una tracción y una deflexión menores.
+Que la tensión máxima y el desplazamiento resulten menores que en el DLC 1.1 pese a la mayor carga global tiene su origen en la distribución de las fuerzas. Ambos casos se resuelven con idénticas condiciones de borde y aceleraciones, por lo que la única diferencia entre ellos es el perfil de carga por estación. El DLC 1.1, extraído de un único instante de la simulación, concentra mayor carga en el vano central entre apoyos, cuya flexión solicita las conexiones y produce la flecha máxima del vano, mientras que el DLC 1.3, construido como media de máximos por estación, distribuye la carga de forma más suave hacia los voladizos (Sección~\ref{sec:comparacion_dlc}), lo que se refleja en una compresión levemente mayor pero una tracción y un desplazamiento menores.
 
 \subsubsection{Contribución de las cargas inerciales}
 \label{sec:solo_inercial}
