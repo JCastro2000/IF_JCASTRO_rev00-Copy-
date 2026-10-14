@@ -784,12 +784,12 @@ Conviene precisar el origen de ese valor, porque no corresponde a un concentrado
 
 El análisis de convergencia descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}63\%$, por debajo del criterio adoptado. Lo que no permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que un apoyo de mayor superficie o un refuerzo más extenso redistribuirían la tensión en esa zona.
 
-La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -177{,}95$~MPa, correspondiente a compresión en la zona de las conexiones. Este estado de tracción en una cara y compresión en la opuesta responde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
+La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -177{,}95$~MPa, correspondiente a compresión. El máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_min11.png}
-    \caption{Distribución de tensión principal mínima, DLC 1.1.}
+    \caption[Distribución de tensión principal mínima, DLC 1.1.]{Distribución de tensión principal mínima del DLC 1.1 sobre el intradós y el extradós de la pala, en MPa. Los detalles A y B amplían las dos conexiones, donde la compresión máxima aparece sobre la terminación del refuerzo en la cara opuesta a la del máximo de tracción.}
     \label{fig:fem_min11}
 \end{figure}
 
@@ -806,32 +806,7 @@ La Figura~\ref{fig:fem_deformacion11} presenta el desplazamiento de la pala bajo
 
 \subsubsection{DLC 1.3}
 
-Bajo las cargas de diseño del DLC 1.3, la distribución de tensión principal máxima (Figura~\ref{fig:fem_max13}) conserva el patrón del caso anterior, ya que el valor máximo, $\sigma_{1,\max} = 174{,}16$~MPa, vuelve a localizarse en la zona de las conexiones pala-brazo, lo que confirma que la ubicación de la sección crítica no depende del caso de carga.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_max13.png}
-    \caption{Distribución de tensión principal máxima, DLC 1.3.}
-    \label{fig:fem_max13}
-\end{figure}
-
-En compresión, la tensión principal mínima (Figura~\ref{fig:fem_min13}) alcanza $\sigma_{3,\min} = -166{,}46$~MPa, de magnitud comparable a la del DLC 1.1 ($-177{,}95$~MPa).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_min13.png}
-    \caption{Distribución de tensión principal mínima, DLC 1.3.}
-    \label{fig:fem_min13}
-\end{figure}
-
-El desplazamiento (Figura~\ref{fig:fem_deformacion13}) alcanza un máximo de $260{,}0$~mm, nuevamente en el centro del vano.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_deformacion13.png}
-    \caption{Desplazamiento de la pala, DLC 1.3, en mm respecto de su posición sin carga.}
-    \label{fig:fem_deformacion13}
-\end{figure}
+El DLC 1.3 conserva el patrón del caso anterior y resulta en todos sus valores menos exigente, por lo que no se acompaña de sus propias figuras. La tensión principal máxima, $\sigma_{1,\max} = 174{,}16$~MPa, vuelve a localizarse en la terminación del refuerzo de las conexiones, lo que confirma que la ubicación de la sección crítica no depende del caso de carga. La compresión alcanza $\sigma_{3,\min} = -166{,}46$~MPa, de magnitud comparable a la del DLC 1.1 ($-177{,}95$~MPa), y el desplazamiento máximo es de $260{,}0$~mm en el centro del vano.
 
 Que la tensión máxima y el desplazamiento resulten menores que en el DLC 1.1 pese a la mayor carga global tiene su origen en la distribución de las fuerzas. Ambos casos se resuelven con idénticas condiciones de borde y aceleraciones, por lo que la única diferencia entre ellos es el perfil de carga por estación. El DLC 1.1, extraído de un único instante de la simulación, concentra mayor carga en el vano central entre apoyos, cuya flexión solicita las conexiones y produce la flecha máxima del vano, mientras que el DLC 1.3, construido como media de máximos por estación, distribuye la carga de forma más suave hacia los voladizos (Sección~\ref{sec:comparacion_dlc}), lo que se refleja en una compresión levemente mayor pero una tracción y un desplazamiento menores.
 
