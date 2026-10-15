@@ -940,21 +940,34 @@ Las propiedades disponibles del laminado son las de la Tabla~\ref{tab:material_p
 \subsubsection{Sección característica}
 \label{sec:seccion_caracteristica}
 
-La definición del laminado proviene de un plano de sección transversal entregado por el fabricante de la turbina, identificado en él como sección característica de la pala. La sección corresponde a un larguero de cajón, formado por dos almas y por el engrosamiento del manto entre ellas, con carenados de menor espesor hacia el borde de ataque y hacia el de fuga. La Tabla~\ref{tab:seccion_caracteristica} reúne sus dimensiones.
+La definición del laminado proviene de un plano de sección transversal entregado por el fabricante de la turbina, identificado en él como sección característica de la pala. La sección corresponde a un larguero de cajón, formado por dos almas y por el engrosamiento del manto entre ellas, con carenados de menor espesor hacia el borde de ataque y hacia el de fuga, según ilustra la Figura~\ref{fig:seccion_caracteristica}. La Tabla~\ref{tab:seccion_caracteristica} reúne los espesores de todas sus partes y los del vendaje de refuerzo de las conexiones, que se describe más adelante (Sección~\ref{sec:vendaje}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figuras/Figuras Metodología/seccion_caracteristica.png}
+    \caption[Sección característica de la pala.]{Sección característica de la pala con sus partes, el larguero de cajón de dos almas, la parte central engrosada entre ellas, los carenados de borde de ataque y de fuga, y el vendaje de refuerzo del contorno. El espesor de cada parte se representa en el modelo de cascarón.}
+    \label{fig:seccion_caracteristica}
+\end{figure}
 
 \begin{table}[H]
     \centering
-    \caption{Definición de la sección característica de la pala, según el plano entregado por el fabricante de la turbina.}
+    \caption{Espesores de la sección característica de la pala y del vendaje de refuerzo, según el plano entregado por el fabricante de la turbina.}
     \label{tab:seccion_caracteristica}
     \begin{tabular}{lcc}
         \hline
-        \textbf{Elemento} & \textbf{Posición desde el borde de ataque} & \textbf{Espesor}\\
+        \textbf{Elemento} & \textbf{Posición o longitud} & \textbf{Espesor}\\
         \hline
+        \multicolumn{3}{l}{\textit{Sección (posición en cuerda desde el borde de ataque)}}\\
         Carenado de borde de ataque & $0$ a $220$~mm & $5{,}2$~mm\\
-        Ala del larguero & $220$ a $560$~mm & $11{,}4$~mm\\
+        Parte central, ala del larguero & $220$ a $560$~mm & $11{,}4$~mm\\
         Carenado de borde de fuga & $560$~mm al borde de fuga & $5{,}2$~mm\\
         Alma anterior & $220$~mm & $5{,}2$~mm\\
         Alma posterior & $560$~mm & $5{,}2$~mm\\
+        \hline
+        \multicolumn{3}{l}{\textit{Vendaje de refuerzo (longitud en envergadura, por conexión)}}\\
+        Tramo de espesor pleno & $1\,000$~mm & $8{,}0$~mm\\
+        Primer escalón, cada extremo & $100$~mm & $5{,}3$~mm\\
+        Segundo escalón, cada extremo & $100$~mm & $2{,}6$~mm\\
         \hline
         \multicolumn{3}{l}{\footnotesize El ala del larguero se prolonga algunos centímetros más allá de cada alma.}
     \end{tabular}
@@ -979,7 +992,7 @@ La concordancia no demuestra que el laminado sea constante a lo largo de la enve
 \subsubsection{Refuerzo de la zona de conexión}
 \label{sec:vendaje}
 
-El modelo incorpora en cada conexión un vendaje de refuerzo dispuesto concéntricamente alrededor del perímetro de la sección, que reproduce el engrosamiento local del laminado con que se resuelve la introducción de carga en una unión de este tipo. Su tramo de espesor pleno mide $8$~mm y $1\,000$~mm de longitud, y en cada extremo la transición hacia el manto se resuelve en dos escalones de $100$~mm, de $5{,}3$ y $2{,}6$~mm de espesor, con lo que el refuerzo alcanza $1\,400$~mm de longitud total. La transición reparte así los $8$~mm de espesor a lo largo de $200$~mm. Se modela escalonada y no continua porque el laminado real tampoco lo es, ya que el espesor desciende terminando capas sucesivas.
+El modelo incorpora en cada conexión un vendaje de refuerzo dispuesto concéntricamente alrededor del perímetro de la sección, que reproduce el engrosamiento local del laminado con que se resuelve la introducción de carga en una unión de este tipo. Su tramo de espesor pleno mide $8$~mm y $1\,000$~mm de longitud, y en cada extremo la transición hacia el manto se resuelve en dos escalones de $100$~mm, de $5{,}3$ y $2{,}6$~mm de espesor, con lo que el refuerzo alcanza $1\,400$~mm de longitud total (Tabla~\ref{tab:seccion_caracteristica}). La transición reparte así los $8$~mm de espesor a lo largo de $200$~mm. Se modela escalonada y no continua porque el laminado real tampoco lo es, ya que el espesor desciende terminando capas sucesivas.
 
 El vendaje se representa como un cuerpo independiente del manto, con el que comparte los nodos de su superficie de contacto. Esa separación permite leer sus tensiones por separado, lo que una representación del conjunto como un espesor único no permitiría.
 

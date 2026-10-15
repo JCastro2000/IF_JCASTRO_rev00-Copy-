@@ -735,35 +735,20 @@ La malla definitiva, de $18$~mm de tamaño máximo de cara, comprende $219\,169$
 
 \subsection{Modelo de elementos finitos}
 
-La Figura~\ref{fig:fem_cb} muestra el modelo con las condiciones de borde que define la Sección~\ref{sec:condiciones_borde}, esto es, los desplazamientos remotos que restringen las dos conexiones con los brazos y la aceleración centrífuga aplicada radialmente sobre todos los elementos de la pala.
+La Figura~\ref{fig:fem_cb} presenta el modelo de elementos finitos. El panel (a) muestra las condiciones de borde que define la Sección~\ref{sec:condiciones_borde}, los dos desplazamientos remotos que restringen las conexiones con los brazos, marcados A y B, y la aceleración centrífuga aplicada radialmente sobre toda la masa de la pala, marcada C. El panel (b) amplía la zona de una conexión, donde se aprecian la malla de cascarón y las distintas partes del laminado, el manto, el ala del larguero y las bandas del vendaje de refuerzo con sus escalones.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_cb.png}
-    \caption{Condiciones de borde del modelo FEM, desplazamientos remotos deformables en los dos puntos de conexión con los struts y aceleración centrífuga radial.}
+    \caption[Modelo de elementos finitos de la pala.]{Modelo de elementos finitos de la pala. (a) Condiciones de borde, desplazamientos remotos deformables en las dos conexiones con los brazos (A y B) y aceleración centrífuga radial (C). (b) Detalle de la malla de cascarón y de las partes del laminado en la zona de una conexión.}
     \label{fig:fem_cb}
 \end{figure}
 
 La aceleración centrífuga corresponde a la velocidad máxima de rotación $\Omega = 42$~rpm ($4{,}398$~rad/s) que, evaluada en la Ec.~\ref{eq:centrifugal_limit} con $R = 10{,}365$~m, resulta en $a_c = 200{,}5$~m/s$^2$ ($20{,}4\,g$), uniforme en toda la envergadura. Esa magnitud sitúa en su justa dimensión la consigna de $42$~rpm. Como la aceleración centrífuga es inversamente proporcional al radio (Ec.~\ref{eq:centrifugal_limit}), el menor radio del rotor en estudio implica una solicitación centrífuga un $29\%$ superior a la de la T1-turbine en su límite de diseño~\parencite{Mollerstrom2017}, pese a que ambas máquinas comparten la misma velocidad de punta. La admisibilidad de la consigna no se sustenta por tanto en la comparación con la literatura, sino en la verificación estructural que se desarrolla en esta sección.
 
-La Figura~\ref{fig:fem_fuerzas} muestra las fuerzas aerodinámicas de diseño $F_d$ aplicadas como cargas remotas en los centroides de las $21$ estaciones, conservando el signo que entrega la simulación (Sección~\ref{sec:anexo_f}). Ese signo es el que obliga a resolver cada caso de carga en sus dos sentidos. En el instante que maximiza la envolvente direccional, la componente normal apunta hacia el eje del rotor y se opone por tanto a la flexión que induce la fuerza centrífuga, de modo que el mayor extremo aerodinámico no coincide con el estado combinado más desfavorable. El segundo perfil de cada caso, tomado del extremo de $M_y$ en el sentido contrario, sí acumula ambas contribuciones, y es la comparación entre ambos la que determina el caso gobernante (Sección~\ref{sec:comparacion_dlc}).
+Las fuerzas aerodinámicas de diseño $F_d$ se aplican como cargas remotas en los centroides de las $21$ estaciones, conservando el signo que entrega la simulación (Sección~\ref{sec:anexo_f}). Ese signo es el que obliga a resolver cada caso de carga en sus dos sentidos. En el instante que maximiza la envolvente direccional, la componente normal apunta hacia el eje del rotor y se opone por tanto a la flexión que induce la fuerza centrífuga, de modo que el mayor extremo aerodinámico no coincide con el estado combinado más desfavorable. El segundo perfil de cada caso, tomado del extremo de $M_y$ en el sentido contrario, sí acumula ambas contribuciones, y es la comparación entre ambos la que determina el caso gobernante (Sección~\ref{sec:comparacion_dlc}).
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_fuerzas.png}
-    \caption{Fuerzas aerodinámicas de diseño aplicadas como cargas remotas en las 21 estaciones de la pala.}
-    \label{fig:fem_fuerzas}
-\end{figure}
-
-La Figura~\ref{fig:fem_detalle_union} presenta el detalle constructivo de la unión entre la pala y el brazo de soporte tal como queda resuelta en el modelo. Se distinguen en ella sus tres elementos, el vendaje de refuerzo de la zona de conexión, la superficie de apoyo sobre la que se impone la restricción de cada conexión (Sección~\ref{sec:condiciones_borde}) y el larguero de cajón, formado por las dos almas de $5{,}2$~mm y por el engrosamiento del manto entre ellas (Sección~\ref{sec:seccion_caracteristica}).
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[trim=0cm 3cm 0cm 3cm, clip, width=0.85\textwidth]{Figuras/Figuras Resultados/PLANO.pdf}
-    \caption{Detalle de la unión pala-brazo modelada en el FEM.}
-    \label{fig:fem_detalle_union}
-\end{figure}
+La unión entre la pala y el brazo queda resuelta en el modelo mediante tres elementos, el vendaje de refuerzo de la zona de conexión (Sección~\ref{sec:vendaje}), la superficie de $500 \times 600$~mm sobre la que se impone el desplazamiento remoto de cada conexión (Sección~\ref{sec:condiciones_borde}) y el larguero de cajón, formado por las dos almas de $5{,}2$~mm y por el engrosamiento del manto entre ellas (Sección~\ref{sec:seccion_caracteristica}), visibles todos en el detalle de la malla de la Figura~\ref{fig:fem_cb}(b).
 
 \subsection{Resultados del análisis estructural}
 
@@ -771,12 +756,12 @@ Se reportan primero las tensiones y el desplazamiento bajo las cargas del DLC 1.
 
 \subsubsection{Tensiones principales}
 
-La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima sobre las dos caras de la pala, el intradós y el extradós, con el detalle ampliado de las dos conexiones con los brazos. El valor máximo del manto, $\sigma_{1,\max} = 189{,}40$~MPa, se localiza en la conexión con el brazo superior ($z = 18$~m), unos centímetros más allá del punto en que termina el vendaje de refuerzo. Las dos conexiones se solicitan de forma prácticamente simétrica, con $189{,}40$~MPa en la superior y $178{,}69$~MPa en la inferior, y en ambas el máximo aparece sobre la línea en que el refuerzo termina y el manto queda cargando solo.
+La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima sobre las dos caras de la pala, el intradós y el extradós, con el detalle ampliado de las dos conexiones con los brazos. El valor máximo del manto, $\sigma_{1,\max} = 189{,}40$~MPa, se localiza en la conexión con el brazo superior ($z = 18$~m), unos centímetros más allá del punto en que termina el vendaje de refuerzo. Las dos conexiones se solicitan de forma prácticamente simétrica, con $189{,}40$~MPa en la superior y $178{,}69$~MPa en la inferior, y en ambas el máximo aparece sobre la línea en que el refuerzo termina y el manto queda cargando solo. El contorno de la figura corresponde al laminado del manto, no al del vendaje de refuerzo, y los concentradores de tensión se ubican precisamente sobre las líneas en que el vendaje termina.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_max11.png}
-    \caption[Distribución de tensión principal máxima, DLC 1.1.]{Distribución de tensión principal máxima del DLC 1.1 sobre el intradós y el extradós de la pala, en MPa. El contorno corresponde al laminado del manto, no al del vendaje de refuerzo, y los concentradores de tensión se ubican precisamente sobre las líneas en que el vendaje termina. Los detalles A y B amplían las dos conexiones con los brazos.}
+    \caption[Distribución de tensión principal máxima, DLC 1.1.]{Distribución de tensión principal máxima del DLC 1.1 sobre el intradós y el extradós de la pala, en MPa. Los detalles A y B amplían las dos conexiones con los brazos.}
     \label{fig:fem_max11}
 \end{figure}
 
@@ -784,12 +769,12 @@ Conviene precisar el origen de ese valor, porque no corresponde a un concentrado
 
 El análisis de convergencia descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}63\%$, por debajo del criterio adoptado. Lo que no permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que un apoyo de mayor superficie o un refuerzo más extenso redistribuirían la tensión en esa zona.
 
-La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -177{,}95$~MPa, correspondiente a compresión. El máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
+La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -177{,}95$~MPa, correspondiente a compresión. El contorno corresponde igualmente al laminado del manto, y el máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_min11.png}
-    \caption[Distribución de tensión principal mínima, DLC 1.1.]{Distribución de tensión principal mínima del DLC 1.1 sobre el intradós y el extradós de la pala, en MPa. El contorno corresponde al laminado del manto, no al del vendaje de refuerzo, y los concentradores de compresión se ubican sobre las líneas en que el vendaje termina, en la cara opuesta a la del máximo de tracción. Los detalles A y B amplían las dos conexiones.}
+    \caption[Distribución de tensión principal mínima, DLC 1.1.]{Distribución de tensión principal mínima del DLC 1.1 sobre el intradós y el extradós de la pala, en MPa. Los detalles A y B amplían las dos conexiones.}
     \label{fig:fem_min11}
 \end{figure}
 
