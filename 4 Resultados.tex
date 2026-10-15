@@ -853,7 +853,14 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
 
 \medskip
 \noindent\textbf{Localización de los modos.}
-Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga. Una extracción ampliada a diez modos confirma que todos emanan de ese panel, nueve junto a las conexiones, donde la compresión es máxima, y uno en el centro del vano, sin que ninguna otra región de la pala comparezca por debajo.
+Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga, como muestra la Figura~\ref{fig:fem_modos_pandeo}. Una extracción ampliada a diez modos confirma que todos emanan de ese panel, nueve junto a las conexiones, donde la compresión es máxima, y uno en el centro del vano, sin que ninguna otra región de la pala comparezca por debajo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_modos_pandeo.png}
+    \caption[Primeros tres modos de pandeo, DLC 1.1.]{Primeros tres modos de pandeo del DLC 1.1 con sus multiplicadores de carga. El panel (A) ubica los modos sobre la pala, junto a las dos conexiones; los paneles (B) a (D) amplían el modo 1, el 2 y el 3 sobre el panel de borde de fuga del extradós. El contorno es la forma del modo con amplitud normalizada, no un desplazamiento físico, ya que el autovector del pandeo lineal carece de magnitud propia.}
+    \label{fig:fem_modos_pandeo}
+\end{figure}
 
 Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Como la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), ese panel resulta entre $6$ y $12$ veces menos capaz que los otros dos, según se recoge en la Tabla~\ref{tab:paneles_manto}.
 
