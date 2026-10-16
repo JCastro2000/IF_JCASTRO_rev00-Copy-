@@ -1,6 +1,6 @@
 \iniciaranexo{anexo:dlc11}{Procesamiento de cargas del DLC 1.1}{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
 
-Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en las cargas de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $72$ realizaciones, correspondientes a $12$ velocidades de viento y $6$ semillas de turbulencia cada una.
+Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en las cargas de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $144$ realizaciones, correspondientes a $12$ velocidades de viento, con seis semillas de turbulencia por debajo de $10$~m/s y quince desde esa velocidad.
 
 \subsection*{Geometría y parámetros de entrada}
 
@@ -137,7 +137,7 @@ def efectos_de_carga(fn_lin, ft_lin):
 
 \subsection*{Ajuste de la distribución de extremos por velocidad}
 
-De cada realización se extrae el máximo de cada magnitud sobre la ventana útil. Para cada velocidad de viento se dispone así de seis máximos, uno por semilla, a los que el Anexo G ajusta una distribución de Gumbel por el método de los momentos, según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
+De cada realización se extrae el máximo de cada magnitud sobre la ventana útil. Para cada velocidad de viento se dispone así de entre seis y quince máximos, uno por semilla, a los que el Anexo G ajusta una distribución de Gumbel por el método de los momentos, según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
 
 \begin{pycode}
 GAMMA_EULER = 0.5772156649   # constante de Euler-Mascheroni
@@ -173,31 +173,31 @@ def excedencia_gumbel(F, mu, beta):
 La probabilidad de excedencia de largo plazo pondera la probabilidad condicional de cada velocidad por el tiempo que el viento permanece en ella. Esa ponderación emplea la frecuencia empírica de la serie del emplazamiento y no la Weibull ajustada, por las razones expuestas en la Sección~\ref{sec:anexo_f}.
 
 \begin{pycode}
-# Frecuencia empírica por banda de 1 m/s, contada sobre los 38 años de la
-# serie extrapolada a la altura del centro del rotor. La Sección G.3.4
-# admite ponderar por la Weibull "o la que resulte apropiada"; aquí la
-# apropiada es la empírica, porque la Weibull subestima la banda alta y
-# ese sesgo va en contra del margen.
+# Frecuencia empírica por banda de 2 m/s centrada en cada velocidad
+# simulada, contada sobre los 38 años de la serie extrapolada a la altura
+# del centro del rotor. La Sección G.3.4 admite ponderar por la Weibull "o
+# la que resulte apropiada"; aquí la apropiada es la empírica, porque la
+# Weibull subestima la banda alta y ese sesgo va en contra del margen.
 with open('distribucion_viento.json') as fh:
     PESO = {float(k): v for k, v in json.load(fh)['bandas'].items()}
 
-V_IN, V_OUT, DV = 2.0, 25.0, 1.0
+V_IN, V_OUT, DV = 2.0, 25.0, 2.0
 
 
 def malla_de_integracion(v_sim, mus, betas):
     """
-    Bandas sobre las que se integra, y los parámetros de Gumbel
-    interpolados en ellas.
-
-    La malla cubre solo el rango operacional. Por debajo de V_in el rotor
-    no produce y la interpolación le asignaría la Gumbel de V_in, que es
-    una distribución de cargas que ahí no existe; por encima de V_out la
-    turbina está detenida y sus cargas son las de los DLC 6.x.
+    Bandas de agregación del Anexo G. La Sección G.3.1 subdivide el rango
+    operacional en las velocidades discretas simuladas, ajusta una Gumbel
+    en cada una y agrega esas distribuciones según la de largo plazo, de
+    modo que cada banda lleva su propio par (mu, beta) medido y no hay
+    interpolación. Las bandas de 2 m/s cubren el rango sin solape ni hueco;
+    por debajo de V_in el rotor no produce y por encima de V_out está
+    detenido, con las cargas de los DLC 6.x, de modo que ambos tramos
+    quedan fuera de la agregación.
     """
-    centros = np.arange(V_IN + DV / 2.0, V_OUT, DV)
-    return (centros,
-            np.interp(centros, v_sim, mus),
-            np.interp(centros, v_sim, betas))
+    return (np.asarray(v_sim, dtype=float),
+            np.asarray(mus, dtype=float),
+            np.asarray(betas, dtype=float))
 
 
 def excedencia_largo_plazo(F, centros, mus, betas):

@@ -60,14 +60,15 @@ T_OBS     = 600.0     # ventana útil de cada realización [s]
 T_YEAR    = 365.25 * 24 * 3600.0
 ANIOS     = 20        # vida de diseño [años]
 
-# Tensiones principales máximas obtenidas del FEM en la sección crítica:
-# la primera bajo la solicitación completa del DLC 1.1 SIN MAYORAR y la
-# segunda con las cargas inerciales como única solicitación, también sin
-# mayorar. Su diferencia es la parte que escala con el momento
-# aerodinámico. Se calibran sobre cargas características porque en fatiga
-# la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo.
-SIGMA_1_MAX = 163.399  # [MPa] solicitación completa
-SIGMA_IN    = 114.5    # [MPa] solo centrífuga y gravedad
+# Tensiones principales obtenidas del FEM en la sección crítica, ambas sin
+# mayorar: la primera con las cargas aerodinámicas del DLC 1.1 como única
+# solicitación y la segunda con las cargas inerciales como única
+# solicitación. La aerodinámica escala con el momento y define K_aero; la
+# inercial no escala y se reincorpora como tensión media. Se calibran sobre
+# cargas características porque en fatiga la mayoración se aplica una sola
+# vez, sobre la amplitud de cada ciclo.
+SIGMA_AERO = 59.010   # [MPa] solo cargas aerodinámicas
+SIGMA_IN   = 73.394   # [MPa] solo centrífuga y gravedad
 \end{pycode}
 
 \subsection*{Del vector de cargas al momento flector}
@@ -99,7 +100,7 @@ def momento_resultante(fx, fy):
 
 \subsection*{Calibración de la relación momento-tensión}
 
-Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es proporcional al momento flector. La constante de proporcionalidad se obtiene de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico y se descuenta de la calibración para reincorporarse después como tensión media.
+Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es proporcional al momento flector. La constante de proporcionalidad se obtiene de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico, de modo que la calibración emplea la corrida con cargas aerodinámicas únicamente y la tensión inercial se reincorpora después como tensión media.
 
 \begin{pycode}
 # fn_k, ft_k son las fuerzas por estación del instante gobernante del
@@ -107,10 +108,10 @@ Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura,
 # corridas de calibración del modelo de elementos finitos.
 M_res_k = momento_resultante(fn_k, ft_k) / 1000.0     # [kN*m]
 
-# K_aero traduce momento aerodinámico a tensión. Solo la diferencia entre
-# la tensión del caso completo y la del caso inercial depende del momento;
-# calibrar sobre la tensión total inflaría la amplitud de todos los ciclos.
-K_AERO = (SIGMA_1_MAX - SIGMA_IN) / M_res_k           # [MPa/(kN*m)]
+# K_aero traduce momento aerodinámico a tensión, calibrado con la corrida
+# de cargas aerodinámicas únicamente. Calibrar sobre la tensión total, que
+# incluye la media inercial, inflaría la amplitud de todos los ciclos.
+K_AERO = SIGMA_AERO / M_res_k                         # [MPa/(kN*m)]
 \end{pycode}
 
 \subsection*{Corrección por tensión media, curva S-N y conteo de ciclos}
@@ -213,8 +214,8 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
     danio_por_V[V].append(danio)
 
 # --- Daño anual y en la vida de diseño ---------------------------------
-# Para cada velocidad se promedian las seis semillas, y los aportes de
-# todas las velocidades se suman.
+# Para cada velocidad se promedian sus semillas (seis por debajo de 10 m/s
+# y quince desde esa velocidad), y los aportes de todas se suman.
 D_anual = sum(float(np.mean(danio_por_V[V])) for V in danio_por_V)
 D_vida  = D_anual * ANIOS
 
