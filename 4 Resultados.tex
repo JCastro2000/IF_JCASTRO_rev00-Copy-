@@ -226,24 +226,24 @@ Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden 
 
 \begin{table}[H]
     \centering
-    \caption[Parámetros operacionales promedio de la turbina.]{Parámetros operacionales promedio de la turbina por velocidad de viento ($\Delta\theta = 5^\circ$, $N = 6$ semillas por velocidad, ventana de $600$~s). $C_p$ se refiere al cubo de la velocidad media nominal y $C_p^{*}$ a la potencia que el campo turbulento transporta efectivamente.}
+    \caption[Parámetros operacionales promedio de la turbina.]{Parámetros operacionales promedio de la turbina por velocidad de viento ($\Delta\theta = 5^\circ$, $N = 6$ semillas por debajo de $10$~m/s y $15$ desde esa velocidad, ventana de $600$~s). $C_p$ se refiere al cubo de la velocidad media nominal y $C_p^{*}$ a la potencia que el campo turbulento transporta efectivamente.}
     \label{tab:curva_potencia}
     \begin{tabular}{lccccc}
         \hline
         $V$ (m/s) & RPM & $\lambda$ & $P_{med}$ (kW) & $C_{p}$ & $C_{p}^{*}$ \\
         \hline
-        $2$ & $7{,}00$ & $3{,}800$ & $1{,}3$ & $0{,}548$ & $0{,}263$ \\
-        $4$ & $14{,}00$ & $3{,}800$ & $11{,}1$ & $0{,}592$ & $0{,}431$ \\
-        $6$ & $21{,}01$ & $3{,}800$ & $36{,}6$ & $0{,}581$ & $0{,}474$ \\
+        $2$ & $7{,}00$ & $3{,}800$ & $1{,}3$ & $0{,}548$ & $0{,}260$ \\
+        $4$ & $14{,}00$ & $3{,}800$ & $11{,}1$ & $0{,}592$ & $0{,}434$ \\
+        $6$ & $21{,}01$ & $3{,}800$ & $36{,}6$ & $0{,}581$ & $0{,}478$ \\
         $8$ & $28{,}01$ & $3{,}800$ & $84{,}9$ & $0{,}568$ & $0{,}491$ \\
-        $10$ & $35{,}01$ & $3{,}800$ & $164{,}0$ & $0{,}561$ & $0{,}499$ \\
+        $10$ & $35{,}01$ & $3{,}800$ & $163{,}8$ & $0{,}561$ & $0{,}498$ \\
         $12$ & $42{,}00$ & $3{,}799$ & $280{,}9$ & $0{,}557$ & $0{,}503$ \\
-        $14$ & $42{,}00$ & $3{,}256$ & $430{,}0$ & $0{,}537$ & $0{,}490$ \\
-        $16$ & $42{,}00$ & $2{,}849$ & $511{,}5$ & $0{,}428$ & $0{,}394$ \\
-        $18$ & $42{,}00$ & $2{,}533$ & $490{,}6$ & $0{,}288$ & $0{,}267$ \\
-        $20$ & $42{,}00$ & $2{,}279$ & $437{,}1$ & $0{,}187$ & $0{,}174$ \\
-        $22$ & $42{,}00$ & $2{,}072$ & $397{,}0$ & $0{,}128$ & $0{,}119$ \\
-        $24$ & $42{,}00$ & $1{,}899$ & $379{,}2$ & $0{,}094$ & $0{,}088$ \\
+        $14$ & $42{,}00$ & $3{,}256$ & $429{,}9$ & $0{,}537$ & $0{,}490$ \\
+        $16$ & $42{,}00$ & $2{,}849$ & $511{,}7$ & $0{,}428$ & $0{,}394$ \\
+        $18$ & $42{,}00$ & $2{,}533$ & $491{,}6$ & $0{,}289$ & $0{,}268$ \\
+        $20$ & $42{,}00$ & $2{,}279$ & $437{,}6$ & $0{,}187$ & $0{,}175$ \\
+        $22$ & $42{,}00$ & $2{,}072$ & $396{,}9$ & $0{,}128$ & $0{,}119$ \\
+        $24$ & $42{,}00$ & $1{,}899$ & $378{,}9$ & $0{,}094$ & $0{,}088$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -255,25 +255,25 @@ Estas simulaciones permiten además verificar a posteriori la validez de las pol
 \subsection{Longitud de la ventana de análisis}
 \label{sec:ventana_analisis}
 
-Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s que adopta la campaña basta para que sus promedios sean estables, ya que de ella dependen todas las cifras de esta sección y las cargas de las siguientes. La Figura~\ref{fig:convergencia_ventana} recoge, para las seis semillas de $12$~m/s, la potencia media acumulada desde el inicio de la ventana útil hasta cada instante.
+Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s que adopta la campaña basta para que sus promedios sean estables, ya que de ella dependen todas las cifras de esta sección y las cargas de las siguientes. La Figura~\ref{fig:convergencia_ventana} recoge, para las quince semillas de $12$~m/s, la potencia media acumulada desde el inicio de la ventana útil hasta cada instante.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{Figuras/Figuras Resultados/convergencia_ventana.pdf}
-    \caption[Convergencia de la potencia media con la ventana de promediado.]{Potencia media acumulada en función de la longitud de la ventana de promediado, para las seis semillas de $V = 12$~m/s. La zona sombreada marca los primeros $100$~s y la línea discontinua la media de las seis realizaciones sobre la ventana completa.}
+    \caption[Convergencia de la potencia media con la ventana de promediado.]{Potencia media acumulada en función de la longitud de la ventana de promediado, para las quince semillas de $V = 12$~m/s. La zona sombreada marca los primeros $100$~s y la línea discontinua la media de las quince realizaciones sobre la ventana completa.}
     \label{fig:convergencia_ventana}
 \end{figure}
 
-El resultado justifica la exigencia normativa por sí solo. Sobre una ventana de $100$~s las seis semillas entregan entre $194{,}8$ y $333{,}2$~kW, un rango del $52\%$ en torno a su media, mientras que sobre los $600$~s completos quedan entre $270{,}6$ y $287{,}0$~kW, un rango del $5{,}8\%$. Una ventana corta no promedia las estructuras de mayor escala del campo de Mann, cuya longitud característica es comparable al tamaño del rotor, de modo que cada realización queda dominada por el tramo de viento que le tocó y el resultado deja de ser representativo. Los diez minutos que la norma fija como período de observación son, en este rotor, la ventana a partir de la cual la media se estabiliza.
+El resultado justifica la exigencia normativa por sí solo. Sobre una ventana de $100$~s las quince semillas entregan entre $194{,}8$ y $346{,}7$~kW, un rango del $56\%$ en torno a su media, mientras que sobre los $600$~s completos quedan entre $265{,}3$ y $290{,}9$~kW, un rango del $9{,}1\%$. Una ventana corta no promedia las estructuras de mayor escala del campo de Mann, cuya longitud característica es comparable al tamaño del rotor, de modo que cada realización queda dominada por el tramo de viento que le tocó y el resultado deja de ser representativo. Los diez minutos que la norma fija como período de observación son, en este rotor, la ventana a partir de la cual la media se estabiliza.
 
 \subsection{Curva de potencia y coeficiente de potencia}
 
-La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}5$~kW a $V = 16$~m/s y disminuye después hasta $379{,}2$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. La línea discontinua del panel (b) indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
+La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}7$~kW a $V = 16$~m/s y disminuye después hasta $378{,}9$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. La línea discontinua del panel (b) indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/curva_potencia.pdf}
-    \caption[Curva de potencia y coeficiente de potencia del rotor.]{(a) Potencia media y (b) coeficiente de potencia, en función de la velocidad de viento. Los puntos son el promedio de las $6$ realizaciones estocásticas simuladas por velocidad, y las barras verticales indican $\pm 1$ desviación estándar entre ellas. La curva azul emplea la definición convencional, referida al cubo de la velocidad media, y la verde la potencia que el campo turbulento transporta realmente.}
+    \caption[Curva de potencia y coeficiente de potencia del rotor.]{(a) Potencia media y (b) coeficiente de potencia, en función de la velocidad de viento. Los puntos son el promedio de las realizaciones estocásticas simuladas por velocidad, seis por debajo de $10$~m/s y quince desde esa velocidad, y las barras verticales indican $\pm 1$ desviación estándar entre ellas. La curva azul emplea la definición convencional, referida al cubo de la velocidad media, y la verde la potencia que el campo turbulento transporta realmente.}
     \label{fig:curva_potencia}
 \end{figure}
 
@@ -281,7 +281,7 @@ El coeficiente de potencia requiere una precisión sobre su definición, sin la 
 
 La consecuencia es directa. Referido a $\overline{V}^3$, el coeficiente de potencia alcanza $0{,}592$ a $4$~m/s, valor que coincide con el límite de Betz y que ningún rotor real puede sostener. No se trata de una violación del límite, sino de la inconsistencia entre el numerador y el denominador de la definición convencional, que compara la potencia extraída de un flujo turbulento con la que transportaría un flujo uniforme de la misma velocidad media. Referido a la potencia efectivamente disponible, el coeficiente $C_p^{*}$ de la última columna de la Tabla~\ref{tab:curva_potencia} alcanza su máximo de $0{,}503$ a $12$~m/s y se mantiene por debajo del límite de Betz en todo el rango, con un margen que en el punto de diseño es del $15\%$. Es esta segunda magnitud la que admite lectura física, y es la que se emplea al comparar con otros rotores.
 
-La dispersión entre semillas sigue el mismo patrón. La desviación estándar de $C_p$ pasa del $11{,}7\%$ de su media a $2$~m/s al $1{,}0\%$ a $24$~m/s, y el origen está en la turbulencia que prescribe el NTM, ya que su desviación estándar crece con la velocidad media pero de forma menos que proporcional (Ec.~\ref{eq:ntm_sigma}), de modo que su valor relativo aumenta al bajar $V$. Con la rotación prescrita, el \gls{tsr} nominal es idéntico en las seis semillas de una misma velocidad, y toda la dispersión proviene por tanto del campo de viento y no del punto de operación. La dispersión no compromete las verificaciones de este capítulo, ya que la carga extrema de diseño proviene del extremo superior del rango de velocidades (Sección~\ref{sec:resultados_uls}) y el daño por fatiga se concentra igualmente en las velocidades altas (Sección~\ref{sec:resultados_fatiga}), de modo que la contribución de la condición de $2$~m/s a ambos estados límite es marginal.
+La dispersión entre semillas sigue el mismo patrón. La desviación estándar de $C_p$ pasa del $11{,}7\%$ de su media a $2$~m/s al $0{,}9\%$ a $24$~m/s, y el origen está en la turbulencia que prescribe el NTM, ya que su desviación estándar crece con la velocidad media pero de forma menos que proporcional (Ec.~\ref{eq:ntm_sigma}), de modo que su valor relativo aumenta al bajar $V$. Con la rotación prescrita, el \gls{tsr} nominal es idéntico en las semillas de una misma velocidad, y toda la dispersión proviene por tanto del campo de viento y no del punto de operación. La dispersión no compromete las verificaciones de este capítulo, ya que la carga extrema de diseño proviene del extremo superior del rango de velocidades (Sección~\ref{sec:resultados_uls}) y el daño por fatiga se concentra igualmente en las velocidades altas (Sección~\ref{sec:resultados_fatiga}), de modo que la contribución de la condición de $2$~m/s a ambos estados límite es marginal.
 
 El valor máximo de $C_p^{*} = 0{,}503$ supera el intervalo de $0{,}35$ a $0{,}42$ que \textcite{Essahraoui2026} reportan para configuraciones H-Darrieus, e incluso el $0{,}45$ que la misma fuente atribuye a rotores optimizados (Tabla~\ref{tab:tabla_vawt}). La comparación, sin embargo, no enfrenta magnitudes equivalentes. Ese intervalo procede de máquinas completas medidas en operación, de modo que incorpora las pérdidas de generador y transmisión, la rugosidad superficial real, las tolerancias de fabricación y el acabado de pala. El valor obtenido aquí es un resultado numérico de aerodinámica limpia, calculado con polares ideales sobre una geometría sin imperfecciones y sin ninguna pérdida mecánica ni eléctrica, y constituye por tanto una cota superior del rendimiento alcanzable por esta máquina. Es el mismo razonamiento con que la Sección~\ref{sec:tsr_optimo} explica la sobreestimación del barrido DMST preliminar, y es la razón por la que el coeficiente de potencia no se emplea en este trabajo como magnitud de verificación, sino como indicador de que el punto de operación adoptado es el correcto.
 
@@ -310,7 +310,7 @@ La Tabla~\ref{tab:comparacion_adim} contrasta el rotor en estudio con las dos m�
 
 La potencia específica del rotor en estudio supera ligeramente el rango propio de un aerogenerador moderno~\parencite{Mollerstrom2019} y queda por encima de la de ambas máquinas de referencia. La diferencia sigue a la del coeficiente de potencia y comparte con ella la misma explicación, ya que enfrenta un cálculo aerodinámico sin pérdidas a máquinas completas medidas en operación. El $\lambda_{opt} = 3{,}80$ coincide, en cambio, con el \gls{tsr} objetivo documentado para la T1-turbine~\parencite{Mollerstrom2017}, y la solidez cae dentro de su rango de referencia~\parencite{Essahraoui2026}. El dimensionamiento geométrico y el punto de operación del rotor resultan, por tanto, consistentes con los de las máquinas construidas de esta familia y escala, y la discrepancia se concentra en el rendimiento, que es precisamente la magnitud que el modelo sobreestima.
 
-El pico de $P_{max} = 511{,}5$~kW a $V = 16$~m/s corresponde a $1073$~W/m$^2$. Esta cifra no describe el dimensionamiento nominal de la máquina, sino la capacidad de sobrecarga instantánea del rotor operando fuera de su punto de diseño, y resulta del orden de los valores máximos reportados históricamente para VAWT~\parencite{Mollerstrom2019}.
+El pico de $P_{max} = 511{,}7$~kW a $V = 16$~m/s corresponde a $1073$~W/m$^2$. Esta cifra no describe el dimensionamiento nominal de la máquina, sino la capacidad de sobrecarga instantánea del rotor operando fuera de su punto de diseño, y resulta del orden de los valores máximos reportados históricamente para VAWT~\parencite{Mollerstrom2019}.
 
 La caída del coeficiente de potencia para $V > 14$~m/s es consecuencia directa del límite de velocidad de rotación, ya que una vez alcanzadas las $42$~rpm el \gls{tsr} decrece de $3{,}80$ a $1{,}90$, alejándose del $\lambda_{opt} = 3{,}80$. La pérdida es deliberada, ya que sostener el TSR óptimo a $24$~m/s exigiría girar a $84$~rpm, el doble del límite adoptado, con lo que las cargas centrífugas, proporcionales a $\Omega^2$, se cuadruplicarían. Dado que las velocidades superiores a $20$~m/s representan solo el $0{,}48\%$ de las horas del año en el emplazamiento, esto es, $42$~h/año (Sección~\ref{sec:recurso_eolico}), el costo energético de esa decisión es marginal frente al alivio estructural que proporciona.
 
@@ -434,7 +434,7 @@ Este valor constituye una primera verificación del procedimiento implementado. 
 
 Las cargas características y de diseño que resultan de aplicar la bisección a cada magnitud son las de la Tabla~\ref{tab:dlc11_magnitudes}. La verificación estructural se conduce sobre los dos apoyos, ya que la envolvente de cargas que define la Sección 3.17 de la IEC 61400-5 abarca todas las posiciones a lo largo de la envergadura y no solo la más solicitada~\parencite{IEC61400-5}. Cada apoyo aporta por ello su propio perfil de fuerzas de diseño, construido con el procedimiento de fuerzas compañeras de la Sección~\ref{sec:anexo_f} a partir del instante en que su magnitud gobernante alcanza el máximo de toda la campaña.
 
-Los perfiles de carga que se llevan al modelo de elementos finitos se construyeron a partir del muestreo inicial de seis semillas por velocidad, previo a completar la campaña a quince semillas en las bandas desde $10$~m/s que la Sección 7.6.2.2 exige para la extrapolación de cargas últimas~\parencite{IEC61400-1}. Con ese muestreo, para el apoyo superior el instante gobernante ocurre en la realización de $V = 24$~m/s y semilla $6$, en $t = 84{,}42$~s, con $M_{env} = 65{,}86$~kN$\cdot$m, de modo que las fuerzas compañeras se escalan por el factor $98{,}42/65{,}86 = 1{,}494$; para el apoyo inferior el instante gobernante es el de la realización de $V = 24$~m/s y semilla $2$, en $t = 110{,}18$~s, con $M_{env} = 56{,}50$~kN$\cdot$m y un factor de $81{,}43/56{,}50 = 1{,}441$. Al completar la muestra, la envolvente de diseño de la Tabla~\ref{tab:dlc11_magnitudes} baja a $97{,}65$~kN$\cdot$m en el apoyo superior, un $0{,}8\%$ por debajo del valor con que se resolvió el modelo y con idéntico instante gobernante, de modo que las tensiones que se reportan más adelante resultan ligeramente conservadoras en la sección que gobierna; en el apoyo inferior, no gobernante, el valor del muestreo completo es un $5\%$ mayor. Una re-solución del modelo con los perfiles del muestreo completo queda señalada como refinamiento en el Capítulo~5. Ambos instantes gobernantes se sitúan en el extremo superior del rango de velocidades, resultado coherente con que la carga aerodinámica crezca de forma monótona con el viento hasta el corte.
+Para el apoyo superior ese instante ocurre en la realización de $V = 24$~m/s y semilla $6$, en $t = 84{,}42$~s, con $M_{env} = 65{,}86$~kN$\cdot$m, de modo que las fuerzas compañeras se escalan por el factor $97{,}65/65{,}86 = 1{,}483$. Para el apoyo inferior el instante gobernante es el de la realización de $V = 24$~m/s y semilla $14$, con $M_{env} = 58{,}24$~kN$\cdot$m y un factor de $86{,}00/58{,}24 = 1{,}477$. Ambos instantes gobernantes se sitúan en el extremo superior del rango de velocidades, resultado coherente con que la carga aerodinámica crezca de forma monótona con el viento hasta el corte.
 
 La distribución de estas cargas a lo largo de la envergadura, esto es, las fuerzas de diseño por estación $F_{d,x}[p]$ y $F_{d,y}[p]$ para las 21 estaciones de la pala, se presenta en la Sección~\ref{sec:comparacion_dlc}, junto con la del DLC 1.3, una vez determinada la carga de este último.
 
@@ -535,7 +535,7 @@ Los perfiles conservan el signo que entrega la simulación, y ese signo obliga a
 
 El instante que maximiza la envolvente direccional $M_{env}$ resulta ser uno de carga normal positiva en las 21 estaciones, esto es, dirigida hacia el eje. Esa carga se opone a la fuerza centrífuga, que apunta hacia afuera y que en esta máquina domina la solicitación estructural, de modo que el extremo aerodinámico alivia parcialmente el estado combinado en lugar de agravarlo. El mayor momento aerodinámico no produce, por tanto, la mayor tensión en la pala.
 
-Por esa razón el procedimiento de la Sección~\ref{sec:anexo_f} extrapola cada componente de momento en sus dos sentidos. El extremo de $M_y$ en el sentido contrario selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga, y de él se construye el segundo perfil de cada caso, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una resultante integrada de $105{,}4$~kN frente a los $155{,}5$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál de los dos gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
+Por esa razón el procedimiento de la Sección~\ref{sec:anexo_f} extrapola cada componente de momento en sus dos sentidos. El extremo de $M_y$ en el sentido contrario selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga, y de él se construye el segundo perfil de cada caso, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una resultante integrada de $136{,}0$~kN frente a los $154{,}3$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál de los dos gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
 
 \medskip
 \noindent\textbf{Forma de las distribuciones.}
