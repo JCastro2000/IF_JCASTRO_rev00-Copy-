@@ -178,10 +178,10 @@ Ambos coeficientes no son independientes, sino que se relacionan a través de la
 \subsubsection{Número de Reynolds}
 \label{sec:reynolds_def}
 
-Los parámetros anteriores describen la cinemática del rotor, pero no el régimen del flujo que baña a la pala. Ese régimen lo fija el número de Reynolds, parámetro adimensional que expresa la razón entre las fuerzas inerciales y las fuerzas viscosas del flujo, y que se define según la Ec.~\ref{eq:reynolds}~\parencite{Anderson2016}:
+Los parámetros anteriores describen la cinemática del rotor, pero no el régimen del flujo que rodea a la pala. Ese régimen lo caracteriza el número de Reynolds, parámetro adimensional que expresa la razón entre las fuerzas inerciales y las fuerzas viscosas del flujo, y que se define según la Ec.~\ref{eq:reynolds}~\parencite{Anderson2016}:
 
 \begin{equation}
-    Re = \frac{\rho \, V_\infty \, L}{\mu} = \frac{V_\infty \, L}{\nu},
+    Re = \frac{\rho \, V_\infty \, L}{\mu},
     \label{eq:reynolds}
 \end{equation}
 
@@ -190,7 +190,6 @@ donde:
     \item $V_\infty$ es la velocidad característica del flujo respecto del cuerpo (m/s).
     \item $L$ es una longitud característica de la geometría (m).
     \item $\rho$ y $\mu$ son la densidad y la viscosidad dinámica del fluido.
-    \item $\nu = \mu / \rho$ es la viscosidad cinemática (m$^2$/s).
 \end{itemize}
 
 Su relevancia no está en el valor en sí, sino en el principio de semejanza dinámica que lo sustenta. Dos flujos sobre cuerpos geométricamente semejantes presentan los mismos coeficientes adimensionales si comparten el número de Reynolds y el número de Mach~\parencite{Anderson2016}. De ahí que los coeficientes $C_l$, $C_d$ y $C_m$ de un perfil no sean constantes del perfil, sino funciones del ángulo de ataque para un $Re$ dado, y que las polares se tabulen por tanto para una familia de valores de $Re$ y no para uno solo (Sección~\ref{sec:polares}).
