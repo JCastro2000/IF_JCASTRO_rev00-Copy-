@@ -502,17 +502,11 @@ Dado que el modelo de cálculo de cargas no ha sido validado mediante mediciones
 
 \subsubsection{Factor parcial de material ($\gamma_m$)}
 
-El factor $\gamma_m$ cubre las desviaciones desfavorables de la resistencia del material, las incertidumbres geométricas y las diferencias entre las propiedades medidas en probetas y las reales en la estructura (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. La norma distingue según el tipo de verificación:
-
-\begin{itemize}
-    \item \textbf{ULS (resistencia última):} $\gamma_m = 1{,}30$. La Sección 7.6.2.4 de la norma IEC 61400-1~\parencite{IEC61400-1} prescribe $\gamma_m \geq 1{,}30$ para componentes estructurales no dúctiles (clase 2, no a prueba de fallos, \textit{non fail-safe}) cuya falla por tracción o compresión conduciría rápidamente a la falla de un componente principal de la turbina. El GFRP exhibe comportamiento lineal-elástico hasta rotura frágil cuando la carga la toman las fibras~\parencite{Moraras2023}, lo que lo clasifica como material no dúctil.
-    \item \textbf{Estabilidad (pandeo):} $\gamma_m = 1{,}20$. Esa misma sección fija un valor propio y menor para el pandeo global de cascarones curvos, categoría en la que incluye de forma explícita a las palas~\parencite{IEC61400-1}, y es el mínimo que rige la verificación de la Sección~\ref{sec:pandeo_met}, donde se contrasta además con el factor combinado que exige la norma específica de palas. Ese $1{,}20$ no admite hoy reducción alguna, ya que la nota al pie de la cláusula que permitía rebajarlo a $1{,}10$ para torres tubulares de acero mediante las formulaciones de membrana del Eurocódigo~3 quedó anulada por la Enmienda~1 de 2025~\parencite{IEC61400-1-AMD1}.
-    \item \textbf{Fatiga:} $\gamma_m = 2{,}00$. La Sección 7.6.3.3 de la norma IEC 61400-1 establece un mínimo de $1{,}70$ cuando la curva S-N se basa en una probabilidad de supervivencia del $50\%$ y el coeficiente de variación de la resistencia a fatiga es inferior al $15\%$, y exige aumentarlo hasta al menos $2{,}00$ para componentes con un coeficiente de variación entre el $15\%$ y el $20\%$, entre los que menciona expresamente a los compuestos de fibra~\parencite{IEC61400-1}. El laminado de la pala pertenece a esa segunda categoría, de modo que el valor aplicable es $2{,}00$. La norma permite reducirlo a $1{,}35$ si la distribución de resistencia se establece a partir de ensayos del material real y la curva S-N se deriva con un $95\%$ de supervivencia y un $95\%$ de confianza, condición que no se satisface aquí por no disponerse de esos ensayos.
-\end{itemize}
+El factor $\gamma_m$ cubre las desviaciones desfavorables de la resistencia del material, las incertidumbres geométricas y las diferencias entre las propiedades medidas en probetas y las reales en la estructura (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. La norma general dispone, en su Sección 7.6.2.5, que los factores parciales de material se tomen de los códigos de diseño reconocidos del componente~\parencite{IEC61400-1}, y para una pala ese código es la norma IEC 61400-5. Su Sección 6.6.4 compone el factor como el producto de un factor base $\gamma_{m0}$ y de cinco factores $\gamma_{m1}$ a $\gamma_{m5}$, que cubren por separado la degradación ambiental, la temperatura, la fabricación, la validación del cálculo y la caracterización de las cargas~\parencite{IEC61400-5}. Los valores de cada factor dependen de la verificación, y se detallan junto a cada una, en la Ec.~\ref{eq:sigma_ud_p5} para la resistencia última, en la Ec.~\ref{eq:gamma_fat} para la fatiga y en la Ec.~\ref{eq:criterio_pandeo_p5} para la estabilidad.
 
 \subsubsection{Factor parcial de consecuencia de falla ($\gamma_n$)}
 
-El factor $\gamma_n$ distingue entre clases de componentes según la criticidad de su falla, conforme a la Sección 7.6.1.3 de la norma IEC 61400-1~\parencite{IEC61400-1}. La pala del aerogenerador se clasifica como componente clase 2 (no a prueba de fallos, \textit{non fail-safe}), cuya falla puede conducir a la falla de una parte principal de la turbina. En verificaciones de resistencia última, la norma establece $\gamma_n = 1{,}00$ (Sección 7.6.2.4 de la norma IEC 61400-1)~\parencite{IEC61400-1}. Para fatiga, el factor se incrementa a $\gamma_n = 1{,}15$ (Sección 7.6.3.3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, reflejando la mayor incertidumbre asociada a la acumulación de daño cíclico en materiales compuestos.
+El factor $\gamma_n$ distingue entre clases de componentes según la criticidad de su falla, conforme a la Sección 7.6.1.3 de la norma IEC 61400-1~\parencite{IEC61400-1}. La pala del aerogenerador se clasifica como componente clase 2 (no a prueba de fallos, \textit{non fail-safe}), cuya falla puede conducir a la falla de una parte principal de la turbina. En verificaciones de resistencia última, la norma establece $\gamma_n = 1{,}00$ (Sección 7.6.2.4 de la norma IEC 61400-1)~\parencite{IEC61400-1}. Para fatiga, el factor se incrementa a $\gamma_n = 1{,}15$ (Sección 7.6.3.3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, reflejando la mayor incertidumbre asociada a la acumulación de daño cíclico en materiales compuestos. En ese caso, la Sección 6.6.4.2 de la norma IEC 61400-5 permite rebajar el factor base $\gamma_{m0}$ de modo que su producto con $\gamma_n$ se mantenga en $1{,}20$~\parencite{IEC61400-5}, recurso que se aplica en la Ec.~\ref{eq:gamma_fat}.
 
 \subsubsection{Verificación de resistencia última}
 
@@ -530,18 +524,14 @@ donde:
     \item $\gamma_f$, $\gamma_m$ y $\gamma_n$ son los factores parciales, que toman los valores indicados en la Tabla~\ref{tab:factores_seguridad} según el DLC correspondiente.
 \end{itemize}
 
-Las cargas de diseño $F_d = \gamma_f \cdot F_k$ incorporan el factor de carga y constituyen la entrada directa al modelo de elementos finitos (Sección~\ref{sec:fem}). La verificación en tensión se reduce a la Ec.~\ref{eq:uls_stress}:
+Las cargas de diseño $F_d = \gamma_f \cdot F_k$ incorporan el factor de carga y constituyen la entrada directa al modelo de elementos finitos (Sección~\ref{sec:fem}). Con $\gamma_n = 1{,}00$, la verificación en tensión se reduce a la Ec.~\ref{eq:uls_stress}:
 
 \begin{equation}
-    \sigma_{\max} \leq \frac{\sigma_u}{\gamma_m \cdot \gamma_n},
+    \sigma_{\max} \leq \sigma_{u,d},
     \label{eq:uls_stress}
 \end{equation}
 
-donde $\sigma_{\max}$ es la mayor tensión principal que entrega el modelo de elementos finitos bajo las cargas de diseño y $\sigma_u$ la resistencia última del material (Tabla~\ref{tab:material_pala}). Para los DLC 1.1 y 1.3 los factores valen $\gamma_m = 1{,}30$ y $\gamma_n = 1{,}00$ (Tabla~\ref{tab:factores_seguridad}).
-
-\medskip
-\noindent\textbf{El umbral que exige la norma de palas.}
-El $\gamma_m = 1{,}30$ anterior proviene de la norma general de diseño, que lo presenta como un factor general destinado a cubrir la variabilidad intrínseca de la resistencia, y que advierte en la misma Sección 7.6.2.4 que para obtener el factor global es necesario contabilizar además los efectos de escala, las tolerancias y la degradación por acciones externas~\parencite{IEC61400-1}. La norma específica de palas es el documento que realiza esa contabilidad, y su Sección 6.6.5.2 la desglosa en los factores que recoge la Ec.~\ref{eq:sigma_ud_p5}:
+donde $\sigma_{\max}$ es la mayor tensión principal que entrega el modelo de elementos finitos bajo las cargas de diseño y $\sigma_{u,d}$ la resistencia factoreada, que resulta de dividir la resistencia última $\sigma_u$ del material (Tabla~\ref{tab:material_pala}) por el factor de material que fija la Sección 6.6.5.2 de la norma IEC 61400-5 para la resistencia del laminado, según la Ec.~\ref{eq:sigma_ud_p5}:
 
 \begin{equation}
     \sigma_{u,d} = \frac{\sigma_u}{\gamma_{m0} \prod_{i=1}^{5} \gamma_{mi}},
@@ -550,23 +540,39 @@ El $\gamma_m = 1{,}30$ anterior proviene de la norma general de diseño, que lo 
 
 donde:
 \begin{itemize}
-    \item $\gamma_{m0} = 1{,}20$ es el factor base obligatorio de la Sección 6.6.4.2.
-    \item $\gamma_{m1} = 1{,}20$, por emplearse propiedades a temperatura ambiente y en seco sin contabilizar degradación.
-    \item $\gamma_{m2} = 1{,}10$, por estar las propiedades ensayadas a temperatura ambiente.
+    \item $\gamma_{m0} = 1{,}20$ es el factor base de la Sección 6.6.4.2.
+    \item $\gamma_{m1} = 1{,}20$, por emplearse propiedades en seco a temperatura ambiente sin contabilizar degradación.
+    \item $\gamma_{m2} = 1{,}10$, por estar las propiedades referidas a temperatura ambiente.
     \item $\gamma_{m3} = 1{,}30$, por realizarse el análisis con propiedades nominales de diseño.
     \item $\gamma_{m4} = 1{,}20$, por no validarse el cálculo de deformaciones mediante ensayo de pala.
-    \item $\gamma_{m5} = 1{,}00$, porque la carga extrema no se caracterizó sobre un conjunto discreto de direcciones sino sobre el módulo del momento resultante~\parencite{IEC61400-5}.
+    \item $\gamma_{m5} = 1{,}00$, por caracterizarse la carga extrema en doce direcciones repartidas uniformemente, mediante la envolvente direccional de la Ec.~\ref{eq:M_env}~\parencite{IEC61400-5}.
 \end{itemize}
 
 El producto de esos factores vale $2{,}471$, de modo que la resistencia factoreada resulta $\sigma_{u,d} = 242{,}1 / 2{,}471 = 97{,}98$~MPa.
 
-Que ambos umbrales difieran en un factor cercano a dos no responde a dos criterios en competencia. La propia norma general establece la jerarquía en su Sección 7.6.2.5, al disponer que los factores parciales de resistencia se apliquen según los códigos de diseño reconocidos y admitir la Sección 7.6.2.4 únicamente como alternativa~\parencite{IEC61400-1}. Para una pala ese código reconocido existe y es la norma IEC 61400-5, que a su vez declara que su $\gamma_m$ está destinado a cubrir la incertidumbre entre la resistencia medida en probeta y la que presenta el laminado en la pala construida~\parencite{IEC61400-5}. La verificación se presenta en consecuencia contra ambos umbrales y se declara gobernante el de la norma de palas.
-
 \subsubsection{Verificación de fatiga}
 
-En la verificación de fatiga, todos los factores parciales ($\gamma_f = 1{,}00$, $\gamma_m = 2{,}00$, $\gamma_n = 1{,}15$) se aplican al rango de tensión cíclica, según lo prescrito en la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}. La curva S-N resultante (Ec.~\ref{eq:basquin_design}) y el procedimiento completo de cálculo de daño se detallan en la Sección~\ref{sec:anexo_g} (DLC 1.2).
+En la verificación de fatiga, los factores parciales se aplican sobre la amplitud de cada ciclo de tensión, según lo prescrito en la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}, y se combinan en un único factor según la Ec.~\ref{eq:gamma_fat}:
 
-La Tabla~\ref{tab:factores_seguridad} reúne los valores que resultan de los tres apartados anteriores y que se aplican en cada uno de los DLC considerados.
+\begin{equation}
+    \gamma_{fat} = \gamma_f \, \gamma_n \, \gamma_{m0} \prod_{i=1}^{5} \gamma_{mi},
+    \label{eq:gamma_fat}
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $\gamma_f = 1{,}00$ es el factor de cargas de fatiga (Sección 7.6.3.2 de la norma IEC 61400-1).
+    \item $\gamma_n = 1{,}15$ es el factor de consecuencia de falla en fatiga, y $\gamma_{m0}$ se rebaja a $1{,}20 / \gamma_n$, de modo que $\gamma_n \, \gamma_{m0} = 1{,}20$.
+    \item $\gamma_{m1} = 1{,}10$, por emplearse propiedades en seco a temperatura ambiente.
+    \item $\gamma_{m2} = 1{,}00$, valor único que la norma asigna a la fatiga del laminado.
+    \item $\gamma_{m3} = 1{,}30$, por realizarse el análisis con propiedades nominales de diseño.
+    \item $\gamma_{m4}$ es el producto de $1{,}20$, por no validarse el cálculo de deformaciones mediante ensayo de pala, y $1{,}20$, por basarse el modelo de fatiga en la resistencia estática y en una pendiente de Wöhler no medida sobre el laminado de la pala.
+    \item $\gamma_{m5} = 1{,}00$, por evaluarse el daño sobre la historia completa de tensión que entregan las series temporales~\parencite{IEC61400-5}.
+\end{itemize}
+
+Los valores corresponden a la Sección 6.6.5.3 de la norma IEC 61400-5, que trata la fatiga del laminado, y su producto vale $\gamma_{fat} = 2{,}471$. La curva S-N resultante (Ec.~\ref{eq:basquin_design}) y el procedimiento completo de cálculo de daño se detallan en la Sección~\ref{sec:anexo_g} (DLC 1.2).
+
+La Tabla~\ref{tab:factores_seguridad} reúne los valores que resultan de los apartados anteriores y que se aplican en cada uno de los DLC considerados.
 
 \begin{table}[H]
     \centering
@@ -577,11 +583,12 @@ La Tabla~\ref{tab:factores_seguridad} reúne los valores que resultan de los tre
         \textbf{Factor} & \textbf{Símbolo} & \textbf{DLC 1.1 (ULS)} & \textbf{DLC 1.2 (Fatiga)} & \textbf{DLC 1.3 (ULS)} \\
         \hline
         Cargas & $\gamma_f$ & $1{,}25$ & $1{,}00$ & $1{,}35$ \\
-        Material, resistencia última & $\gamma_m$ & $1{,}30$ & — & $1{,}30$ \\
-        Material, pandeo & $\gamma_m$ & $1{,}20$ & — & $1{,}20$ \\
-        Material, fatiga & $\gamma_m$ & — & $2{,}00$ & — \\
         Consecuencia de falla & $\gamma_n$ & $1{,}00$ & $1{,}15$ & $1{,}00$ \\
+        Material, resistencia última & $\gamma_{m0} \prod \gamma_{mi}$ & $2{,}471$ & — & $2{,}471$ \\
+        Material, pandeo & $\gamma_{m0} \prod \gamma_{mi}$ & $1{,}98$ & — & $1{,}98$ \\
+        Combinado de fatiga & $\gamma_{fat}$ & — & $2{,}471$ & — \\
         \hline
+        \multicolumn{5}{l}{\footnotesize Factores de material según IEC 61400-5; factores de cargas y de consecuencia según IEC 61400-1.}\\
     \end{tabular}
 \end{table}
 
@@ -798,14 +805,14 @@ Cada ciclo se refiere a media nula mediante el diagrama de vida constante descri
 
 \medskip
 \noindent\textbf{Curva S-N del material.}
-La resistencia a fatiga del GFRP se modela mediante la ecuación de Basquin en su forma factorizada~\parencite{Basquin1910}. La norma prescribe que todos los factores parciales de seguridad se apliquen al rango de tensión cíclica (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:sigma_eq}:
+La resistencia a fatiga del GFRP se modela mediante la ecuación de Basquin en su forma factorizada~\parencite{Basquin1910}. La norma prescribe que los factores parciales de seguridad se apliquen sobre la amplitud de tensión (Sección 7.6.3.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, según la Ec.~\ref{eq:sigma_eq}:
 
 \begin{equation}
-    \sigma_{a,\text{eq}} = \gamma_f \cdot \gamma_m \cdot \gamma_n \cdot \sigma_{a,0},
+    \sigma_{a,\text{eq}} = \gamma_{fat} \cdot \sigma_{a,0},
     \label{eq:sigma_eq}
 \end{equation}
 
-donde $\sigma_{a,0}$ es la amplitud corregida por tensión media de la Ec.~\ref{eq:goodman}, y $\sigma_{a,\text{eq}}$ la amplitud de tensión equivalente de diseño, mayorada por los tres factores parciales de fatiga justificados en la Sección~\ref{sec:factores_seguridad}: $\gamma_f$ (carga), $\gamma_m$ (material) y $\gamma_n$ (consecuencia de falla).
+donde $\sigma_{a,0}$ es la amplitud corregida por tensión media de la Ec.~\ref{eq:goodman}, y $\sigma_{a,\text{eq}}$ la amplitud de tensión equivalente de diseño, mayorada por el factor combinado de fatiga de la Ec.~\ref{eq:gamma_fat}.
 
 La curva S-N de diseño, que relaciona la amplitud de tensión equivalente con el número de ciclos admisible, se expresa según la Ec.~\ref{eq:basquin_design}:
 
@@ -817,7 +824,7 @@ La curva S-N de diseño, que relaciona la amplitud de tensión equivalente con e
 Sustituyendo las Ecs.~\ref{eq:goodman} y~\ref{eq:sigma_eq} en la Ec.~\ref{eq:basquin_design} y despejando $N_f$ se obtiene la expresión utilizada en el cálculo de daño:
 
 \begin{equation}
-    N_{f} = \frac{1}{2}\left(\frac{\gamma_f \cdot \gamma_m \cdot \gamma_n}{\sigma_u} \cdot \frac{\sigma_{a}}{1 - \sigma_m / \sigma_u}\right)^{1/b},
+    N_{f} = \frac{1}{2}\left(\frac{\gamma_{fat}}{\sigma_u} \cdot \frac{\sigma_{a}}{1 - \sigma_m / \sigma_u}\right)^{1/b},
     \label{eq:Nf_fatiga}
 \end{equation}
 
@@ -825,7 +832,7 @@ donde:
 \begin{itemize}
     \item $\sigma_u = 242{,}1$~MPa es la resistencia última de la ficha técnica preliminar del fabricante (Tabla~\ref{tab:material_pala}).
     \item $b = -0{,}045$ es el exponente de fatiga para tejido bidireccional $\pm 45^\circ$ fabricado por infusión al vacío~\parencite{Huh2012}, que se traslada al laminado de la pala porque la misma fuente reporta pendientes de la curva S-N poco sensibles a la orientación de las fibras.
-    \item $\gamma_f$, $\gamma_m$ y $\gamma_n$ son los factores parciales de fatiga justificados en la Sección~\ref{sec:factores_seguridad}.
+    \item $\gamma_{fat} = 2{,}471$ es el factor combinado de fatiga de la Ec.~\ref{eq:gamma_fat}.
 \end{itemize}
 
 \medskip
@@ -1104,20 +1111,7 @@ A partir del análisis se obtienen la tensión principal máxima ($\sigma_1$), l
 
 La Sección 7.6.4 de la norma IEC 61400-1 exige que las partes resistentes de un componente no a prueba de fallos no pandeen bajo la carga de diseño, y que ningún componente pandee bajo la carga característica~\parencite{IEC61400-1}. Esa verificación se realiza mediante un análisis de pandeo lineal por autovalores (\textit{Eigenvalue Buckling}) en Ansys, según el planteamiento de la Ec.~\ref{eq:pandeo_autovalores} de la Sección~\ref{sec:pandeo_teoria}, acoplado a las soluciones estáticas de ambos casos de carga última (DLC 1.1 y 1.3), de las cuales hereda la malla, las cargas y las condiciones de borde. La simulación entrega el multiplicador de carga (\textit{load multiplier}, $LM$) de cada modo, es decir, el factor por el que deberían amplificarse las cargas aplicadas para alcanzar la inestabilidad elástica, y se extraen los diez primeros modos. El criterio de verificación recae sobre el primero, pero la extracción de los diez permite establecer si el mecanismo de inestabilidad es único o si concurren varios independientes, distinción que la propia norma de palas introduce en su Sección 6.6.5.6~\parencite{IEC61400-5} y que determina hacia dónde debe dirigirse un eventual refuerzo.
 
-Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia, según la Ec.~\ref{eq:criterio_pandeo}:
-
-\begin{equation}
-    LM \geq \gamma_m \cdot \gamma_n = 1{,}20,
-    \label{eq:criterio_pandeo}
-\end{equation}
-
-donde $\gamma_n = 1{,}00$ es el factor de consecuencia de falla de la Tabla~\ref{tab:factores_seguridad} y $\gamma_m = 1{,}20$ es el factor de material que la Sección 7.6.2.4 de la norma IEC 61400-1 prescribe de forma específica para el pandeo global de cascarones curvos, entre los que menciona expresamente las palas~\parencite{IEC61400-1}. Ese valor, menor que el $1{,}30$ de la rotura por tracción o compresión, es el que la Sección 7.6.4 remite para la verificación de estabilidad~\parencite{IEC61400-1}. El criterio exige, por tanto, que el modo crítico no se alcance antes de amplificar las cargas de diseño en un $20\%$.
-
-La segunda condición de la Sección 7.6.4, que ningún componente pandee bajo la carga característica, se satisface siempre que $LM \geq 1 / \gamma_f$ sobre las mismas cargas de diseño, umbral menos exigente que el de la Ec.~\ref{eq:criterio_pandeo} para los dos casos de carga analizados, de modo que esta última gobierna la verificación.
-
-\medskip
-\noindent\textbf{El umbral que exige la norma de palas.}
-El $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo} proviene de la norma general de diseño. La norma específica de palas es más exigente, ya que su Sección 6.6.5.6 pide que el autovalor mínimo del primer modo supere un factor combinado igual al producto de $\gamma_{m0}$ por los factores $\gamma_{m1}$ a $\gamma_{m5}$, y sitúa el $1{,}20$ del pandeo como uno solo de esos eslabones, el $\gamma_{m4a}$ del análisis por elementos finitos lineales~\parencite{IEC61400-5}. Evaluado sobre el modelo de este trabajo, ese producto resulta según la Ec.~\ref{eq:criterio_pandeo_p5}:
+Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia. La Sección 6.6.5.6 de la norma IEC 61400-5 exige que el multiplicador del primer modo supere el factor combinado que resulta del producto de $\gamma_{m0}$ por los factores $\gamma_{m1}$ a $\gamma_{m5}$~\parencite{IEC61400-5}, según la Ec.~\ref{eq:criterio_pandeo_p5}:
 
 \begin{equation}
     LM \geq \gamma_{m0} \prod_{i=1}^{5} \gamma_{mi},
@@ -1126,17 +1120,17 @@ El $1{,}20$ de la Ec.~\ref{eq:criterio_pandeo} proviene de la norma general de d
 
 donde:
 \begin{itemize}
-    \item $\gamma_{m0} = 1{,}20$ es el factor base obligatorio de la Sección 6.6.4.2.
-    \item $\gamma_{m1} = 1{,}00$, al no contabilizarse degradación ambiental.
+    \item $\gamma_{m0} = 1{,}20$ es el factor base de la Sección 6.6.4.2.
+    \item $\gamma_{m1} = 1{,}00$, valor único que la norma asigna a la estabilidad.
     \item $\gamma_{m2} = 1{,}10$, por emplear módulos a temperatura ambiente.
-    \item $\gamma_{m3} = 1{,}00$, al no contabilizarse efectos de fabricación.
+    \item $\gamma_{m3} = 1{,}00$, valor único que la norma asigna a la estabilidad.
     \item $\gamma_{m4}$ es el producto de $1{,}20$, por resolverse el pandeo con elementos finitos lineales, y $1{,}25$, por no validarse el método mediante ensayo de pala.
-    \item $\gamma_{m5} = 1{,}00$, porque la carga extrema no se caracterizó sobre un conjunto discreto de direcciones sino sobre el módulo del momento resultante, esto es, sobre todas las direcciones del plano~\parencite{IEC61400-5}.
+    \item $\gamma_{m5} = 1{,}00$, por caracterizarse la carga en doce direcciones repartidas uniformemente~\parencite{IEC61400-5}.
 \end{itemize}
 
-El producto de esos factores fija el umbral en $LM \geq 1{,}98$.
+El producto de esos factores fija el umbral en $LM \geq 1{,}98$. La segunda condición de la Sección 7.6.4 de la norma IEC 61400-1, que ningún componente pandee bajo la carga característica, se satisface siempre que $LM \geq 1 / \gamma_f$ sobre las mismas cargas de diseño~\parencite{IEC61400-1}, umbral menos exigente que el anterior en los dos casos de carga analizados.
 
-La verificación se presenta contra ambos umbrales y se declara gobernante el más exigente, ya que la norma de palas es la específica del componente. Dos de sus factores dependen del método y no del material, de modo que están en manos del diseñador: $\gamma_{m4a}$ baja a $1{,}00$ si el pandeo se resuelve con un análisis geométricamente no lineal y $\gamma_{m4b}$ baja a $1{,}00$ con validación por ensayo de pala o de subcomponente, con lo que el umbral podría reducirse hasta $1{,}32$. La misma cláusula admite además verificar la estabilidad mediante ensayo a escala real con un factor combinado plano de $1{,}60$~\parencite{IEC61400-5}. Ninguna de esas dos vías está al alcance de este trabajo, de manera que el umbral aplicable es el de la Ec.~\ref{eq:criterio_pandeo_p5}.
+Dos de los factores dependen del método y no del material, de modo que están en manos del diseñador. El factor de $1{,}20$ baja a $1{,}00$ si el pandeo se resuelve con un análisis geométricamente no lineal, y el de $1{,}25$ baja a $1{,}00$ con validación por ensayo de pala o de subcomponente, con lo que el umbral podría reducirse hasta $1{,}32$. La misma cláusula admite además verificar la estabilidad mediante ensayo a escala real con un factor combinado de $1{,}60$~\parencite{IEC61400-5}. Ninguna de esas dos vías está al alcance de este trabajo, de manera que el umbral aplicable es el de la Ec.~\ref{eq:criterio_pandeo_p5}.
 
 Cabe señalar que el método lineal por autovalores no incorpora imperfecciones geométricas ni efectos no lineales, a los que los cascarones de pared delgada son sensibles, por lo que sus resultados constituyen una cota superior de la carga crítica real (Sección~\ref{sec:pandeo_teoria}).
 

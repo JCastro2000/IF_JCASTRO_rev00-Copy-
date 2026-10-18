@@ -40,16 +40,26 @@ Z_CRIT = 5.0
 SIGMA_U = 242.1      # resistencia última a tracción [MPa]
 B_EXP   = -0.045     # exponente de Basquin de la curva S-N
 
-# --- Factores parciales de seguridad (Tabla 3 de la norma) --------------
-GAMMA_F = 1.00       # cargas de fatiga (Sección 7.6.3.1)
-GAMMA_M = 2.00       # material compuesto, COV de 15 % a 20 %
-GAMMA_N = 1.15       # consecuencia de falla
+# --- Factores parciales de seguridad -------------------------------------
+GAMMA_F = 1.00       # cargas de fatiga (IEC 61400-1, Sección 7.6.3.2)
+GAMMA_N = 1.15       # consecuencia de falla (IEC 61400-1, Sección 7.6.3.3)
 
-# En fatiga los tres factores se aplican de forma acumulativa sobre la
-# amplitud de tensión, en lugar de reducir la resistencia. Ambas vías son
+# Factores de material de la IEC 61400-5 para la fatiga del laminado
+# (Sección 6.6.5.3). El factor base se rebaja a 1,20/gamma_n para que su
+# producto con gamma_n sea 1,20 (Sección 6.6.4.2).
+GAMMA_M0 = 1.20 / GAMMA_N
+GAMMA_M1 = 1.10      # propiedades en seco a temperatura ambiente
+GAMMA_M2 = 1.00      # sin efecto de temperatura
+GAMMA_M3 = 1.30      # propiedades nominales de diseño
+GAMMA_M4 = 1.20 * 1.20   # deformaciones no validadas y pendiente supuesta
+GAMMA_M5 = 1.00 * 1.00   # historia completa desde series temporales
+
+# En fatiga los factores se aplican de forma acumulativa sobre la amplitud
+# de tensión, en lugar de reducir la resistencia. Ambas vías son
 # equivalentes, pero factorar la carga permite conservar la curva S-N
 # nominal del material tal como la reporta el ensayo.
-GAMMA_TOTAL = GAMMA_F * GAMMA_M * GAMMA_N    # = 2,300
+GAMMA_TOTAL = (GAMMA_F * GAMMA_N * GAMMA_M0 * GAMMA_M1 * GAMMA_M2
+               * GAMMA_M3 * GAMMA_M4 * GAMMA_M5)    # = 2,471
 
 # --- Recurso eólico y vida de diseño ------------------------------------
 WEIBULL_K = 2.0879
