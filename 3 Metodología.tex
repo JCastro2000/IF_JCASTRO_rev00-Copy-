@@ -102,7 +102,7 @@ donde:
     \item $A_C$ es la constante de Charnock.
 \end{itemize}
 
-La norma ofrece dos valores para la constante de Charnock, $0{,}011$ para mar abierto y $0{,}034$ para emplazamientos próximos a la costa, y establece en el propio texto de la cláusula la regla para elegir entre ambos al recomendar el uso del valor más alto salvo que datos específicos del emplazamiento confirmen lo contrario~\parencite{IEC61400-3-2}. Dado que la serie empleada para caracterizar el recurso es una reconstrucción de velocidad que no incorpora información de turbulencia, y es precisamente esa ausencia la que motiva el recurso a la relación de Charnock, se adopta $A_C = 0{,}034$. La expresión es implícita, ya que $z_0$ aparece en ambos miembros, y se resuelve por iteración numérica.
+La norma ofrece dos valores para la constante de Charnock, $0{,}011$ para mar abierto y $0{,}034$ para emplazamientos próximos a la costa, y establece en el propio texto de la cláusula la regla para elegir entre ambos al recomendar el uso del valor más alto salvo que datos específicos del emplazamiento confirmen lo contrario~\parencite{IEC61400-3-2}. Dado que la serie empleada para caracterizar el recurso es una reconstrucción de velocidad que no incorpora información de turbulencia, y es precisamente esa ausencia la que motiva el recurso a la relación de Charnock, se adopta $A_C = 0{,}034$. Como $z_0$ aparece a ambos lados de la ecuación, su valor se obtiene por iteración numérica.
 
 Con la rugosidad así obtenida, la desviación estándar representativa se calcula según la Ec.~\ref{eq:charnock_sigma}:
 
@@ -113,7 +113,7 @@ Con la rugosidad así obtenida, la desviación estándar representativa se calcu
 
 donde $d = 4$~m/s es el valor que la propia ecuación fija para emplazamientos marinos e $I_{15}$ la intensidad de turbulencia evaluada a $V_{hub} = 15$~m/s, punto fijo con que la norma IEC 61400-1 la caracteriza~\parencite{IEC61400-1}. La nota 4 de esa misma cláusula advierte que dicho valor difiere del de $1{,}44$~m/s que la IEC 61400-1 emplea para emplazamientos terrestres, y lo atribuye a que en algunos emplazamientos marinos se han registrado desviaciones considerablemente mayores~\parencite{IEC61400-3-2}.
 
-La expresión resulta a su vez implícita en $I_{15}$, puesto que esta aparece en el segundo término y queda definida, al mismo tiempo, por la propia desviación evaluada a $15$~m/s. Al ser lineal admite solución cerrada, según la Ec.~\ref{eq:i15_cerrada}:
+Como $I_{15}$ es la propia desviación estándar a $15$~m/s dividida por esa velocidad, basta evaluar la Ec.~\ref{eq:charnock_sigma} en $V_{hub} = 15$~m/s y despejar, lo que entrega la Ec.~\ref{eq:i15_cerrada}:
 
 \begin{equation}
     I_{15} = \frac{15}{\left( 15 - 1{,}28 \, d \right) \ln \left( z_{hub} / z_0 \right)}.
