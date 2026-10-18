@@ -639,14 +639,14 @@ A partir de $M_x$ y $M_y$ se definen dos magnitudes más para cada apoyo. La pri
     \label{eq:M_res}
 \end{equation}
 
-La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que corresponde al mayor de los momentos proyectados sobre un conjunto de doce direcciones repartidas uniformemente en la sección, que es el enfoque avanzado que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente a falta de un análisis específico de criticidad~\parencite{IEC61400-5}:
+La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que la capacidad de la sección depende de la dirección en que flecta. En cada instante el momento se proyecta sobre doce direcciones de flexión separadas $30^\circ$ entre sí, y se toma la mayor de esas proyecciones, que es el procedimiento que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente cuando no se dispone de un análisis que identifique la dirección más crítica~\parencite{IEC61400-5}:
 
 \begin{equation}
     M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}.
     \label{eq:M_env}
 \end{equation}
 
-Al recorrer las doce direcciones el círculo completo, la proyección cubre los dos sentidos de cada componente sin necesidad de tomar valor absoluto.
+Como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente. Además, ninguna dirección de flexión real queda a más de $15^\circ$ de alguna de ellas, de modo que la envolvente vale siempre entre el $96{,}6\%$ y el $100\%$ de la resultante.
 
 La extrapolación se aplica por separado a cada una de estas magnitudes en cada una de las dos secciones de apoyo. Las componentes $M_x$ y $M_y$ llevan signo, y el extremo de diseño de una magnitud predominantemente negativa se encuentra en su mínimo, de modo que cada componente se extrapola en sus dos sentidos, tomando como variable de extremos primero $M$ y después $-M$. Resultan así ocho extremos de componente, dos por cada una de las cuatro combinaciones de componente y apoyo, a los que se añaden la resultante y la envolvente direccional de cada apoyo, que son no negativas por construcción y no admiten esa duplicidad. Con la fuerza total que se define a continuación, el procedimiento entrega trece magnitudes extrapoladas de forma independiente, lo que permite además evaluar el criterio de omisión del DLC 1.1 magnitud a magnitud, según exige la Sección 7.4.2 de la norma~\parencite{IEC61400-1}.
 
