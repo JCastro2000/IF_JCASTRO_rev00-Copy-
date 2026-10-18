@@ -534,7 +534,7 @@ Las cargas de diseño $F_d = \gamma_f \cdot F_k$ incorporan el factor de carga y
 donde $\sigma_{\max}$ es la mayor tensión principal que entrega el modelo de elementos finitos bajo las cargas de diseño y $\sigma_{u,d}$ la resistencia factoreada, que resulta de dividir la resistencia última $\sigma_u$ del material (Tabla~\ref{tab:material_pala}) por el factor de material que fija la Sección 6.6.5.2 de la norma IEC 61400-5 para la resistencia del laminado, según la Ec.~\ref{eq:sigma_ud_p5}:
 
 \begin{equation}
-    \sigma_{u,d} = \frac{\sigma_u}{\gamma_{m0} \prod_{i=1}^{5} \gamma_{mi}},
+    \sigma_{u,d} = \frac{\sigma_u}{\gamma_{m0} \cdot \gamma_{m1} \cdot \gamma_{m2} \cdot \gamma_{m3} \cdot \gamma_{m4} \cdot \gamma_{m5}},
     \label{eq:sigma_ud_p5}
 \end{equation}
 
@@ -555,7 +555,7 @@ El producto de esos factores vale $2{,}471$, de modo que la resistencia factorea
 En la verificación de fatiga, los factores parciales se aplican sobre la amplitud de cada ciclo de tensión, según lo prescrito en la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}, y se combinan en un único factor según la Ec.~\ref{eq:gamma_fat}:
 
 \begin{equation}
-    \gamma_{fat} = \gamma_f \, \gamma_n \, \gamma_{m0} \prod_{i=1}^{5} \gamma_{mi},
+    \gamma_{fat} = \gamma_f \cdot \gamma_n \cdot \gamma_{m0} \cdot \gamma_{m1} \cdot \gamma_{m2} \cdot \gamma_{m3} \cdot \gamma_{m4} \cdot \gamma_{m5},
     \label{eq:gamma_fat}
 \end{equation}
 
@@ -584,8 +584,8 @@ La Tabla~\ref{tab:factores_seguridad} reúne los valores que resultan de los apa
         \hline
         Cargas & $\gamma_f$ & $1{,}25$ & $1{,}00$ & $1{,}35$ \\
         Consecuencia de falla & $\gamma_n$ & $1{,}00$ & $1{,}15$ & $1{,}00$ \\
-        Material, resistencia última & $\gamma_{m0} \prod \gamma_{mi}$ & $2{,}471$ & — & $2{,}471$ \\
-        Material, pandeo & $\gamma_{m0} \prod \gamma_{mi}$ & $1{,}98$ & — & $1{,}98$ \\
+        Material, resistencia última & $\gamma_{m0} \cdots \gamma_{m5}$ & $2{,}471$ & — & $2{,}471$ \\
+        Material, pandeo & $\gamma_{m0} \cdots \gamma_{m5}$ & $1{,}98$ & — & $1{,}98$ \\
         Combinado de fatiga & $\gamma_{fat}$ & — & $2{,}471$ & — \\
         \hline
         \multicolumn{5}{l}{\footnotesize Factores de material según IEC 61400-5; factores de cargas y de consecuencia según IEC 61400-1.}\\
@@ -1114,7 +1114,7 @@ La Sección 7.6.4 de la norma IEC 61400-1 exige que las partes resistentes de un
 Dado que las cargas aplicadas ya incorporan el factor parcial $\gamma_f$, la condición de verificación se plantea del lado de la resistencia. La Sección 6.6.5.6 de la norma IEC 61400-5 exige que el multiplicador del primer modo supere el factor combinado que resulta del producto de $\gamma_{m0}$ por los factores $\gamma_{m1}$ a $\gamma_{m5}$~\parencite{IEC61400-5}, según la Ec.~\ref{eq:criterio_pandeo_p5}:
 
 \begin{equation}
-    LM \geq \gamma_{m0} \prod_{i=1}^{5} \gamma_{mi},
+    LM \geq \gamma_{m0} \cdot \gamma_{m1} \cdot \gamma_{m2} \cdot \gamma_{m3} \cdot \gamma_{m4} \cdot \gamma_{m5},
     \label{eq:criterio_pandeo_p5}
 \end{equation}
 
