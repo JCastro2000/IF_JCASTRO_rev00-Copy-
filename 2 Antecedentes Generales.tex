@@ -955,28 +955,33 @@ Esta arquitectura explica por qué la piel, además de resistencia, requiere est
 \subsection{Materiales empleados en palas de aerogeneradores}
 \label{sec:materiales_palas}
 
-La selección de material para una pala responde a tres requisitos simultáneos: rigidez elevada, para mantener las deflexiones acotadas y preservar la forma aerodinámica; densidad baja, ya que la propia masa de la pala genera cargas inerciales y gravitatorias; y buen comportamiento a fatiga, dado que la pala acumula del orden de $10^8$ a $10^9$ ciclos durante su vida útil~\parencite{Brondsted2005}. Estos requisitos compiten entre sí, y su compromiso se resume en un índice de mérito que para una viga en flexión vale $M_b = E^{1/2}/\rho$, donde $E$ es el módulo elástico y $\rho$ la densidad: cuanto mayor sea $M_b$, mayor rigidez se obtiene por unidad de masa. Aplicado sobre el conjunto de los materiales de ingeniería, este criterio descarta a la mayoría y, junto con la condición adicional de un módulo absoluto del orden de $10$ a $20$~GPa para limitar las deflexiones, deja como candidatos a los materiales compuestos~\parencite{Brondsted2005}.
+La selección de material para una pala responde a tres requisitos simultáneos: rigidez elevada, para mantener las deflexiones acotadas y preservar la forma aerodinámica; densidad baja, ya que la propia masa de la pala genera cargas inerciales y gravitatorias; y buen comportamiento a fatiga, dado que la pala acumula del orden de $10^8$ a $10^9$ ciclos durante su vida útil~\parencite{Brondsted2005}. Estos requisitos compiten entre sí, y su compromiso se resume en un índice de mérito, que para una viga en flexión se define según la Ec.~\ref{eq:indice_merito}:
 
-La Tabla~\ref{tab:materiales_palas} recoge las propiedades de las fibras candidatas y de los laminados que resultan de combinarlas con una matriz polimérica, esto es, la resina que envuelve las fibras y las solidariza entre sí para que trabajen en conjunto. La fibra de vidrio tipo E ofrece una combinación equilibrada de rigidez moderada, resistencia alta y densidad moderada, a un costo sustancialmente menor, lo que lo ha mantenido como la fibra más utilizada. El carbono casi cuadruplica el módulo del laminado y reduce su densidad, con lo que su índice de mérito resulta unas tres veces superior; su adopción creciente responde tanto al aumento de tamaño de las palas, donde el peso propio se vuelve limitante, como a la caída de su precio~\parencite{Brondsted2005}. Las fibras de aramida, polietileno y celulosa presentan índices de mérito intermedios y densidades bajas, pero ninguna ha alcanzado un desarrollo industrial que las haga viables en palas de gran tamaño.
+\begin{equation}
+    M_b = \frac{E^{1/2}}{\rho},
+    \label{eq:indice_merito}
+\end{equation}
+
+donde $E$ es el módulo elástico y $\rho$ la densidad. Cuanto mayor sea $M_b$, mayor rigidez se obtiene por unidad de masa. Aplicado sobre el conjunto de los materiales de ingeniería, este criterio descarta a la mayoría y, junto con la condición adicional de un módulo absoluto del orden de $10$ a $20$~GPa para limitar las deflexiones, deja como candidatos a los materiales compuestos~\parencite{Brondsted2005}.
+
+La Tabla~\ref{tab:materiales_palas} recoge las propiedades de los laminados que resultan de combinar las fibras candidatas con una matriz polimérica, esto es, la resina que envuelve las fibras y las solidariza entre sí para que trabajen en conjunto. La proporción en que se combinan ambas se expresa mediante la fracción volumétrica de fibra, es decir, la parte del volumen del laminado que ocupan las fibras, y en un laminado unidireccional la rigidez y la resistencia crecen proporcionalmente con ella~\parencite{Mishnaevsky2017}. La fibra de vidrio tipo E (\textit{E-glass}) ofrece una combinación equilibrada de rigidez moderada, resistencia alta y densidad moderada, a un costo sustancialmente menor, lo que lo ha mantenido como la fibra más utilizada. El carbono casi cuadruplica el módulo del laminado y reduce su densidad, con lo que su índice de mérito resulta unas tres veces superior; su adopción creciente responde tanto al aumento de tamaño de las palas, donde el peso propio se vuelve limitante, como a la caída de su precio~\parencite{Brondsted2005}. Las fibras de aramida, polietileno y celulosa presentan índices de mérito intermedios y densidades bajas, pero ninguna ha alcanzado un desarrollo industrial que las haga viables en palas de gran tamaño.
 
 \begin{table}[H]
     \centering
-    \caption[Propiedades de fibras y laminados candidatos para palas de aerogeneradores.]{Propiedades de fibras y laminados candidatos para palas de aerogeneradores. Los laminados corresponden a fibras alineadas en matriz polimérica, con una proporción de fibra del $50\%$ en volumen. Adaptada de \textcite{Brondsted2005}.}
+    \caption[Propiedades de laminados candidatos para palas de aerogeneradores.]{Propiedades de laminados candidatos para palas de aerogeneradores, con fibras alineadas en matriz polimérica y una fracción volumétrica de fibra del $50\%$. Adaptada de \textcite{Brondsted2005}.}
     \label{tab:materiales_palas}
     \renewcommand{\arraystretch}{1.2}
     \footnotesize
-    \begin{tabular}{l c c c c c c c}
+    \begin{tabular}{l c c c c}
         \hline
-        & \multicolumn{3}{c}{\textbf{Fibra}} & \multicolumn{4}{c}{\textbf{Laminado}} \\
-        \cmidrule(lr){2-4} \cmidrule(lr){5-8}
-        \textbf{Fibra} & $E_f$ & $\sigma_f$ & $\rho_f$ & $E_c$ & $\sigma_c$ & $\rho_c$ & $E_c^{1/2}/\rho_c$ \\
-        & (GPa) & (MPa) & (g/cm$^3$) & (GPa) & (MPa) & (g/cm$^3$) & \\
+        \textbf{Fibra} & \textbf{Módulo elástico} & \textbf{Resistencia a tracción} & \textbf{Densidad} & \textbf{Índice de mérito}\\
+        & $E$ (GPa) & $\sigma_u$ (MPa) & $\rho$ (g/cm$^3$) & $M_b$\\
         \hline
-        Vidrio tipo E & 72  & 3500 & 2{,}54 & 38  & 1800 & 1{,}87 & 3{,}3 \\
-        Carbono      & 350 & 4000 & 1{,}77 & 176 & 2050 & 1{,}49 & 8{,}9 \\
-        Aramida      & 120 & 3600 & 1{,}45 & 61  & 1850 & 1{,}33 & 5{,}9 \\
-        Polietileno  & 117 & 2600 & 0{,}97 & 60  & 1350 & 1{,}09 & 7{,}1 \\
-        Celulosa     & 80  & 1000 & 1{,}50 & 41  & 550  & 1{,}35 & 4{,}7 \\
+        Vidrio tipo E & 38  & 1800 & 1{,}87 & 3{,}3 \\
+        Carbono      & 176 & 2050 & 1{,}49 & 8{,}9 \\
+        Aramida      & 61  & 1850 & 1{,}33 & 5{,}9 \\
+        Polietileno  & 60  & 1350 & 1{,}09 & 7{,}1 \\
+        Celulosa     & 41  & 550  & 1{,}35 & 4{,}7 \\
         \hline
     \end{tabular}
 \end{table}
@@ -989,19 +994,20 @@ La Tabla~\ref{tab:laminados_infusionados} reúne las propiedades a tracción med
 
 \begin{table}[H]
     \centering
-    \caption[Propiedades a tracción de laminados de vidrio E infusionados.]{Propiedades a tracción medidas según el eje del laminado en laminados de vidrio E infusionados. Los rangos reúnen ensayos a velocidades estáticas y de fatiga; los valores marcados con $\approx$ se leyeron de los gráficos de la fuente.}
+    \caption[Propiedades a tracción de laminados de vidrio E infusionados.]{Propiedades a tracción medidas según el eje del laminado en laminados de vidrio E infusionados. Los rangos reúnen ensayos a velocidades estáticas y de fatiga. Fuentes: (1)~\textcite{Arwood2023}, (2)~\textcite{Samborsky2012}, (3)~\textcite{Xin2023}, (4)~\textcite{Samborsky2010}, (5)~\textcite{Moraras2026}.}
     \label{tab:laminados_infusionados}
     \renewcommand{\arraystretch}{1.2}
     \footnotesize
-    \begin{tabular}{>{\raggedright\arraybackslash}p{4.4cm} c c >{\raggedright\arraybackslash}p{4.6cm}}
+    \begin{tabular}{l c c c}
         \hline
-        \textbf{Familia de laminado} & $E$ (GPa) & $\sigma_u$ (MPa) & \textbf{Fuente}\\
+        \textbf{Familia de laminado} & \textbf{Módulo elástico} & \textbf{Resistencia a tracción} & \textbf{Fuente}\\
+        & $E$ (GPa) & $\sigma_u$ (MPa) & \\
         \hline
-        UD $[0]$, epoxi & $\approx 38$ a $44{,}6$ & $\approx 740$ a $1290$ & \textcite{Arwood2023,Samborsky2012,Xin2023}\\
-        Multidireccional con capas a $0^\circ$, epoxi & $29{,}7$ & $691$ a $910$ & \textcite{Samborsky2010}\\
-        Multidireccional con capas a $0^\circ$, poliéster & --- & $549$ a $770$ & \textcite{Samborsky2010}\\
-        Tejido $[0/90]$, epoxi & --- & $341$ & \textcite{Moraras2026}\\
-        $\pm 45^\circ$, varias resinas & $\approx 12$ & $\approx 138$ a $238$ & \textcite{Arwood2023,Samborsky2010}\\
+        UD $[0]$, epoxi & $38$ a $44{,}6$ & $740$ a $1290$ & (1), (2), (3)\\
+        Multidireccional con capas a $0^\circ$, epoxi & $29{,}7$ & $691$ a $910$ & (4)\\
+        Multidireccional con capas a $0^\circ$, poliéster & --- & $549$ a $770$ & (4)\\
+        Tejido $[0/90]$, epoxi & --- & $341$ & (5)\\
+        $\pm 45^\circ$, varias resinas & $12$ & $138$ a $238$ & (1), (4)\\
         \hline
     \end{tabular}
 \end{table}
