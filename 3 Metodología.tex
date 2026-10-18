@@ -291,7 +291,7 @@ Como paso previo a las simulaciones de alta fidelidad con \gls{llfvw}, se emplea
 \subsubsection{Discretización e instrumentación de la pala}
 \label{sec:discretizacion}
 
-La definición de la turbina en QBlade requiere establecer dos esquemas de discretización independientes para la pala, uno aerodinámico, que gobierna la resolución del método de vórtices libres, y uno que fija las estaciones donde se instrumenta la pala para extraer las fuerzas aerodinámicas.
+La pala se discretiza en QBlade mediante un único esquema de paneles, que fija a la vez la resolución del método de vórtices libres y las estaciones en que se extraen las fuerzas aerodinámicas.
 
 \textbf{Panelado aerodinámico:} Para la resolución del método \gls{llfvw}, la pala se divide en 21 paneles con distribución de tipo coseno, que reduce el tamaño de los paneles hacia la punta de la pala para capturar mejor los mayores gradientes de circulación que ahí se presentan, configuración con la que \textcite{marten2019qblade} valida el método en QBlade; la documentación del software describe las configuraciones alternativas disponibles~\parencite{QBladeDocs2024}. Entre paneles contiguos, la circulación se interpola mediante splines cúbicos de clase C2, polinomios que empalman sin discontinuidades hasta su segunda derivada. La Figura~\ref{fig:panelado_aerodinamico} muestra la distribución resultante sobre las tres palas del rotor.
 
