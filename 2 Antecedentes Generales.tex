@@ -465,7 +465,12 @@ De acuerdo con la norma IEC 61400-1, la variabilidad de la velocidad del viento 
     \label{eq:weibull_cdf}
 \end{equation}
 
-donde $P_W(V_0)$ es la probabilidad de que la velocidad del viento sea igual o inferior a un valor de referencia $V_0$ (m/s), $c$ es el parámetro de escala (m/s), vinculado a la velocidad media del viento, y $k$ es el parámetro de forma (adimensional), que refleja la regularidad del recurso eólico~\parencite{IEC61400-1,ennis2018}.
+donde:
+\begin{itemize}
+    \item $P_W(V_0)$ es la probabilidad de que la velocidad del viento sea igual o inferior a un valor de referencia $V_0$ (m/s).
+    \item $c$ es el parámetro de escala (m/s), vinculado a la velocidad media del viento.
+    \item $k$ es el parámetro de forma (adimensional), que refleja la regularidad del recurso eólico~\parencite{IEC61400-1,ennis2018}.
+\end{itemize}
 
 El efecto de estos dos parámetros sobre la forma de la distribución se ilustra en la Figura~\ref{fig:weibull_zonas}. Un aumento del parámetro de escala $c$ desplaza la distribución hacia velocidades mayores, como se aprecia al comparar las clases IEC I, II y III (Figura~\ref{fig:weibull_zonas}a), cuyas velocidades medias de referencia se obtienen de $V_{ave} = 0{,}2\,V_{ref}$ (Ec.~\ref{eq:vave_vref}). El parámetro de forma $k$, en cambio, controla la dispersión en torno a esa media: valores bajos describen un régimen de vientos más irregular, con mayor probabilidad de calmas y de ráfagas intensas, mientras que valores altos la concentran en torno a la media y describen un régimen más estable (Figura~\ref{fig:weibull_zonas}b). La Tabla 1 de la IEC 61400-1 define las clases únicamente en términos de $V_{ref}$ e $I_{ref}$, de modo que la clase fija indirectamente el parámetro de escala $c$ a través de $V_{ave} = 0{,}2\,V_{ref}$, pero no hace lo propio con $k$, que en este trabajo se ajusta a partir del registro histórico del emplazamiento ($k = 2{,}09$, Sección~\ref{sec:recurso_eolico}), valor cercano al $k = 2$ del modelo de referencia.
 
@@ -564,7 +569,15 @@ El razonamiento se apoya en dos ideas. La primera es que, para una velocidad de 
 \label{eq:gumbel_anexof}
 \end{equation}
 
-donde $\Phi$ es la probabilidad acumulada de que el máximo de una realización de diez minutos no supere el nivel de carga $F$ (N o N$\cdot$m, según la componente que se analice); $F$ es el nivel de carga evaluado; $\mu_j$ es el parámetro de posición, que sitúa la distribución ajustada a la velocidad $V_j$ e indica el orden de magnitud de los máximos a esa velocidad; y $\beta_j$ es el parámetro de escala, que mide su dispersión, esto es, cuánto varían los máximos entre una realización y otra. Ambos parámetros se estiman a partir de los máximos observados mediante el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra~\parencite{Gumbel1958}. Lo relevante del ajuste no es reproducir los datos ya observados, sino describir la \textit{cola} de la distribución, la zona de cargas altas y poco frecuentes donde no hay observaciones y que es la que interesa extrapolar. La probabilidad de excedencia condicionada a una velocidad, Ec.~\ref{eq:pe_cond_anexof}, se lee entonces como la fracción de realizaciones de diez minutos a esa velocidad en que la carga superaría el nivel $F$:
+donde:
+\begin{itemize}
+    \item $\Phi$ es la probabilidad acumulada de que el máximo de una realización de diez minutos no supere el nivel de carga $F$.
+    \item $F$ es el nivel de carga evaluado (N o N$\cdot$m, según la componente que se analice).
+    \item $\mu_j$ es el parámetro de posición, que sitúa la distribución ajustada a la velocidad $V_j$ e indica el orden de magnitud de los máximos a esa velocidad.
+    \item $\beta_j$ es el parámetro de escala, que mide su dispersión, esto es, cuánto varían los máximos entre una realización y otra.
+\end{itemize}
+
+Ambos parámetros se estiman a partir de los máximos observados mediante el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra~\parencite{Gumbel1958}. Lo relevante del ajuste no es reproducir los datos ya observados, sino describir la \textit{cola} de la distribución, la zona de cargas altas y poco frecuentes donde no hay observaciones y que es la que interesa extrapolar. La probabilidad de excedencia condicionada a una velocidad, Ec.~\ref{eq:pe_cond_anexof}, se lee entonces como la fracción de realizaciones de diez minutos a esa velocidad en que la carga superaría el nivel $F$:
 
 \begin{equation}
 P_e(F \mid V_j) = 1 - \Phi(F; \mu_j, \beta_j).
@@ -578,7 +591,13 @@ P_e(F) = \int_{V_{in}}^{V_{out}} P_e(F \mid V) \cdot f_W(V) \, dV,
 \label{eq:pe_longterm_anexof}
 \end{equation}
 
-donde $P_e(F)$ es la probabilidad de excedencia de largo plazo del nivel de carga $F$, es decir, considerando todo el rango de operación; $P_e(F \mid V)$ es la probabilidad de excedencia condicionada a la velocidad $V$, dada por la Ec.~\ref{eq:pe_cond_anexof}; $f_W(V)$ es la función de densidad de probabilidad de la velocidad del viento en el emplazamiento, obtenida del ajuste de Weibull de la Ec.~\ref{eq:weibull_cdf}; y $V_{in}$ y $V_{out}$ son las velocidades de conexión y de desconexión de la turbina, que acotan el rango en que la máquina se encuentra produciendo potencia.
+donde:
+\begin{itemize}
+    \item $P_e(F)$ es la probabilidad de excedencia de largo plazo del nivel de carga $F$, es decir, considerando todo el rango de operación.
+    \item $P_e(F \mid V)$ es la probabilidad de excedencia condicionada a la velocidad $V$, dada por la Ec.~\ref{eq:pe_cond_anexof}.
+    \item $f_W(V)$ es la función de densidad de probabilidad de la velocidad del viento en el emplazamiento, obtenida del ajuste de Weibull de la Ec.~\ref{eq:weibull_cdf}.
+    \item $V_{in}$ y $V_{out}$ son las velocidades de conexión y de desconexión de la turbina, que acotan el rango en que la máquina se encuentra produciendo potencia.
+\end{itemize}
 
 Queda por definir qué probabilidad resulta aceptable. Si la carga característica debe ser excedida, en promedio, una sola vez cada $T_{retorno}$, y cada realización representa un intervalo de duración $T_{obs}$, la probabilidad admisible por realización es el recíproco del número de intervalos que caben en el período de retorno, según la Ec.~\ref{eq:fk_anexof}:
 
@@ -587,7 +606,14 @@ P_e(F_k) = \frac{T_{obs}}{T_{retorno}},
 \label{eq:fk_anexof}
 \end{equation}
 
-donde $P_e(F_k)$ es la probabilidad de excedencia admisible por realización; $T_{obs}$ es la duración de cada realización simulada, en este caso los diez minutos que la norma establece como ventana de referencia; y $T_{retorno}$ es el período de retorno, entendido como el intervalo medio de tiempo que transcurre entre dos ocurrencias sucesivas de un evento de esa magnitud, que para el DLC 1.1 la norma fija en $50$ años en su Sección 7.6.2.2~\parencite{IEC61400-1}. Decir que una carga tiene un período de retorno de $50$ años no significa que se presente exactamente una vez cada cincuenta años, sino que, en promedio y a lo largo de un plazo suficientemente extenso, se espera que sea superada una vez en ese lapso; equivale, por tanto, a asignarle una probabilidad anual de excedencia de $1/50$.
+donde:
+\begin{itemize}
+    \item $P_e(F_k)$ es la probabilidad de excedencia admisible por realización.
+    \item $T_{obs}$ es la duración de cada realización simulada, en este caso los diez minutos que la norma establece como ventana de referencia.
+    \item $T_{retorno}$ es el período de retorno, entendido como el intervalo medio de tiempo que transcurre entre dos ocurrencias sucesivas de un evento de esa magnitud, que para el DLC 1.1 la norma fija en $50$ años en su Sección 7.6.2.2~\parencite{IEC61400-1}.
+\end{itemize}
+
+Decir que una carga tiene un período de retorno de $50$ años no significa que se presente exactamente una vez cada cincuenta años, sino que, en promedio y a lo largo de un plazo suficientemente extenso, se espera que sea superada una vez en ese lapso; equivale, por tanto, a asignarle una probabilidad anual de excedencia de $1/50$.
 
 Para el período de retorno de $50$ años y realizaciones de diez minutos, esta razón vale $3{,}8 \times 10^{-7}$, valor que la propia norma señala en esa sección como la probabilidad de excedencia máxima admisible, y cuya magnitud explica por qué el procedimiento es indispensable: se busca un nivel de carga con una probabilidad de ocurrencia del orden de una en varios millones, que ninguna cantidad razonable de simulaciones podría observar de forma directa. La carga característica $F_k$ es el valor que satisface esa igualdad, y se obtiene invirtiendo numéricamente la Ec.~\ref{eq:pe_longterm_anexof}.
 
@@ -598,7 +624,14 @@ F_d = \gamma_f \cdot F_k,
 \label{eq:fd_anexof}
 \end{equation}
 
-donde $F_d$ es la carga de diseño con que se verifica la estructura, $F_k$ la carga característica obtenida de la extrapolación y $\gamma_f$ el factor parcial de seguridad aplicado a la carga. Para el DLC 1.1 la Tabla 3 asigna $\gamma_f = 1{,}25$, menor que el $1{,}35$ general, porque al haberse realizado ya una extrapolación estadística explícita hasta los 50 años, parte del conservadurismo que el factor general debe cubrir está incorporado en la propia carga característica.
+donde:
+\begin{itemize}
+    \item $F_d$ es la carga de diseño con que se verifica la estructura.
+    \item $F_k$ es la carga característica obtenida de la extrapolación.
+    \item $\gamma_f$ es el factor parcial de seguridad aplicado a la carga.
+\end{itemize}
+
+Para el DLC 1.1 la Tabla 3 asigna $\gamma_f = 1{,}25$, menor que el $1{,}35$ general, porque al haberse realizado ya una extrapolación estadística explícita hasta los 50 años, parte del conservadurismo que el factor general debe cubrir está incorporado en la propia carga característica.
 
 El desarrollo completo del procedimiento, incluidos los criterios de verificación del ajuste de la distribución y los métodos alternativos de agregación de máximos, se encuentra en el Anexo G de la IEC 61400-1~\parencite{IEC61400-1}.
 
@@ -620,7 +653,14 @@ S_{a,0} = \frac{S_a}{1 - \dfrac{S_m}{S_u}},
 \label{eq:goodman}
 \end{equation}
 
-donde $S_{a,0}$ es la amplitud equivalente, $S_m$ la tensión media del ciclo y $S_u$ la resistencia última a tracción del material. La alternativa parabólica de Gerber sustituye ese cociente por su cuadrado y entrega, para una misma tensión media, una amplitud equivalente menor, por lo que resulta menos conservadora que la de Goodman.
+donde:
+\begin{itemize}
+    \item $S_{a,0}$ es la amplitud equivalente.
+    \item $S_m$ es la tensión media del ciclo.
+    \item $S_u$ es la resistencia última a tracción del material.
+\end{itemize}
+
+La alternativa parabólica de Gerber sustituye ese cociente por su cuadrado y entrega, para una misma tensión media, una amplitud equivalente menor, por lo que resulta menos conservadora que la de Goodman.
 
 El tercer paso es traducir cada ciclo en daño. Para ello se recurre a la curva S-N del material (del inglés \textit{stress-number of cycles}, tensión frente a número de ciclos, también llamada curva de Wöhler), que relaciona la amplitud de tensión aplicada con el número de ciclos que el material soporta antes de fallar bajo esa amplitud constante. Para compuestos y metales en régimen de alto número de ciclos, esta relación se describe adecuadamente mediante la ley potencial de Basquin, Ec.~\ref{eq:sn_basquin}:
 
@@ -629,7 +669,15 @@ S = S_f' \, (2N_f)^b,
 \label{eq:sn_basquin}
 \end{equation}
 
-donde $S$ es la amplitud de tensión aplicada, que tras la corrección del paso anterior corresponde a $S_{a,0}$; $N_f$ es el número de ciclos que el material soporta bajo esa amplitud constante antes de fallar, de modo que $2N_f$ representa el número de inversiones de carga, ya que cada ciclo contiene dos; $S_f'$ es el coeficiente de resistencia a fatiga, que fija la posición de la recta en el diagrama doblemente logarítmico y equivale a la tensión que provocaría la falla en una única inversión; y $b$ es el exponente de Basquin, que fija su pendiente. Tanto $S_f'$ como $b$ son propiedades del material obtenidas experimentalmente; en la práctica habitual para compuestos, y también en este trabajo, $S_f'$ se identifica con la resistencia última a tracción $\sigma_u$, lo que equivale a hacer pasar la recta por el punto correspondiente a la falla en una inversión. El exponente $b$ es negativo y de valor pequeño, de modo que una reducción modesta en la amplitud de tensión se traduce en un aumento de varios órdenes de magnitud en la vida admisible, y unos pocos ciclos de gran amplitud pueden dominar el daño total por encima de millones de ciclos pequeños.
+donde:
+\begin{itemize}
+    \item $S$ es la amplitud de tensión aplicada, que tras la corrección del paso anterior corresponde a $S_{a,0}$.
+    \item $N_f$ es el número de ciclos que el material soporta bajo esa amplitud constante antes de fallar, de modo que $2N_f$ representa el número de inversiones de carga, ya que cada ciclo contiene dos.
+    \item $S_f'$ es el coeficiente de resistencia a fatiga, que fija la posición de la recta en el diagrama doblemente logarítmico y equivale a la tensión que provocaría la falla en una única inversión.
+    \item $b$ es el exponente de Basquin, que fija su pendiente.
+\end{itemize}
+
+Tanto $S_f'$ como $b$ son propiedades del material obtenidas experimentalmente; en la práctica habitual para compuestos, y también en este trabajo, $S_f'$ se identifica con la resistencia última a tracción $\sigma_u$, lo que equivale a hacer pasar la recta por el punto correspondiente a la falla en una inversión. El exponente $b$ es negativo y de valor pequeño, de modo que una reducción modesta en la amplitud de tensión se traduce en un aumento de varios órdenes de magnitud en la vida admisible, y unos pocos ciclos de gran amplitud pueden dominar el daño total por encima de millones de ciclos pequeños.
 
 El cuarto paso es sumar. La hipótesis de Palmgren-Miner supone que cada ciclo consume una fracción de la vida del material igual a $1/N_i$, y que esas fracciones se acumulan de forma lineal e independiente del orden en que ocurren~\parencite{Palmgren1924,Miner1945}, lo que conduce a la Ec.~\ref{eq:miner_anexog}:
 
@@ -638,7 +686,14 @@ D = \sum_i \frac{n_i}{N_i},
 \label{eq:miner_anexog}
 \end{equation}
 
-donde $D$ es el daño acumulado, magnitud adimensional que expresa la fracción de vida consumida; $n_i$ es el número de ciclos efectivamente aplicados con amplitud correspondiente al rango $i$, dato que entrega el conteo Rainflow; y $N_i$ es el número de ciclos admisibles para esa misma amplitud, dato que entrega la curva S-N mediante la Ec.~\ref{eq:sn_basquin}. La independencia del orden es una simplificación, ya que en la realidad la secuencia de cargas influye en la propagación del daño, pero es la hipótesis que la norma adopta por su robustez y simplicidad. La condición de verificación es $D \leq 1$, valor que no debe interpretarse como el instante exacto de la rotura: dado que la curva S-N de diseño se construye con una probabilidad de supervivencia elevada, $D = 1$ señala el punto en que se agota el nivel de confiabilidad buscado, no la falla física garantizada.
+donde:
+\begin{itemize}
+    \item $D$ es el daño acumulado, magnitud adimensional que expresa la fracción de vida consumida.
+    \item $n_i$ es el número de ciclos efectivamente aplicados con amplitud correspondiente al rango $i$, dato que entrega el conteo Rainflow.
+    \item $N_i$ es el número de ciclos admisibles para esa misma amplitud, dato que entrega la curva S-N mediante la Ec.~\ref{eq:sn_basquin}.
+\end{itemize}
+
+La independencia del orden es una simplificación, ya que en la realidad la secuencia de cargas influye en la propagación del daño, pero es la hipótesis que la norma adopta por su robustez y simplicidad. La condición de verificación es $D \leq 1$, valor que no debe interpretarse como el instante exacto de la rotura: dado que la curva S-N de diseño se construye con una probabilidad de supervivencia elevada, $D = 1$ señala el punto en que se agota el nivel de confiabilidad buscado, no la falla física garantizada.
 
 \begin{figure}[H]
     \centering
@@ -903,7 +958,14 @@ f = \frac{1}{1 + k \cdot \Delta\alpha^4},
 \label{eq:mont_f}
 \end{equation}
 
-donde $\alpha$ corresponde al ángulo de ataque; $\Delta\alpha$ es su desplazamiento respecto al punto en que la curva original se aparta de la recta de flujo potencial, esto es, respecto al inicio de la separación, y $k$ es una constante de ajuste que se calibra con dos puntos de la curva dada. Mientras $\alpha$ se mantiene dentro del tramo adherido, $\Delta\alpha \approx 0$ y $f \approx 1$; más allá de ese punto, $\Delta\alpha$ crece y $f$ decae rápidamente hacia $0$, por la potencia cuarta del denominador.
+donde:
+\begin{itemize}
+    \item $\alpha$ corresponde al ángulo de ataque.
+    \item $\Delta\alpha$ es su desplazamiento respecto al punto en que la curva original se aparta de la recta de flujo potencial, esto es, respecto al inicio de la separación.
+    \item $k$ es una constante de ajuste que se calibra con dos puntos de la curva dada.
+\end{itemize}
+
+Mientras $\alpha$ se mantiene dentro del tramo adherido, $\Delta\alpha \approx 0$ y $f \approx 1$; más allá de ese punto, $\Delta\alpha$ crece y $f$ decae rápidamente hacia $0$, por la potencia cuarta del denominador.
 
 Coeficiente de sustentación ($C_l$): Se obtiene interpolando entre la línea de flujo potencial ($t$) y la curva de placa plana ($s$), según la Ec.~\ref{eq:mont_cl}:
 \begin{equation}
@@ -1043,7 +1105,16 @@ La carga a la que un panel se vuelve inestable no depende solo del material, sin
     \label{eq:pandeo_placa}
 \end{equation}
 
-donde $t$ es el espesor de la placa, $b$ su ancho no apoyado, $E$ el módulo elástico, $\nu$ el coeficiente de Poisson y $k$ un coeficiente que depende de las condiciones de borde y de la relación de aspecto~\parencite{Timoshenko1961}. La dependencia con el cuadrado de la razón $t/b$ explica por qué la estabilidad de la piel se gobierna tanto engrosándola como acortando la distancia entre los elementos que la sostienen, y por qué un rigidizador que no reduce el ancho no apoyado de un panel no mejora su capacidad. Por esa razón los paneles de los carenados se construyen habitualmente en sándwich, con un núcleo de espuma polimérica o de madera de balsa entre dos pieles de laminado, configuración diseñada precisamente contra el pandeo elástico~\parencite{Mishnaevsky2017}.
+donde:
+\begin{itemize}
+    \item $t$ es el espesor de la placa.
+    \item $b$ es su ancho no apoyado.
+    \item $E$ es el módulo elástico.
+    \item $\nu$ es el coeficiente de Poisson.
+    \item $k$ es un coeficiente que depende de las condiciones de borde y de la relación de aspecto~\parencite{Timoshenko1961}.
+\end{itemize}
+
+La dependencia con el cuadrado de la razón $t/b$ explica por qué la estabilidad de la piel se gobierna tanto engrosándola como acortando la distancia entre los elementos que la sostienen, y por qué un rigidizador que no reduce el ancho no apoyado de un panel no mejora su capacidad. Por esa razón los paneles de los carenados se construyen habitualmente en sándwich, con un núcleo de espuma polimérica o de madera de balsa entre dos pieles de laminado, configuración diseñada precisamente contra el pandeo elástico~\parencite{Mishnaevsky2017}.
 
 En una geometría real, con paneles de forma irregular y condiciones de borde que no responden a un caso tabulado, la carga crítica se obtiene numéricamente. El planteamiento habitual es el pandeo lineal por autovalores, que parte de la solución estática bajo las cargas aplicadas y busca el factor por el que habría que amplificarlas para que la rigidez del conjunto se anule, según la Ec.~\ref{eq:pandeo_autovalores}:
 
@@ -1052,7 +1123,15 @@ En una geometría real, con paneles de forma irregular y condiciones de borde qu
     \label{eq:pandeo_autovalores}
 \end{equation}
 
-donde $[K]$ es la matriz de rigidez elástica, $[K_{\sigma}]$ la matriz de rigidez geométrica que induce el estado tensional de la solución estática, $\{\phi\}$ el modo de pandeo y $LM$ el multiplicador de carga asociado a ese modo. Un $LM$ mayor que la unidad indica que la estructura no pandea bajo las cargas aplicadas, y su valor mide cuánto margen queda antes de la inestabilidad. El análisis entrega un conjunto de modos ordenados por multiplicador creciente, de los cuales el primero define la condición gobernante. Este enfoque es el que se emplea habitualmente en la verificación de palas de aerogenerador por elementos finitos~\parencite{Boudounit2020,Hameed2015}.
+donde:
+\begin{itemize}
+    \item $[K]$ es la matriz de rigidez elástica.
+    \item $[K_{\sigma}]$ es la matriz de rigidez geométrica que induce el estado tensional de la solución estática.
+    \item $\{\phi\}$ es el modo de pandeo.
+    \item $LM$ es el multiplicador de carga asociado a ese modo.
+\end{itemize}
+
+Un $LM$ mayor que la unidad indica que la estructura no pandea bajo las cargas aplicadas, y su valor mide cuánto margen queda antes de la inestabilidad. El análisis entrega un conjunto de modos ordenados por multiplicador creciente, de los cuales el primero define la condición gobernante. Este enfoque es el que se emplea habitualmente en la verificación de palas de aerogenerador por elementos finitos~\parencite{Boudounit2020,Hameed2015}.
 
 La norma específica de palas admite de forma expresa este planteamiento. Su Sección 6.6.5.6 establece que, cuando la verificación se realiza mediante métodos lineales de análisis de pandeo, debe demostrarse que el autovalor mínimo correspondiente a la primera forma modal supera el factor de seguridad combinado que corresponda~\parencite{IEC61400-5}. Incorpora además una exigencia sobre la discretización que conviene destacar, ya que la idoneidad de la malla ha de acreditarse mediante un estudio de convergencia sobre el propio autovalor de pandeo, y no sobre la tensión, considerándose suficiente cuando aquel no varía más de un $5\%$ al duplicar la densidad de malla en la región pertinente al modo examinado~\parencite{IEC61400-5}. Esa exigencia se justifica porque una malla que ha convergido en tensión puede no haberlo hecho en el autovalor, magnitud considerablemente más sensible a la resolución con que se representa la flexión local del panel.
 
