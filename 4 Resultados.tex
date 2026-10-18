@@ -599,7 +599,7 @@ La caída es de siete órdenes de magnitud a lo largo del rango de amplitudes, l
 
 \subsection{Curva S-N y espectro de fatiga}
 
-La Figura~\ref{fig:curva_sn_gfrp} presenta la curva S-N del GFRP en sus formas nominal y de diseño, junto con el espectro colectivo anual que resulta del escalamiento anterior. La curva de diseño resulta de dividir la nominal por el producto de los tres factores parciales de fatiga, $\gamma_f \gamma_m \gamma_n = 1{,}00 \times 2{,}00 \times 1{,}15 = 2{,}30$ (Sección~\ref{sec:factores_seguridad}), operación equivalente a mayorar la amplitud de cada ciclo, que es como la norma lo prescribe~\parencite{IEC61400-1}. En la ecuación de Basquin~\parencite{Basquin1910}, la resistencia última $\sigma_u = 242{,}1$~MPa corresponde al valor proporcionado por el fabricante de la pala (Tabla~\ref{tab:material_pala}), mientras que el exponente de fatiga $b = -0{,}045$ proviene de \textcite{Huh2012} para un tejido bidireccional ($\pm 45^\circ$) fabricado por infusión al vacío.
+La Figura~\ref{fig:curva_sn_gfrp} presenta la curva S-N del GFRP en sus formas nominal y de diseño, junto con el espectro colectivo anual que resulta del escalamiento anterior. La curva de diseño resulta de dividir la nominal por el producto de los tres factores parciales de fatiga, $\gamma_f \gamma_m \gamma_n = 1{,}00 \times 2{,}00 \times 1{,}15 = 2{,}30$ (Sección~\ref{sec:factores_seguridad}), operación equivalente a mayorar la amplitud de cada ciclo, que es como la norma lo prescribe~\parencite{IEC61400-1}. En la ecuación de Basquin~\parencite{Basquin1910}, la resistencia última $\sigma_u = 242{,}1$~MPa corresponde al valor de la ficha técnica preliminar del fabricante (Tabla~\ref{tab:material_pala}), mientras que el exponente de fatiga $b = -0{,}045$ proviene de \textcite{Huh2012} para un tejido bidireccional ($\pm 45^\circ$) fabricado por infusión al vacío.
 
 \begin{figure}[H]
     \centering
@@ -813,7 +813,7 @@ La verificación de resistencia última emplea el criterio de máxima tensión p
     \label{eq:criterio_uls}
 \end{equation}
 
-Con $\sigma_u = 242{,}1$~MPa, entregada por el fabricante de la pala (Tabla~\ref{tab:material_pala}), $\gamma_m = 1{,}30$ y $\gamma_n = 1{,}00$ según la Sección~\ref{sec:factores_seguridad}, la resistencia factoreada resulta según la Ec.~\ref{eq:sigma_ud_res}:
+Con $\sigma_u = 242{,}1$~MPa, tomada de la ficha técnica preliminar del fabricante (Tabla~\ref{tab:material_pala}), $\gamma_m = 1{,}30$ y $\gamma_n = 1{,}00$ según la Sección~\ref{sec:factores_seguridad}, la resistencia factoreada resulta según la Ec.~\ref{eq:sigma_ud_res}:
 
 \begin{equation}
     \sigma_{u,d} = \frac{242{,}1}{1{,}30 \times 1{,}00} = 186{,}23\ \text{MPa}.
@@ -993,3 +993,29 @@ Ninguno de los dos casos de carga última satisface la verificación de estabili
 El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, la resistencia última le sigue y la fatiga no constituye restricción. Esa jerarquía es consistente con el origen de la solicitación, ya que la carga que domina es permanente y no cíclica, de manera que exige capacidad estática y apenas consume vida a fatiga.
 
 El caso de referencia con cargas exclusivamente inerciales cuantifica además la fracción de la solicitación que proviene de la rotación, resultado que vincula el dimensionamiento estructural con la velocidad máxima de giro y que se desarrolla en el Capítulo~5.
+
+\subsubsection{Propiedades mínimas del laminado}
+\label{sec:propiedades_minimas}
+
+La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el laminado debe alcanzar en el punto crítico, la conexión con el brazo superior, para satisfacer la norma de palas. En ese punto la tensión normal de diseño vale $189{,}38$~MPa según la envergadura y $33{,}49$~MPa según el contorno del perfil, y cada requisito resulta de multiplicarlas por el factor parcial de material del escenario correspondiente (Sección~\ref{sec:material_pala}).
+
+\begin{table}[H]
+    \centering
+    \caption{Resistencias características mínimas del laminado en el punto crítico según IEC 61400-5.}
+    \label{tab:propiedades_minimas}
+    \renewcommand{\arraystretch}{1.2}
+    \footnotesize
+    \begin{tabular}{l c c c}
+        \hline
+        \textbf{Escenario} & $\gamma_m$ & \textbf{Envergadura (MPa)} & \textbf{Contorno (MPa)}\\
+        \hline
+        Propiedades nominales, sin ensayo de pala (adoptado) & $2{,}47$ & $468$ & $83$\\
+        Propiedades de diseño con tolerancias de fabricación & $2{,}09$ & $396$ & $70$\\
+        Lo anterior más ensayo de la pala completa & $1{,}74$ & $330$ & $58$\\
+        \hline
+    \end{tabular}
+\end{table}
+
+En la dirección de la envergadura, los requisitos quedan por debajo de la resistencia medida en los laminados UD y multidireccionales con capas a $0^\circ$ y matriz epoxi de la Tabla~\ref{tab:laminados_infusionados}, aun en el escenario adoptado, y por encima de la de los laminados de tejido $[0/90]$ y $\pm 45^\circ$. En la dirección del contorno ocurre lo contrario. El requisito de $83$~MPa supera la resistencia transversal de un laminado UD, del orden de $42$ a $44$~MPa~\parencite{Samborsky2012,Arwood2023}, y queda por debajo de la que ofrecen las capas a $\pm 45^\circ$, simétricas respecto de ambas direcciones. Ninguna familia de una sola orientación cumple por sí sola, de modo que el resultado se traduce en una especificación de laminado multiaxial, con capas UD orientadas según la envergadura y capas a $\pm 45^\circ$ que aporten la resistencia en el contorno, en matriz epoxi infusionada, configuración que coincide con la de los laminados de referencia de la industria~\parencite{Nijssen2006,Samborsky2010}. Los valores de la literatura son medias, mientras que la norma exige valores característicos, y no se dispone de la resistencia transversal medida de los laminados multidireccionales, por lo que el cumplimiento debe confirmarse con ensayos del laminado definitivo en ambas direcciones.
+
+La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma general solo con el módulo exigiría unos $95$~GPa, más del doble del módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $2{,}49$ a $3{,}20$, y el espesor requerido del panel de borde de fuga pasa de $7{,}0$ a unos $7{,}7$~mm.

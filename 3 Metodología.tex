@@ -803,7 +803,7 @@ Cada una de las 144 series temporales de tensión $\sigma(t)$, con una duración
 
 \medskip
 \noindent\textbf{Corrección por tensión media.}
-Cada ciclo se refiere a media nula mediante el diagrama de vida constante descrito en la Sección~\ref{sec:anexo_g_antecedentes}, con la tensión media $\sigma_m$ que entrega el propio conteo Rainflow y que incorpora, por construcción de la Ec.~\ref{eq:sigma_from_M}, la contribución inercial $\sigma_{in}$. Se adopta la formulación lineal de Goodman (Ec.~\ref{eq:goodman}) antes que la de Gerber porque \textcite{Huh2012}, la misma fuente de la que provienen la curva S-N y el exponente de fatiga empleados, contrasta ambas sobre este material y reporta que la de Goodman subestima la vida a fatiga del tejido bidireccional para tensiones medias superiores a $40$~MPa, esto es, resulta la conservadora de las dos en el rango que aquí interesa.
+Cada ciclo se refiere a media nula mediante el diagrama de vida constante descrito en la Sección~\ref{sec:anexo_g_antecedentes}, con la tensión media $\sigma_m$ que entrega el propio conteo Rainflow y que incorpora, por construcción de la Ec.~\ref{eq:sigma_from_M}, la contribución inercial $\sigma_{in}$. Se adopta la formulación lineal de Goodman (Ec.~\ref{eq:goodman}) antes que la de Gerber porque \textcite{Huh2012}, la misma fuente de la que provienen la curva S-N y el exponente de fatiga empleados, contrasta ambas sobre laminados de vidrio E infusionados y reporta que la de Goodman subestima la vida a fatiga del tejido bidireccional para tensiones medias superiores a $40$~MPa, esto es, resulta la conservadora de las dos en el rango que aquí interesa.
 
 \medskip
 \noindent\textbf{Curva S-N del material.}
@@ -830,7 +830,7 @@ Sustituyendo las Ecs.~\ref{eq:goodman} y~\ref{eq:sigma_eq} en la Ec.~\ref{eq:bas
     \label{eq:Nf_fatiga}
 \end{equation}
 
-donde $\sigma_u = 242{,}1$~MPa (resistencia última entregada por el fabricante de la pala, Tabla~\ref{tab:material_pala}), $b = -0{,}045$ (exponente de fatiga para tejido bidireccional $\pm 45^\circ$ fabricado por infusión al vacío~\parencite{Huh2012}) y $\gamma_f$, $\gamma_m$, $\gamma_n$ los factores parciales de fatiga justificados en la Sección~\ref{sec:factores_seguridad}.
+donde $\sigma_u = 242{,}1$~MPa (resistencia última de la ficha técnica preliminar del fabricante, Tabla~\ref{tab:material_pala}), $b = -0{,}045$ (exponente de fatiga para tejido bidireccional $\pm 45^\circ$ fabricado por infusión al vacío~\parencite{Huh2012}, que se traslada al laminado de la pala porque la misma fuente reporta pendientes de la curva S-N poco sensibles a la orientación de las fibras) y $\gamma_f$, $\gamma_m$, $\gamma_n$ los factores parciales de fatiga justificados en la Sección~\ref{sec:factores_seguridad}.
 
 \medskip
 \noindent\textbf{Construcción del espectro colectivo anual.}
@@ -909,7 +909,7 @@ El perfil espacial de diseño se construye sobre la misma magnitud gobernante qu
 \subsection{Material y definición estructural de la pala}
 \label{sec:material_pala}
 
-La pala está construida en material compuesto de polímero reforzado con fibra de vidrio (GFRP), fabricado mediante infusión al vacío. Las propiedades mecánicas del material se resumen en la Tabla~\ref{tab:material_pala}.
+La pala se fabrica en material compuesto de polímero reforzado con fibra de vidrio (GFRP), mediante infusión al vacío (Sección~\ref{sec:materiales_palas}). Las propiedades mecánicas del material se resumen en la Tabla~\ref{tab:material_pala}.
 
 \begin{table}[H]
     \centering
@@ -919,27 +919,31 @@ La pala está construida en material compuesto de polímero reforzado con fibra 
         \hline
         \textbf{Propiedad} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Procedencia}\\
         \hline
-        Densidad & $\rho$ & $1\,800$~kg/m$^3$ & Fabricante de la pala\\
-        Módulo elástico & $E$ & $38{,}208$ GPa & Fabricante de la pala\\
-        Coeficiente de Poisson & $\nu$ & $0{,}30$ & Fabricante de la pala\\
-        Resistencia última & $\sigma_u$ & $242{,}1$ MPa & Fabricante de la pala\\
+        Densidad & $\rho$ & $1\,800$~kg/m$^3$ & Ficha técnica preliminar del fabricante\\
+        Módulo elástico & $E$ & $38{,}208$ GPa & Ficha técnica preliminar del fabricante\\
+        Coeficiente de Poisson & $\nu$ & $0{,}30$ & Ficha técnica preliminar del fabricante\\
+        Resistencia última & $\sigma_u$ & $242{,}1$ MPa & Ficha técnica preliminar del fabricante\\
         Exponente de fatiga & $b$ & $-0{,}045$ & Literatura~\parencite{Huh2012}\\
         \hline
         \multicolumn{4}{l}{\footnotesize El tipo de material (GFRP fabricado por infusión al vacío) es dato del fabricante de la pala.}\\
+        \multicolumn{4}{l}{\footnotesize Valores proporcionados por el fabricante como referencia preliminar, sin confirmación de la configuración}\\
+        \multicolumn{4}{l}{\footnotesize definitiva del laminado.}\\
         \multicolumn{4}{l}{\footnotesize Los espesores del laminado se recogen por separado en la Tabla~\ref{tab:seccion_caracteristica}.}
     \end{tabular}
 \end{table}
 
-El GFRP presenta un comportamiento elástico lineal hasta la rotura frágil~\parencite{Huh2012,Moraras2023}. La Figura~\ref{fig:curva_esfuerzo_deformacion} presenta la curva esfuerzo-deformación construida a partir de las propiedades entregadas por el fabricante de la pala (Tabla~\ref{tab:material_pala}), donde la pendiente de la recta corresponde al módulo elástico $E = 38{,}208$~GPa y el punto de rotura se alcanza a una deformación $\varepsilon_u = 0{,}63\%$ bajo un esfuerzo $\sigma_u = 242{,}1$~MPa.
+El GFRP presenta un comportamiento elástico lineal hasta la rotura frágil~\parencite{Huh2012,Moraras2023}. La Figura~\ref{fig:curva_esfuerzo_deformacion} presenta la curva esfuerzo-deformación construida a partir de la ficha técnica preliminar del fabricante (Tabla~\ref{tab:material_pala}), donde la pendiente de la recta corresponde al módulo elástico $E = 38{,}208$~GPa y el punto de rotura se alcanza a una deformación $\varepsilon_u = 0{,}63\%$ bajo un esfuerzo $\sigma_u = 242{,}1$~MPa.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figuras/Figuras Metodología/curva_esfuerzo_deformacion.pdf}
-    \caption{Curva esfuerzo-deformación del GFRP $\pm 45^\circ$ de la pala, construida a partir de las propiedades entregadas por el fabricante.}
+    \caption{Curva esfuerzo-deformación del GFRP de la pala, construida a partir de la ficha técnica preliminar del fabricante.}
     \label{fig:curva_esfuerzo_deformacion}
 \end{figure}
 
 Las propiedades disponibles del laminado son las de la Tabla~\ref{tab:material_pala}: un módulo elástico, un coeficiente de Poisson y una resistencia única, esto es, un conjunto isótropo equivalente. Sobre esa base el material se modela como isótropo lineal. Dos condiciones del análisis hacen consistente esa representación. La primera es que la pala está construida íntegramente con el mismo laminado, de modo que el modelo no debe reproducir desajustes de rigidez entre la piel y el larguero. La segunda es que la verificación de resistencia última emplea el criterio de tensión principal máxima, que compara una tensión escalar con una resistencia única y no requiere descomponer el estado tensional en las direcciones del refuerzo. El alcance de la hipótesis se retoma en las conclusiones.
+
+Como las propiedades de la Tabla~\ref{tab:material_pala} no corresponden a un laminado confirmado, la verificación de resistencia se complementa con su forma inversa, que entrega las propiedades mínimas que el laminado debe alcanzar para cumplir. La inversión es directa porque, en un modelo de material único sometido a cargas impuestas, la distribución de tensiones depende de la geometría, de las cargas y de la densidad, pero no del módulo elástico. La resistencia mínima resulta de multiplicar la tensión normal de diseño en el punto crítico por el factor parcial de material de la norma de palas, y se evalúa por separado en las dos direcciones del plano del laminado, la de la envergadura y la del contorno del perfil, ya que la resistencia de un laminado depende de la orientación de sus fibras (Sección~\ref{sec:comportamiento_laminado}). Dado que ese factor depende de la información que respalda el cálculo, el requisito se evalúa para tres combinaciones de $\gamma_{m3}$ y $\gamma_{m4}$ admitidas por la Sección 6.6.5.2 de la norma IEC 61400-5~\parencite{IEC61400-5}, y los valores obtenidos se contrastan con las propiedades medidas en laminados de vidrio E infusionados de la Tabla~\ref{tab:laminados_infusionados}. El multiplicador de pandeo, en cambio, escala linealmente con el módulo elástico, relación que se emplea para estimar cómo el módulo del laminado definitivo afecta el redimensionamiento frente a la inestabilidad.
 
 \subsubsection{Sección característica}
 \label{sec:seccion_caracteristica}
