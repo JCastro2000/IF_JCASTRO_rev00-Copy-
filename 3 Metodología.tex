@@ -624,7 +624,7 @@ Cada uno de los tres DLC seleccionados responde a una pregunta de verificación 
 
 \begin{itemize}
     \item \textbf{DLC 1.1} responde a cuál es la carga extrema que la pala debe resistir a lo largo de su vida. Como las simulaciones abarcan minutos y la vida de diseño abarca décadas, el máximo observado no basta, y la norma exige extrapolar estadísticamente los máximos a un período de retorno de 50 años mediante el procedimiento de su Anexo G~\parencite{IEC61400-1}.
-    \item \textbf{DLC 1.2} responde a si la pala sobrevive la acumulación de daño por fatiga durante los 20 años de vida de diseño. Aquí no interesa el máximo sino el espectro completo de ciclos de carga, que se obtiene por conteo Rainflow conforme al Anexo H de la norma IEC 61400-1~\parencite{IEC61400-1} y se acumula mediante la regla de Palmgren-Miner~\parencite{Miner1945}, ponderando cada velocidad de viento por su permanencia anual según la distribución de Weibull del emplazamiento.
+    \item \textbf{DLC 1.2} responde a si la pala sobrevive la acumulación de daño por fatiga durante los 20 años de vida de diseño. Aquí no interesa el máximo sino el espectro completo de ciclos de carga, que se obtiene por conteo Rainflow conforme al Anexo H de la norma IEC 61400-1~\parencite{IEC61400-1} y se acumula mediante la regla de Palmgren-Miner~\parencite{Palmgren1924,Miner1945}, ponderando cada velocidad de viento por su permanencia anual según la distribución de Weibull del emplazamiento.
     \item \textbf{DLC 1.3} responde a cuál es la carga extrema bajo una turbulencia excepcionalmente intensa. A diferencia del DLC 1.1, la severidad no proviene de extrapolar en el tiempo sino de un modelo de turbulencia más severo (ETM), por lo que la norma no requiere extrapolación, ya que la carga característica es la media de los máximos de las realizaciones.
 \end{itemize}
 
@@ -699,7 +699,7 @@ Sobre esas observaciones se ajusta la distribución de Gumbel presentada en la S
     \label{eq:gumbel_mu}
 \end{equation}
 
-donde $\overline{F}_{max,j}$ y $\sigma_{max,j}$ son la media y la desviación estándar de las observaciones de $F_{max}$ a la velocidad $V_j$, seis por debajo de $10$~m/s y quince desde esa velocidad, y $\gamma_E = 0{,}5772$ es la constante de Euler-Mascheroni~\parencite{Havil2003}. El subíndice $j$ recorre las doce velocidades simuladas, de manera que el ajuste entrega un par $(\mu_j, \beta_j)$ por cada una.
+donde $\overline{F}_{max,j}$ y $\sigma_{max,j}$ son la media y la desviación estándar de las observaciones de $F_{max}$ a la velocidad $V_j$, seis por debajo de $10$~m/s y quince desde esa velocidad, y $\gamma_E = 0{,}5772$ es la constante de Euler-Mascheroni~\parencite{NIST_DLMF}. El subíndice $j$ recorre las doce velocidades simuladas, de manera que el ajuste entrega un par $(\mu_j, \beta_j)$ por cada una.
 
 \medskip
 \noindent\textbf{Probabilidad de excedencia condicionada a la velocidad.}
@@ -856,7 +856,7 @@ donde $\bar{n}_{j}^{\text{sim}}$ es el número promedio de ciclos de las semilla
 
 \medskip
 \noindent\textbf{Daño acumulado.}
-El daño total por fatiga se evalúa mediante la regla de Palmgren-Miner~\parencite{Miner1945}, que asume acumulación lineal e independiente de cada ciclo, criterio que la norma adopta en su Anexo H, Sección H.1~\parencite{IEC61400-1}, según la Ec.~\ref{eq:palmgren_miner}:
+El daño total por fatiga se evalúa mediante la regla de Palmgren-Miner~\parencite{Palmgren1924,Miner1945}, que asume acumulación lineal e independiente de cada ciclo, criterio que la norma adopta en su Anexo H, Sección H.1~\parencite{IEC61400-1}, según la Ec.~\ref{eq:palmgren_miner}:
 
 \begin{equation}
     D_{\text{año}} = \sum_{i} \frac{n_i^{\text{anual}}}{N_{f,i}},
