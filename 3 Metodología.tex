@@ -630,16 +630,16 @@ donde:
     \item $\left| z_i - z_{ap} \right|$ es el brazo con que actúa cada estación.
 \end{itemize}
 
-Cortar en el apoyo y sumar únicamente el voladizo libre hace que el momento quede estáticamente determinado a partir de las cargas aerodinámicas, sin depender de las condiciones de contorno del resto de la pala. El vano central entre apoyos no admite ese tratamiento, ya que su solicitación depende de las reacciones, y se resuelve por ello en el modelo de elementos finitos bajo el perfil de diseño.
+El momento se evalúa en los apoyos porque cada voladizo cuelga de una sola conexión, de modo que su momento en ella resulta directamente de las fuerzas que actúan sobre él y de sus brazos, sin necesidad de conocer el resto de la pala. En el vano central, en cambio, el momento depende de cómo se reparte la carga entre las dos conexiones, que no se obtiene de las fuerzas aerodinámicas por sí solas, y por eso se resuelve en el modelo de elementos finitos bajo el perfil de diseño.
 
-De esas dos componentes se derivan las magnitudes que caracterizan la solicitación de la sección. La resultante, Ec.~\ref{eq:M_res}, es el módulo del vector que ambas forman:
+A partir de $M_x$ y $M_y$ se definen dos magnitudes más para cada apoyo. La primera es la resultante, Ec.~\ref{eq:M_res}, que corresponde al módulo del vector que ambas componentes forman:
 
 \begin{equation}
     M_{res}(t) = \sqrt{M_x^2(t) + M_y^2(t)}.
     \label{eq:M_res}
 \end{equation}
 
-La envolvente direccional, Ec.~\ref{eq:M_env}, es el mayor de los momentos proyectados sobre un conjunto de doce direcciones repartidas uniformemente en la sección, que es el enfoque avanzado que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente a falta de un análisis específico de criticidad~\parencite{IEC61400-5}:
+La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que corresponde al mayor de los momentos proyectados sobre un conjunto de doce direcciones repartidas uniformemente en la sección, que es el enfoque avanzado que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente a falta de un análisis específico de criticidad~\parencite{IEC61400-5}:
 
 \begin{equation}
     M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}.
