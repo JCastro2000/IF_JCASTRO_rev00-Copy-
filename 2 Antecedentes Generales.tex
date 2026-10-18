@@ -962,7 +962,13 @@ La selección de material para una pala responde a tres requisitos simultáneos:
     \label{eq:indice_merito}
 \end{equation}
 
-donde $E$ es el módulo elástico y $\rho$ la densidad. Cuanto mayor sea $M_b$, mayor rigidez se obtiene por unidad de masa. Aplicado sobre el conjunto de los materiales de ingeniería, este criterio descarta a la mayoría y, junto con la condición adicional de un módulo absoluto del orden de $10$ a $20$~GPa para limitar las deflexiones, deja como candidatos a los materiales compuestos~\parencite{Brondsted2005}.
+donde:
+\begin{itemize}
+    \item $E$ es el módulo elástico del material (GPa).
+    \item $\rho$ es su densidad (g/cm$^3$).
+\end{itemize}
+
+Cuanto mayor sea $M_b$, mayor rigidez se obtiene por unidad de masa. Aplicado sobre el conjunto de los materiales de ingeniería, este criterio descarta a la mayoría y, junto con la condición adicional de un módulo absoluto del orden de $10$ a $20$~GPa para limitar las deflexiones, deja como candidatos a los materiales compuestos~\parencite{Brondsted2005}.
 
 La Tabla~\ref{tab:materiales_palas} recoge las propiedades de los laminados que resultan de combinar las fibras candidatas con una matriz polimérica, esto es, la resina que envuelve las fibras y las solidariza entre sí para que trabajen en conjunto. La proporción en que se combinan ambas se expresa mediante la fracción volumétrica de fibra, es decir, la parte del volumen del laminado que ocupan las fibras, y en un laminado unidireccional la rigidez y la resistencia crecen proporcionalmente con ella~\parencite{Mishnaevsky2017}. La fibra de vidrio tipo E (\textit{E-glass}) ofrece una combinación equilibrada de rigidez moderada, resistencia alta y densidad moderada, a un costo sustancialmente menor, lo que lo ha mantenido como la fibra más utilizada. El carbono casi cuadruplica el módulo del laminado y reduce su densidad, con lo que su índice de mérito resulta unas tres veces superior; su adopción creciente responde tanto al aumento de tamaño de las palas, donde el peso propio se vuelve limitante, como a la caída de su precio~\parencite{Brondsted2005}. Las fibras de aramida, polietileno y celulosa presentan índices de mérito intermedios y densidades bajas, pero ninguna ha alcanzado un desarrollo industrial que las haga viables en palas de gran tamaño.
 
@@ -1005,7 +1011,9 @@ La Tabla~\ref{tab:laminados_infusionados} reúne las propiedades a tracción med
         \hline
         UD $[0]$, epoxi & $38$ a $44{,}6$ & $740$ a $1290$ & (1), (2), (3)\\
         Multidireccional con capas a $0^\circ$, epoxi & $29{,}7$ & $691$ a $910$ & (4)\\
+        Multidireccional con capas a $0^\circ$, poliéster & --- & $549$ a $770$ & (4)\\
         Tejido $[0/90]$, epoxi & --- & $341$ & (5)\\
+        $\pm 45^\circ$, varias resinas & $12$ & $138$ a $238$ & (1), (4)\\
         \hline
     \end{tabular}
 \end{table}
@@ -1046,7 +1054,7 @@ En una geometría real, con paneles de forma irregular y condiciones de borde qu
 
 donde $[K]$ es la matriz de rigidez elástica, $[K_{\sigma}]$ la matriz de rigidez geométrica que induce el estado tensional de la solución estática, $\{\phi\}$ el modo de pandeo y $LM$ el multiplicador de carga asociado a ese modo. Un $LM$ mayor que la unidad indica que la estructura no pandea bajo las cargas aplicadas, y su valor mide cuánto margen queda antes de la inestabilidad. El análisis entrega un conjunto de modos ordenados por multiplicador creciente, de los cuales el primero define la condición gobernante. Este enfoque es el que se emplea habitualmente en la verificación de palas de aerogenerador por elementos finitos~\parencite{Boudounit2020,Hameed2015}.
 
-La norma específica de palas admite de forma expresa este planteamiento. Su Sección 6.6.5.6 establece que, cuando la verificación se realiza mediante métodos lineales de análisis de pandeo, debe demostrarse que el autovalor mínimo correspondiente a la primera forma modal supera el factor de seguridad combinado que corresponda~\parencite{IEC61400-5}. Incorpora además una exigencia sobre la discretización que conviene destacar, ya que la idoneidad de la malla ha de acreditarse mediante un estudio de convergencia sobre el propio autovalor de pandeo, y no sobre la tensión, considerándose suficiente cuando aquel no varía más de un $5\%$ al duplicar la densidad de malla en la región pertinente al modo examinado~\parencite{IEC61400-5}. La distinción no es formal, puesto que una malla que ha convergido en tensión puede no haberlo hecho en el autovalor, magnitud considerablemente más sensible a la resolución con que se representa la flexión local del panel.
+La norma específica de palas admite de forma expresa este planteamiento. Su Sección 6.6.5.6 establece que, cuando la verificación se realiza mediante métodos lineales de análisis de pandeo, debe demostrarse que el autovalor mínimo correspondiente a la primera forma modal supera el factor de seguridad combinado que corresponda~\parencite{IEC61400-5}. Incorpora además una exigencia sobre la discretización que conviene destacar, ya que la idoneidad de la malla ha de acreditarse mediante un estudio de convergencia sobre el propio autovalor de pandeo, y no sobre la tensión, considerándose suficiente cuando aquel no varía más de un $5\%$ al duplicar la densidad de malla en la región pertinente al modo examinado~\parencite{IEC61400-5}. Esa exigencia se justifica porque una malla que ha convergido en tensión puede no haberlo hecho en el autovalor, magnitud considerablemente más sensible a la resolución con que se representa la flexión local del panel.
 
 Conviene retener una limitación del método, ya que la formulación lineal supone que el comportamiento previo a la inestabilidad es elástico y no incorpora imperfecciones geométricas ni la reducción de rigidez que produce el daño progresivo, factores a los que los cascarones de pared delgada son especialmente sensibles. Sus resultados constituyen, por ello, una cota superior de la carga crítica real~\parencite{Timoshenko1961}.
 
