@@ -646,6 +646,15 @@ La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que 
     \label{eq:M_env}
 \end{equation}
 
+El ángulo $\theta_k$ se mide desde el eje $X_l$ hacia el eje $Y_l$ del sistema local de la Figura~\ref{fig:ejes_locales}. La Figura~\ref{fig:envolvente_direccional} ilustra la operación para un instante, en que la mayor de las doce proyecciones corresponde a la dirección más cercana al vector de momento.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figuras/Figuras Metodología/envolvente_direccional.pdf}
+    \caption{Envolvente direccional sobre la sección del perfil.}
+    \label{fig:envolvente_direccional}
+\end{figure}
+
 Como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente. Además, ninguna dirección de flexión real queda a más de $15^\circ$ de alguna de ellas, de modo que la envolvente vale siempre entre el $96{,}6\%$ y el $100\%$ de la resultante.
 
 La extrapolación se aplica por separado a cada una de estas magnitudes en cada una de las dos secciones de apoyo. Las componentes $M_x$ y $M_y$ llevan signo, y el extremo de diseño de una magnitud predominantemente negativa se encuentra en su mínimo, de modo que cada componente se extrapola en sus dos sentidos, tomando como variable de extremos primero $M$ y después $-M$. Resultan así ocho extremos de componente, dos por cada una de las cuatro combinaciones de componente y apoyo, a los que se añaden la resultante y la envolvente direccional de cada apoyo, que son no negativas por construcción y no admiten esa duplicidad. Con la fuerza total que se define a continuación, el procedimiento entrega trece magnitudes extrapoladas de forma independiente, lo que permite además evaluar el criterio de omisión del DLC 1.1 magnitud a magnitud, según exige la Sección 7.4.2 de la norma~\parencite{IEC61400-1}.
