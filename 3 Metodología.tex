@@ -637,7 +637,15 @@ donde:
     \item $\Omega$ reúne las estaciones situadas en el voladizo correspondiente.
     \item $z_{ap}$ es la cota de la sección de apoyo.
     \item $\left| z_i - z_{ap} \right|$ es el brazo con que actúa cada estación.
+    \item $\Delta s_i$ es la longitud de pala que concentra la estación $i$, con lo que el producto convierte la fuerza por unidad de longitud en la fuerza, en newton, del tramo que le corresponde. Los $\Delta s_i$ suman los $23{,}000$~m de envergadura y se reparten según la distribución de tipo coseno de la Figura~\ref{fig:delta_s}.
 \end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{Figuras/Figuras Metodología/estaciones_delta_s.pdf}
+\caption[Tramo de pala que representa cada estación.]{Tramo de pala $\Delta s_i$ que representa cada una de las $21$ estaciones.}
+\label{fig:delta_s}
+\end{figure}
 
 El momento se evalúa en los apoyos porque cada voladizo cuelga de una sola conexión, de modo que su momento en ella resulta directamente de las fuerzas que actúan sobre él y de sus brazos, sin necesidad de conocer el resto de la pala.
 
@@ -673,27 +681,11 @@ La envolvente direccional, Ec.~\ref{eq:M_env}, toma en cada instante la mayor de
 
 Como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente. Además, ninguna dirección de flexión real queda a más de $15^\circ$ de alguna de ellas, de modo que la envolvente vale siempre entre el $96{,}6\%$ y el $100\%$ de la resultante.
 
-Se conserva adicionalmente la fuerza total integrada sobre la pala, Ec.~\ref{eq:F_tot}, como indicador global de la solicitación:
-
-\begin{equation}
-    F_{tot}(t) = \sum_{i=1}^{21} \sqrt{F_{x,l,i}^2(t) + F_{y,l,i}^2(t)} \cdot \Delta s_i,
-    \label{eq:F_tot}
-\end{equation}
-
-donde $\Delta s_i$ es la longitud de pala que concentra la estación $i$, y el producto convierte la fuerza por unidad de longitud en la fuerza, en newton, del tramo que le corresponde. La raíz cuadrada reúne las dos componentes en el módulo de la fuerza que actúa sobre cada estación, magnitud siempre positiva, de modo que la suma a lo largo de la envergadura no admite cancelaciones entre estaciones con carga de sentido opuesto y recoge la solicitación completa que soporta la pala. Los $\Delta s_i$ suman por construcción los $23{,}000$~m de envergadura, condición necesaria para que la integración espacial no introduzca un error de cierre, y se reparten según la distribución de tipo coseno que recoge la Figura~\ref{fig:delta_s}.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{Figuras/Figuras Metodología/estaciones_delta_s.pdf}
-\caption[Tramo de pala que representa cada estación.]{Tramo de pala $\Delta s_i$ que representa cada una de las $21$ estaciones.}
-\label{fig:delta_s}
-\end{figure}
-
-Cada una de estas magnitudes se extrapola por separado en cada apoyo. Como $M_x$ y $M_y$ llevan signo, se extrapola tanto su máximo como su mínimo, tomando primero $M$ y luego $-M$. En total son trece magnitudes, que son las componentes en sus dos sentidos en cada apoyo, la resultante y la envolvente de cada apoyo, que son siempre positivas y se extrapolan una sola vez, y la fuerza total. A ellas se suman los doce momentos proyectados del apoyo superior, de los que se obtienen los casos de carga del Paso 5. Disponer de todas permite además aplicar el criterio de omisión del DLC 1.1 de la Sección 7.4.2 de la norma~\parencite{IEC61400-1}, que se explica en la Sección~\ref{sec:criterio_omision}.
+Cada una de estas magnitudes se extrapola por separado en cada apoyo. Como $M_x$ y $M_y$ llevan signo, se extrapola tanto su máximo como su mínimo, tomando primero $M$ y luego $-M$. Las magnitudes extrapoladas son así las componentes en sus dos sentidos en cada apoyo, y la resultante y la envolvente de cada apoyo, que son siempre positivas y se extrapolan una sola vez. A ellas se suman los doce momentos proyectados del apoyo superior, de los que se obtienen los casos de carga del Paso 5. Disponer de todas permite además aplicar el criterio de omisión del DLC 1.1 de la Sección 7.4.2 de la norma~\parencite{IEC61400-1}, que se explica en la Sección~\ref{sec:criterio_omision}.
 
 \medskip
 \noindent\textbf{Paso 2. Máximos por simulación y ajuste de Gumbel.}
-Los pasos que siguen se describen sobre una magnitud genérica $F$, que designa a cualquiera de las trece recién definidas, y se ejecutan de forma independiente para cada una de ellas. Para cada velocidad de viento $V_j$ se dispone de seis simulaciones por debajo de $10$~m/s y quince desde esa velocidad, una por semilla estocástica del campo de viento turbulento (Sección~\ref{sec:campo_turbulento}), de modo que representan realizaciones independientes de un mismo proceso estocástico. De cada una se extrae el mayor valor que alcanza $F(t)$ sobre el intervalo $t \geq 50$~s (Sección~\ref{sec:velocidades_simulacion}). Ese valor se denota $F_{max}$ y es la variable sobre la que opera todo el procedimiento, ya que cada realización aporta una observación. Extraer un único máximo por realización es coherente con la definición normativa de la carga característica, referida al mayor valor que se presenta en un intervalo de diez minutos (Sección 7.6.2.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
+Los pasos que siguen se describen sobre una magnitud genérica $F$, que designa a cualquiera de las recién definidas, y se ejecutan de forma independiente para cada una de ellas. Para cada velocidad de viento $V_j$ se dispone de seis simulaciones por debajo de $10$~m/s y quince desde esa velocidad, una por semilla estocástica del campo de viento turbulento (Sección~\ref{sec:campo_turbulento}), de modo que representan realizaciones independientes de un mismo proceso estocástico. De cada una se extrae el mayor valor que alcanza $F(t)$ sobre el intervalo $t \geq 50$~s (Sección~\ref{sec:velocidades_simulacion}). Ese valor se denota $F_{max}$ y es la variable sobre la que opera todo el procedimiento, ya que cada realización aporta una observación. Extraer un único máximo por realización es coherente con la definición normativa de la carga característica, referida al mayor valor que se presenta en un intervalo de diez minutos (Sección 7.6.2.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
 
 Sobre esas observaciones se ajusta la distribución de Gumbel presentada en la Sección~\ref{sec:extrapolacion_teoria}, cuya función de distribución acumulada es la Ec.~\ref{eq:gumbel_anexof}, evaluada aquí en $F = F_{max}$. Sus dos parámetros, el de posición $\mu_j$ y el de escala $\beta_j$, se estiman por el método de los momentos, que iguala la media y la varianza de la distribución a las de la muestra. Para la distribución de Gumbel la media vale $\mu_j + \gamma_E \beta_j$ y la varianza $\pi^2 \beta_j^2 / 6$~\parencite{Gumbel1958}, de donde se despejan los estimadores de las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}:
 
@@ -918,7 +910,7 @@ Para el DLC 1.3, la norma prescribe un método alternativo al Anexo G. Las carga
 
 \medskip
 \noindent\textbf{Paso 1. Extracción de máximos.}
-Las magnitudes que se procesan son las trece definidas para el DLC 1.1, obtenidas de las mismas Ecs.~\ref{eq:M_apoyo} a~\ref{eq:F_tot} y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Cada una se calcula de igual forma para las $30$ simulaciones de este caso y, para cada velocidad $V_j$ ($j = 1,\dots,5$, correspondientes a $V = 16$, $18$, $20$, $22$ y $24$~m/s), se extraen los $6$ máximos $F_{\max}(V_j, s)$ con $s = 1,\dots,6$, sobre el intervalo $t \geq 50$~s.
+Las magnitudes que se procesan son las definidas para el DLC 1.1, obtenidas de las mismas Ecs.~\ref{eq:M_apoyo} a~\ref{eq:M_env} y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Cada una se calcula de igual forma para las $30$ simulaciones de este caso y, para cada velocidad $V_j$ ($j = 1,\dots,5$, correspondientes a $V = 16$, $18$, $20$, $22$ y $24$~m/s), se extraen los $6$ máximos $F_{\max}(V_j, s)$ con $s = 1,\dots,6$, sobre el intervalo $t \geq 50$~s.
 
 \medskip
 \noindent\textbf{Paso 2. Carga característica por velocidad.}
@@ -929,7 +921,7 @@ A diferencia del DLC 1.1, donde el Anexo G ajusta una distribución de extremos 
     \label{eq:dlc13_Fk_local}
 \end{equation}
 
-donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$, extraído en el paso anterior. Este cálculo se repite de forma independiente para cada una de las cinco velocidades ensayadas y para cada una de las trece magnitudes.
+donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$, extraído en el paso anterior. Este cálculo se repite de forma independiente para cada una de las cinco velocidades ensayadas y para cada una de las magnitudes.
 
 La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de sus cinco cargas por velocidad, y la velocidad que la produce se denomina velocidad gobernante, $V_{gob}$, por ser la que domina el caso de carga. Esta carga se amplifica por el factor $\gamma_f = 1{,}35$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
 
@@ -937,7 +929,7 @@ La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de 
 \noindent\textbf{Paso 3. Perfil de diseño por dirección.}
 Los casos de carga se construyen sobre los mismos doce momentos proyectados de la Ec.~\ref{eq:P_k} que en el DLC 1.1, pero de forma coherente con la definición de carga característica que rige aquí. Para cada dirección, de cada una de las seis semillas de su velocidad gobernante se captura el perfil de fuerzas compañeras en el instante en que esa semilla alcanza su propio máximo, y el perfil de diseño es la media por estación de los seis, amplificada por $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que la Ec.~\ref{eq:dlc13_Fk_local} aplica a la magnitud escalar, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
 
-Disponer de las trece magnitudes en ambos casos de carga es lo que permite aplicar el criterio de la Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando la carga de diseño del DLC 1.3 resulta mayor. La comparación se realiza magnitud a magnitud, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas; el resultado de esa comparación se presenta en el Capítulo~4.
+Disponer de las magnitudes en ambos casos de carga es lo que permite aplicar el criterio de la Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando la carga de diseño del DLC 1.3 resulta mayor. La comparación se realiza magnitud a magnitud, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas; el resultado de esa comparación se presenta en el Capítulo~4.
 
 \section{Etapa 3: análisis estructural}
 

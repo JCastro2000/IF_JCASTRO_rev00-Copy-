@@ -11,7 +11,7 @@ Las funciones que reducen el vector de cargas a los efectos de carga en las secc
 """
 DLC 1.3 - Carga última con modelo de turbulencia extrema (ETM).
 Entrada : 30 series temporales (5 velocidades x 6 semillas).
-Salida  : carga característica F_k y carga de diseño F_d de las trece
+Salida  : carga característica F_k y carga de diseño F_d de las
           magnitudes, y el perfil espacial de fuerzas por estación.
 """
 import glob, json, os, re
@@ -112,7 +112,7 @@ for k in range(len(TH)):
 
 \subsection*{Criterio de omisión del DLC 1.1}
 
-Disponer de las trece magnitudes en ambos casos permite evaluar el criterio de la Sección 7.4.2, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando las cargas de diseño del DLC 1.3 superan a las suyas. La comparación se realiza magnitud a magnitud y el resultado se presenta en la Sección~\ref{sec:criterio_omision}.
+Disponer de las magnitudes en ambos casos permite evaluar el criterio de la Sección 7.4.2, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando las cargas de diseño del DLC 1.3 superan a las suyas. La comparación se realiza magnitud a magnitud y el resultado se presenta en la Sección~\ref{sec:criterio_omision}.
 
 \begin{pycode}
 with open('resultados_DLC11.json') as fh:

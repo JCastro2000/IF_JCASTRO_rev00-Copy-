@@ -328,11 +328,11 @@ La medición identifica como barlovento la mitad del recorrido que produce el ma
 
 \subsection{Extrapolación estadística}
 
-Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G se aplica de forma independiente a las trece magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en sus dos sentidos, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo, y la fuerza total integrada como indicador global. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica y la carga de diseño de cada una.
+Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G se aplica de forma independiente a las magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en sus dos sentidos, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica y la carga de diseño de cada una.
 
 \begin{table}[H]
     \centering
-    \caption[Cargas características y de diseño del DLC 1.1.]{Carga característica a 50 años y carga de diseño del DLC 1.1 para las trece magnitudes extrapoladas, con $\gamma_f = 1{,}25$.}
+    \caption[Cargas características y de diseño del DLC 1.1.]{Carga característica a 50 años y carga de diseño del DLC 1.1 para las magnitudes extrapoladas, con $\gamma_f = 1{,}25$.}
     \label{tab:dlc11_magnitudes}
     \begin{tabular}{lcc}
         \hline
@@ -356,11 +356,7 @@ Las series temporales de fuerzas obtenidas de las simulaciones anteriores consti
         Resultante $M_{res}$    & $80{,}77$ & $100{,}96$ \\
         Envolvente $M_{env}$    & $78{,}12$ & $97{,}65$ \\
         \hline
-        \multicolumn{3}{c}{\textit{Indicador global}} \\
-        \hline
-        Fuerza total $F_{tot}$ & $131{,}36$ & $164{,}20$ \\
-        \hline
-        \multicolumn{3}{p{0.62\textwidth}}{\footnotesize Los momentos se expresan en kN$\cdot$m y la fuerza total en kN.}
+        \multicolumn{3}{l}{\footnotesize Los momentos se expresan en kN$\cdot$m.}
     \end{tabular}
 \end{table}
 
@@ -469,7 +465,7 @@ La distribución de estas cargas a lo largo de la envergadura, esto es, las fuer
 \section{Cargas aerodinámicas para DLC 1.3}
 \label{sec:resultados_dlc13}
 
-Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se procesan según el método de la media de máximos prescrito en la Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, sobre las mismas trece magnitudes del DLC 1.1. La Tabla~\ref{tab:dlc13_maximos} presenta, para la envolvente direccional en el apoyo superior, los máximos observados en cada una de las 6 semillas y la media por velocidad.
+Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se procesan según el método de la media de máximos prescrito en la Sección 7.6.2.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, sobre las mismas magnitudes del DLC 1.1. La Tabla~\ref{tab:dlc13_maximos} presenta, para la envolvente direccional en el apoyo superior, los máximos observados en cada una de las 6 semillas y la media por velocidad.
 
 \begin{table}[H]
     \centering
@@ -502,11 +498,11 @@ La carga característica corresponde a la mayor media entre las velocidades simu
 
 La Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1} vincula explícitamente ambos casos de carga, ya que permite omitir el análisis del DLC 1.1 cuando los valores extremos de diseño del DLC 1.3 superan a los suyos, y prescribe, en caso contrario, aumentar la constante $c_{ETM}$ del modelo de turbulencia extrema hasta que el DLC 1.3 lo envuelva. Esa misma sección admite, como alternativa a ese aumento, extrapolar directamente los valores característicos de todas las componentes de carga pertinentes para cada componente de la turbina, que es la vía adoptada en este trabajo. La constante $c_{ETM}$ conserva por ello su valor por defecto de $2$~m/s, fijado por la Sección 6.3.2.3 de la norma~\parencite{IEC61400-1} y adoptado en las simulaciones (Sección~\ref{sec:velocidades_simulacion}).
 
-La norma evalúa el criterio sobre los momentos flectores en la raíz de la pala. En la pala de un H-rotor la raíz son sus dos conexiones con los brazos (Sección~\ref{sec:extrapolacion_teoria}), de modo que la comparación se realiza magnitud a magnitud sobre las trece definidas, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas. La Tabla~\ref{tab:criterio_omision} recoge el resultado.
+La norma evalúa el criterio sobre los momentos flectores en la raíz de la pala. En la pala de un H-rotor la raíz son sus dos conexiones con los brazos (Sección~\ref{sec:extrapolacion_teoria}), de modo que la comparación se realiza magnitud a magnitud sobre las definidas, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas. La Tabla~\ref{tab:criterio_omision} recoge el resultado.
 
 \begin{table}[H]
     \centering
-    \caption[Criterio de omisión del DLC 1.1.]{Comparación de las cargas de diseño de ambos casos últimos, magnitud a magnitud. Los momentos se expresan en kN$\cdot$m y la fuerza total en kN.}
+    \caption[Criterio de omisión del DLC 1.1.]{Comparación de las cargas de diseño de ambos casos últimos, magnitud a magnitud. Los momentos se expresan en kN$\cdot$m.}
     \label{tab:criterio_omision}
     \begin{tabular}{lccc}
         \hline
@@ -530,16 +526,12 @@ La norma evalúa el criterio sobre los momentos flectores en la raíz de la pala
         Resultante $M_{res}$ & $100{,}96$ & $91{,}68$ & DLC 1.1 \\
         Envolvente $M_{env}$ & $97{,}65$ & $88{,}64$ & DLC 1.1 \\
         \hline
-        \multicolumn{4}{c}{\textit{Indicador global}} \\
-        \hline
-        Fuerza total $F_{tot}$ & $164{,}20$ & $160{,}00$ & DLC 1.1 \\
-        \hline
     \end{tabular}
 \end{table}
 
-El DLC 1.1 gobierna las trece magnitudes, en los dos apoyos y también en el indicador global de fuerza total. En el apoyo superior, que es la sección más solicitada, lo hace con holgura, con un $10{,}1\%$ de diferencia en la resultante. La condición de omisión no se satisface en ninguna magnitud, de modo que el DLC 1.1 no puede omitirse y ambos casos de carga se conservan en la verificación estructural.
+El DLC 1.1 gobierna todas las magnitudes, en los dos apoyos. En el apoyo superior, que es la sección más solicitada, lo hace con holgura, con un $10{,}1\%$ de diferencia en la resultante. La condición de omisión no se satisface en ninguna magnitud, de modo que el DLC 1.1 no puede omitirse y ambos casos de carga se conservan en la verificación estructural.
 
-Con el muestreo completo que la norma exige en la banda de rapidez, el DLC 1.1 gobierna incluso la fuerza total integrada, que supera a la del DLC 1.3 en un $2{,}6\%$, de modo que la omisión no se habría autorizado por ninguna vía. Varios de los márgenes en el apoyo inferior son estrechos, del orden de pocos puntos porcentuales, por lo que la comparación magnitud a magnitud sobre el conjunto de efectos de carga de la raíz, y no la reducción a un único escalar, sigue siendo el procedimiento riguroso para decidir la omisión.
+Varios de los márgenes en el apoyo inferior son estrechos, del orden de pocos puntos porcentuales, por lo que la comparación magnitud a magnitud sobre el conjunto de efectos de carga de la raíz, y no la reducción a un único escalar, sigue siendo el procedimiento riguroso para decidir la omisión.
 
 \textcite{Galinos2015} obtiene el mismo ordenamiento en un rotor Darrieus de $5$~MW, donde los valores extrapolados del DLC 1.1 superan a los del DLC 1.3 incluso al elevar $c_{ETM}$ a $3$~m/s. La explicación que propone es que las cargas de una VAWT están dominadas por la fluctuación determinista a frecuencia $1P$, esto es, la que se repite una vez por cada revolución del rotor, ya que cada pala recorre en cada vuelta un ciclo completo de ángulo de ataque (Sección~\ref{sec:aerodinamica}). Esa componente no depende de la turbulencia, por lo que las cargas de una VAWT resultan menos sensibles a ella que las de una HAWT, de modo que el ETM, que actúa amplificando precisamente la componente turbulenta, eleva la carga de una VAWT menos de lo que la elevaría en la máquina de eje horizontal sobre la que fue calibrado. La misma dominancia determinista se observa en las simulaciones de este trabajo, ya que el recorrido relativo de los máximos por velocidad se estrecha a medida que el rotor se aleja del punto de diseño (Sección~\ref{sec:resultados_uls}). El propio autor advierte, no obstante, que su conclusión proviene del análisis de un único rotor Darrieus y que debe verificarse sobre otros modelos antes de proponer cambios a la norma.
 

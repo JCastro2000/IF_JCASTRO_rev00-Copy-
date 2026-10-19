@@ -13,7 +13,7 @@ DLC 1.1 - Extrapolación de cargas extremas según el Anexo G de IEC 61400-1.
 Entrada : 144 series temporales de fuerzas por estación (12 V; 6 semillas
           bajo 10 m/s y 15 desde esa velocidad).
 Salida  : carga característica F_k a 50 años y carga de diseño F_d de cada
-          una de las trece magnitudes, y el perfil espacial de diseño.
+          una de las magnitudes, y el perfil espacial de diseño.
 """
 import csv, glob, json, math, os, re
 from collections import defaultdict
@@ -108,14 +108,8 @@ def envolvente_direccional(m_x, m_y, n=N_DIRECCIONES):
     return proy.max(axis=1)
 
 
-def f_total(fn_lin, ft_lin):
-    """Fuerza total integrada sobre la envergadura, en norma euclídea."""
-    fn, ft = fuerzas_puntuales(fn_lin, ft_lin)
-    return np.hypot(fn, ft).sum(axis=-1)
-
-
 def efectos_de_carga(fn_lin, ft_lin):
-    """Las trece magnitudes que se extrapolan, para una serie completa."""
+    """Las magnitudes que se extrapolan, para una serie completa."""
     mx_i, my_i = momentos_en_apoyo(fn_lin, ft_lin, Z_APOYO_INF, 'inf')
     mx_s, my_s = momentos_en_apoyo(fn_lin, ft_lin, Z_APOYO_SUP, 'sup')
     return {
@@ -131,7 +125,6 @@ def efectos_de_carga(fn_lin, ft_lin):
         'M_env_apoyo_inf': envolvente_direccional(mx_i, my_i),
         'M_res_apoyo_sup': np.hypot(mx_s, my_s),
         'M_env_apoyo_sup': envolvente_direccional(mx_s, my_s),
-        'F_tot': f_total(fn_lin, ft_lin),
     }
 \end{pycode}
 
@@ -231,7 +224,7 @@ def carga_caracteristica(centros, mus, betas):
 
 \subsection*{Recorrido de las realizaciones y cargas de diseño}
 
-El procedimiento anterior se aplica de forma independiente a cada una de las trece magnitudes. En el mismo recorrido se calcula, para cada una de las doce direcciones de la Ec.~\ref{eq:P_k}, el momento proyectado en el apoyo superior, y se localiza el instante en que alcanza su máximo sobre el conjunto de las 144 realizaciones.
+El procedimiento anterior se aplica de forma independiente a cada una de las magnitudes. En el mismo recorrido se calcula, para cada una de las doce direcciones de la Ec.~\ref{eq:P_k}, el momento proyectado en el apoyo superior, y se localiza el instante en que alcanza su máximo sobre el conjunto de las 144 realizaciones.
 
 \begin{pycode}
 # Direcciones de carga de la Ec. P_k, medidas desde Y_l hacia X_l.
