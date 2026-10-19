@@ -983,12 +983,12 @@ Como las propiedades de la Tabla~\ref{tab:material_pala} no corresponden a un la
 \subsubsection{Sección característica}
 \label{sec:seccion_caracteristica}
 
-La definición del laminado proviene de un plano de sección transversal entregado por el fabricante de la turbina, identificado en él como sección característica de la pala. La sección corresponde a un larguero de cajón, formado por dos almas y por el engrosamiento del manto entre ellas, con carenados de menor espesor hacia el borde de ataque y hacia el de fuga, según ilustra la Figura~\ref{fig:seccion_caracteristica}. La Tabla~\ref{tab:seccion_caracteristica} reúne los espesores de todas sus partes y los del vendaje de refuerzo de las conexiones, que se describe más adelante (Sección~\ref{sec:vendaje}).
+La definición del laminado proviene de un plano de sección transversal entregado por el fabricante de la turbina, identificado en él como sección característica de la pala. La sección corresponde a un larguero de cajón, formado por dos almas y por el engrosamiento del manto entre ellas, con carenados de menor espesor hacia el borde de ataque y hacia el de fuga, según ilustra la Figura~\ref{fig:seccion_caracteristica}. La Tabla~\ref{tab:seccion_caracteristica} reúne los espesores de todas sus partes y los del vendaje de refuerzo de las conexiones, que es de $8$~mm de espesor y tiene una playa de $200$~mm en cada orilla.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{Figuras/Figuras Metodología/seccion_caracteristica.png}
-    \caption[Sección característica de la pala.]{Sección característica de la pala con sus partes, el larguero de cajón de dos almas, la parte central engrosada entre ellas, los carenados de borde de ataque y de fuga, y el vendaje de refuerzo del contorno. El espesor de cada parte se representa en el modelo de cascarón.}
+    \caption[Sección característica de la pala.]{Sección característica de la pala con sus partes, el larguero de cajón de dos almas, la parte central engrosada entre ellas, los carenados de borde de ataque y de fuga, y el vendaje de refuerzo del contorno, de $8$~mm de espesor con una playa de $200$~mm en cada orilla. El espesor de cada parte se representa en el modelo de cascarón.}
     \label{fig:seccion_caracteristica}
 \end{figure}
 
@@ -1032,18 +1032,6 @@ donde $c$ es la cuerda del perfil (Tabla~\ref{tab:geometria_turbina}). Con ese p
 
 La concordancia no demuestra que el laminado sea constante a lo largo de la envergadura, ya que una pala que redujera espesor hacia los extremos y lo aumentara en las zonas de conexión podría arrojar la misma masa total. Lo que sí establece es que la sección característica, extendida a toda la pala, no introduce un exceso ni un defecto apreciable de material. Esa comprobación es pertinente porque las cargas inerciales son proporcionales a la masa y dominan la solicitación, según se muestra en el Capítulo~4.
 
-\subsubsection{Refuerzo de la zona de conexión}
-\label{sec:vendaje}
-
-El modelo incorpora en cada conexión un vendaje de refuerzo dispuesto concéntricamente alrededor del perímetro de la sección, que reproduce el engrosamiento local del laminado con que se resuelve la introducción de carga en una unión de este tipo. Su tramo de espesor pleno mide $8$~mm y $1\,000$~mm de longitud, y en cada extremo la transición hacia el manto se resuelve en dos escalones de $100$~mm, de $5{,}3$ y $2{,}6$~mm de espesor, con lo que el refuerzo alcanza $1\,400$~mm de longitud total (Tabla~\ref{tab:seccion_caracteristica}). La transición reparte así los $8$~mm de espesor a lo largo de $200$~mm. Se modela escalonada y no continua porque el laminado real tampoco lo es, ya que el espesor desciende terminando capas sucesivas.
-
-El vendaje se representa como un cuerpo independiente del manto, con el que comparte los nodos de su superficie de contacto. Esa separación permite leer sus tensiones por separado, lo que una representación del conjunto como un espesor único no permitiría.
-
-\subsubsection{Posición de los planos de referencia}
-\label{sec:offsets}
-
-El modelo representa cada laminado por su superficie media y le asigna el espesor como propiedad de sección, de modo que la posición de esa superficie respecto de la geometría es un dato del modelo y no una consecuencia de él. El manto se desplaza hacia el interior y el vendaje hacia el exterior, ambos a partir de la superficie exterior del perfil, de manera que los dos laminados quedan apilados y no superpuestos. Es la disposición que corresponde a un vendaje laminado por fuera de la piel, y la única que reproduce la rigidez a flexión de la sección combinada, ya que situar ambos planos medios en la misma posición equivaldría a que los dos laminados ocuparan el mismo espesor.
-
 \subsection{Análisis por modelado de elementos finitos de la pala}
 \label{sec:fem}
 
@@ -1052,24 +1040,18 @@ El análisis estructural de la pala se realiza en el software Ansys. En correlac
 \subsubsection{Condiciones de borde}
 \label{sec:condiciones_borde}
 
-La pala se sostiene en los dos puntos en que se conecta a los brazos, situados a $z = 5{,}0$ y $z = 18{,}0$~m sobre la base (Tabla~\ref{tab:geometria_turbina}), que constituyen por tanto sus únicos apoyos. Las conexiones son simétricas respecto del centro de la pala y dejan un voladizo de $5{,}0$~m en cada extremo y un vano central de $13{,}0$~m. Bajo estas condiciones la pala se comporta como una viga con dos apoyos y un voladizo en cada extremo, configuración que determina las zonas críticas del análisis.
-
-Cada conexión restringe los seis grados de libertad de la pala, los tres desplazamientos y las tres rotaciones, lo que es coherente con la rigidez del conjunto brazo-eje frente a la de la pala y con la exclusión de los brazos del dominio de cálculo. La restricción no se impone, sin embargo, como un empotramiento rígido de la superficie de apoyo, sino mediante un desplazamiento remoto de comportamiento deformable (\textit{remote displacement}), que acopla la superficie de $500 \times 600$~mm de cada conexión a un punto de control situado en su centro y fija en cero los seis grados de libertad de ese punto. Un empotramiento rígido restringe por separado cada nodo de la superficie, lo que sobre-rigidiza localmente el cascarón e introduce dos efectos sin correlato físico, una concentración de tensión en el contorno restringido y un par de reacción axial autoequilibrado entre los dos apoyos. El desplazamiento remoto deformable restringe en cambio el movimiento de conjunto de la conexión y deja libre la deformación de su superficie, lo que representa de forma más fiel una unión atornillada o adhesiva a un brazo de rigidez finita, y evita por tanto ambos efectos.
-
-Esa elección acota el problema por el lado flexible, frente al empotramiento rígido que lo acota por el lado infinitamente rígido. La rigidez real de la unión, que depende de la geometría del brazo no disponible, se sitúa entre ambos, de modo que el desplazamiento remoto deformable no elimina la idealización del apoyo sino que evita los artefactos que introduciría un empotramiento rígido.
-
-La zona de conexión incorpora además el vendaje de refuerzo que describe la Sección~\ref{sec:vendaje}, con el que se reproduce el engrosamiento local del laminado propio de una unión de este tipo.
+La pala se sostiene en los dos puntos en que se conecta a los brazos, situados a $z = 5{,}0$ y $z = 18{,}0$~m sobre la base (Tabla~\ref{tab:geometria_turbina}), que constituyen por tanto sus únicos apoyos. Las conexiones son simétricas respecto del centro de la pala y dejan un voladizo de $5{,}0$~m en cada extremo y un vano central de $13{,}0$~m, de modo que la pala se comporta como una viga con dos apoyos y un voladizo en cada extremo, configuración que determina las zonas críticas del análisis. Cada conexión se modela mediante un apoyo remoto sobre su superficie de $500 \times 600$~mm, que restringe el movimiento de los seis grados de libertad, los tres desplazamientos y las tres rotaciones.
 
 \subsubsection{Cargas aplicadas}
 
-Las fuerzas aerodinámicas se aplican según el procesamiento de datos específico de cada caso, como cargas remotas en los centroides de las $21$ estaciones. Además de ellas, se aplican las cargas másicas de origen inercial. Estas no se introducen como fuerzas nodales, sino como aceleraciones globales impuestas sobre la totalidad del modelo, ya que el solucionador las convierte en fuerzas de volumen elemento a elemento, multiplicando la masa de cada elemento por la aceleración prescrita, de modo que la distribución espacial de la carga inercial queda determinada por la distribución de masa del propio modelo. Las aceleraciones que definen estas cargas son:
+Las fuerzas aerodinámicas se aplican según el procesamiento de datos específico de cada caso, como cargas remotas en los centroides de las $21$ estaciones. Las cargas inerciales se imponen como aceleraciones globales sobre todo el modelo, que el solucionador convierte en fuerzas de volumen según la masa de cada elemento. Son las siguientes:
 
 \begin{itemize}
     \item \textbf{Aceleración de gravedad:} uniforme, dirigida verticalmente hacia abajo y de magnitud $g = 9{,}81$~m/s$^2$.
-    \item \textbf{Aceleración centrífuga:} dirigida radialmente hacia afuera, producida por la rotación del rotor y evaluada en la velocidad máxima de rotación $\Omega$ mediante la Ec.~\ref{eq:centrifugal_limit} (Sección~\ref{sec:vtip}). Por tratarse de un H-rotor de palas rectas paralelas al eje, el radio $R$ es constante a lo largo de la envergadura, de modo que la aceleración resulta uniforme en toda la pala y admite imponerse como un único campo global. El valor que corresponde a la consigna de rotación adoptada se presenta en el Capítulo~4.
+    \item \textbf{Aceleración centrífuga:} dirigida radialmente hacia afuera y evaluada en la velocidad máxima de rotación $\Omega$ mediante la Ec.~\ref{eq:centrifugal_limit} (Sección~\ref{sec:vtip}). Como el radio $R$ es constante a lo largo de la envergadura, resulta uniforme en toda la pala. El valor que corresponde a la consigna de rotación adoptada se presenta en el Capítulo~4.
 \end{itemize}
 
-Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $\gamma_f$ que las aerodinámicas, lo que se materializa imponiendo aceleraciones amplificadas, $\gamma_f \, g$ y $\gamma_f \, \Omega^2 R$, en lugar de sus valores nominales. El factor $\gamma_f$ no cubre la dispersión estadística de la carga, sino las desviaciones desfavorables respecto de su valor característico y las incertidumbres del modelo de carga (Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, incertidumbres que una carga determinística presenta igualmente en la masa real de la pala, en su distribución y en la consigna de rotación. Que la norma reserve el valor $\gamma_f = 0{,}9$ para las cargas gravitatorias que alivian la respuesta, y las trate como favorables solo en ese caso (nota 18 de la Tabla 3 de la norma IEC 61400-1)~\parencite{IEC61400-1}, confirma que cuando la gravedad es desfavorable se mayora como cualquier otra carga. En la pala analizada ambas cargas inerciales son desfavorables, ya que la centrífuga flecta los voladizos en el mismo sentido que la componente aerodinámica gobernante y la gravedad actúa en la dirección de la envergadura sobre una pala vertical. La misma nota admite reducir el factor combinado cuando la respuesta debida a la gravedad puede calcularse por separado; esa reducción no se aplica aquí, por lo que la mayoración es la del caso general.
+Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $\gamma_f$ que las aerodinámicas, que se materializa imponiendo aceleraciones amplificadas, $\gamma_f \, g$ y $\gamma_f \, \Omega^2 R$. Según la Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, $\gamma_f$ vale $1{,}25$ en el DLC 1.1 y $1{,}35$ en el DLC 1.3, y las corridas sin mayorar emplean $\gamma_f = 1{,}00$ (Sección~\ref{sec:factores_seguridad}).
 
 \subsubsection{Corridas del modelo}
 \label{sec:corridas_fem}
