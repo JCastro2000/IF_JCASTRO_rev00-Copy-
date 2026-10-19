@@ -639,7 +639,7 @@ A partir de $M_x$ y $M_y$ se definen dos magnitudes más para cada apoyo. La pri
     \label{eq:M_res}
 \end{equation}
 
-La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que la capacidad de la sección depende de la dirección en que flecta. En cada instante el momento se proyecta sobre doce direcciones de flexión separadas $30^\circ$ entre sí, y se toma la mayor de esas proyecciones, que es el procedimiento que la Sección 6.1.4.3 de la IEC 61400-5 considera suficiente cuando no se dispone de un análisis que identifique la dirección más crítica~\parencite{IEC61400-5}:
+La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que la capacidad de la sección depende de la dirección en que flecta. En cada instante el momento se proyecta sobre doce direcciones de flexión separadas $30^\circ$ entre sí, y se toma la mayor de esas proyecciones, que resume en un solo escalar la solicitación en la dirección más desfavorable de cada instante. Esta magnitud sirve como indicador y para el criterio de omisión del DLC 1.1, mientras que los casos de carga del modelo estructural se definen sobre cada proyección por separado, según se describe al final de esta sección:
 
 \begin{equation}
     M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}.
@@ -846,7 +846,7 @@ Sustituyendo las Ecs.~\ref{eq:goodman} y~\ref{eq:sigma_eq} en la Ec.~\ref{eq:bas
 donde:
 \begin{itemize}
     \item $\sigma_u = 242{,}1$~MPa es la resistencia última de la ficha técnica preliminar del fabricante (Tabla~\ref{tab:material_pala}).
-    \item $b = -0{,}045$ es el exponente de fatiga para tejido bidireccional $\pm 45^\circ$ fabricado por infusión al vacío~\parencite{Huh2012}, que se traslada al laminado de la pala porque la misma fuente reporta pendientes de la curva S-N poco sensibles a la orientación de las fibras.
+    \item $b = -0{,}045$ es el exponente de fatiga para tejido bidireccional $\pm 45^\circ$ fabricado por infusión al vacío~\parencite{Huh2012}, que se adopta para la ficha técnica preliminar ante la falta de una curva S-N medida sobre el laminado de la pala. Los exponentes que \textcite{Samborsky2012} mide en otras familias de laminado, en general más pronunciados (Tabla~\ref{tab:laminados_infusionados}), se emplean en la Sección~\ref{sec:propiedades_minimas}.
     \item $\gamma_{fat} = 2{,}471$ es el factor combinado de fatiga de la Ec.~\ref{eq:gamma_fat}.
 \end{itemize}
 
