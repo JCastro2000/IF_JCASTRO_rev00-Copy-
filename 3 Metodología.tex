@@ -1002,19 +1002,7 @@ La definición del laminado proviene de un plano de sección transversal entrega
     \end{tabular}
 \end{table}
 
-El plano entrega una única sección y no una distribución de espesores a lo largo de la envergadura, de modo que el modelo la aplica de forma uniforme en los $23$~m de la pala. Es una simplificación, ya que un laminado real suele reducir espesor hacia los extremos, y su alcance se acota en el apartado siguiente.
-
-\subsubsection{Contraste de masa del modelo}
-\label{sec:contraste_masa}
-
-La masa que resulta de extender la sección característica a toda la envergadura permite contrastar esa simplificación contra un dato independiente, la masa de la pala que declara el fabricante (Tabla~\ref{tab:geometria_turbina}). El perímetro $P$ de la sección NACA 0018 se obtiene al integrar numéricamente el contorno normalizado del perfil de la Figura~\ref{fig:naca0018}, lo que entrega la relación de la Ec.~\ref{eq:perimetro_naca}:
-
-\begin{equation}
-    P \approx 2{,}08 \, c,
-    \label{eq:perimetro_naca}
-\end{equation}
-
-donde $c$ es la cuerda del perfil (Tabla~\ref{tab:geometria_turbina}). Con ese perímetro, la densidad de la Tabla~\ref{tab:material_pala} y los espesores de la Tabla~\ref{tab:seccion_caracteristica} se calcula la masa de la pala, cuyo resultado se presenta en el Capítulo~4.
+El plano entrega una única sección y no una distribución de espesores a lo largo de la envergadura, de modo que el modelo la aplica de forma uniforme en los $23$~m de la pala. Es una simplificación, ya que un laminado real suele reducir espesor hacia los extremos.
 
 \subsection{Análisis por modelado de elementos finitos de la pala}
 \label{sec:fem}
@@ -1065,7 +1053,7 @@ La cuarta y la quinta resuelven sobre la malla más fina los doce casos direccio
 
 Las dos últimas no persiguen un veredicto sino separar las dos contribuciones de la carga, cosa que ninguna corrida combinada permite hacer.
 
-La corrida \textbf{solo inercial} impone únicamente las aceleraciones de gravedad y centrífuga, sin mayorar, y suprime las fuerzas aerodinámicas. Cumple dos funciones. Entrega la tensión que la pala soporta de forma permanente mientras el rotor gira, que es el término de tensión media que exige la corrección de Goodman en la verificación de fatiga (Sección~\ref{sec:anexo_g}). Y permite medir la masa del modelo a partir de las reacciones en los apoyos, con lo que se comprueba que la distribución de masa que el solucionador integra elemento a elemento coincide con la que declara la sección característica (Sección~\ref{sec:contraste_masa}).
+La corrida \textbf{solo inercial} impone únicamente las aceleraciones de gravedad y centrífuga, sin mayorar, y suprime las fuerzas aerodinámicas. Cumple dos funciones. Entrega la tensión que la pala soporta de forma permanente mientras el rotor gira, que es el término de tensión media que exige la corrección de Goodman en la verificación de fatiga (Sección~\ref{sec:anexo_g}). Y permite medir la masa del modelo a partir de las reacciones en los apoyos, con lo que se comprueba la distribución de masa que el solucionador integra elemento a elemento.
 
 La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del DLC 1.1 sin mayorar y suprime las aceleraciones. Su objeto es determinar el factor que convierte el momento flector de las series temporales en tensión, ya que el recuento de ciclos se realiza sobre momentos y la curva S-N se expresa en tensiones. Al resolverse sin inercia, ese factor resulta del cociente directo entre la tensión que entrega el modelo y el momento de la carga con que se corrió.
 
