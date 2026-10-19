@@ -690,16 +690,16 @@ Ambos estudios se ejecutan sobre el mismo barrido paramétrico de cuatro tamaño
         \cline{2-6} \cline{7-8}
         \textbf{(mm)} & Manto & Alma ant. & Alma post. & Vendaje & Sección $z_{inf}$ & Modo 1 & Modo 2 \\
         \hline
-        $50$ & $174{,}26$ & $164{,}31$ & $100{,}98$ & $148{,}36$ & $164{,}70$ & $0{,}48992$ & $0{,}50712$ \\
-        $35$ & $175{,}75$ & $173{,}96$ & $104{,}71$ & $140{,}81$ & $165{,}25$ & $0{,}48206$ & $0{,}50196$ \\
-        $25$ & $182{,}77$ & $174{,}05$ & $104{,}36$ & $168{,}43$ & $173{,}26$ & $0{,}48608$ & $0{,}50773$ \\
-        $18$ & $189{,}40$ & $176{,}84$ & $106{,}90$ & $176{,}11$ & $178{,}69$ & $0{,}48185$ & $0{,}49599$ \\
+        $50$ & $172{,}11$ & $160{,}66$ & $97{,}71$ & $145{,}31$ & $162{,}59$ & $0{,}52450$ & $0{,}54070$ \\
+        $35$ & $173{,}44$ & $175{,}76$ & $101{,}10$ & $140{,}21$ & $162{,}94$ & $0{,}51577$ & $0{,}53451$ \\
+        $25$ & $180{,}06$ & $175{,}22$ & $100{,}37$ & $168{,}21$ & $171{,}05$ & $0{,}52013$ & $0{,}54024$ \\
+        $18$ & $187{,}09$ & $183{,}06$ & $102{,}83$ & $176{,}44$ & $176{,}50$ & $0{,}51534$ & $0{,}52979$ \\
         \hline
         \multicolumn{8}{c}{\textit{Variación entre mallas sucesivas} (\%)} \\
         \hline
-        $35$ & $+0{,}85$ & $+5{,}87$ & $+3{,}69$ & $-5{,}09$ & $+0{,}34$ & $-1{,}60$ & $-1{,}02$ \\
-        $25$ & $+4{,}00$ & $+0{,}05$ & $-0{,}33$ & $+19{,}61$ & $+4{,}85$ & $+0{,}83$ & $+1{,}15$ \\
-        $18$ & $+3{,}63$ & $+1{,}61$ & $+2{,}43$ & $+4{,}56$ & $+3{,}13$ & $-0{,}87$ & $-2{,}31$ \\
+        $35$ & $+0{,}78$ & $+9{,}40$ & $+3{,}47$ & $-3{,}51$ & $+0{,}21$ & $-1{,}66$ & $-1{,}14$ \\
+        $25$ & $+3{,}82$ & $-0{,}31$ & $-0{,}73$ & $+19{,}97$ & $+4{,}98$ & $+0{,}85$ & $+1{,}07$ \\
+        $18$ & $+3{,}90$ & $+4{,}47$ & $+2{,}45$ & $+4{,}89$ & $+3{,}19$ & $-0{,}92$ & $-1{,}93$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -713,7 +713,7 @@ Ambos estudios se ejecutan sobre el mismo barrido paramétrico de cuatro tamaño
 
 \medskip
 \noindent\textbf{Convergencia del autovalor de pandeo.}
-El criterio que la Sección 6.6.5.6 de la IEC 61400-5 fija de forma literal es que el autovalor no varíe más de un $5\%$ al duplicar la densidad de malla~\parencite{IEC61400-5}, condición que en este barrido cumplen holgadamente los pares de $50$ a $25$~mm y de $35$ a $18$~mm. El primer modo se desplaza un $-0{,}78\%$ en el primer par y un $-0{,}04\%$ en el segundo, y entre los extremos del barrido su variación acumulada es del $1{,}66\%$, de modo que el autovalor está bien resuelto sobre la malla adoptada. Se adopta como resultado el valor medido de $18$~mm, y el margen con que queda por debajo del umbral normativo hace irrelevante cualquier corrección asintótica.
+El criterio que la Sección 6.6.5.6 de la IEC 61400-5 fija de forma literal es que el autovalor no varíe más de un $5\%$ al duplicar la densidad de malla~\parencite{IEC61400-5}, condición que en este barrido cumplen holgadamente los pares de $50$ a $25$~mm y de $35$ a $18$~mm. El primer modo se desplaza un $-0{,}83\%$ en el primer par y un $-0{,}08\%$ en el segundo, y entre los extremos del barrido su variación acumulada es del $1{,}76\%$, de modo que el autovalor está bien resuelto sobre la malla adoptada. Se adopta como resultado el valor medido de $18$~mm, y el margen con que queda por debajo del umbral normativo hace irrelevante cualquier corrección asintótica.
 
 Que los modos respondan a un mismo mecanismo y no a fenómenos distintos no se establece por la semejanza de sus variaciones sino por su localización sobre la pala, que se examina en la Sección~\ref{sec:verif_estabilidad}.
 
@@ -721,9 +721,9 @@ Que los modos respondan a un mismo mecanismo y no a fenómenos distintos no se e
 \noindent\textbf{Convergencia de la tensión.}
 La tensión requiere una lectura más cuidadosa, porque el máximo sobre una región no es una magnitud que converja de forma monótona. Al refinar, el elemento donde se localiza el pico cambia de posición, de modo que el valor oscila aunque el campo de tensión esté resuelto. El criterio adoptado en este trabajo es por tanto que la variación entre las dos mallas más finas sea inferior al $5\%$~\parencite{Qin2026,Hameed2015,Boudounit2020}.
 
-Cuatro de las cinco lecturas lo satisfacen. El manto se desplaza un $3{,}63\%$ en el último refinamiento, las dos almas un $1{,}61\%$ y un $2{,}43\%$, y la sección del apoyo inferior un $3{,}13\%$. La banda que recorren a lo largo del barrido completo se mantiene entre el $6$ y el $8\%$, dispersión compatible con un máximo que cambia de elemento sobre un campo ya resuelto. El valor del manto en la malla más fina, $189{,}40$~MPa, es el que gobierna la verificación de resistencia.
+Cuatro de las cinco lecturas lo satisfacen. El manto se desplaza un $3{,}90\%$ en el último refinamiento, las dos almas un $4{,}47\%$ y un $2{,}45\%$, y la sección del apoyo inferior un $3{,}19\%$. La banda que recorren a lo largo del barrido completo se mantiene entre el $5$ y el $13\%$, dispersión compatible con un máximo que cambia de elemento sobre un campo ya resuelto. El valor del manto en la malla más fina, $187{,}09$~MPa, es el que gobierna la verificación de resistencia.
 
-La excepción es la sonda del vendaje, que recorre una banda del $22{,}28\%$. No satisface el criterio y se trata por separado.
+La excepción es la sonda del vendaje, que recorre una banda del $22{,}99\%$. No satisface el criterio y se trata por separado.
 
 \medskip
 \noindent\textbf{Tratamiento de la sonda no convergente.}
@@ -769,7 +769,7 @@ La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal m�
 
 Conviene precisar el origen de ese valor, porque no corresponde a un concentrador del detalle de la unión sino a un cambio de sección. Bajo el vendaje el manto trabaja como ala de un laminado de $13{,}2$ a $19{,}4$~mm de espesor según el tramo, y al terminar el refuerzo queda solo con los $5{,}2$ u $11{,}4$~mm que le son propios. Evaluado sobre el carenado de borde de fuga, ese cambio multiplica por $6{,}4$ la tensión que un mismo momento flector produce en el manto, y por $2{,}9$ sobre el ala del larguero. La terminación del refuerzo es por tanto el punto crítico por construcción, y lo seguirá siendo por gradual que se haga la transición de espesor, ya que el chaflán gobierna lo brusco del paso pero no el hecho de que al otro lado el manto carga solo.
 
-El análisis de convergencia descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}63\%$, por debajo del criterio adoptado. Lo que no permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que un apoyo de mayor superficie o un refuerzo más extenso redistribuirían la tensión en esa zona.
+El análisis de convergencia descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}90\%$, por debajo del criterio adoptado. Lo que no permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que un apoyo de mayor superficie o un refuerzo más extenso redistribuirían la tensión en esa zona.
 
 La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -180{,}20$~MPa, correspondiente a compresión. El contorno corresponde igualmente al laminado del manto, y el máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
 
