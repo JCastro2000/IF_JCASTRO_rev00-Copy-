@@ -484,7 +484,7 @@ Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se pr
     \end{tabular}
 \end{table}
 
-La carga característica corresponde a la mayor media entre las velocidades simuladas, $F_k = 65{,}66$~kN$\cdot$m a $V = 24$~m/s, destacada en la Tabla~\ref{tab:dlc13_maximos}. Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
+La carga característica corresponde a la mayor media entre las velocidades simuladas, $F_k = 65{,}66$~kN$\cdot$m a $V = 24$~m/s, destacada en la Tabla~\ref{tab:dlc13_maximos}. Las medias crecen de forma monótona con la velocidad, lo que confirma que la condición dimensionante se ubica en el extremo superior del rango restringido de $16$ a $24$~m/s (Sección~\ref{sec:velocidades_simulacion}). Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
 
 \begin{equation}
     M_{env,d} = \gamma_f \cdot F_k = 1{,}35 \times 65{,}66 = 88{,}64\ \text{kN}\cdot\text{m}.
@@ -648,7 +648,7 @@ La concentración se aprecia mejor sobre el espectro completo que sobre las velo
 \subsection{Daño acumulado total}
 \label{sec:dano_total}
 
-La Tabla~\ref{tab:dano_direcciones} recoge el daño acumulado en la vida de diseño para cada una de las doce direcciones. El daño se concentra en las direcciones próximas a la normal a la cuerda, $90^\circ$ y $270^\circ$, que son las que recogen la inversión de la carga normal entre barlovento y sotavento, y cae en más de diez órdenes de magnitud en las direcciones de la cuerda, $0^\circ$ y $180^\circ$. La dirección gobernante es $\theta_k = 90^\circ$.
+La Tabla~\ref{tab:dano_direcciones} recoge el daño acumulado en la vida de diseño para cada una de las doce direcciones. El daño se concentra en las direcciones próximas a la normal a la cuerda, $90^\circ$ y $270^\circ$, que son las que recogen la inversión de la carga normal entre barlovento y sotavento, y cae en más de diez órdenes de magnitud en las direcciones de la cuerda, $0^\circ$ y $180^\circ$. La dirección gobernante es $\theta_k = 90^\circ$. Como $K_{aero}$ se calibra con el momento resultante de la carga de calibración, de dirección predominantemente normal a la cuerda, el daño de la dirección gobernante es el más confiable y el de las restantes debe leerse como un orden de magnitud.
 
 \begin{table}[H]
     \centering
@@ -712,6 +712,12 @@ Las fuerzas de diseño por estación de la Sección~\ref{sec:comparacion_dlc}, j
 Cada caso de carga última aporta doce estados al modelo estructural, uno por cada dirección de carga (Sección~\ref{sec:comparacion_dlc}), de modo que la envolvente de cargas de la Sección 3.17 de la IEC 61400-5 quede cubierta en todas las direcciones potencialmente críticas de la sección~\parencite{IEC61400-5}. A ellos se añade un caso de referencia con las cargas inerciales como única solicitación, que permite separar la contribución de la rotación y que sirve además para calibrar la conversión momento-tensión del análisis de fatiga.
 
 Antes de entrar en los resultados conviene consignar la comprobación que acredita el montaje del modelo. Las reacciones de los dos apoyos cierran con la resultante de las cargas impuestas en los tres ejes y en las siete corridas (Sección~\ref{sec:corridas_fem}). En la corrida solo inercial esa comprobación entrega además la masa del modelo por dos vías independientes, el eje de la gravedad y el de la aceleración centrífuga, que coinciden en $850{,}9$~kg con una discrepancia inferior al $0{,}001\%$, mientras la suma de reacciones en el eje restante no alcanza $0{,}4$~N frente a los $349{,}29$~kN de la solicitación. Dado que las fuerzas aerodinámicas ingresan como cargas remotas en $21$ estaciones y las inerciales las genera el solucionador a partir de la masa de cada elemento, esa coincidencia descarta errores de signo, de unidad o de punto de aplicación en cualquiera de las dos vías.
+
+\subsection{Contraste de masa del modelo}
+
+La masa que resulta de extender la sección característica a toda la envergadura (Sección~\ref{sec:contraste_masa}) es de $735$~kg, frente a los $760$~kg que el fabricante declara como masa de la pala (Tabla~\ref{tab:geometria_turbina}), esto es, una diferencia del $3{,}3\%$.
+
+La concordancia no demuestra que el laminado sea constante a lo largo de la envergadura, ya que una pala que redujera espesor hacia los extremos y lo aumentara en las zonas de conexión podría arrojar la misma masa total. Lo que sí establece es que la sección característica, extendida a toda la pala, no introduce un exceso ni un defecto apreciable de material. Esa comprobación es pertinente porque las cargas inerciales son proporcionales a la masa y dominan la solicitación, según se muestra más adelante en esta sección.
 
 \subsection{Convergencia de malla}
 
