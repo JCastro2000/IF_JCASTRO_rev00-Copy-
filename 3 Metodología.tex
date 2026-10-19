@@ -639,7 +639,7 @@ A partir de $M_x$ y $M_y$ se definen dos magnitudes más para cada apoyo. La pri
     \label{eq:M_res}
 \end{equation}
 
-La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que la capacidad de la sección depende de la dirección en que flecta. En cada instante el momento se proyecta sobre doce direcciones de flexión separadas $30^\circ$ entre sí, y se toma la mayor de esas proyecciones, que resume en un solo escalar la solicitación en la dirección más desfavorable de cada instante. Esta magnitud sirve como indicador y para el criterio de omisión del DLC 1.1, mientras que los casos de carga del modelo estructural se definen sobre cada proyección por separado, según se describe al final de esta sección:
+La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que la capacidad de la sección depende de la dirección en que flecta. En cada instante el momento se proyecta sobre doce direcciones de flexión separadas $30^\circ$ entre sí, y se toma la mayor de esas proyecciones, que resume en un solo escalar la solicitación en la dirección más desfavorable de cada instante.:
 
 \begin{equation}
     M_{env}(t) = \max_{k=1,\dots,12} \left[ M_x(t) \cos\theta_k + M_y(t) \sin\theta_k \right], \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}.
