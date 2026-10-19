@@ -2,7 +2,7 @@
 
 Este anexo reproduce el código que evalúa el estado límite de fatiga a partir de las series temporales de cargas, siguiendo el Anexo H de IEC 61400-1~\parencite{IEC61400-1}. Se omiten las rutinas de exportación y de generación de figuras.
 
-La variable de carga es el momento flector en la sección crítica, proyectado en doce direcciones de carga, y no una suma de fuerzas. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3.1 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
+La variable de carga son los momentos flectores en la sección crítica, y no una suma de fuerzas. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3.1 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
 
 \subsection*{Parámetros de entrada}
 
@@ -52,7 +52,7 @@ GAMMA_M1 = 1.10      # propiedades en seco a temperatura ambiente
 GAMMA_M2 = 1.00      # sin efecto de temperatura
 GAMMA_M3 = 1.30      # propiedades nominales de diseño
 GAMMA_M4 = 1.20 * 1.20   # deformaciones no validadas y pendiente supuesta
-GAMMA_M5 = 1.00 * 1.00   # doce direcciones (5a), series temporales (5b)
+GAMMA_M5 = 1.00 * 1.00   # historia exacta de tensión (5a), series temporales (5b)
 
 # En fatiga los factores se aplican de forma acumulativa sobre la amplitud
 # de tensión, en lugar de reducir la resistencia. Ambas vías son
@@ -70,20 +70,22 @@ T_OBS     = 600.0     # ventana útil de cada realización [s]
 T_YEAR    = 365.25 * 24 * 3600.0
 ANIOS     = 20        # vida de diseño [años]
 
-# Tensiones principales obtenidas del FEM en la sección crítica, ambas sin
-# mayorar: la primera con las cargas aerodinámicas del DLC 1.1 como única
-# solicitación y la segunda con las cargas inerciales como única
-# solicitación. La aerodinámica escala con el momento y define K_aero; la
-# inercial no escala y se reincorpora como tensión media. Se calibran sobre
-# cargas características porque en fatiga la mayoración se aplica una sola
-# vez, sobre la amplitud de cada ciclo.
-SIGMA_AERO = 60.530   # [MPa] solo cargas aerodinámicas
-SIGMA_IN   = 80.625   # [MPa] solo centrífuga y gravedad
+# Tensiones principales obtenidas del FEM en la sección crítica, todas sin
+# mayorar: la primera con las cargas aerodinámicas del perfil de calibración
+# como única solicitación, la segunda con solo la componente normal de ese
+# perfil y la tercera con las cargas inerciales como única solicitación. Las
+# dos primeras definen los coeficientes c_x y c_y; la inercial no escala y se
+# reincorpora como tensión media. Se calibran sobre cargas características
+# porque en fatiga la mayoración se aplica una sola vez, sobre la amplitud de
+# cada ciclo.
+SIGMA_AERO   = 60.530   # [MPa] perfil completo, solo cargas aerodinámicas
+SIGMA_NORMAL = 61.710   # [MPa] solo la componente normal del perfil
+SIGMA_IN     = 80.625   # [MPa] solo centrífuga y gravedad
 \end{pycode}
 
 \subsection*{Del vector de cargas al momento flector}
 
-El momento flector en la sección crítica se obtiene sumando el aporte de todas las estaciones situadas por debajo de ella, cada una multiplicada por su brazo. Las dos componentes se combinan en un momento resultante, que se emplea en la calibración, y se proyectan en las doce direcciones de carga, que son la variable del conteo de ciclos.
+El momento flector en la sección crítica se obtiene sumando el aporte de todas las estaciones situadas por debajo de ella, cada una multiplicada por su brazo. Las dos componentes se conservan por separado y con su signo.
 
 \begin{pycode}
 def momento_componentes(fx, fy):
@@ -103,33 +105,25 @@ def momento_componentes(fx, fy):
     bajo  = Z_POS < Z_CRIT
     brazo = Z_CRIT - Z_POS[bajo]
     return float(np.sum(fy[bajo] * brazo)), float(np.sum(fx[bajo] * brazo))
-
-
-def momento_resultante(fx, fy):
-    """Módulo del vector (Mx, My), siempre positivo. Solo para calibrar."""
-    return np.hypot(*momento_componentes(fx, fy))
-
-
-# Direcciones de carga de la Ec. P_k, medidas desde Y_l hacia X_l. La
-# proyección conserva el signo y registra la inversión de la carga normal
-# entre barlovento y sotavento, que el resultante no distingue.
-TH = 2.0 * np.pi * np.arange(12) / 12
 \end{pycode}
 
 \subsection*{Calibración de la relación momento-tensión}
 
-Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es proporcional al momento flector. La constante de proporcionalidad se obtiene de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico, de modo que la calibración emplea la corrida con cargas aerodinámicas únicamente y la tensión inercial se reincorpora después como tensión media.
+Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es lineal en los dos momentos flectores. Los coeficientes se obtienen de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico, de modo que la calibración emplea corridas con cargas aerodinámicas únicamente y la tensión inercial se reincorpora después como tensión media.
 
 \begin{pycode}
-# fn_k, ft_k son las fuerzas por estación del instante gobernante del
-# DLC 1.1 SIN mayorar, es decir las mismas que se aplicaron en las dos
-# corridas de calibración del modelo de elementos finitos.
-M_res_k = momento_resultante(fn_k, ft_k) / 1000.0     # [kN*m]
+# fn_k, ft_k son las fuerzas por estación del perfil de calibración SIN
+# mayorar, es decir las mismas que se aplicaron en las corridas de
+# calibración del modelo de elementos finitos.
+Mx_cal, My_cal = [m / 1000.0 for m in momento_componentes(fn_k, ft_k)]   # [kN*m]
 
-# K_aero traduce momento aerodinámico a tensión, calibrado con la corrida
-# de cargas aerodinámicas únicamente. Calibrar sobre la tensión total, que
-# incluye la media inercial, inflaría la amplitud de todos los ciclos.
-K_AERO = SIGMA_AERO / M_res_k                         # [MPa/(kN*m)]
+# Coeficientes de la tensión del punto crítico, sigma = c_x Mx + c_y My + sigma_in.
+# La corrida con solo la fuerza normal produce únicamente My, de donde sale
+# c_y; c_x resulta por diferencia con la corrida del perfil completo. Calibrar
+# sobre la tensión total, que incluye la media inercial, inflaría la amplitud
+# de todos los ciclos.
+C_Y = SIGMA_NORMAL / My_cal                           # [MPa/(kN*m)]
+C_X = (SIGMA_AERO - SIGMA_NORMAL) / Mx_cal            # [MPa/(kN*m)]
 \end{pycode}
 
 \subsection*{Corrección por tensión media, curva S-N y conteo de ciclos}
@@ -180,7 +174,7 @@ t_anual = {V: weibull_pdf(V, WEIBULL_K, WEIBULL_C) * DV * T_YEAR
 Cada serie temporal se convierte en una historia de tensiones, se descompone en ciclos mediante el algoritmo Rainflow y se acumula el daño según la regla de Palmgren-Miner.
 
 \begin{pycode}
-danio_por_V = [defaultdict(list) for _ in TH]      # [k][V]
+danio_por_V = defaultdict(list)
 
 for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
     partes = os.path.basename(ruta).replace('_forces.csv', '').split('_')
@@ -195,9 +189,9 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
 
     # --- Historia de tensiones en la sección crítica -------------------
     # Se recorre la serie instante a instante: en cada uno se arma el
-    # vector de cargas de las 21 estaciones, se reduce a momento flector,
-    # este se traduce a tensión mediante K_aero y se le suma la tensión
-    # inercial, constante, que fija el nivel medio de la historia.
+    # vector de cargas de las 21 estaciones, se reduce a los dos momentos
+    # flectores, estos se traducen a tensión mediante c_x y c_y y se suma la
+    # tensión inercial, constante, que fija el nivel medio de la historia.
     indices = np.where(mask)[0]
     Mx_t = np.empty(len(indices))
     My_t = np.empty(len(indices))
@@ -206,41 +200,34 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
         fy_t = np.array([datos[c][idx] for c in col_fy])
         Mx_t[j], My_t[j] = momento_componentes(fx_t, fy_t)
 
-    escala = t_anual[V] / T_OBS      # realizaciones equivalentes por año
+    sigma_t = (C_X * Mx_t + C_Y * My_t) / 1000.0 + SIGMA_IN
+    escala  = t_anual[V] / T_OBS      # realizaciones equivalentes por año
 
-    for k, th in enumerate(TH):
-        # Momento proyectado en la dirección k, en kN*m, traducido a tensión
-        # con K_aero y sumado a la tensión inercial, constante.
-        P_t = (Mx_t * np.cos(th) + My_t * np.sin(th)) / 1000.0
-        sigma_t = K_AERO * P_t + SIGMA_IN
+    # --- Conteo de ciclos ----------------------------------------------
+    # Rainflow descompone la historia irregular en ciclos cerrados, cada
+    # uno caracterizado por su rango y su valor medio.
+    danio = 0.0
+    for rango, media, conteo, _, _ in rainflow.extract_cycles(sigma_t):
+        sigma_a = rango / 2.0
+        if sigma_a < 0.01:
+            continue                 # ciclos de amplitud despreciable
 
-        # --- Conteo de ciclos ------------------------------------------
-        # Rainflow descompone la historia irregular en ciclos cerrados,
-        # cada uno caracterizado por su rango y su valor medio.
-        danio = 0.0
-        for rango, media, conteo, _, _ in rainflow.extract_cycles(sigma_t):
-            sigma_a = rango / 2.0
-            if sigma_a < 0.01:
-                continue             # ciclos de amplitud despreciable
+        # Primero la corrección por tensión media, luego los factores
+        # parciales sobre la amplitud, según la Sección 7.6.3.1.
+        sigma_a_eq = GAMMA_TOTAL * amplitud_equivalente(sigma_a, media)
 
-            # Primero la corrección por tensión media, luego los factores
-            # parciales sobre la amplitud, según la Sección 7.6.3.1.
-            sigma_a_eq = GAMMA_TOTAL * amplitud_equivalente(sigma_a, media)
+        # Regla de Palmgren-Miner: cada ciclo consume una fracción
+        # 1/N_f de la vida. El factor de escala expande la contribución
+        # de la realización de 600 s al año completo.
+        danio += conteo * escala / ciclos_hasta_falla(sigma_a_eq)
 
-            # Regla de Palmgren-Miner: cada ciclo consume una fracción
-            # 1/N_f de la vida. El factor de escala expande la contribución
-            # de la realización de 600 s al año completo.
-            danio += conteo * escala / ciclos_hasta_falla(sigma_a_eq)
-
-        danio_por_V[k][V].append(danio)
+    danio_por_V[V].append(danio)
 
 # --- Daño anual y en la vida de diseño ---------------------------------
 # Para cada velocidad se promedian sus semillas (seis por debajo de 10 m/s
-# y quince desde esa velocidad), y los aportes de todas se suman. La
-# verificación se rige por la dirección de mayor daño.
-D_vida_k = [ANIOS * sum(float(np.mean(d[V])) for V in d) for d in danio_por_V]
-k_gob    = int(np.argmax(D_vida_k))
-D_vida   = D_vida_k[k_gob]
+# y quince desde esa velocidad), y los aportes de todas se suman.
+D_anual = sum(float(np.mean(danio_por_V[V])) for V in danio_por_V)
+D_vida  = ANIOS * D_anual
 
 # Criterio de verificación del Anexo H: la pala cumple si el daño
 # acumulado en la vida de diseño no alcanza la unidad.
