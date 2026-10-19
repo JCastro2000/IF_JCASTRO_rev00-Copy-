@@ -624,7 +624,7 @@ El procedimiento se resuelve en cinco pasos. Primero se calculan, en cada instan
 \noindent\textbf{Paso 1. Efectos de carga que se extrapolan.}
 Cada una de las 144 simulaciones del DLC 1.1 produce, en cada paso temporal, $21$ pares de fuerzas aerodinámicas por unidad de longitud $(F_{x,l,i}, F_{y,l,i})$ distribuidas a lo largo de la envergadura de la pala. El subíndice $l$ indica que las componentes se expresan en el sistema local de la pala (Figura~\ref{fig:ejes_locales}) y el subíndice $i$ identifica la estación. Los subíndices $x$ e $y$ corresponden a las dos direcciones de ese sistema contenidas en el plano del perfil, siendo $x$ normal a la cuerda, positiva hacia el eje del rotor, e $y$ paralela a la cuerda, positiva en el sentido del movimiento de la pala.
 
-Conforme a lo establecido en la Sección~\ref{sec:extrapolacion_teoria}, la extrapolación opera sobre los efectos de carga en las secciones de apoyo. Para cada una de las dos conexiones con los brazos se calcula el momento flector que produce el voladizo que esa conexión sostiene, descompuesto en las dos direcciones del sistema local, según las Ecs.~\ref{eq:M_apoyo}:
+Para cada una de las dos conexiones con los brazos se calcula el momento flector que produce el voladizo que esa conexión sostiene, descompuesto en las dos direcciones del sistema local, según las Ecs.~\ref{eq:M_apoyo}:
 
 \begin{align}
     M_{x}(t) &= \sum_{i \in \Omega} F_{y,l,i}(t) \, \Delta s_i \, \left| z_i - z_{ap} \right| \nonumber \\
@@ -639,7 +639,7 @@ donde:
     \item $\left| z_i - z_{ap} \right|$ es el brazo con que actúa cada estación.
 \end{itemize}
 
-El momento se evalúa en los apoyos porque cada voladizo cuelga de una sola conexión, de modo que su momento en ella resulta directamente de las fuerzas que actúan sobre él y de sus brazos, sin necesidad de conocer el resto de la pala. En el vano central, en cambio, el momento depende de cómo se reparte la carga entre las dos conexiones, que no se obtiene de las fuerzas aerodinámicas por sí solas, y por eso se resuelve en el modelo de elementos finitos bajo el perfil de diseño.
+El momento se evalúa en los apoyos porque cada voladizo cuelga de una sola conexión, de modo que su momento en ella resulta directamente de las fuerzas que actúan sobre él y de sus brazos, sin necesidad de conocer el resto de la pala.
 
 A partir de $M_x$ y $M_y$ se definen las demás magnitudes. La mayor carga de la simulación no es necesariamente la que produce el mayor esfuerzo, porque la sección resiste de forma distinta según la dirección en que flecta. Por eso se obtiene la carga máxima en doce direcciones separadas $30^\circ$ y cada una se simula en el modelo de elementos finitos, para quedarse con la que produce el mayor esfuerzo. Cada dirección se obtiene proyectando el momento sobre ella, según la Ec.~\ref{eq:P_k}:
 
