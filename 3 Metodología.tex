@@ -641,14 +641,14 @@ donde:
 
 El momento se evalúa en los apoyos porque cada voladizo cuelga de una sola conexión, de modo que su momento en ella resulta directamente de las fuerzas que actúan sobre él y de sus brazos, sin necesidad de conocer el resto de la pala. En el vano central, en cambio, el momento depende de cómo se reparte la carga entre las dos conexiones, que no se obtiene de las fuerzas aerodinámicas por sí solas, y por eso se resuelve en el modelo de elementos finitos bajo el perfil de diseño.
 
-A partir de $M_x$ y $M_y$ se definen las demás magnitudes. Las primeras son los momentos proyectados en doce direcciones de flexión separadas $30^\circ$ entre sí, Ec.~\ref{eq:P_k}, que responden a que la capacidad de la sección depende de la dirección en que flecta:
+A partir de $M_x$ y $M_y$ se definen las demás magnitudes. La mayor carga de la simulación no es necesariamente la que produce el mayor esfuerzo, porque la sección resiste de forma distinta según la dirección en que flecta. Por eso se obtiene la carga máxima en doce direcciones separadas $30^\circ$ y cada una se simula en el modelo de elementos finitos, para quedarse con la que produce el mayor esfuerzo. Cada dirección se obtiene proyectando el momento sobre ella, según la Ec.~\ref{eq:P_k}:
 
 \begin{equation}
     P_k(t) = M_x(t) \cos\theta_k + M_y(t) \sin\theta_k, \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}, \qquad k = 1,\dots,12.
     \label{eq:P_k}
 \end{equation}
 
-Cada ángulo $\theta_k$ identifica la dirección de la carga que produce la flexión, medida desde el eje $Y_l$ hacia el eje $X_l$ del sistema local de la Figura~\ref{fig:ejes_locales}, ya que $M_x$ proviene de la componente $F_{y,l}$ y $M_y$ de la componente $F_{x,l}$ (Ecs.~\ref{eq:M_apoyo}). Así, $\theta_k = 0^\circ$ corresponde a carga en el sentido de la cuerda hacia el borde de ataque y $\theta_k = 90^\circ$ a carga normal dirigida hacia el eje del rotor. La Figura~\ref{fig:envolvente_direccional} ilustra la proyección para un instante, en que la mayor de las doce proyecciones corresponde a la dirección más cercana a la de la carga.
+El ángulo $\theta_k$ indica la dirección de la carga, medida desde la cuerda ($Y_l$) hacia la normal ($X_l$) del sistema local de la Figura~\ref{fig:ejes_locales}. Por ejemplo, $\theta_k = 0^\circ$ corresponde a una carga a lo largo de la cuerda hacia el borde de ataque y $\theta_k = 90^\circ$ a una carga normal dirigida hacia el eje del rotor. La Figura~\ref{fig:envolvente_direccional} ilustra la proyección del momento de un instante sobre las doce direcciones.
 
 \begin{figure}[H]
     \centering
