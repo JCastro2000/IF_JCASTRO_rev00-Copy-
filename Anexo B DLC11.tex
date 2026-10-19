@@ -231,13 +231,15 @@ def carga_caracteristica(centros, mus, betas):
 
 \subsection*{Recorrido de las realizaciones y cargas de diseño}
 
-El procedimiento anterior se aplica de forma independiente a cada una de las trece magnitudes. En el mismo recorrido se localiza el instante gobernante, que es aquel en que la magnitud elegida para escalar el perfil alcanza su máximo sobre el conjunto de las 144 realizaciones.
+El procedimiento anterior se aplica de forma independiente a cada una de las trece magnitudes. En el mismo recorrido se calcula, para cada una de las doce direcciones de la Ec.~\ref{eq:P_k}, el momento proyectado en el apoyo superior, y se localiza el instante en que alcanza su máximo sobre el conjunto de las 144 realizaciones.
 
 \begin{pycode}
-MAGNITUD_GOBERNANTE = 'M_env_apoyo_sup'   # sección más solicitada
+# Direcciones de carga de la Ec. P_k, medidas desde Y_l hacia X_l.
+TH = 2.0 * np.pi * np.arange(N_DIRECCIONES) / N_DIRECCIONES
 
 maximos = defaultdict(lambda: defaultdict(list))
-mejor   = {'valor': -np.inf}
+max_dir = [defaultdict(list) for _ in TH]      # máximos de P_k por velocidad
+mejor   = [{'valor': -np.inf} for _ in TH]     # instante gobernante de cada P_k
 
 for ruta in sorted(glob.glob('sim_DLC11_*_forces.csv')):
     # Nombre del archivo: sim_DLC11_068_V24_S2_forces.csv -> V = 24, semilla 2
@@ -251,42 +253,51 @@ for ruta in sorted(glob.glob('sim_DLC11_*_forces.csv')):
     for nombre, serie in ef.items():
         maximos[nombre][v].append(float(serie.max()))
 
-    # Instante gobernante, para el perfil espacial de diseño.
-    serie = ef[MAGNITUD_GOBERNANTE]
-    j = int(np.argmax(serie))
-    if serie[j] > mejor['valor']:
-        mejor = {'valor': float(serie[j]), 't': float(t[util][j]),
-                 'V': v, 'semilla': semilla,
-                 'fn': fn[util][j].copy(), 'ft': ft[util][j].copy()}
+    # Momento proyectado en las doce direcciones, Ec. P_k, apoyo superior.
+    m_x, m_y = momentos_en_apoyo(fn[util], ft[util], Z_APOYO_SUP, 'sup')
+    p = np.outer(m_x, np.cos(TH)) + np.outer(m_y, np.sin(TH))
+    j = p.argmax(axis=0)
+    for k in range(len(TH)):
+        max_dir[k][v].append(float(p[j[k], k]))
+        if p[j[k], k] > mejor[k]['valor']:
+            mejor[k] = {'valor': float(p[j[k], k]), 't': float(t[util][j[k]]),
+                        'V': v, 'semilla': semilla,
+                        'fn': fn[util][j[k]].copy(), 'ft': ft[util][j[k]].copy()}
 
-resultados = {}
-for nombre, por_v in maximos.items():
+
+def extrapolar(por_v):
     vs    = sorted(por_v)
     pares = [ajuste_gumbel(por_v[v]) for v in vs]
     centros, mu_i, beta_i = malla_de_integracion(
         np.array(vs, float),
-        np.array([p[0] for p in pares]),
-        np.array([p[1] for p in pares]))
+        np.array([q[0] for q in pares]),
+        np.array([q[1] for q in pares]))
     fk = carga_caracteristica(centros, mu_i, beta_i)
-    resultados[nombre] = {'F_k': fk, 'F_d': GAMMA_F * fk}
+    return {'F_k': fk, 'F_d': GAMMA_F * fk}
+
+
+resultados = {nombre: extrapolar(por_v) for nombre, por_v in maximos.items()}
+P_d = [extrapolar(max_dir[k])['F_d'] for k in range(len(TH))]
 \end{pycode}
 
 \subsection*{Del escalar a las fuerzas por estación}
 
-El Anexo G entrega un valor escalar por magnitud, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil se toma del instante gobernante y se escala de manera uniforme, conforme a la Sección 7.5 de la norma. Las cargas que actúan simultáneamente con el extremo son las que el Anexo I denomina cargas compañeras.
+El Anexo G entrega un valor escalar por dirección, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil de cada dirección se toma de su instante gobernante y se escala de manera uniforme, conforme a la Sección 7.5 de la norma. Las cargas que actúan simultáneamente con el extremo son las que el Anexo I denomina cargas compañeras.
 
 \begin{pycode}
-# Valor de la magnitud gobernante en el instante gobernante, y factor
-# único que lo lleva hasta la carga de diseño conservando intacta la forma
-# del perfil a lo largo de la envergadura.
-escala = resultados[MAGNITUD_GOBERNANTE]['F_d'] / mejor['valor']
+casos = []
+for k in range(len(TH)):
+    # Factor único que lleva P_k del instante gobernante hasta su carga de
+    # diseño, conservando intacta la forma del perfil en la envergadura.
+    escala = P_d[k] / mejor[k]['valor']
 
-# Fuerzas de diseño por estación [N]. Se conserva el signo original, de
-# modo que la dirección de aplicación en el modelo estructural reproduce
-# la del instante gobernante: normal positiva hacia el eje del rotor y
-# tangencial positiva en el sentido del movimiento de la pala.
-Fd_n = mejor['fn'] * DELTA_S * escala
-Fd_t = mejor['ft'] * DELTA_S * escala
+    # Fuerzas de diseño por estación [N]. Se conserva el signo original, de
+    # modo que la dirección de aplicación en el modelo estructural reproduce
+    # la del instante gobernante: normal positiva hacia el eje del rotor y
+    # tangencial positiva en el sentido del movimiento de la pala.
+    casos.append({'theta': np.degrees(TH[k]), 'escala': escala,
+                  'Fd_n': mejor[k]['fn'] * DELTA_S * escala,
+                  'Fd_t': mejor[k]['ft'] * DELTA_S * escala})
 \end{pycode}
 
-El mismo cálculo se repite con \texttt{MAGNITUD\_GOBERNANTE} apuntando al apoyo inferior, y con el extremo de $M_y$ en su sentido contrario, que selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga. Las cuatro distribuciones resultantes se recogen en las tablas del Anexo~\ref{anexo:fuerzas}.
+Los doce casos resultantes se resuelven en el modelo estructural, y la distribución del caso gobernante se recoge en las tablas del Anexo~\ref{anexo:fuerzas}.

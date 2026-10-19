@@ -552,7 +552,7 @@ donde:
     \item $\gamma_{m2} = 1{,}10$, por estar las propiedades referidas a temperatura ambiente.
     \item $\gamma_{m3} = 1{,}30$, por realizarse el análisis con propiedades nominales de diseño.
     \item $\gamma_{m4} = 1{,}20$, por no validarse el cálculo de deformaciones mediante ensayo de pala.
-    \item $\gamma_{m5} = 1{,}00$, por caracterizarse la carga extrema en doce direcciones repartidas uniformemente, mediante la envolvente direccional de la Ec.~\ref{eq:M_env}~\parencite{IEC61400-5}.
+    \item $\gamma_{m5} = 1{,}00$, por caracterizarse la carga extrema en doce direcciones repartidas uniformemente, mediante los casos de carga direccionales de la Ec.~\ref{eq:P_k}~\parencite{IEC61400-5}.
 \end{itemize}
 
 El producto de esos factores vale $2{,}471$, de modo que la resistencia factoreada resulta $\sigma_{u,d} = 242{,}1 / 2{,}471 = 97{,}98$~MPa.
@@ -646,7 +646,7 @@ La segunda es la envolvente direccional, Ec.~\ref{eq:M_env}, que responde a que 
     \label{eq:M_env}
 \end{equation}
 
-El ángulo $\theta_k$ se mide desde el eje $X_l$ hacia el eje $Y_l$ del sistema local de la Figura~\ref{fig:ejes_locales}. La Figura~\ref{fig:envolvente_direccional} ilustra la operación para un instante, en que la mayor de las doce proyecciones corresponde a la dirección más cercana al vector de momento.
+Cada ángulo $\theta_k$ identifica la dirección de la carga que produce la flexión, medida desde el eje $Y_l$ hacia el eje $X_l$ del sistema local de la Figura~\ref{fig:ejes_locales}, ya que $M_x$ proviene de la componente $F_{y,l}$ y $M_y$ de la componente $F_{x,l}$ (Ecs.~\ref{eq:M_apoyo}). Así, $\theta_k = 0^\circ$ corresponde a carga en el sentido de la cuerda hacia el borde de ataque y $\theta_k = 90^\circ$ a carga normal dirigida hacia el eje del rotor. La Figura~\ref{fig:envolvente_direccional} ilustra la operación para un instante, en que la mayor de las doce proyecciones corresponde a la dirección más cercana a la de la carga.
 
 \begin{figure}[H]
     \centering
@@ -748,10 +748,17 @@ La carga característica $F_k$ es un valor estadístico; la carga de diseño $F_
 El número mínimo de realizaciones por velocidad asegura la cantidad de datos, pero no que la carga característica que de ellos se extrae haya convergido. El Anexo G añade por eso un segundo requisito, y su Sección G.4.1 lo formaliza exigiendo que el ancho del intervalo de confianza del $90\%$ sobre el fractil del $84\%$ de la distribución de máximos globales se mantenga por debajo del $15\%$ de la estimación de ese fractil~\parencite{IEC61400-1}. Como cada velocidad aporta entre seis y quince observaciones, ese intervalo no admite una expresión cerrada fiable y se estima por remuestreo, generando un gran número de muestras del tamaño correspondiente a partir de la distribución de Gumbel ajustada, reajustando sobre cada una los estimadores de las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu} y recogiendo la dispersión del fractil resultante. Ese mismo remuestreo cuantifica la incertidumbre de los parámetros del ajuste. El resultado de ambas comprobaciones se presenta en el Capítulo~4.
 
 \medskip
-\noindent\textbf{Perfil espacial de fuerzas de diseño.}
-El Anexo G de la IEC 61400-1~\parencite{IEC61400-1} proporciona un valor escalar de diseño por magnitud, y cargar el modelo de elementos finitos exige convertir uno de ellos en una distribución de fuerzas a lo largo de la envergadura. La magnitud que gobierna esa conversión es la envolvente direccional en el apoyo inferior, $M_{env}$ de la Ec.~\ref{eq:M_env} evaluada en $z_{ap} = 5{,}0$~m, elegida por ser la sección en que el modelo estructural localiza la tensión máxima y por recoger, en una sola cifra, el peor de los doce sentidos de flexión que admite esa sección. La distribución se resuelve en las 21 estaciones de la pala (Sección~\ref{sec:discretizacion}), obteniéndose un vector de 21 fuerzas de diseño $(F_{d,x}[p], F_{d,y}[p])$, una por estación.
+\noindent\textbf{Casos de carga direccionales.}
+El Anexo G de la IEC 61400-1~\parencite{IEC61400-1} proporciona un valor escalar de diseño por magnitud, y cargar el modelo de elementos finitos exige convertirlo en una distribución de fuerzas a lo largo de la envergadura. Por la asimetría de la sección de la pala, la dirección de carga más crítica para cada modo de falla no se conoce de antemano. La Sección 6.1.4.3 de la IEC 61400-5 la aborda mediante un enfoque avanzado que considera todas las direcciones de carga potencialmente críticas dentro de la sección, para el que da por suficiente un conjunto de cargas repartido uniformemente en al menos doce direcciones~\parencite{IEC61400-5}. Se adoptan las doce direcciones $\theta_k$ de la Ec.~\ref{eq:M_env}, y para cada una se define el momento proyectado en el apoyo superior, $z_{ap} = 18{,}0$~m, según la Ec.~\ref{eq:P_k}:
 
-Para preservar la correlación espacial entre estaciones, el perfil de carga se extrae del instante $t_{max}$ en que esa magnitud gobernante alcanza su máximo sobre el conjunto de las 144 realizaciones (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}. En ese instante se capturan las fuerzas compañeras $F_x[p], F_y[p]$, concepto que el Anexo I de la norma define como el conjunto de cargas que actúan simultáneamente con el extremo analizado~\parencite{IEC61400-1}, y se escalan uniformemente por el factor $M_{env,d} / M_{env}(t_{max})$. Este enfoque garantiza que la distribución espacial de fuerzas que ingresa al FEM sea la que entrega la simulación aerodinámica en ese único instante, con la correlación entre estaciones que ella misma produce, y no una combinación artificial de máximos independientes por estación que no ocurrieron simultáneamente; y que la magnitud global sea consistente con la carga de diseño a 50 años, ya que todas las estaciones provienen del mismo instante de la simulación. Las fuerzas se transfieren al modelo estructural conservando su signo, de modo que la dirección de aplicación reproduce la del instante gobernante. La Tabla~\ref{tab:anexo_fuerzas_dlc11} del Anexo~\ref{anexo:fuerzas} presenta, para las 21 estaciones, tanto la fuerza $F_{sim,x}[p], F_{sim,y}[p]$ que entrega la simulación en el instante $t_{max}$ como la fuerza puntual de diseño $F_{d,x}[p], F_{d,y}[p]$ que resulta de escalarla y de aplicarla como carga remota en el modelo FEM; las direcciones $x$ e $y$ corresponden a los ejes locales de la Figura~\ref{fig:ejes_locales}.
+\begin{equation}
+    P_k(t) = M_x(t) \cos\theta_k + M_y(t) \sin\theta_k, \qquad k = 1,\dots,12.
+    \label{eq:P_k}
+\end{equation}
+
+Cada $P_k$ se extrapola como una magnitud más, con el procedimiento de esta sección, y su carga de diseño $P_{k,d}$ define el caso de carga de la dirección $k$. El apoyo superior se adopta por ser la sección de mayor momento flector de diseño (Sección~\ref{sec:criterio_omision}). La distribución de cada caso se resuelve en las 21 estaciones de la pala (Sección~\ref{sec:discretizacion}), obteniéndose un vector de 21 fuerzas de diseño $(F_{d,x}[p], F_{d,y}[p])$, una por estación.
+
+Para preservar la correlación espacial entre estaciones, el perfil de carga de cada dirección se extrae del instante $t_{max,k}$ en que $P_k$ alcanza su máximo sobre el conjunto de las 144 realizaciones (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}. En ese instante se capturan las fuerzas compañeras $F_x[p], F_y[p]$, concepto que el Anexo I de la norma define como el conjunto de cargas que actúan simultáneamente con el extremo analizado~\parencite{IEC61400-1}, y se escalan uniformemente por el factor $P_{k,d} / P_k(t_{max,k})$. Este enfoque garantiza que la distribución espacial de fuerzas que ingresa al FEM sea la que entrega la simulación aerodinámica en ese único instante, con la correlación entre estaciones que ella misma produce, y no una combinación artificial de máximos independientes por estación que no ocurrieron simultáneamente; y que la magnitud global sea consistente con la carga de diseño a 50 años, ya que todas las estaciones provienen del mismo instante de la simulación. Un mismo instante puede resultar el de máxima proyección en varias direcciones contiguas, en cuyo caso esas direcciones comparten la distribución de fuerzas y difieren solo en el factor de escala. Las fuerzas se transfieren al modelo estructural conservando su signo, de modo que la dirección de aplicación reproduce la del instante gobernante. Los doce casos se resuelven en el modelo estructural, y la verificación se rige por el que entrega la menor reserva (Sección~\ref{sec:corridas_fem}). La Tabla~\ref{tab:anexo_fuerzas_dlc11} del Anexo~\ref{anexo:fuerzas} presenta, para las 21 estaciones del caso gobernante, tanto la fuerza $F_{sim,x}[p], F_{sim,y}[p]$ que entrega la simulación en el instante $t_{max}$ como la fuerza puntual de diseño $F_{d,x}[p], F_{d,y}[p]$ que resulta de escalarla y de aplicarla como carga remota en el modelo FEM; las direcciones $x$ e $y$ corresponden a los ejes locales de la Figura~\ref{fig:ejes_locales}.
 
 \bigskip
 \subsubsection{DLC 1.2, fatiga}
@@ -927,7 +934,7 @@ La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de 
 
 Disponer de las trece magnitudes en ambos casos de carga es lo que permite aplicar el criterio de la Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando la carga de diseño del DLC 1.3 resulta mayor. La comparación se realiza magnitud a magnitud, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas; el resultado de esa comparación se presenta en el Capítulo~4.
 
-El perfil espacial de diseño se construye sobre la misma magnitud gobernante que en el DLC 1.1, pero de forma coherente con la definición de carga característica que rige aquí. De cada una de las seis semillas de la velocidad gobernante se captura el perfil de fuerzas compañeras en el instante en que esa semilla alcanza su propio máximo, y el perfil de diseño es la media por estación de los seis, amplificada por $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que la Ec.~\ref{eq:dlc13_Fk_local} aplica a la magnitud escalar, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
+Los casos de carga se construyen sobre los mismos doce momentos proyectados de la Ec.~\ref{eq:P_k} que en el DLC 1.1, pero de forma coherente con la definición de carga característica que rige aquí. Para cada dirección, de cada una de las seis semillas de su velocidad gobernante se captura el perfil de fuerzas compañeras en el instante en que esa semilla alcanza su propio máximo, y el perfil de diseño es la media por estación de los seis, amplificada por $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que la Ec.~\ref{eq:dlc13_Fk_local} aplica a la magnitud escalar, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
 
 \section{Etapa 3: análisis estructural}
 
@@ -1064,7 +1071,7 @@ Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $
 \subsubsection{Corridas del modelo}
 \label{sec:corridas_fem}
 
-El modelo se resuelve en siete corridas que comparten geometría, material y condiciones de borde, y que responden a cuatro propósitos distintos. La Tabla~\ref{tab:corridas_fem} las reúne.
+El modelo se resuelve en siete corridas que comparten geometría, material y condiciones de borde, y que responden a cuatro propósitos distintos. Dos de ellas agrupan los doce casos direccionales de cada estado límite último. La Tabla~\ref{tab:corridas_fem} las reúne.
 
 \begin{table}[H]
     \centering
@@ -1077,15 +1084,15 @@ El modelo se resuelve en siete corridas que comparten geometría, material y con
         1 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $50$~mm & Convergencia\\
         2 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $35$~mm & Convergencia\\
         3 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $25$~mm & Convergencia\\
-        4 & DLC 1.1 & $250{,}63$ & $12{,}26$ & $1{,}25$ & $18$~mm & Verificación\\
-        5 & DLC 1.3 & $270{,}68$ & $13{,}24$ & $1{,}35$ & $18$~mm & Verificación\\
+        4 & DLC 1.1, 12 casos & $250{,}63$ & $12{,}26$ & $1{,}25$ & $18$~mm & Verificación\\
+        5 & DLC 1.3, 12 casos & $270{,}68$ & $13{,}24$ & $1{,}35$ & $18$~mm & Verificación\\
         6 & Solo inercial & $200{,}51$ & $9{,}81$ & $1{,}00$ & $18$~mm & Tensión media y masa\\
         7 & Calibración & --- & --- & $1{,}00$ & $18$~mm & Momento a tensión\\
         \hline
     \end{tabular}
 \end{table}
 
-Las cuatro primeras aplican las cargas de diseño del DLC 1.1 sobre cuatro densidades de malla y constituyen el estudio de convergencia de la Sección~\ref{sec:malla}. La quinta aplica las del DLC 1.3 sobre la malla más fina, de modo que el segundo caso de estado límite último se evalúa sobre una discretización ya acreditada sin repetir el barrido.
+La cuarta y la quinta resuelven sobre la malla más fina los doce casos direccionales del DLC 1.1 y del DLC 1.3 (Sección~\ref{sec:anexo_f}). Las tres primeras repiten el caso direccional gobernante del DLC 1.1 sobre las tres mallas más gruesas y, junto con la cuarta, constituyen el estudio de convergencia de la Sección~\ref{sec:malla}, de modo que el segundo caso de estado límite último se evalúa sobre una discretización ya acreditada sin repetir el barrido.
 
 Las dos últimas no persiguen un veredicto sino separar las dos contribuciones de la carga, cosa que ninguna corrida combinada permite hacer.
 

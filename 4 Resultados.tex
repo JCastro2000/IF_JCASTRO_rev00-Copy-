@@ -432,9 +432,37 @@ La carga característica $F_k$, correspondiente al período de retorno de $50$ a
 
 Este valor constituye una primera verificación del procedimiento implementado. La Sección 7.6.2.2 de la norma establece que la carga característica del DLC 1.1 debe corresponder a una probabilidad de excedencia del mayor valor en cualquier intervalo de diez minutos menor o igual a $3{,}8 \times 10^{-7}$, cifra que la norma da como equivalente al período de retorno de $50$ años~\parencite{IEC61400-1}. El cociente $T_{obs}/T_{retorno}$ que emplea la Ec.~\ref{eq:fk_criterion_num}, deducido de forma independiente a partir de la definición de período de retorno, reproduce esa cifra normativa hasta su última cifra significativa.
 
-Las cargas características y de diseño que resultan de aplicar la bisección a cada magnitud son las de la Tabla~\ref{tab:dlc11_magnitudes}. La verificación estructural se conduce sobre los dos apoyos, ya que la envolvente de cargas que define la Sección 3.17 de la IEC 61400-5 abarca todas las posiciones a lo largo de la envergadura y no solo la más solicitada~\parencite{IEC61400-5}. Cada apoyo aporta por ello su propio perfil de fuerzas de diseño, construido con el procedimiento de fuerzas compañeras de la Sección~\ref{sec:anexo_f} a partir del instante en que su magnitud gobernante alcanza el máximo de toda la campaña.
+Las cargas características y de diseño que resultan de aplicar la bisección a cada magnitud son las de la Tabla~\ref{tab:dlc11_magnitudes}. Esas magnitudes alimentan el criterio de omisión de la Sección~\ref{sec:criterio_omision}.
 
-Para el apoyo superior ese instante ocurre en la realización de $V = 24$~m/s y semilla $6$, en $t = 84{,}42$~s, con $M_{env} = 65{,}86$~kN$\cdot$m, de modo que las fuerzas compañeras se escalan por el factor $97{,}65/65{,}86 = 1{,}483$. Para el apoyo inferior el instante gobernante es el de la realización de $V = 24$~m/s y semilla $14$, con $M_{env} = 58{,}24$~kN$\cdot$m y un factor de $86{,}00/58{,}24 = 1{,}477$. Ambos instantes gobernantes se sitúan en el extremo superior del rango de velocidades, resultado coherente con que la carga aerodinámica crezca de forma monótona con el viento hasta el corte.
+Los casos de carga del modelo estructural se construyen con los doce momentos proyectados de la Ec.~\ref{eq:P_k} en el apoyo superior. La Tabla~\ref{tab:casos_direccionales} recoge, para cada dirección, la carga de diseño de ambos casos de carga y el instante gobernante del DLC 1.1, del que provienen sus fuerzas compañeras.
+
+\begin{table}[H]
+    \centering
+    \caption{Casos de carga direccionales en el apoyo superior.}
+    \label{tab:casos_direccionales}
+    \begin{tabular}{cccccc}
+        \hline
+        $\theta_k$ & $P_{k,d}$, DLC 1.1 & \multicolumn{2}{c}{Instante gobernante, DLC 1.1} & Factor de & $P_{k,d}$, DLC 1.3 \\
+        \cline{3-4}
+        & (kN$\cdot$m) & Semilla & $t$ (s) & escala & (kN$\cdot$m) \\
+        \hline
+        $0^\circ$   & $26{,}00$ & $2$  & $264{,}44$ & $1{,}428$ & $24{,}09$ \\
+        $30^\circ$  & $70{,}61$ & $6$  & $84{,}42$  & $1{,}471$ & $64{,}96$ \\
+        $60^\circ$  & $97{,}30$ & $6$  & $84{,}42$  & $1{,}480$ & $88{,}59$ \\
+        $90^\circ$  & $97{,}85$ & $6$  & $84{,}42$  & $1{,}486$ & $88{,}53$ \\
+        $120^\circ$ & $72{,}09$ & $6$  & $84{,}42$  & $1{,}491$ & $64{,}92$ \\
+        $150^\circ$ & $29{,}20$ & $14$ & $285{,}87$ & $1{,}491$ & $25{,}02$ \\
+        $180^\circ$ & $4{,}59$  & $10$ & $614{,}13$ & $1{,}548$ & $3{,}94$ \\
+        $210^\circ$ & $29{,}24$ & $8$  & $457{,}04$ & $1{,}434$ & $26{,}51$ \\
+        $240^\circ$ & $64{,}71$ & $8$  & $457{,}04$ & $1{,}464$ & $55{,}69$ \\
+        $270^\circ$ & $82{,}18$ & $8$  & $457{,}04$ & $1{,}463$ & $70{,}91$ \\
+        $300^\circ$ & $77{,}47$ & $8$  & $457{,}04$ & $1{,}460$ & $67{,}12$ \\
+        $330^\circ$ & $52{,}20$ & $8$  & $457{,}04$ & $1{,}459$ & $45{,}47$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+El DLC 1.1 supera al DLC 1.3 en las doce direcciones, y todos sus instantes gobernantes provienen de realizaciones de $V = 24$~m/s, resultado coherente con que la carga aerodinámica crezca de forma monótona con el viento hasta el corte. Solo cinco instantes distintos cubren las doce direcciones, ya que el instante de una carga extrema resulta también el de máxima proyección en las direcciones contiguas a la suya. Las direcciones de $30^\circ$ a $120^\circ$ comparten así el instante de la semilla $6$, y las de $210^\circ$ a $330^\circ$ el de la semilla $8$, con factores de escala que difieren entre sí menos de un $3\%$.
 
 La distribución de estas cargas a lo largo de la envergadura, esto es, las fuerzas de diseño por estación $F_{d,x}[p]$ y $F_{d,y}[p]$ para las 21 estaciones de la pala, se presenta en la Sección~\ref{sec:comparacion_dlc}, junto con la del DLC 1.3, una vez determinada la carga de este último.
 
@@ -523,7 +551,7 @@ Definidas las cargas globales de ambos casos últimos, resta distribuirlas a lo 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/comparacion_fuerzas_dlc.pdf}
-    \caption[Comparación de fuerzas de diseño por estación entre casos de carga.]{Fuerzas de diseño por estación para el apoyo superior: (a) componente normal a la cuerda $F_{d,n}$ y (b) componente en el sentido de la cuerda $F_{d,t}$, según los ejes locales de la Figura~\ref{fig:ejes_locales}. Las curvas azules corresponden al instante en que la fuerza normal apunta hacia el eje del rotor y las rojas a aquel en que apunta hacia afuera. Las líneas verticales punteadas marcan las dos conexiones con los brazos.}
+    \caption[Comparación de fuerzas de diseño por estación entre casos de carga.]{Fuerzas de diseño por estación para el apoyo superior: (a) componente normal a la cuerda $F_{d,n}$ y (b) componente en el sentido de la cuerda $F_{d,t}$, según los ejes locales de la Figura~\ref{fig:ejes_locales}. Las curvas azules corresponden a la dirección $\theta_k = 90^\circ$, de carga normal hacia el eje del rotor, y las rojas a la dirección gobernante $\theta_k = 240^\circ$, de carga normal hacia afuera. Las líneas verticales punteadas marcan las dos conexiones con los brazos.}
     \label{fig:comparacion_fuerzas_dlc}
 \end{figure}
 
@@ -533,15 +561,15 @@ Cada panel recorre la envergadura desde la base de la pala ($z = 0$) hasta su ex
 \noindent\textbf{Los dos sentidos de la carga normal.}
 Los perfiles conservan el signo que entrega la simulación, y ese signo obliga a distinguir dos estados de carga que la extrapolación trata por separado. En el sistema local de la pala, la fuerza normal es positiva cuando apunta hacia el eje del rotor, sentido que se determinó promediando en fase varias revoluciones y que corresponde a la sustentación de la mitad de barlovento, donde el flujo llega íntegro y se concentra el par (Sección~\ref{sec:ejes_locales_res}).
 
-El instante que maximiza la envolvente direccional $M_{env}$ resulta ser uno de carga normal positiva en las 21 estaciones, esto es, dirigida hacia el eje. Esa carga se opone a la fuerza centrífuga, que apunta hacia afuera y que en esta máquina domina la solicitación estructural, de modo que el extremo aerodinámico alivia parcialmente el estado combinado en lugar de agravarlo. El mayor momento aerodinámico no produce, por tanto, la mayor tensión en la pala.
+La dirección de mayor momento de diseño, $\theta_k = 90^\circ$, corresponde a un instante de carga normal positiva en las 21 estaciones, esto es, dirigida hacia el eje. Esa carga se opone a la fuerza centrífuga, que apunta hacia afuera y que en esta máquina domina la solicitación estructural, de modo que el extremo aerodinámico alivia parcialmente el estado combinado en lugar de agravarlo. El mayor momento aerodinámico no produce, por tanto, la mayor tensión en la pala.
 
-Por esa razón el procedimiento de la Sección~\ref{sec:anexo_f} extrapola cada componente de momento en sus dos sentidos. El extremo de $M_y$ en el sentido contrario selecciona el instante en que la carga normal apunta hacia afuera y se suma a la centrífuga, y de él se construye el segundo perfil de cada caso, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una resultante integrada de $136{,}0$~kN frente a los $154{,}3$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál de los dos gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
+Por esa razón la verificación recorre las doce direcciones de la Sección~\ref{sec:anexo_f} y no solo la de mayor momento. Las direcciones de carga normal hacia afuera seleccionan instantes en que esa carga se suma a la centrífuga, y de ellas proviene el segundo perfil de cada caso, el de $\theta_k = 240^\circ$, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una resultante integrada de $136{,}1$~kN frente a los $154{,}6$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
 
 \medskip
 \noindent\textbf{Forma de las distribuciones.}
-La componente normal domina el estado de carga en los cuatro perfiles, ya que su cociente con la tangencial se mantiene entre $3{,}4$ y $5{,}1$ a lo largo del vano central en el perfil gobernante del DLC 1.1, y entre $3{,}9$ y $4{,}6$ en el del DLC 1.3. Ese predominio es el esperable en un perfil con flujo adherido, donde la sustentación, perpendicular a la cuerda, supera con holgura a la fuerza en el sentido de la cuerda.
+La componente normal domina el estado de carga en los cuatro perfiles, ya que su cociente con la tangencial se mantiene entre $5{,}1$ y $7{,}7$ a lo largo del vano central en el perfil gobernante del DLC 1.1, y entre $6{,}3$ y $8{,}6$ en el del DLC 1.3. Ese predominio es el esperable en un perfil con flujo adherido, donde la sustentación, perpendicular a la cuerda, supera con holgura a la fuerza en el sentido de la cuerda.
 
-Las distribuciones concentran la carga en la región media y alta de la pala y decaen hacia ambos extremos, pero difieren en la forma de ese decaimiento. El perfil del DLC 1.1 alcanza su máximo en $z = 16{,}5$~m, ya en la mitad superior del vano, mientras que el del DLC 1.3 lo hace en $z = 13{,}2$~m y se mantiene sensiblemente más plano, con una variación del $28\%$ a lo largo del vano central frente al $45\%$ del DLC 1.1. La diferencia proviene de cómo se construye cada perfil. El del DLC 1.1 es un único instante de una única realización, de modo que conserva la distribución espacial que la simulación entrega en ese momento, con su máximo en una posición concreta. El del DLC 1.3 promedia estación por estación los perfiles compañeros de las seis semillas, cada uno tomado en el instante de máxima solicitación de su propia realización (Sección~\ref{sec:anexo_dlc13}), y como esos seis instantes corresponden a azimuts y campos de viento distintos, el promedio atenúa los rasgos propios de cada uno y entrega una distribución más uniforme.
+Las distribuciones concentran la carga en la región media y alta de la pala y decaen hacia ambos extremos, pero difieren en la forma de ese decaimiento. El perfil gobernante del DLC 1.1 alcanza su máximo en $z = 11{,}5$~m, en el centro del vano, mientras que el del DLC 1.3 lo hace en $z = 13{,}2$~m y se mantiene sensiblemente más plano, con una variación del $30\%$ a lo largo del vano central frente al $45\%$ del DLC 1.1. La diferencia proviene de cómo se construye cada perfil. El del DLC 1.1 es un único instante de una única realización, de modo que conserva la distribución espacial que la simulación entrega en ese momento, con su máximo en una posición concreta. El del DLC 1.3 promedia estación por estación los perfiles compañeros de las seis semillas, cada uno tomado en el instante de máxima solicitación de su propia realización (Sección~\ref{sec:anexo_dlc13}), y como esos seis instantes corresponden a azimuts y campos de viento distintos, el promedio atenúa los rasgos propios de cada uno y entrega una distribución más uniforme.
 
 El desplazamiento del máximo hacia la parte alta de la pala es consecuencia del perfil de cizalladura, ya que las estaciones superiores ven una velocidad de viento mayor, y explica a su vez que el apoyo superior resulte el más solicitado (Sección~\ref{sec:resultados_uls}). La caída de la carga hacia los dos extremos responde a las pérdidas de punta, ya que los vórtices desprendidos en los extremos libres de la pala inducen velocidades que reducen el ángulo de ataque efectivo, y con ello la sustentación, en esas regiones~\parencite{Anderson2016}, efecto que el método LLFVW resuelve implícitamente (Sección~\ref{sec:metodos_aerodinamicos})~\parencite{marten2019qblade}.
 
@@ -554,7 +582,7 @@ La verificación a fatiga del DLC 1.2 se presenta siguiendo la cadena de cálcul
 
 \subsection{Procesamiento de las series de carga}
 
-Las 144 series temporales del DLC 1.2 se procesan mediante el momento flector $M_{res}(t)$ en la sección crítica $z_{crit} = 5$~m, que es la conexión con el brazo inferior. La conversión a tensión emplea el factor de proporcionalidad $K_{aero}$ y la tensión inercial $\sigma_{in}$ definidos en la Sección~\ref{sec:anexo_g}, ambos calibrados con las dos corridas del modelo de elementos finitos que se resuelven bajo cargas sin mayorar (Sección~\ref{sec:corridas_fem}). El momento resultante que la carga de calibración produce en esa sección vale $71{,}18$~kN$\cdot$m y la tensión que entrega esa misma corrida es de $59{,}01$~MPa, de donde $K_{aero} = 0{,}829$~MPa/(kN$\cdot$m). La corrida solo inercial entrega $\sigma_{in} = 73{,}4$~MPa, tensión que se reincorpora después como el nivel medio sobre el que oscila la historia. Ambas lecturas se toman en la misma sección, condición que la Sección~\ref{sec:anexo_g} justifica.
+Las 144 series temporales del DLC 1.2 se procesan mediante el momento flector $M_{res}(t)$ en la sección crítica $z_{crit} = 5$~m, que es la conexión con el brazo inferior. La conversión a tensión emplea el factor de proporcionalidad $K_{aero}$ y la tensión inercial $\sigma_{in}$ definidos en la Sección~\ref{sec:anexo_g}, ambos calibrados con las dos corridas del modelo de elementos finitos que se resuelven bajo cargas sin mayorar (Sección~\ref{sec:corridas_fem}). El momento resultante que la carga de calibración produce en esa sección vale $71{,}18$~kN$\cdot$m y la tensión que entrega esa misma corrida es de $60{,}53$~MPa, de donde $K_{aero} = 0{,}850$~MPa/(kN$\cdot$m). La corrida solo inercial entrega $\sigma_{in} = 80{,}6$~MPa, tensión que se reincorpora después como el nivel medio sobre el que oscila la historia. Ambas lecturas se toman en la misma sección, condición que la Sección~\ref{sec:anexo_g} justifica.
 
 Sobre esa historia se aplica el conteo de ciclos Rainflow~\parencite{ASTM_E1049,Matsuishi1968} y la corrección por tensión media según el diagrama de Goodman, conforme exige la Sección 7.6.3.1 de la norma IEC 61400-1~\parencite{IEC61400-1}. Las 144 realizaciones aportan $475\,932$ ciclos contados sobre sus ventanas útiles de $T_{obs} = 600$~s, que deben expandirse al tiempo que el viento permanece en cada intervalo de velocidad a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de dicho escalamiento temporal para las doce velocidades del rango operacional.
 
@@ -595,7 +623,7 @@ La Figura~\ref{fig:espectro_fatiga} recoge ese espectro en forma acumulada, esto
     \label{fig:espectro_fatiga}
 \end{figure}
 
-La caída es de siete órdenes de magnitud a lo largo del rango de amplitudes, lo que anticipa el reparto del daño que se examina más adelante. De los $1{,}44 \times 10^{8}$ ciclos anuales, $1{,}13 \times 10^{7}$ superan los $10$~MPa de amplitud equivalente y solo $1{,}2 \times 10^{4}$ superan los $40$~MPa.
+La caída es de siete órdenes de magnitud a lo largo del rango de amplitudes, lo que anticipa el reparto del daño que se examina más adelante. De los $1{,}44 \times 10^{8}$ ciclos anuales, $7{,}90 \times 10^{6}$ superan los $10$~MPa de amplitud equivalente y solo $1{,}9 \times 10^{2}$ superan los $40$~MPa.
 
 \subsection{Curva S-N y espectro de fatiga}
 
@@ -608,9 +636,9 @@ La Figura~\ref{fig:curva_sn_gfrp} presenta la curva S-N del GFRP en sus formas n
     \label{fig:curva_sn_gfrp}
 \end{figure}
 
-La superposición de ambas curvas en un mismo gráfico permite apreciar directamente el margen a fatiga, ya que el espectro colectivo se sitúa por debajo de la curva de diseño en todo el rango de ciclos. Las amplitudes brutas no superan los $25{,}0$~MPa y su mediana es de $0{,}42$~MPa, esto es, la gran mayoría de los ciclos son de amplitud muy pequeña y solo una fracción reducida alcanza valores apreciables. Esas amplitudes se superponen a una tensión media elevada, comprendida entre $73{,}4$ y $117{,}2$~MPa, que impone la carga permanente de rotación y que sitúa los ciclos en régimen de tracción-tracción. El ciclo más severo de toda la campaña, de amplitud $25{,}0$~MPa sobre una media de $98{,}4$~MPa, corresponde a una razón de tensiones $R = 0{,}60$.
+La superposición de ambas curvas en un mismo gráfico permite apreciar directamente el margen a fatiga, ya que el espectro colectivo se sitúa por debajo de la curva de diseño en todo el rango de ciclos. Las amplitudes brutas no superan los $25{,}6$~MPa y su mediana es de $0{,}43$~MPa, esto es, la gran mayoría de los ciclos son de amplitud muy pequeña y solo una fracción reducida alcanza valores apreciables. Esas amplitudes se superponen a una tensión media elevada, comprendida entre $80{,}6$ y $125{,}5$~MPa, que impone la carga permanente de rotación y que sitúa los ciclos en régimen de tracción-tracción. El ciclo más severo de toda la campaña, de amplitud $25{,}6$~MPa sobre una media de $106{,}3$~MPa, corresponde a una razón de tensiones $R = 0{,}61$.
 
-La corrección de Goodman es, en estas condiciones, determinante. Ese mismo ciclo pasa de una amplitud bruta de $25{,}0$~MPa a una amplitud equivalente a media nula de $42{,}1$~MPa, esto es, se multiplica por $1{,}68$, y al aplicarle el factor combinado de fatiga llega a $104{,}0$~MPa. La tensión media que impone la rotación amplifica así en torno a un $70\%$ la amplitud dañina de las fluctuaciones aerodinámicas, resultado que confirma la pertinencia de incorporarla al conteo en lugar de tratar las amplitudes de forma aislada.
+La corrección de Goodman es, en estas condiciones, determinante. Ese mismo ciclo pasa de una amplitud bruta de $25{,}6$~MPa a una amplitud equivalente a media nula de $45{,}6$~MPa, esto es, se multiplica por $1{,}78$, y al aplicarle el factor combinado de fatiga llega a $112{,}8$~MPa. La tensión media que impone la rotación amplifica así en torno a un $80\%$ la amplitud dañina de las fluctuaciones aerodinámicas, resultado que confirma la pertinencia de incorporarla al conteo en lugar de tratar las amplitudes de forma aislada.
 
 \subsection{Daño acumulado por velocidad de viento}
 
@@ -623,20 +651,20 @@ El daño de cada ciclo se obtiene al confrontar su amplitud con la curva S-N, y 
     \label{fig:daño_por_viento}
 \end{figure}
 
-El $99{,}1\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}0\%$ del año ($88$~h/año), y solo la condición de $24$~m/s aporta el $69{,}5\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
+El $99{,}1\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}0\%$ del año ($88$~h/año), y solo la condición de $24$~m/s aporta el $70{,}1\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
 
-La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $477\,145$ clases de ciclo contadas, el $90\%$ del daño lo aportan $857$, esto es, un $0{,}18\%$ del total, todas ellas de amplitud equivalente superior a $66{,}5$~MPa. Los ciclos de amplitud equivalente mayor o igual a $40$~MPa son $7{,}96 \times 10^{5}$ al año, frente a los $1{,}44 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población muy reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
+La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $477\,503$ clases de ciclo contadas, el $90\%$ del daño lo aportan $822$, esto es, un $0{,}17\%$ del total, todas ellas de amplitud de diseño superior a $77{,}2$~MPa, esto es, equivalente a media nula y mayorada por $\gamma_{fat}$. Los ciclos de amplitud de diseño mayor o igual a $40$~MPa son $1{,}75 \times 10^{6}$ al año, frente a los $1{,}44 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población muy reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
 
 \subsection{Daño acumulado total}
 
-Sumando las contribuciones de las doce velocidades, el daño anual acumulado según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 8{,}43 \times 10^{-7}$. Para la vida útil de diseño de $20$ años, el daño total asciende al valor de la Ec.~\ref{eq:D20_res}:
+Sumando las contribuciones de las doce velocidades, el daño anual acumulado según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 5{,}00 \times 10^{-6}$. Para la vida útil de diseño de $20$ años, el daño total asciende al valor de la Ec.~\ref{eq:D20_res}:
 
 \begin{equation}
-    D_{20} = 20 \cdot D_{\text{año}} = 1{,}69 \times 10^{-5}.
+    D_{20} = 20 \cdot D_{\text{año}} = 9{,}99 \times 10^{-5}.
     \label{eq:D20_res}
 \end{equation}
 
-Este valor queda por debajo del límite normativo de la Ec.~\ref{eq:fatiga_criterio} con un margen de casi cinco órdenes de magnitud, de modo que la fatiga no resulta un mecanismo dimensionante para la pala bajo las condiciones analizadas. La solicitación se mantiene acotada por la combinación de dos factores. El primero es que las amplitudes brutas no superan los $25{,}0$~MPa, en torno a un $10\%$ de $\sigma_u = 242{,}1$~MPa, ni siquiera en las condiciones más exigentes. El segundo es que el exponente de Basquin $b = -0{,}045$, propio de tejidos biaxiales $\pm 45^\circ$ fabricados por infusión al vacío~\parencite{Huh2012}, produce una curva S-N muy plana, cuya resistencia decae lentamente con el número de ciclos, por lo que se requieren amplitudes cercanas a la resistencia última para generar daño apreciable.
+Este valor queda por debajo del límite normativo de la Ec.~\ref{eq:fatiga_criterio} con un margen de cuatro órdenes de magnitud, de modo que la fatiga no resulta un mecanismo dimensionante para la pala bajo las condiciones analizadas. La solicitación se mantiene acotada por la combinación de dos factores. El primero es que las amplitudes brutas no superan los $25{,}6$~MPa, en torno a un $11\%$ de $\sigma_u = 242{,}1$~MPa, ni siquiera en las condiciones más exigentes. El segundo es que el exponente de Basquin $b = -0{,}045$, propio de tejidos biaxiales $\pm 45^\circ$ fabricados por infusión al vacío~\parencite{Huh2012}, produce una curva S-N muy plana, cuya resistencia decae lentamente con el número de ciclos, por lo que se requieren amplitudes cercanas a la resistencia última para generar daño apreciable.
 
 \subsection{Sensibilidad del resultado a la calibración}
 
@@ -644,22 +672,22 @@ Esa misma planitud de la curva, que explica el margen, convierte al resultado en
 
 \begin{table}[H]
     \centering
-    \caption[Sensibilidad del daño acumulado a la calibración momento-tensión.]{Daño acumulado en la vida de diseño en función del factor de conversión momento-tensión, referido a su valor calibrado $K_{aero} = 0{,}829$~MPa/(kN$\cdot$m).}
+    \caption[Sensibilidad del daño acumulado a la calibración momento-tensión.]{Daño acumulado en la vida de diseño en función del factor de conversión momento-tensión, referido a su valor calibrado $K_{aero} = 0{,}850$~MPa/(kN$\cdot$m).}
     \label{tab:sensibilidad_fatiga}
     \begin{tabular}{ccc}
         \hline
         $K/K_{aero}$ & $K$ (MPa/(kN$\cdot$m)) & $D_{20}$ \\
         \hline
-        $0{,}80$ & $0{,}663$ & $6{,}14 \times 10^{-8}$ \\
-        $1{,}00$ & $0{,}829$ & $1{,}69 \times 10^{-5}$ \\
-        $1{,}25$ & $1{,}036$ & $5{,}64 \times 10^{-3}$ \\
-        $1{,}50$ & $1{,}244$ & $7{,}97 \times 10^{-1}$ \\
-        $2{,}00$ & $1{,}658$ & $3{,}32 \times 10^{3}$ \\
+        $0{,}80$ & $0{,}680$ & $3{,}44 \times 10^{-7}$ \\
+        $1{,}00$ & $0{,}850$ & $9{,}99 \times 10^{-5}$ \\
+        $1{,}25$ & $1{,}063$ & $3{,}61 \times 10^{-2}$ \\
+        $1{,}50$ & $1{,}276$ & $5{,}54$ \\
+        $2{,}00$ & $1{,}701$ & $2{,}81 \times 10^{4}$ \\
         \hline
     \end{tabular}
 \end{table}
 
-El daño alcanza la unidad para un factor de conversión un $51{,}2\%$ superior al calibrado. El margen de casi cinco órdenes de magnitud sobre $D_{20}$ equivale, por tanto, a un margen del orden del $50\%$ sobre la tensión, que es la magnitud con significado físico. La conclusión operativa es que la calibración del modelo de elementos finitos que entrega $K_{aero}$ y $\sigma_{in}$ debe considerarse parte integral de la verificación a fatiga y no un dato auxiliar, y que cualquier revisión del modelo estructural obliga a rehacer este cálculo.
+El daño alcanza la unidad para un factor de conversión un $41{,}1\%$ superior al calibrado. El margen de cuatro órdenes de magnitud sobre $D_{20}$ equivale, por tanto, a un margen del orden del $40\%$ sobre la tensión, que es la magnitud con significado físico. La conclusión operativa es que la calibración del modelo de elementos finitos que entrega $K_{aero}$ y $\sigma_{in}$ debe considerarse parte integral de la verificación a fatiga y no un dato auxiliar, y que cualquier revisión del modelo estructural obliga a rehacer este cálculo.
 
 Conviene acotar además el alcance de la cifra absoluta. El daño proviene de evaluar la curva de Basquin en un rango de ciclos superior al ensayado por \textcite{Huh2012}, de modo que su magnitud exacta no admite lectura literal como predicción de vida. Lo que la verificación establece con solidez es el ordenamiento, esto es, que la fatiga dispone de holgura frente a la resistencia última y a la estabilidad bajo las cargas de esta campaña, y no una vida esperada concreta.
 
@@ -748,7 +776,16 @@ La Figura~\ref{fig:fem_cb} presenta el modelo de elementos finitos. El panel (a)
 
 La aceleración centrífuga corresponde a la velocidad máxima de rotación $\Omega = 42$~rpm ($4{,}398$~rad/s) que, evaluada en la Ec.~\ref{eq:centrifugal_limit} con $R = 10{,}365$~m, resulta en $a_c = 200{,}5$~m/s$^2$ ($20{,}4\,g$), uniforme en toda la envergadura. Esa magnitud sitúa en su justa dimensión la consigna de $42$~rpm. Como la aceleración centrífuga es inversamente proporcional al radio (Ec.~\ref{eq:centrifugal_limit}), el menor radio del rotor en estudio implica una solicitación centrífuga un $29\%$ superior a la de la T1-turbine en su límite de diseño~\parencite{Mollerstrom2017}, pese a que ambas máquinas comparten la misma velocidad de punta. La admisibilidad de la consigna no se sustenta por tanto en la comparación con la literatura, sino en la verificación estructural que se desarrolla en esta sección.
 
-Las fuerzas aerodinámicas de diseño $F_d$ se aplican como cargas remotas en los centroides de las $21$ estaciones, conservando el signo que entrega la simulación (Sección~\ref{sec:anexo_f}). Ese signo es el que obliga a resolver cada caso de carga en sus dos sentidos. En el instante que maximiza la envolvente direccional, la componente normal apunta hacia el eje del rotor y se opone por tanto a la flexión que induce la fuerza centrífuga, de modo que el mayor extremo aerodinámico no coincide con el estado combinado más desfavorable. El segundo perfil de cada caso, tomado del extremo de $M_y$ en el sentido contrario, sí acumula ambas contribuciones, y es la comparación entre ambos la que determina el caso gobernante (Sección~\ref{sec:comparacion_dlc}).
+Las fuerzas aerodinámicas de diseño $F_d$ se aplican como cargas remotas en los centroides de las $21$ estaciones, conservando el signo que entrega la simulación (Sección~\ref{sec:anexo_f}). Cada estado límite último se resuelve en los doce casos direccionales de la Tabla~\ref{tab:casos_direccionales}, y la Figura~\ref{fig:tension_direccional} presenta la tensión principal máxima del manto que entrega cada uno en el DLC 1.1, con el ángulo $\theta_k$ dispuesto como en la Figura~\ref{fig:envolvente_direccional}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figuras/Figuras Resultados/tension_direccional.pdf}
+    \caption{Tensión principal máxima del manto por dirección de carga, DLC 1.1.}
+    \label{fig:tension_direccional}
+\end{figure}
+
+Las direcciones de carga normal hacia el eje, de $0^\circ$ a $150^\circ$, producen entre $36$ y $47$~MPa, ya que esa carga se opone a la flexión que induce la fuerza centrífuga, mientras que las de carga normal hacia afuera, de $180^\circ$ a $330^\circ$, alcanzan entre $171$ y $187$~MPa al sumarse a ella. El mayor extremo aerodinámico, el de $\theta_k = 90^\circ$, no coincide por tanto con el estado combinado más desfavorable. El caso gobernante es el de $\theta_k = 240^\circ$, que entrega a la vez la mayor tensión y el menor multiplicador de pandeo, aunque las cuatro direcciones de $240^\circ$ a $330^\circ$ difieren en menos de un $0{,}2\%$ por compartir instante. En el DLC 1.3 las direcciones de $240^\circ$, $270^\circ$ y $300^\circ$ comparten la distribución de fuerzas y gobiernan con resultados idénticos. Los resultados que siguen corresponden a esos casos gobernantes.
 
 La unión entre la pala y el brazo queda resuelta en el modelo mediante tres elementos, el vendaje de refuerzo de la zona de conexión (Sección~\ref{sec:vendaje}), la superficie de $500 \times 600$~mm sobre la que se impone el desplazamiento remoto de cada conexión (Sección~\ref{sec:condiciones_borde}) y el larguero de cajón, formado por las dos almas de $5{,}2$~mm y por el engrosamiento del manto entre ellas (Sección~\ref{sec:seccion_caracteristica}), visibles todos en el detalle de la malla de la Figura~\ref{fig:fem_cb}(b).
 
@@ -771,7 +808,7 @@ Conviene precisar el origen de ese valor, porque no corresponde a un concentrado
 
 El análisis de convergencia descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}90\%$, por debajo del criterio adoptado. Lo que no permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que un apoyo de mayor superficie o un refuerzo más extenso redistribuirían la tensión en esa zona.
 
-La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -180{,}20$~MPa, correspondiente a compresión. El contorno corresponde igualmente al laminado del manto, y el máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en sus dos sentidos (Sección~\ref{sec:comparacion_dlc}).
+La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -180{,}20$~MPa, correspondiente a compresión. El contorno corresponde igualmente al laminado del manto, y el máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en las doce direcciones (Sección~\ref{sec:comparacion_dlc}).
 
 \begin{figure}[H]
     \centering
@@ -910,11 +947,11 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         $\gamma_n \, \gamma_{m0}$ & Consecuencia de falla y factor base de material & $1{,}20$ \\
         $\gamma_{m1} \cdots \gamma_{m5}$ & Factores de material $\gamma_{m1}$ a $\gamma_{m5}$ (IEC 61400-5) & $2{,}059$ \\
         $\gamma_{fat}$ & Factor combinado sobre la amplitud & $2{,}471$ \\
-        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $0{,}829$~MPa/(kN$\cdot$m) \\
-        $\sigma_{in}$ & Tensión media de origen inercial & $73{,}4$~MPa \\
+        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $0{,}850$~MPa/(kN$\cdot$m) \\
+        $\sigma_{in}$ & Tensión media de origen inercial & $80{,}6$~MPa \\
         --- & Ciclos anuales contabilizados & $1{,}44 \times 10^{8}$ \\
-        $D_{\text{año}}$ & Daño anual acumulado & $8{,}43 \times 10^{-7}$ \\
-        $D_{20}$ & Daño acumulado en 20 años & $1{,}69 \times 10^{-5}$ \\
+        $D_{\text{año}}$ & Daño anual acumulado & $5{,}00 \times 10^{-6}$ \\
+        $D_{20}$ & Daño acumulado en 20 años & $9{,}99 \times 10^{-5}$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -934,6 +971,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         $F_{d,n}$ & Fuerza máx.\ por estación, normal & $12{,}85$~kN & $8{,}88$~kN \\
         $F_{d,t}$ & Fuerza máx.\ por estación, tangencial & $2{,}53$~kN & $1{,}32$~kN \\
         $\gamma_f$ & Factor parcial de carga & $1{,}25$ & $1{,}35$ \\
+        $\theta_k$ & Dirección de carga gobernante & $240^\circ$ & $240^\circ$ a $300^\circ$ \\
         \hline
         \multicolumn{4}{c}{\textit{Tensiones (FEM)}} \\
         \hline
@@ -964,7 +1002,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
-Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma de palas, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante. La fatiga, en cambio, se satisface con amplitud, con un daño acumulado en veinte años de $1{,}69 \times 10^{-5}$, casi cinco órdenes de magnitud por debajo del límite.
+Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma de palas, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante. La fatiga, en cambio, se satisface con amplitud, con un daño acumulado en veinte años de $9{,}99 \times 10^{-5}$, cuatro órdenes de magnitud por debajo del límite.
 
 El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, la resistencia última le sigue y la fatiga no constituye restricción. Esa jerarquía es consistente con el origen de la solicitación, ya que la carga que domina es permanente y no cíclica, de manera que exige capacidad estática y apenas consume vida a fatiga.
 
@@ -973,7 +1011,7 @@ El caso de referencia con cargas exclusivamente inerciales cuantifica además la
 \subsubsection{Propiedades mínimas del laminado}
 \label{sec:propiedades_minimas}
 
-La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el laminado debe alcanzar en el punto crítico, la conexión con el brazo superior, para satisfacer la norma de palas. En ese punto la tensión normal de diseño vale $189{,}38$~MPa según la envergadura y $33{,}49$~MPa según el contorno del perfil, y cada requisito resulta de multiplicarlas por el factor parcial de material del escenario correspondiente (Sección~\ref{sec:material_pala}).
+La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el laminado debe alcanzar en el punto crítico, la conexión con el brazo superior, para satisfacer la norma de palas. En ese punto la tensión normal de diseño vale $187{,}07$~MPa según la envergadura y $33{,}5$~MPa según el contorno del perfil, y cada requisito resulta de multiplicarlas por el factor parcial de material del escenario correspondiente (Sección~\ref{sec:material_pala}).
 
 \begin{table}[H]
     \centering
@@ -985,9 +1023,9 @@ La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el
         \hline
         \textbf{Escenario} & $\gamma_m$ & \textbf{Envergadura (MPa)} & \textbf{Contorno (MPa)}\\
         \hline
-        Propiedades nominales, sin ensayo de pala (adoptado) & $2{,}47$ & $468$ & $83$\\
-        Propiedades de diseño con tolerancias de fabricación & $2{,}09$ & $396$ & $70$\\
-        Lo anterior más ensayo de la pala completa & $1{,}74$ & $330$ & $58$\\
+        Propiedades nominales, sin ensayo de pala (adoptado) & $2{,}47$ & $462$ & $83$\\
+        Propiedades de diseño con tolerancias de fabricación & $2{,}09$ & $391$ & $70$\\
+        Lo anterior más ensayo de la pala completa & $1{,}74$ & $326$ & $58$\\
         \hline
     \end{tabular}
 \end{table}

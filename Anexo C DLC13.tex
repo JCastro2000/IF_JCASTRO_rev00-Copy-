@@ -18,7 +18,8 @@ import glob, json, os, re
 from collections import defaultdict
 import numpy as np
 
-from anexo_b import (DELTA_S, efectos_de_carga, T_DISCARD)
+from anexo_b import (DELTA_S, N_DIRECCIONES, T_DISCARD, Z_APOYO_SUP,
+                     efectos_de_carga, momentos_en_apoyo)
 
 # Velocidades evaluadas. Como las fuerzas aerodinámicas crecen con V^2, la
 # condición más adversa se ubica en el extremo superior del rango
@@ -30,7 +31,8 @@ V_ENSAYADAS = [16, 18, 20, 22, 24]
 # DLC 1.1, aquí no aplica la reducción a 1,25.
 GAMMA_F = 1.35
 
-MAGNITUD_GOBERNANTE = 'M_env_apoyo_sup'   # sección más solicitada
+# Direcciones de carga de la Ec. P_k, las mismas del DLC 1.1.
+TH = 2.0 * np.pi * np.arange(N_DIRECCIONES) / N_DIRECCIONES
 \end{pycode}
 
 \subsection*{Máximos y perfiles compañeros por realización}
@@ -39,7 +41,8 @@ A diferencia del DLC 1.1, donde el perfil de diseño proviene de un único insta
 
 \begin{pycode}
 maximos  = defaultdict(lambda: defaultdict(list))  # [magnitud][V] = 6 máximos
-perfiles = defaultdict(list)                       # [V] = 6 perfiles compañeros
+max_dir  = [defaultdict(list) for _ in TH]         # [k][V] = 6 máximos de P_k
+perfiles = [defaultdict(list) for _ in TH]         # [k][V] = 6 perfiles compañeros
 
 for ruta in sorted(glob.glob('sim_DLC13_*_forces.csv')):
     m = re.search(r'sim_DLC13_(\d+)_V(\d+)_S(\d+)_forces\.csv', ruta)
@@ -54,9 +57,14 @@ for ruta in sorted(glob.glob('sim_DLC13_*_forces.csv')):
     for nombre, serie in ef.items():
         maximos[nombre][v].append(float(serie.max()))
 
-    # Perfil compañero del instante de máxima solicitación de ESTA semilla.
-    j = int(np.argmax(ef[MAGNITUD_GOBERNANTE]))
-    perfiles[v].append((fn[util][j].copy(), ft[util][j].copy()))
+    # Perfil compañero del instante de máxima proyección de ESTA semilla, en
+    # cada una de las doce direcciones del apoyo superior.
+    m_x, m_y = momentos_en_apoyo(fn[util], ft[util], Z_APOYO_SUP, 'sup')
+    p = np.outer(m_x, np.cos(TH)) + np.outer(m_y, np.sin(TH))
+    j = p.argmax(axis=0)
+    for k in range(len(TH)):
+        max_dir[k][v].append(float(p[j[k], k]))
+        perfiles[k][v].append((fn[util][j[k]].copy(), ft[util][j[k]].copy()))
 \end{pycode}
 
 \subsection*{Carga característica y velocidad gobernante}
@@ -81,21 +89,25 @@ for nombre, por_v in maximos.items():
 
 \subsection*{Perfil espacial de diseño}
 
-El perfil que ingresa al modelo de elementos finitos se construye como la media por estación de los perfiles compañeros de las seis semillas a la velocidad gobernante, amplificada por el mismo factor $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que se aplica a la magnitud escalar, de modo que la distribución resulta consistente con la carga global.
+El perfil de cada dirección que ingresa al modelo de elementos finitos se construye como la media por estación de los perfiles compañeros de las seis semillas a su velocidad gobernante, amplificada por el mismo factor $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que se aplica a la magnitud escalar, de modo que la distribución resulta consistente con la carga global.
 
 \begin{pycode}
-v_gob = resultados[MAGNITUD_GOBERNANTE]['V_gobernante']
+casos = []
+for k in range(len(TH)):
+    medias = {v: float(np.mean(x)) for v, x in max_dir[k].items()}
+    v_gob = max(medias, key=medias.get)
 
-# Media por estación de las seis semillas de la velocidad gobernante. El
-# promedio se toma sobre las fuerzas CON SIGNO, de manera que se conserva
-# la dirección de aplicación de la carga.
-fn_gob = np.mean([p[0] for p in perfiles[v_gob]], axis=0)
-ft_gob = np.mean([p[1] for p in perfiles[v_gob]], axis=0)
+    # Media por estación de las seis semillas de la velocidad gobernante. El
+    # promedio se toma sobre las fuerzas CON SIGNO, de manera que se conserva
+    # la dirección de aplicación de la carga.
+    fn_gob = np.mean([q[0] for q in perfiles[k][v_gob]], axis=0)
+    ft_gob = np.mean([q[1] for q in perfiles[k][v_gob]], axis=0)
 
-# Fuerzas de diseño por estación [N]: se pasa de fuerza por unidad de
-# longitud a fuerza por segmento y se aplica el factor parcial de carga.
-Fd_n = fn_gob * DELTA_S * GAMMA_F
-Fd_t = ft_gob * DELTA_S * GAMMA_F
+    # Fuerzas de diseño por estación [N]: se pasa de fuerza por unidad de
+    # longitud a fuerza por segmento y se aplica el factor parcial de carga.
+    casos.append({'theta': np.degrees(TH[k]), 'P_d': GAMMA_F * medias[v_gob],
+                  'Fd_n': fn_gob * DELTA_S * GAMMA_F,
+                  'Fd_t': ft_gob * DELTA_S * GAMMA_F})
 \end{pycode}
 
 \subsection*{Criterio de omisión del DLC 1.1}
