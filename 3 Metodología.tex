@@ -574,7 +574,7 @@ donde:
     \item $\gamma_{m2} = 1{,}00$, valor único que la norma asigna a la fatiga del laminado.
     \item $\gamma_{m3} = 1{,}30$, por realizarse el análisis con propiedades nominales de diseño.
     \item $\gamma_{m4}$ es el producto de $1{,}20$, por no validarse el cálculo de deformaciones mediante ensayo de pala, y $1{,}20$, por basarse el modelo de fatiga en la resistencia estática y en una pendiente de Wöhler no medida sobre el laminado de la pala.
-    \item $\gamma_{m5} = \gamma_{m5a} \cdot \gamma_{m5b} = 1{,}00 \cdot 1{,}00$, por obtenerse la historia exacta de tensión del punto crítico a partir de su respuesta lineal a los dos momentos flectores ($\gamma_{m5a}$) y evaluarse el daño sobre la historia completa que entregan las series temporales ($\gamma_{m5b}$)~\parencite{IEC61400-5}.
+    \item $\gamma_{m5} = \gamma_{m5a} \cdot \gamma_{m5b} = 1{,}00 \cdot 1{,}00$, por evaluarse el espectro de momento en doce direcciones de carga ($\gamma_{m5a}$) y el daño sobre la historia completa de tensión que entregan las series temporales ($\gamma_{m5b}$)~\parencite{IEC61400-5}.
 \end{itemize}
 
 Los valores corresponden a la Sección 6.6.5.3 de la norma IEC 61400-5, que trata la fatiga del laminado, y su producto vale $\gamma_{fat} = 2{,}471$. La curva S-N resultante (Ec.~\ref{eq:basquin_design}) y el procedimiento completo de cálculo de daño se detallan en la Sección~\ref{sec:anexo_g} (DLC 1.2).
@@ -753,48 +753,39 @@ Con la carga de diseño $P_{k,d}$ de cada una de las doce direcciones, evaluadas
 \subsubsection{DLC 1.2, fatiga}
 \label{sec:anexo_g}
 
-Las mismas 144 series temporales empleadas para el DLC 1.1 se procesan conforme al Anexo H, informativo, de la IEC 61400-1~\parencite{IEC61400-1} para estimar el daño acumulado por fatiga durante la vida útil de diseño de $20$ años, valor que corresponde al mínimo exigido por la norma para las turbinas de clase I a III (Sección 6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}.
+Las mismas 144 series temporales empleadas para el DLC 1.1 se procesan conforme al Anexo H, informativo, de la IEC 61400-1~\parencite{IEC61400-1} para estimar el daño acumulado por fatiga durante la vida útil de diseño de $20$ años, valor que corresponde al mínimo exigido por la norma para las turbinas de clase I a III (Sección 6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. El cálculo sigue seis pasos. Primero se obtiene el momento flector que soporta la sección crítica en cada instante. Segundo, ese momento se traduce a una historia de tensión mediante un factor calibrado con el modelo de elementos finitos. Tercero, se cuentan los ciclos de esa historia por el método Rainflow~\parencite{ASTM_E1049,Matsuishi1968}. Cuarto, cada ciclo se corrige por tensión media y se mayora con el factor combinado de fatiga. Quinto, los ciclos de cada velocidad se escalan a un año de operación. Sexto, se acumula el daño con la regla de Palmgren-Miner~\parencite{Palmgren1924,Miner1945} y se compara con la unidad.
 
 \medskip
-\noindent\textbf{Paso 1. Variable de carga: momento flector en la sección crítica.}
-El cálculo de daño sigue seis pasos. Primero se obtiene el momento flector que soporta la sección crítica en cada instante. Segundo, ese momento se traduce a una historia de tensión mediante un factor de proporcionalidad calibrado con una única corrida del modelo de elementos finitos. Tercero, se cuentan los ciclos de esa historia por el método Rainflow~\parencite{ASTM_E1049,Matsuishi1968}. Cuarto, cada ciclo se corrige por tensión media y se mayora con el factor combinado de fatiga. Quinto, los ciclos de cada velocidad se escalan a un año de operación. Sexto, se acumula el daño con la regla de Palmgren-Miner~\parencite{Palmgren1924,Miner1945} y se compara con la unidad.
-
-Se denomina sección crítica a la sección transversal de la pala en que la simulación FEM bajo carga estática (Sección~\ref{sec:fem}) registra la mayor tensión principal, y $z_{crit}$ a su coordenada sobre la envergadura, medida desde la base de la pala ($z = 0$) hasta esa sección. Su ubicación se desprende del análisis FEM y se reporta en el Capítulo~4.
-
-Los momentos se calculan con las mismas expresiones del DLC 1.1 (Ecs.~\ref{eq:M_apoyo}), tomando como sección de referencia la sección crítica, de modo que el tramo que la solicita es el voladizo que ella sostiene, esto es, las estaciones comprendidas entre el extremo libre de la pala y esa sección. La variable de carga son los dos momentos $M_x(t)$ y $M_y(t)$, ahora sobre la serie temporal completa y no sobre su máximo, porque la fatiga acumula daño con todos los ciclos. Se conservan por separado y con su signo, y no se combinan en un momento resultante, que es siempre positivo y convertiría la inversión de la componente normal entre la mitad de barlovento y la de sotavento, en que la carga pasa de apuntar hacia el eje a apuntar hacia afuera, en dos ciclos menores, con lo que subestimaría el rango de tensión que soporta un punto fijo del laminado. Tampoco se proyectan en direcciones, porque la tensión del punto crítico se obtiene directamente de ambos momentos en el paso siguiente, lo que equivale a conocer su historia exacta de tensión, caso en que la Sección 6.6.5.3 de la IEC 61400-5 asocia $\gamma_{m5a} = 1{,}00$~\parencite{IEC61400-5}.
+\noindent\textbf{Paso 1. Momento flector en la sección crítica.}
+Se denomina sección crítica a la sección transversal de la pala en que el modelo de elementos finitos bajo carga estática (Sección~\ref{sec:fem}) registra la mayor tensión principal, y $z_{crit}$ a su coordenada sobre la envergadura, medida desde la base de la pala. Su ubicación se reporta en el Capítulo~4. Los momentos se calculan con las mismas expresiones del DLC 1.1 (Ecs.~\ref{eq:M_apoyo}), tomando como referencia la sección crítica, de modo que el tramo que la solicita es el voladizo que ella sostiene. La variable de carga es el momento proyectado $P_k(t)$ de la Ec.~\ref{eq:P_k} en las doce direcciones, ahora sobre la serie temporal completa y no sobre su máximo, porque la fatiga acumula daño con todos los ciclos. La proyección conserva el signo, de modo que registra la inversión de la componente normal entre la mitad de barlovento y la de sotavento, en que la carga pasa de apuntar hacia el eje a apuntar hacia afuera. El daño se evalúa en cada dirección y la verificación se rige por la más desfavorable, lo que corresponde al espectro evaluado en al menos seis direcciones que la Sección 6.6.5.3 de la IEC 61400-5 asocia a $\gamma_{m5a} = 1{,}00$~\parencite{IEC61400-5}.
 
 \medskip
 \noindent\textbf{Paso 2. Conversión momento--tensión.}
-Bajo la hipótesis de linealidad elástica del GFRP hasta rotura~\parencite{Moraras2023}, la tensión en el punto crítico admite descomponerse en dos contribuciones de naturaleza distinta. La aerodinámica fluctúa con el viento y es lineal en los dos momentos flectores; la inercial, producida por la aceleración centrífuga y la gravedad, es constante mientras el rotor gira a su velocidad de consigna y no depende del momento aerodinámico. La historia de tensión en la sección crítica se construye en consecuencia según la Ec.~\ref{eq:sigma_from_M}:
+Bajo la hipótesis de linealidad elástica del GFRP hasta rotura~\parencite{Moraras2023}, la tensión en el punto crítico se descompone en una parte aerodinámica, que fluctúa con el viento y es proporcional al momento proyectado, y una parte inercial, producida por la aceleración centrífuga y la gravedad, que es constante mientras el rotor gira a su velocidad de consigna. La historia de tensión se construye según la Ec.~\ref{eq:sigma_from_M}:
 
 \begin{equation}
-    \sigma(t) = c_x \cdot M_x(t) + c_y \cdot M_y(t) + \sigma_{in},
+    \sigma_k(t) = K_{aero} \cdot P_k(t) + \sigma_{in},
     \label{eq:sigma_from_M}
 \end{equation}
 
 donde:
 \begin{itemize}
-    \item $\sigma_{in}$ es la tensión principal máxima que el modelo registra en la sección crítica bajo las cargas inerciales como única solicitación, esto es, la corrida solo inercial de la Tabla~\ref{tab:corridas_fem}.
-    \item $c_x$ y $c_y$ son los coeficientes que traducen cada momento aerodinámico en tensión en el punto crítico, en MPa/(kN$\cdot$m).
+    \item $\sigma_{in}$ es la tensión principal máxima que el modelo registra en la sección crítica con las cargas inerciales como única solicitación, esto es, la corrida solo inercial de la Tabla~\ref{tab:corridas_fem}.
+    \item $K_{aero}$ es el factor que traduce el momento aerodinámico en tensión.
 \end{itemize}
 
-Las corridas se resuelven con las cargas sin mayorar, coherentemente con el $\gamma_f = 1{,}00$ que rige en fatiga, de modo que la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo, según la Ec.~\ref{eq:sigma_eq}. Los coeficientes se obtienen de dos corridas de calibración, sin inercia y sobre un mismo perfil de fuerzas. La primera aplica el perfil completo, con ambas componentes, y entrega la tensión $\sigma_{aero}$; la segunda aplica solo su componente normal, que produce únicamente $M_y$, y entrega la tensión $\sigma_{n}$. Los coeficientes resultan de las Ecs.~\ref{eq:coef_b} y~\ref{eq:coef_a}:
+El factor se obtiene de la corrida de calibración, resuelta con las fuerzas aerodinámicas como única solicitación, según la Ec.~\ref{eq:keff}:
 
 \begin{equation}
-    c_y = \frac{\sigma_{n}}{M_{y,cal}},
-    \label{eq:coef_b}
+    K_{aero} = \frac{\sigma_{aero}}{M_{res,cal}},
+    \label{eq:keff}
 \end{equation}
 
-\begin{equation}
-    c_x = \frac{\sigma_{aero} - \sigma_{n}}{M_{x,cal}},
-    \label{eq:coef_a}
-\end{equation}
-
-donde $M_{x,cal}$ y $M_{y,cal}$ son los momentos que el perfil de calibración produce en la sección crítica, evaluados con las Ecs.~\ref{eq:M_apoyo}. Las tensiones $\sigma_{aero}$, $\sigma_{n}$ y $\sigma_{in}$ se leen además en la misma sección, condición necesaria para que la descomposición sea consistente. La obtención de $c_x$ por diferencia supone que el máximo de tensión cae en el mismo punto en las dos corridas, condición que se examina en el Capítulo~4. Este enfoque concuerda con la formulación del Anexo H (Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, que permite asumir que la tensión local en el punto de falla es linealmente proporcional a la carga.
+donde $\sigma_{aero}$ es la tensión principal máxima de esa corrida y $M_{res,cal}$ el momento resultante, Ec.~\ref{eq:M_res}, que sus fuerzas producen en la sección crítica. Todas las corridas se resuelven con las cargas sin mayorar, coherentemente con el $\gamma_f = 1{,}00$ que rige en fatiga, de modo que la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo (Ec.~\ref{eq:sigma_eq}), y sus tensiones se leen en la misma sección. El planteamiento corresponde al del Anexo H (Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, que permite suponer que la tensión local en el punto de falla es linealmente proporcional a la carga. Al aplicar a cada dirección un factor calibrado con una sola carga se supone además que el punto crítico responde por igual a la flexión en cualquiera de ellas, aproximación cuyo efecto se cuantifica en el Capítulo~4.
 
 \medskip
 \noindent\textbf{Paso 3. Conteo de ciclos Rainflow.}
-Cada una de las 144 series temporales de tensión $\sigma(t)$, con una duración efectiva de $T_{obs} = 600$~s, se procesa mediante el algoritmo de conteo de ciclos Rainflow (Anexo H, Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, cuyo fundamento se expone en la Sección~\ref{sec:anexo_g_antecedentes}. La implementación empleada sigue la formulación de cuatro puntos normalizada en la práctica ASTM E1049-85~\parencite{ASTM_E1049}, correspondiente al método propuesto originalmente por \textcite{Matsuishi1968}. El algoritmo descompone la señal en ciclos individuales caracterizados por su amplitud $\sigma_a$ y su tensión media $\sigma_m$, preservando la secuencia de carga tal como ocurre en la simulación.
+Cada una de las 144 series temporales de tensión $\sigma_k(t)$, en cada dirección y con una duración efectiva de $T_{obs} = 600$~s, se procesa mediante el algoritmo Rainflow (Anexo H, Sección H.1 de la norma IEC 61400-1)~\parencite{IEC61400-1}, en la formulación de cuatro puntos de la práctica ASTM E1049-85~\parencite{ASTM_E1049}, que corresponde al método de \textcite{Matsuishi1968} y cuyo fundamento se expone en la Sección~\ref{sec:anexo_g_antecedentes}. El algoritmo descompone la señal en ciclos caracterizados por su amplitud $\sigma_a$ y su tensión media $\sigma_m$, preservando la secuencia de carga.
 
 \medskip
 \noindent\textbf{Paso 4. Corrección por tensión media y curva S-N.}
@@ -832,7 +823,7 @@ donde:
 
 \medskip
 \noindent\textbf{Paso 5. Construcción del espectro colectivo anual.}
-Cada simulación de $T_{obs} = 600$~s corresponde a una velocidad de viento fija $V_j$ y produce, mediante Rainflow, un conjunto de ciclos de fatiga $(\sigma_a, \sigma_m)$. Estos ciclos representan la operación continua del aerogenerador durante $600$~s a dicha velocidad. Para construir el espectro representativo de un año completo, los ciclos de cada velocidad se expanden proporcionalmente a la fracción de tiempo que el viento permanece en ese intervalo en el emplazamiento.
+Cada simulación de $T_{obs} = 600$~s representa la operación del aerogenerador durante ese tiempo a una velocidad de viento fija $V_j$. Para construir el espectro de un año completo, los ciclos de cada velocidad se expanden en proporción al tiempo que el viento permanece en ese intervalo en el emplazamiento.
 
 La fracción de tiempo anual asociada a la velocidad $V_j$ se obtiene de la distribución de Weibull que caracteriza el sitio (Ec.~\ref{eq:weibull_pdf_general}), según la Ec.~\ref{eq:tiempo_anual}:
 
@@ -857,7 +848,7 @@ El número de ciclos anuales atribuibles a la velocidad $V_j$ se calcula escalan
     \label{eq:espectro_anual}
 \end{equation}
 
-donde $\bar{n}_{j}^{\text{sim}}$ es el número promedio de ciclos de las semillas a la velocidad $V_j$, generadas cada una con una semilla estocástica distinta, el entero que inicializa el generador de números aleatorios del campo de turbulencia y que hace que cada serie sea una realización independiente del mismo proceso estocástico (Sección~\ref{sec:campo_turbulento}). Las $144$ series simuladas, seis semillas por velocidad por debajo de $10$~m/s y quince desde esa velocidad, se agrupan por velocidad de viento y los ciclos de sus semillas se promedian antes del escalamiento temporal para reducir la variabilidad estocástica. El espectro colectivo anual se construye sumando las contribuciones de las $12$ velocidades que cubren el rango operacional; es este conjunto combinado de ciclos, indexado por $i$, el que recorre la suma de la Ec.~\ref{eq:palmgren_miner}.
+donde $\bar{n}_{j}^{\text{sim}}$ es el número promedio de ciclos de las semillas de la velocidad $V_j$, seis por debajo de $10$~m/s y quince desde esa velocidad (Sección~\ref{sec:velocidades_simulacion}), que se promedian antes del escalamiento para reducir la variabilidad estocástica. El espectro colectivo anual es la suma de las contribuciones de las $12$ velocidades, y es este conjunto de ciclos, indexado por $i$, el que recorre la suma de la Ec.~\ref{eq:palmgren_miner}.
 
 \medskip
 \noindent\textbf{Paso 6. Daño acumulado.}
@@ -957,7 +948,7 @@ El GFRP presenta un comportamiento elástico lineal hasta la rotura frágil~\par
 
 Las propiedades disponibles del laminado son las de la Tabla~\ref{tab:material_pala}: un módulo elástico, un coeficiente de Poisson y una resistencia única, esto es, un conjunto isótropo equivalente. Sobre esa base el material se modela como isótropo lineal, ya que un criterio de falla direccional aplicado capa a capa exigiría conocer la secuencia de apilamiento del laminado y sus resistencias en las direcciones principales del material, información de la que no se dispone. Dos condiciones del análisis hacen consistente esa representación. La primera es que se supone un mismo laminado en toda la pala, de modo que el modelo no debe reproducir desajustes de rigidez entre la piel y el larguero. La segunda es que la verificación de resistencia última emplea el criterio de tensión principal máxima, que compara una tensión escalar con una resistencia única y no requiere descomponer el estado tensional en las direcciones del refuerzo. El alcance de la hipótesis se retoma en las conclusiones.
 
-Como las propiedades de la Tabla~\ref{tab:material_pala} no corresponden a un laminado confirmado, la verificación de resistencia se complementa con su forma inversa, que entrega las propiedades mínimas que el laminado debe alcanzar para cumplir. La inversión es directa porque, en un modelo de material único sometido a cargas impuestas, la distribución de tensiones depende de la geometría, de las cargas y de la densidad, pero no del módulo elástico. La resistencia mínima resulta de multiplicar la tensión normal de diseño en el punto crítico por el factor parcial de material de la norma de palas, y se evalúa por separado en las dos direcciones del plano del laminado, la de la envergadura y la del contorno del perfil, ya que la resistencia de un laminado depende de la orientación de sus fibras (Sección~\ref{sec:comportamiento_laminado}). Dado que ese factor depende de la información que respalda el cálculo, el requisito se evalúa para tres combinaciones de $\gamma_{m3}$ y $\gamma_{m4}$ admitidas por la Sección 6.6.5.2 de la norma IEC 61400-5~\parencite{IEC61400-5}, y los valores obtenidos se contrastan con las propiedades medidas en laminados de vidrio E infusionados de la Tabla~\ref{tab:laminados_infusionados}. La verificación de fatiga se invierte de forma análoga, evaluando el daño con la resistencia y el exponente de fatiga medidos en las familias de laminado de la Tabla~\ref{tab:laminados_infusionados}, ya que el daño depende de ambas propiedades y no solo de la primera. En la Ec.~\ref{eq:Nf_fatiga} se adopta $b$ igual al exponente medido y $\sigma_u$ igual a la resistencia estática, que queda por debajo de la ordenada en el origen de esos ajustes, lo que resulta conservador. El multiplicador de pandeo, en cambio, escala linealmente con el módulo elástico, relación que se emplea para estimar cómo el módulo del laminado definitivo afecta el redimensionamiento frente a la inestabilidad.
+Como las propiedades de la Tabla~\ref{tab:material_pala} no corresponden a un laminado confirmado, la verificación de resistencia se complementa con su forma inversa, que entrega las propiedades mínimas que el laminado debe alcanzar para cumplir. La inversión es directa porque, en un modelo de material único sometido a cargas impuestas, la distribución de tensiones depende de la geometría, de las cargas y de la densidad, pero no del módulo elástico. La resistencia mínima resulta de multiplicar la tensión normal de diseño en el punto crítico por el factor parcial de material de la norma de palas, y se evalúa por separado en las dos direcciones del plano del laminado, la de la envergadura y la del contorno del perfil, ya que la resistencia de un laminado depende de la orientación de sus fibras (Sección~\ref{sec:comportamiento_laminado}). Dado que ese factor depende de la información que respalda el cálculo, el requisito se evalúa para tres combinaciones de $\gamma_{m3}$ y $\gamma_{m4}$ admitidas por la Sección 6.6.5.2 de la norma IEC 61400-5~\parencite{IEC61400-5}, y los valores obtenidos se contrastan con las propiedades medidas en laminados de vidrio E infusionados de la Tabla~\ref{tab:laminados_infusionados}. La verificación de fatiga se invierte de forma análoga, evaluando el daño de la dirección gobernante con la resistencia y el exponente de fatiga medidos en las familias de laminado de la Tabla~\ref{tab:laminados_infusionados}, ya que el daño depende de ambas propiedades y no solo de la primera. En la Ec.~\ref{eq:Nf_fatiga} se adopta $b$ igual al exponente medido y $\sigma_u$ igual a la resistencia estática, que queda por debajo de la ordenada en el origen de esos ajustes, lo que resulta conservador. El multiplicador de pandeo, en cambio, escala linealmente con el módulo elástico, relación que se emplea para estimar cómo el módulo del laminado definitivo afecta el redimensionamiento frente a la inestabilidad.
 
 \subsubsection{Sección característica}
 \label{sec:seccion_caracteristica}
@@ -1021,7 +1012,7 @@ Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $
 \subsubsection{Corridas del modelo}
 \label{sec:corridas_fem}
 
-El modelo se resuelve en ocho corridas que comparten geometría, material y condiciones de borde, y que responden a cuatro propósitos distintos. Dos de ellas agrupan los doce casos direccionales de cada estado límite último. La Tabla~\ref{tab:corridas_fem} las reúne.
+El modelo se resuelve en siete corridas que comparten geometría, material y condiciones de borde, y que responden a cuatro propósitos distintos. Dos de ellas agrupan los doce casos direccionales de cada estado límite último. La Tabla~\ref{tab:corridas_fem} las reúne.
 
 \begin{table}[H]
     \centering
@@ -1037,19 +1028,18 @@ El modelo se resuelve en ocho corridas que comparten geometría, material y cond
         4 & DLC 1.1, 12 casos & $250{,}63$ & $12{,}26$ & $1{,}25$ & $18$~mm & Verificación\\
         5 & DLC 1.3, 12 casos & $270{,}68$ & $13{,}24$ & $1{,}35$ & $18$~mm & Verificación\\
         6 & Solo inercial & $200{,}51$ & $9{,}81$ & $1{,}00$ & $18$~mm & Tensión media y masa\\
-        7 & Calibración, perfil completo & --- & --- & $1{,}00$ & $18$~mm & Momento a tensión\\
-        8 & Calibración, solo normal & --- & --- & $1{,}00$ & $18$~mm & Momento a tensión\\
+        7 & Calibración & --- & --- & $1{,}00$ & $18$~mm & Momento a tensión\\
         \hline
     \end{tabular}
 \end{table}
 
 La cuarta y la quinta resuelven sobre la malla más fina los doce casos direccionales del DLC 1.1 y del DLC 1.3 (Sección~\ref{sec:anexo_f}). Las tres primeras repiten el caso direccional gobernante del DLC 1.1 sobre las tres mallas más gruesas y, junto con la cuarta, constituyen el estudio de convergencia de la Sección~\ref{sec:malla}, de modo que el segundo caso de estado límite último se evalúa sobre una discretización ya acreditada sin repetir el barrido.
 
-Las tres últimas no persiguen un veredicto sino separar las dos contribuciones de la carga, cosa que ninguna corrida combinada permite hacer.
+Las dos últimas no persiguen un veredicto sino separar las dos contribuciones de la carga, cosa que ninguna corrida combinada permite hacer.
 
 La corrida \textbf{solo inercial} impone únicamente las aceleraciones de gravedad y centrífuga, sin mayorar, y suprime las fuerzas aerodinámicas. Cumple dos funciones. Entrega la tensión que la pala soporta de forma permanente mientras el rotor gira, que es el término de tensión media que exige la corrección de Goodman en la verificación de fatiga (Sección~\ref{sec:anexo_g}). Y permite medir la masa del modelo a partir de las reacciones en los apoyos, con lo que se comprueba la distribución de masa que el solucionador integra elemento a elemento.
 
-Las dos corridas de \textbf{calibración} hacen lo contrario, aplican el perfil de fuerzas del DLC 1.1 sin mayorar y suprimen las aceleraciones, una con ambas componentes del perfil y otra solo con su componente normal. Su objeto es determinar los coeficientes que convierten los momentos flectores de las series temporales en tensión, ya que el recuento de ciclos se realiza sobre momentos y la curva S-N se expresa en tensiones. Al resolverse sin inercia, los coeficientes resultan de las tensiones que entrega el modelo y de los momentos de las cargas con que se corrió (Sección~\ref{sec:anexo_g}).
+La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del DLC 1.1 sin mayorar y suprime las aceleraciones. Su objeto es determinar el factor que convierte el momento flector de las series temporales en tensión, ya que el recuento de ciclos se realiza sobre momentos y la curva S-N se expresa en tensiones. Al resolverse sin inercia, ese factor resulta del cociente directo entre la tensión que entrega el modelo y el momento de la carga con que se corrió.
 
 \medskip
 \noindent\textbf{Verificación del montaje por equilibrio global.}
