@@ -317,7 +317,7 @@ La caída del coeficiente de potencia para $V > 14$~m/s es consecuencia directa 
 
 \subsection{Extrapolación estadística}
 
-Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G de la norma IEC 61400-1~\parencite{IEC61400-1} se aplica de forma independiente a las magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en su valor máximo y mínimo, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica $F_k$ y la carga de diseño $F_d$ de cada una, esta última con $\gamma_f = 1{,}25$.
+Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G de la norma IEC 61400-1~\parencite{IEC61400-1} se aplica de forma independiente a las magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en su valor máximo y mínimo, con el convenio de signos de la Figura~\ref{fig:sentido_momentos}, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica $F_k$ y la carga de diseño $F_d$ de cada una, esta última con $\gamma_f = 1{,}25$.
 
 \begin{table}[H]
     \centering
@@ -350,11 +350,11 @@ Las series temporales de fuerzas obtenidas de las simulaciones anteriores consti
 
 Tres lecturas se desprenden de la tabla. La primera es que el apoyo superior resulta más solicitado que el inferior en todas las magnitudes, con una resultante un $14\%$ mayor. Ambos voladizos miden $5{,}0$~m, de modo que la asimetría no es geométrica sino de recurso, ya que el voladizo superior ocupa la parte alta del rotor, donde el perfil de cizalladura entrega mayor velocidad de viento. La segunda es que la componente $M_y$, generada por la fuerza normal a la cuerda, domina sobre $M_x$ en un factor cercano a cuatro, lo que confirma que la flexión fuera del plano del perfil gobierna la solicitación de la pala. La tercera es que la envolvente direccional queda por debajo de la resultante en ambos apoyos, un $3{,}3\%$ en el superior, relación que se cumple por construcción, ya que el máximo sobre doce direcciones discretas no puede superar el módulo del vector y solo lo iguala cuando este apunta exactamente a una de ellas. Esa diferencia acota, por tanto, el error de discretización angular que introduce el enfoque de doce direcciones de la Sección 6.1.4.3 de la IEC 61400-5~\parencite{IEC61400-5}.
 
-Las magnitudes que siguen se ilustran sobre la envolvente direccional del apoyo superior, por ser la sección más solicitada. Los máximos de $M_{env,max}$ por velocidad, seis por debajo de $10$~m/s y quince desde esa velocidad, se ajustan a una distribución de Gumbel~\parencite{Gumbel1958}, y la Tabla~\ref{tab:cargas_extremas} presenta los parámetros resultantes junto con el mayor de esos valores observados a cada velocidad.
+Las magnitudes que siguen se ilustran sobre la envolvente direccional del apoyo superior, por ser la sección más solicitada. Los máximos de $M_{env}$ por velocidad, seis por debajo de $10$~m/s y quince desde esa velocidad, se ajustan a una distribución de Gumbel~\parencite{Gumbel1958} por el método de los momentos (Sección~\ref{sec:anexo_f}), y la Tabla~\ref{tab:cargas_extremas} presenta la localización $\mu_j$ y la escala $\beta_j$ resultantes junto con el mayor de los máximos observados a cada velocidad, $M_{obs,max}$.
 
 \begin{table}[H]
     \centering
-    \caption{Parámetros del ajuste de Gumbel para $M_{env}$ en el apoyo superior, por velocidad de viento ($N = 6$ semillas por debajo de $10$~m/s y $15$ desde esa velocidad).}
+    \caption{Parámetros del ajuste de Gumbel para $M_{env}$ en el apoyo superior, por velocidad de viento.}
     \label{tab:cargas_extremas}
     \begin{tabular}{lccc}
         \hline
@@ -376,7 +376,7 @@ Las magnitudes que siguen se ilustran sobre la envolvente direccional del apoyo 
     \end{tabular}
 \end{table}
 
-Los parámetros $\mu_j$ y $\beta_j$ corresponden a la localización y escala de la distribución de Gumbel~\parencite{Gumbel1958}, estimados por el método de los momentos sobre los máximos observados a cada velocidad, seis por debajo de $10$~m/s y quince desde esa velocidad (Sección~\ref{sec:anexo_f}). Ambos crecen monótonamente con $V$, y el crecimiento de $\mu_j$ se atenúa a partir de $14$~m/s, donde la saturación de la velocidad de rotación deja de aumentar la velocidad relativa al mismo ritmo que el viento. La Figura~\ref{fig:cargas_maximas} muestra la dispersión de estos máximos por velocidad junto con los percentiles $50\%$, $90\%$ y $99\%$ de las distribuciones ajustadas.
+La localización $\mu_j$ crece monótonamente con $V$, y su crecimiento se atenúa a partir de $14$~m/s, donde la saturación de la velocidad de rotación deja de aumentar la velocidad relativa al mismo ritmo que el viento. La Figura~\ref{fig:cargas_maximas} muestra la dispersión de estos máximos por velocidad junto con los percentiles $50\%$, $90\%$ y $99\%$ de las distribuciones ajustadas.
 
 \begin{figure}[H]
     \centering
