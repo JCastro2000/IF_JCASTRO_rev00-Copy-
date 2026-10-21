@@ -252,7 +252,7 @@ La progresión de la velocidad de rotación reproduce exactamente la consigna de
 
 Estas simulaciones permiten además verificar a posteriori la validez de las polares empleadas. La velocidad relativa máxima que alcanza la pala, $W_{max} = \Omega R + V = 69{,}6$~m/s a $V = 24$~m/s, corresponde a $Re_{max} = 5{,}38 \times 10^6$, cifra contenida en la cota teórica de la Sección~\ref{sec:reynolds} sobre la que se decidió el rango de polares. En ningún instante se extrapolan, por tanto, datos aerodinámicos fuera del dominio caracterizado.
 
-\subsection{Longitud de la ventana de análisis}
+\subsection{Longitud de la ventana y número de realizaciones}
 \label{sec:ventana_analisis}
 
 Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s que adopta la campaña basta para que sus promedios sean estables, ya que de ella dependen todas las cifras de esta sección y las cargas de las siguientes. La Figura~\ref{fig:convergencia_ventana} recoge, para las quince semillas de $12$~m/s, la potencia media acumulada desde el inicio de la ventana útil hasta cada instante. La zona sombreada marca los primeros $100$~s y la línea discontinua la media de las quince realizaciones sobre la ventana completa.
@@ -264,7 +264,7 @@ Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s 
     \label{fig:convergencia_ventana}
 \end{figure}
 
-El resultado justifica la exigencia normativa por sí solo. Sobre una ventana de $100$~s las quince semillas entregan entre $194{,}8$ y $346{,}7$~kW, un rango del $56\%$ en torno a su media, mientras que sobre los $600$~s completos quedan entre $265{,}3$ y $290{,}9$~kW, un rango del $9{,}1\%$. Una ventana corta no promedia las estructuras de mayor escala del campo de Mann, cuya longitud característica es comparable al tamaño del rotor, de modo que cada realización queda dominada por el tramo de viento que le tocó y el resultado deja de ser representativo. Los diez minutos que la norma fija como período de observación son, en este rotor, la ventana a partir de la cual la media se estabiliza.
+La figura responde dos preguntas de la campaña. La primera es la duración de cada realización. Sobre una ventana de $100$~s las quince semillas entregan entre $194{,}8$ y $346{,}7$~kW, un rango del $56\%$ en torno a su media, mientras que sobre los $600$~s completos quedan entre $265{,}3$ y $290{,}9$~kW, un rango del $9{,}1\%$. Una ventana corta no promedia las estructuras de mayor escala del campo de Mann, cuya longitud característica es comparable al tamaño del rotor, de modo que cada realización queda dominada por el tramo de viento que le tocó y deja de ser representativa. La segunda es el número de realizaciones. Aun con la ventana completa, una semilla aislada se aparta hasta un $5{,}6\%$ de la media del conjunto, dispersión que no se reduce alargando la simulación sino promediando realizaciones independientes, lo que explica que la norma exija varias por velocidad de viento. La dispersión de los primeros segundos corresponde al promedio de una señal turbulenta sobre un intervalo corto y no a un transitorio de arranque, ya que la diferencia entre la potencia media de los primeros $100$~s útiles y la del resto no tiene un signo común entre semillas ni entre velocidades.
 
 \subsection{Curva de potencia y coeficiente de potencia}
 
