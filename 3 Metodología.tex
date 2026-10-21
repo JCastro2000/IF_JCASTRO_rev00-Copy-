@@ -293,18 +293,18 @@ Como paso previo a las simulaciones de alta fidelidad con \gls{llfvw}, se emplea
 
 La pala se discretiza en QBlade mediante un esquema de paneles que fija la resolución del método de vórtices libres y las estaciones en que se extraen las fuerzas aerodinámicas.
 
-\textbf{Panelado aerodinámico:} Para la resolución del método \gls{llfvw}, la pala se divide en 21 paneles con distribución de tipo coseno, que reduce el tamaño de los paneles hacia la punta de la pala para capturar mejor los mayores gradientes de circulación que ahí se presentan, configuración con la que \textcite{marten2019qblade} valida el método en QBlade; la documentación del software describe las configuraciones alternativas disponibles~\parencite{QBladeDocs2024}. Entre paneles contiguos, la circulación se interpola mediante splines cúbicos de clase C2, polinomios que empalman sin discontinuidades hasta su segunda derivada. La Figura~\ref{fig:panelado_aerodinamico} muestra la distribución resultante sobre las tres palas del rotor.
+\textbf{Panelado aerodinámico:} Para la resolución del método \gls{llfvw}, la pala se divide en 21 paneles con distribución de tipo coseno, que reduce el tamaño de los paneles hacia los extremos de la pala para capturar los mayores gradientes de circulación que ahí se presentan, configuración con la que \textcite{marten2019qblade} valida el método en QBlade. Entre paneles contiguos, la circulación se interpola mediante splines cúbicos de clase C2, que empalman sin discontinuidades hasta su segunda derivada. La Figura~\ref{fig:panelado_aerodinamico} muestra la distribución sobre las tres palas del rotor.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.55\textwidth]{Figuras/Figuras Metodología/panelado_aerodinamico.png}
-\caption[Panelado aerodinámico del rotor en QBlade.]{Panelado aerodinámico de las tres palas del rotor en QBlade, según la distribución de tipo coseno descrita en la Sección~\ref{sec:discretizacion}.}
+\caption{Panelado aerodinámico de las tres palas del rotor en QBlade.}
 \label{fig:panelado_aerodinamico}
 \end{figure}
 
-\textbf{Estaciones de extracción de cargas:} Las fuerzas aerodinámicas se extraen en los centros de los mismos $21$ paneles que definen la discretización aerodinámica, de modo que la carga registrada corresponde a la sección en que el método resuelve efectivamente la circulación. Cada estación entrega las componentes normal y tangencial de la fuerza por unidad de longitud en el sistema local de la pala de la Figura~\ref{fig:ejes_locales}, junto con los datos aerodinámicos de la sección, esto es, el ángulo de ataque local, la velocidad relativa y los coeficientes aerodinámicos. De esta configuración se obtienen las series temporales completas de fuerzas incidentes a lo largo de la envergadura, que constituyen la entrada directa del análisis por elementos finitos de la pala (Sección~\ref{sec:fem}). En ese sistema, el eje $X_l$ es normal a la cuerda y positivo hacia el eje del rotor, $Y_l$ sigue la cuerda y es positivo en el sentido del movimiento de la pala, y $Z_l$ recorre la envergadura hacia arriba. Los sentidos positivos son los que se determinan por medición en la Sección~\ref{sec:ejes_locales_res}.
+\textbf{Estaciones de extracción de cargas:} Las fuerzas se extraen en los centros de los mismos $21$ paneles, de modo que la carga registrada corresponde a la sección en que el método resuelve la circulación. Cada estación entrega las componentes normal y tangencial de la fuerza por unidad de longitud, junto con el ángulo de ataque local, la velocidad relativa y los coeficientes aerodinámicos de la sección. Las componentes se expresan en el sistema local de la pala (Figura~\ref{fig:ejes_locales}), en que $X_l$ es normal a la cuerda y positivo hacia el eje del rotor, $Y_l$ sigue la cuerda y es positivo en el sentido del movimiento de la pala, y $Z_l$ recorre la envergadura hacia arriba. Los sentidos positivos se determinan por medición en la Sección~\ref{sec:ejes_locales_res}.
 
-El reparto adoptado satisface las dos exigencias que la Sección 6.1.4.3 de la IEC 61400-5 establece sobre la discretización de las cargas de pala~\parencite{IEC61400-5}. La primera es disponer de cargas en un mínimo de doce secciones a lo largo de la envergadura, número que las $21$ estaciones superan con holgura. La segunda es que la separación entre secciones no exceda el doble de la cuerda menor, límite que en esta pala de cuerda constante de $1{,}1$~m son $2{,}2$~m y que el panel más ancho, de $1{,}719$~m, respeta. La distribución de tipo coseno concentra además las estaciones hacia los extremos de la pala, que es donde los gradientes de circulación resultan mayores y donde una discretización uniforme perdería resolución.
+El reparto satisface las dos exigencias que la Sección 6.1.4.3 de la IEC 61400-5 establece sobre la discretización de las cargas de pala~\parencite{IEC61400-5}. Las $21$ estaciones superan el mínimo de doce secciones, y el panel más ancho, de $1{,}719$~m, respeta la separación máxima del doble de la cuerda menor, que en esta pala de cuerda constante de $1{,}1$~m es de $2{,}2$~m.
 
 \begin{figure}[H]
 \centering
@@ -332,7 +332,7 @@ Los brazos de soporte se incorporan a la definición de la turbina con cinco pan
 \subsubsection{Modelo de estela LLFVW}
 \label{sec:estela}
 
-Para la resolución de la inducción del rotor se utiliza el método \gls{llfvw}. El esquema de integración de la convección de la estela se fija en Predictor-Corrector Backwards (PC2B), de segundo orden. Frente al esquema de primer orden de Euler, este duplica el número de evaluaciones del campo de velocidades por paso temporal, pero la mayor precisión que alcanza permite emplear un paso mayor manteniendo una exactitud aceptable~\parencite{marten2019qblade}, compensación pertinente en un conjunto de $174$ simulaciones de $600$~s.
+Para la resolución de la inducción del rotor se utiliza el método \gls{llfvw}. El esquema de integración de la convección de la estela se fija en Predictor-Corrector Backwards (PC2B), de segundo orden. Frente al esquema de primer orden de Euler, este duplica el número de evaluaciones del campo de velocidades por paso temporal, pero la mayor precisión que alcanza permite emplear un paso mayor manteniendo una exactitud aceptable~\parencite{marten2019qblade}, compensación pertinente dado el volumen de la campaña.
 
 Se habilita la auto-inducción de la estela (\textit{Wake Rollup}), sin la cual los filamentos no se deforman bajo su propio campo inducido y la estela deja de ser libre, condición que el método requiere para resolver la interacción de la pala con su propia estela. Se incluyen tanto los vórtices de arrastre (\textit{trailing}), que recogen la variación de la circulación ligada a lo largo de la envergadura, como los de desprendimiento (\textit{shed}), que recogen su variación en el tiempo. \textcite{marten2019qblade} señala que la circulación de estos últimos tiende a cero en simulaciones estacionarias con flujo incidente constante, caso en que su omisión acelera el cálculo sin pérdida apreciable. Esa condición no se cumple aquí, ya que el flujo incidente es turbulento y la circulación ligada varía además con el acimut a lo largo de cada revolución.
 
@@ -415,13 +415,13 @@ La velocidad de rotación se impone en cada simulación a partir de la definici�
 
 El rotor recorre así los dos regímenes descritos en la Sección~\ref{sec:regimenes_operacion}. Por debajo de la velocidad de viento nominal la rotación acompaña al viento y el \gls{tsr} se mantiene constante en su valor de diseño; por encima de ella la rotación permanece en $\Omega_{max}$ y el \gls{tsr} decae a medida que el viento arrecia.
 
-El \gls{tsr} objetivo proviene del barrido DMST de la Sección~\ref{sec:dmst}, ejecutado como paso previo a las simulaciones de alta fidelidad precisamente para fijarlo. El límite $\Omega_{max}$ se obtiene aplicando el criterio de la Sección~\ref{sec:criterio_rotacion}, que evalúa la Ec.~\ref{eq:omega_from_vtip} con ese mismo \gls{tsr} y la velocidad de viento nominal. Dicha velocidad nominal, que el fabricante no especifica, se adopta por analogía con las máquinas H-rotor de potencia y escala comparables, que alcanzan sus $200$~kW nominales a $12$~m/s (Tabla~\ref{tab:hrotor_rpm}). El desarrollo del cálculo, su contraste con el límite documentado para la T1-turbine y la solicitación centrífuga que implica se presentan en el Capítulo~4.
+El \gls{tsr} objetivo proviene del barrido DMST de la Sección~\ref{sec:dmst}. El límite $\Omega_{max}$ se obtiene aplicando el criterio de la Sección~\ref{sec:criterio_rotacion}, que evalúa la Ec.~\ref{eq:omega_from_vtip} con ese mismo \gls{tsr} y la velocidad de viento nominal. Dicha velocidad nominal, que el fabricante no especifica, se adopta por analogía con las máquinas H-rotor de potencia y escala comparables, que alcanzan sus $200$~kW nominales a $12$~m/s (Tabla~\ref{tab:hrotor_rpm}). El desarrollo del cálculo, su contraste con el límite documentado para la T1-turbine y la solicitación centrífuga que implica se presentan en el Capítulo~4.
 
 Al quedar la rotación determinada por la velocidad de viento del caso y por dos parámetros de diseño del rotor, el punto de operación de cada simulación se establece \textit{a priori} y no depende de ninguna magnitud obtenida de las propias simulaciones, lo que evita que el resultado condicione la condición bajo la cual se obtiene. La Tabla~\ref{tab:rpm_por_velocidad} recoge las velocidades de giro que resultan para cada caso simulado.
 
 \begin{table}[H]
     \centering
-    \caption[Velocidad de rotación impuesta en cada caso de simulación.]{Velocidad de rotación impuesta en cada caso de simulación, obtenida de la Ec.~\ref{eq:omega_prescrita}. El codo entre regímenes coincide con la velocidad de viento nominal de $12$~m/s.}
+    \caption{Velocidad de rotación impuesta en cada caso de simulación.}
     \label{tab:rpm_por_velocidad}
     \begin{tabular}{lccccccc}
         \hline
@@ -433,23 +433,17 @@ Al quedar la rotación determinada por la velocidad de viento del caso y por dos
     \end{tabular}
 \end{table}
 
-A diferencia de los parámetros geométricos y de material (Tablas~\ref{tab:geometria_turbina} y~\ref{tab:material_pala}), los parámetros operacionales de las simulaciones no los proporciona el fabricante. El \gls{tsr} objetivo proviene del barrido DMST de la Sección~\ref{sec:dmst}, la velocidad máxima de rotación del criterio de la Sección~\ref{sec:criterio_rotacion}, la velocidad de rotación de cada caso de la Ec.~\ref{eq:omega_prescrita}, y las velocidades de arranque y de corte se fijan por criterio de diseño, según se justifica a continuación.
-
-Los dos límites del rango operacional se adoptan igualmente por criterio de diseño. La velocidad de arranque se fija en $V_{in} = 2$~m/s. La velocidad de corte se fija en $V_{out} = 25$~m/s, valor que coincide con el documentado para la T1-turbine (Tabla~\ref{tab:t1_params}) y que responde al criterio de limitar las cargas extremas sobre la pala mediante la desconexión de la turbina, antes que a un óptimo de producción. Las condiciones de viento extremo con la turbina detenida corresponden a los DLC 6.x, cuyo análisis queda fuera del alcance de este trabajo.
+A diferencia de los parámetros geométricos y de material (Tablas~\ref{tab:geometria_turbina} y~\ref{tab:material_pala}), los parámetros operacionales no los proporciona el fabricante. Además del \gls{tsr} y de $\Omega_{max}$, los límites del rango operacional se fijan por criterio de diseño. La velocidad de arranque es $V_{in} = 2$~m/s, y la de corte, $V_{out} = 25$~m/s, coincide con la documentada para la T1-turbine (Tabla~\ref{tab:t1_params}) y responde al criterio de limitar las cargas extremas sobre la pala mediante la desconexión de la turbina, antes que a un óptimo de producción. Las condiciones de viento extremo con la turbina detenida corresponden a los DLC 6.x, fuera del alcance de este trabajo.
 
 
 \subsubsection{Ejecución de la campaña mediante la interfaz SIL}
 \label{sec:sil}
 
-La configuración descrita en los apartados anteriores se establece en la interfaz gráfica de QBlade y se conserva en un único archivo de definición de simulación. La ejecución de la campaña, en cambio, no se realiza desde esa interfaz, sino a través de la interfaz \gls{sil} que el programa expone como biblioteca de enlace dinámico, gobernada desde una rutina propia escrita en Python. La distinción importa y conviene declararla, porque de ella dependen tanto la reproducibilidad del conjunto como la posibilidad misma de satisfacer el número de realizaciones que la norma exige.
+La configuración descrita en los apartados anteriores se establece en la interfaz gráfica de QBlade y se conserva en un único archivo de definición de simulación. La campaña, en cambio, se ejecuta a través de la interfaz \gls{sil} que el programa expone como biblioteca de enlace dinámico, gobernada desde una rutina propia en Python, de lo que dependen la reproducibilidad del conjunto y la posibilidad de cumplir el número de realizaciones que exige la norma.
 
-El procedimiento es el siguiente. La rutina carga el archivo de definición, que es el mismo para las $174$ simulaciones y fija la geometría del rotor, la discretización de la pala, los modelos aerodinámicos y los parámetros de estela. Sobre esa base impone, caso por caso, únicamente lo que distingue a cada simulación: la caja de turbulencia correspondiente a la velocidad y la semilla, el paso temporal que resulta del incremento acimutal constante y de la velocidad de rotación prescrita (Sección~\ref{sec:discretizacion_temporal}), y esa misma velocidad de rotación con su tiempo de rampa. La simulación avanza después paso a paso, y en cada uno se extraen por nombre de canal el coeficiente de potencia instantáneo, la velocidad de rotación, la relación de velocidad de punta, el torque aerodinámico y las $21$ parejas de fuerza normal y tangencial por unidad de longitud en las estaciones instrumentadas, que se vuelcan a un archivo de texto por simulación.
+La rutina carga el archivo de definición, común a todas las simulaciones, que fija la geometría del rotor, la discretización de la pala, los modelos aerodinámicos y los parámetros de estela. Sobre esa base impone, caso por caso, solo lo que distingue a cada simulación, esto es, la caja de turbulencia de la velocidad y la semilla, la velocidad de rotación prescrita con su tiempo de rampa y el paso temporal que de ella resulta (Sección~\ref{sec:discretizacion_temporal}). En cada paso se extraen por nombre de canal el coeficiente de potencia, la velocidad de rotación, la relación de velocidad de punta, el torque aerodinámico y las $21$ parejas de fuerza normal y tangencial por unidad de longitud, que se vuelcan a un archivo de texto por simulación.
 
-Dos razones justifican esta forma de ejecución frente a la operación manual de la interfaz.
-
-La primera es de \textbf{viabilidad}. La Sección 7.6.2.2 de la norma IEC 61400-1 exige quince realizaciones por velocidad en la banda superior del rango operacional~\parencite{IEC61400-1}, lo que sitúa la campaña en $144$ simulaciones para el DLC 1.1 y $30$ para el DLC 1.3. Cada una recorre $650$~s de tiempo físico en unos treinta mil pasos y exporta cuarenta y dos canales de fuerza en cada uno de ellos, con una caja de turbulencia propia de casi $400$~MB. Configurar ese conjunto a mano exigiría reproducir $174$ veces una misma configuración sin registro de qué valor se empleó en cada corrida, lo que lo convierte en una fuente de error.
-
-La segunda es de \textbf{trazabilidad}. Todos los parámetros de la campaña residen en un único archivo de configuración del que la rutina los lee, de modo que cada simulación queda unívocamente determinada por su velocidad de viento y su semilla, y el conjunto entero es regenerable. Las semillas son deterministas y se asignan por bloques disjuntos según el modelo de turbulencia, lo que garantiza que ninguna realización del modelo normal coincida con una del extremo.
+Esta forma de ejecución se justifica por \textbf{viabilidad} y por \textbf{trazabilidad}. La campaña suma $174$ simulaciones (Sección~\ref{sec:velocidades_simulacion}), cada una de $650$~s de tiempo físico, con su propia caja de turbulencia de casi $400$~MB y cuarenta y dos canales de fuerza en cada paso, de modo que configurarla a mano obligaría a repetir la misma configuración en cada corrida sin registro de los valores empleados. Con la rutina, todos los parámetros residen en un único archivo de configuración, cada simulación queda determinada por su velocidad de viento y su semilla, y el conjunto entero es regenerable. Las semillas son deterministas y se asignan por bloques disjuntos según el modelo de turbulencia, de modo que ninguna realización del modelo normal coincide con una del extremo.
 
 \subsection{Selección de casos de carga según IEC 61400-1}
 \label{sec:seleccion_dlc}
@@ -641,7 +635,7 @@ El procedimiento de extrapolación estadística del Anexo G, informativo, de la 
 
 \medskip
 \noindent\textbf{Paso 1. Efectos de carga que se extrapolan.}
-Cada una de las 144 simulaciones entrega, en cada paso temporal, las fuerzas aerodinámicas por unidad de longitud $(F_{x,l,i}, F_{y,l,i})$ en las $21$ estaciones $i$ de la envergadura. El subíndice $l$ indica el sistema local de la pala (Figura~\ref{fig:ejes_locales}), en que $x$ es normal a la cuerda, positiva hacia el eje del rotor, e $y$ es paralela a la cuerda, positiva en el sentido del movimiento de la pala.
+Cada una de las 144 simulaciones entrega, en cada paso temporal, las fuerzas aerodinámicas por unidad de longitud $(F_{x,l,i}, F_{y,l,i})$ en las $21$ estaciones $i$ de la envergadura, expresadas en el sistema local $l$ de la Sección~\ref{sec:discretizacion}, con $x$ normal a la cuerda e $y$ paralela a ella.
 
 En cada conexión con los brazos se calcula el momento flector del voladizo que ella sostiene. Como cada voladizo cuelga de una sola conexión, ese momento depende solo de las fuerzas que actúan sobre él y de sus brazos, y se descompone en las dos direcciones del sistema local según las Ecs.~\ref{eq:M_apoyo}:
 
@@ -1035,7 +1029,7 @@ El plano entrega una única sección y no una distribución de espesores a lo la
 \subsection{Análisis por modelado de elementos finitos de la pala}
 \label{sec:fem}
 
-El análisis estructural de la pala se realiza en el software Ansys. En correlación con los objetivos propuestos, se modela únicamente una pala, excluyendo los struts, la torre y el sistema de flotación del dominio de cálculo. La exclusión del sistema de flotación responde, además, a la falta de datos para modelarlo, ya que el fabricante no entrega su geometría ni sus propiedades, información que resguarda por confidencialidad comercial. Las cargas aerodinámicas se aplican en las mismas 21 estaciones en que QBlade las entrega (Sección~\ref{sec:discretizacion}), de modo que se trasladan directamente al modelo.
+El análisis estructural de la pala se realiza en el software Ansys. Conforme a los objetivos propuestos, se modela únicamente una pala, excluyendo los struts, la torre y el sistema de flotación del dominio de cálculo. La exclusión del sistema de flotación responde, además, a la falta de datos para modelarlo, ya que el fabricante no entrega su geometría ni sus propiedades, información que resguarda por confidencialidad comercial.
 
 \subsubsection{Condiciones de borde}
 \label{sec:condiciones_borde}
@@ -1044,23 +1038,23 @@ La pala se sostiene en los dos puntos en que se conecta a los brazos, situados a
 
 \subsubsection{Cargas aplicadas}
 
-Las fuerzas aerodinámicas se aplican según el procesamiento de datos específico de cada caso, como cargas remotas en los centroides de las $21$ estaciones. Las cargas inerciales se imponen como aceleraciones globales sobre todo el modelo, que el solucionador convierte en fuerzas de volumen según la masa de cada elemento. Son las siguientes:
+Las fuerzas aerodinámicas que resultan del procesamiento de cada caso se aplican como cargas remotas en los centroides de las $21$ estaciones de QBlade (Sección~\ref{sec:discretizacion}). Las cargas inerciales se imponen como aceleraciones globales sobre todo el modelo, que el solucionador convierte en fuerzas de volumen según la masa de cada elemento. Son las siguientes:
 
 \begin{itemize}
     \item \textbf{Aceleración de gravedad:} uniforme, dirigida verticalmente hacia abajo y de magnitud $g = 9{,}81$~m/s$^2$.
     \item \textbf{Aceleración centrífuga:} dirigida radialmente hacia afuera y evaluada en la velocidad máxima de rotación $\Omega$ mediante la Ec.~\ref{eq:centrifugal_limit} (Sección~\ref{sec:vtip}). Como el radio $R$ es constante a lo largo de la envergadura, resulta uniforme en toda la pala. El valor que corresponde a la consigna de rotación adoptada se presenta en el Capítulo~4.
 \end{itemize}
 
-Las cargas inerciales ingresan al modelo mayoradas por el mismo factor parcial $\gamma_f$ que las aerodinámicas, que se materializa imponiendo aceleraciones amplificadas, $\gamma_f \, g$ y $\gamma_f \, \Omega^2 R$. Según la Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, $\gamma_f$ vale $1{,}25$ en el DLC 1.1 y $1{,}35$ en el DLC 1.3, y las corridas sin mayorar emplean $\gamma_f = 1{,}00$ (Sección~\ref{sec:factores_seguridad}).
+Las cargas inerciales ingresan mayoradas por el mismo factor $\gamma_f$ que las aerodinámicas, mediante las aceleraciones $\gamma_f \, g$ y $\gamma_f \, \Omega^2 R$, con los valores de la Tabla~\ref{tab:factores_seguridad}.
 
 \subsubsection{Corridas del modelo}
 \label{sec:corridas_fem}
 
-El modelo se resuelve en siete corridas que comparten geometría, material y condiciones de borde, y que responden a cuatro propósitos distintos. Dos de ellas agrupan los doce casos direccionales de cada estado límite último. La Tabla~\ref{tab:corridas_fem} las reúne.
+El modelo se resuelve en las siete corridas de la Tabla~\ref{tab:corridas_fem}, que comparten geometría, material y condiciones de borde. Las aceleraciones de la tabla figuran ya mayoradas por el factor parcial de cada caso.
 
 \begin{table}[H]
     \centering
-    \caption{Corridas del modelo de elementos finitos. Las aceleraciones se indican ya mayoradas por el factor parcial de cargas de cada caso.}
+    \caption{Corridas del modelo de elementos finitos.}
     \label{tab:corridas_fem}
     \begin{tabular}{clccccl}
         \hline
@@ -1077,21 +1071,19 @@ El modelo se resuelve en siete corridas que comparten geometría, material y con
     \end{tabular}
 \end{table}
 
-La cuarta y la quinta resuelven sobre la malla más fina los doce casos direccionales del DLC 1.1 y del DLC 1.3 (Sección~\ref{sec:anexo_f}). Las tres primeras repiten el caso direccional gobernante del DLC 1.1 sobre las tres mallas más gruesas y, junto con la cuarta, constituyen el estudio de convergencia de la Sección~\ref{sec:malla}, de modo que el segundo caso de estado límite último se evalúa sobre una discretización ya acreditada sin repetir el barrido.
+Las corridas 4 y 5 resuelven sobre la malla más fina los doce casos direccionales del DLC 1.1 y del DLC 1.3 (Secciones~\ref{sec:anexo_f} y~\ref{sec:anexo_dlc13}). Las tres primeras repiten el caso gobernante del DLC 1.1 sobre mallas más gruesas y, con la cuarta, forman el estudio de convergencia de la Sección~\ref{sec:malla}, de modo que el DLC 1.3 se evalúa sobre una discretización ya acreditada.
 
-Las dos últimas no persiguen un veredicto sino separar las dos contribuciones de la carga, cosa que ninguna corrida combinada permite hacer.
+Las dos últimas separan las dos contribuciones de la carga, lo que ninguna corrida combinada permite. La corrida \textbf{solo inercial} impone las aceleraciones de gravedad y centrífuga sin mayorar y sin fuerzas aerodinámicas. Entrega la tensión permanente con el rotor en giro, que es la tensión media de la corrección de Goodman (Sección~\ref{sec:anexo_g}), y permite medir la masa del modelo a partir de las reacciones en los apoyos.
 
-La corrida \textbf{solo inercial} impone únicamente las aceleraciones de gravedad y centrífuga, sin mayorar, y suprime las fuerzas aerodinámicas. Cumple dos funciones. Entrega la tensión que la pala soporta de forma permanente mientras el rotor gira, que es el término de tensión media que exige la corrección de Goodman en la verificación de fatiga (Sección~\ref{sec:anexo_g}). Y permite medir la masa del modelo a partir de las reacciones en los apoyos, con lo que se comprueba la distribución de masa que el solucionador integra elemento a elemento.
-
-La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del DLC 1.1 sin mayorar y suprime las aceleraciones. Su objeto es determinar el factor que convierte el momento flector de las series temporales en tensión, ya que el recuento de ciclos se realiza sobre momentos y la curva S-N se expresa en tensiones. Al resolverse sin inercia, ese factor resulta del cociente directo entre la tensión que entrega el modelo y el momento de la carga con que se corrió.
+La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del DLC 1.1 sin mayorar y sin aceleraciones. Con ella se determina el factor que convierte el momento flector en tensión (Ec.~\ref{eq:keff}), ya que las series temporales entregan momentos y la curva S-N se expresa en tensiones.
 
 \medskip
 \noindent\textbf{Verificación del montaje por equilibrio global.}
-De cada corrida se extraen las reacciones de los dos apoyos en los tres ejes y se comprueba que su suma iguale la resultante de las cargas impuestas. La comprobación es necesaria porque las fuerzas aerodinámicas ingresan como cargas remotas en $21$ estaciones mientras las inerciales las genera el solucionador a partir de la masa de cada elemento, de manera que un error de signo, de unidad o de punto de aplicación en cualquiera de las dos vías se manifiesta como un desbalance. En la corrida solo inercial la comprobación es además una medida independiente de la masa, ya que las reacciones divididas por la aceleración impuesta deben entregar el mismo valor en el eje de la gravedad y en el de la centrífuga.
+De cada corrida se extraen las reacciones de los dos apoyos en los tres ejes y se comprueba que su suma iguale la resultante de las cargas impuestas. Como las fuerzas aerodinámicas ingresan como cargas remotas y las inerciales las genera el solucionador a partir de la masa de cada elemento, un error de signo, de unidad o de punto de aplicación en cualquiera de las dos vías se manifiesta como un desbalance. En la corrida solo inercial, las reacciones divididas por la aceleración impuesta deben además entregar la misma masa en el eje de la gravedad y en el de la centrífuga.
 
 \medskip
 \noindent\textbf{Magnitudes instrumentadas.}
-De cada corrida se extraen las tensiones principales máxima y mínima sobre cuatro regiones definidas por separado, el manto, cada una de las dos almas y el vendaje de refuerzo, en lugar de un único máximo sobre el modelo completo. La separación permite saber qué elemento gobierna cada caso y, sobre todo, distinguir las zonas en que el valor corresponde al campo de tensión resuelto de aquellas en que depende de la discretización. Se instrumentan además dos secciones fijas, las caras del manto contiguas a cada brazo de soporte, con las que se obtiene una lectura en una posición geométrica invariable entre mallas, a diferencia del máximo sobre una región, que cambia de elemento al refinar.
+De cada corrida se extraen las tensiones principales máxima y mínima en cuatro regiones, el manto, cada una de las dos almas y el vendaje de refuerzo, en lugar de un único máximo sobre el modelo. La separación indica qué elemento gobierna cada caso y distingue las zonas en que el valor corresponde al campo de tensión resuelto de aquellas en que depende de la discretización. Se instrumentan además las caras del manto contiguas a cada brazo, que dan una lectura en una posición fija entre mallas, a diferencia del máximo de una región, que cambia de elemento al refinar.
 
 \subsubsection{Discretización de la malla}
 \label{sec:malla}
