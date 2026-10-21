@@ -128,7 +128,7 @@ que mantienen $\rho$, $W$ y $c$ fijos frente a este efecto, por lo que su variac
 
 \begin{table}[H]
     \centering
-    \caption{Variación de $C_l$ y $C_d$ del NACA 0018 entre $Re(\nu_{min}) = 5{,}74 \times 10^6$ y $Re(\nu_{max}) = 5{,}12 \times 10^6$, respecto del valor a $\bar\nu$, para ángulos de ataque en régimen adherido.}
+    \caption{Variación de $C_l$ y $C_d$ del NACA 0018 entre $Re(\nu_{min})$ y $Re(\nu_{max})$, respecto del valor a $\bar\nu$, para ángulos de ataque en régimen adherido.}
     \label{tab:sensibilidad_re}
     \begin{tabular}{ccccc}
         \hline
@@ -222,11 +222,11 @@ El mismo criterio, aplicado a la T1-turbine ($R = 13$~m), reproduce su límite d
 
 Con el TSR óptimo determinado y las polares validadas, se procede a la simulación aerodinámica del rotor. A diferencia del barrido DMST, que opera sobre promedios estacionarios, las simulaciones LLFVW resuelven la interacción dinámica entre el campo de viento turbulento y la estela tridimensional que el rotor genera~\parencite{marten2019qblade}.
 
-Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden al promedio temporal de cada una de las 144 simulaciones LLFVW (Sección~\ref{sec:velocidades_simulacion}), descartado el transitorio inicial, y promediado a su vez sobre las semillas de cada velocidad de viento, seis por debajo de $10$~m/s y quince desde esa velocidad.
+Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden al promedio temporal de cada una de las 144 simulaciones LLFVW (Sección~\ref{sec:velocidades_simulacion}), descartado el transitorio inicial, y promediado a su vez sobre las semillas de cada velocidad de viento, seis por debajo de $10$~m/s y quince desde esa velocidad. El $C_p$ se refiere al cubo de la velocidad media nominal y el $C_p^{*}$ a la potencia que el campo turbulento transporta efectivamente.
 
 \begin{table}[H]
     \centering
-    \caption[Parámetros operacionales promedio de la turbina.]{Parámetros operacionales promedio de la turbina por velocidad de viento ($\Delta\theta = 5^\circ$, $N = 6$ semillas por debajo de $10$~m/s y $15$ desde esa velocidad, ventana de $600$~s). $C_p$ se refiere al cubo de la velocidad media nominal y $C_p^{*}$ a la potencia que el campo turbulento transporta efectivamente.}
+    \caption[Parámetros operacionales promedio de la turbina.]{Parámetros operacionales promedio de la turbina por velocidad de viento.}
     \label{tab:curva_potencia}
     \begin{tabular}{lccccc}
         \hline
@@ -255,12 +255,12 @@ Estas simulaciones permiten además verificar a posteriori la validez de las pol
 \subsection{Longitud de la ventana de análisis}
 \label{sec:ventana_analisis}
 
-Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s que adopta la campaña basta para que sus promedios sean estables, ya que de ella dependen todas las cifras de esta sección y las cargas de las siguientes. La Figura~\ref{fig:convergencia_ventana} recoge, para las quince semillas de $12$~m/s, la potencia media acumulada desde el inicio de la ventana útil hasta cada instante.
+Antes de leer la curva de potencia conviene comprobar que la ventana de $600$~s que adopta la campaña basta para que sus promedios sean estables, ya que de ella dependen todas las cifras de esta sección y las cargas de las siguientes. La Figura~\ref{fig:convergencia_ventana} recoge, para las quince semillas de $12$~m/s, la potencia media acumulada desde el inicio de la ventana útil hasta cada instante. La zona sombreada marca los primeros $100$~s y la línea discontinua la media de las quince realizaciones sobre la ventana completa.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{Figuras/Figuras Resultados/convergencia_ventana.pdf}
-    \caption[Convergencia de la potencia media con la ventana de promediado.]{Potencia media acumulada en función de la longitud de la ventana de promediado, para las quince semillas de $V = 12$~m/s. La zona sombreada marca los primeros $100$~s y la línea discontinua la media de las quince realizaciones sobre la ventana completa.}
+    \caption[Convergencia de la potencia media con la ventana de promediado.]{Potencia media acumulada en función de la longitud de la ventana de promediado, para las quince semillas de $V = 12$~m/s.}
     \label{fig:convergencia_ventana}
 \end{figure}
 
@@ -268,12 +268,12 @@ El resultado justifica la exigencia normativa por sí solo. Sobre una ventana de
 
 \subsection{Curva de potencia y coeficiente de potencia}
 
-La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}7$~kW a $V = 16$~m/s y disminuye después hasta $378{,}9$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. La línea discontinua del panel (b) indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
+La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}7$~kW a $V = 16$~m/s y disminuye después hasta $378{,}9$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. Los puntos son el promedio de las realizaciones estocásticas de cada velocidad y las barras verticales indican $\pm 1$ desviación estándar entre ellas. En el panel (b), la curva azul corresponde al $C_p$ y la verde al $C_p^{*}$ de la Tabla~\ref{tab:curva_potencia}. La línea discontinua del panel (b) indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/curva_potencia.pdf}
-    \caption[Curva de potencia y coeficiente de potencia del rotor.]{(a) Potencia media y (b) coeficiente de potencia, en función de la velocidad de viento. Los puntos son el promedio de las realizaciones estocásticas simuladas por velocidad, seis por debajo de $10$~m/s y quince desde esa velocidad, y las barras verticales indican $\pm 1$ desviación estándar entre ellas. La curva azul emplea la definición convencional, referida al cubo de la velocidad media, y la verde la potencia que el campo turbulento transporta efectivamente.}
+    \caption[Curva de potencia y coeficiente de potencia del rotor.]{(a) Potencia media y (b) coeficiente de potencia, en función de la velocidad de viento.}
     \label{fig:curva_potencia}
 \end{figure}
 
@@ -328,11 +328,11 @@ La medición identifica como barlovento la mitad del recorrido que produce el ma
 
 \subsection{Extrapolación estadística}
 
-Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G se aplica de forma independiente a las magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en sus dos sentidos, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica y la carga de diseño de cada una.
+Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G se aplica de forma independiente a las magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en sus dos sentidos, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica y la carga de diseño de cada una, esta última con $\gamma_f = 1{,}25$.
 
 \begin{table}[H]
     \centering
-    \caption[Cargas características y de diseño del DLC 1.1.]{Carga característica a 50 años y carga de diseño del DLC 1.1 para las magnitudes extrapoladas, con $\gamma_f = 1{,}25$.}
+    \caption[Cargas características y de diseño del DLC 1.1.]{Carga característica a 50 años y carga de diseño del DLC 1.1 para las magnitudes extrapoladas.}
     \label{tab:dlc11_magnitudes}
     \begin{tabular}{lcc}
         \hline
@@ -536,12 +536,12 @@ Varios de los márgenes en el apoyo inferior son estrechos, del orden de pocos p
 \section{Comparación de fuerzas por estación entre DLC}
 \label{sec:comparacion_dlc}
 
-Definidas las cargas globales de ambos casos últimos, resta distribuirlas a lo largo de la pala para su aplicación en el modelo estructural. La Figura~\ref{fig:comparacion_fuerzas_dlc} presenta los perfiles de fuerzas de diseño $F_d$ a lo largo de la envergadura, construidos en cada caso según el procedimiento que le corresponde, con escalamiento uniforme de las fuerzas compañeras del instante gobernante en el DLC 1.1 (Sección~\ref{sec:anexo_f}), y media por estación de los perfiles de las seis semillas a la velocidad gobernante en el DLC 1.3 (Sección~\ref{sec:anexo_dlc13}).
+Definidas las cargas globales de ambos casos últimos, resta distribuirlas a lo largo de la pala para su aplicación en el modelo estructural. La Figura~\ref{fig:comparacion_fuerzas_dlc} presenta los perfiles de fuerzas de diseño $F_d$ a lo largo de la envergadura, construidos en cada caso según el procedimiento que le corresponde, con escalamiento uniforme de las fuerzas compañeras del instante gobernante en el DLC 1.1 (Sección~\ref{sec:anexo_f}), y media por estación de los perfiles de las seis semillas a la velocidad gobernante en el DLC 1.3 (Sección~\ref{sec:anexo_dlc13}). Las curvas azules corresponden a la dirección $\theta_k = 90^\circ$, de carga normal hacia el eje del rotor, y las rojas a la dirección gobernante $\theta_k = 240^\circ$, de carga normal hacia afuera.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/comparacion_fuerzas_dlc.pdf}
-    \caption[Comparación de fuerzas de diseño por estación entre casos de carga.]{Fuerzas de diseño por estación para el apoyo superior: (a) componente normal a la cuerda $F_{d,n}$ y (b) componente en el sentido de la cuerda $F_{d,t}$, según los ejes locales de la Figura~\ref{fig:ejes_locales}. Las curvas azules corresponden a la dirección $\theta_k = 90^\circ$, de carga normal hacia el eje del rotor, y las rojas a la dirección gobernante $\theta_k = 240^\circ$, de carga normal hacia afuera. Las líneas verticales punteadas marcan las dos conexiones con los brazos.}
+    \caption[Comparación de fuerzas de diseño por estación entre casos de carga.]{Fuerzas de diseño por estación para el apoyo superior: (a) componente normal a la cuerda $F_{d,n}$ y (b) componente en el sentido de la cuerda $F_{d,t}$, según los ejes locales de la Figura~\ref{fig:ejes_locales}. Las líneas verticales punteadas marcan las dos conexiones con los brazos.}
     \label{fig:comparacion_fuerzas_dlc}
 \end{figure}
 
@@ -710,11 +710,11 @@ Antes de entrar en los resultados conviene consignar la comprobación que acredi
 
 La independencia de los resultados respecto del tamaño de elemento se verifica mediante dos estudios de convergencia, uno por cada magnitud que decide una verificación. El primero recorre la tensión principal máxima y el segundo el autovalor de pandeo, que es el que la Sección 6.6.5.6 de la IEC 61400-5 exige de forma específica y que debe realizarse duplicando la densidad de malla en la región del modo analizado~\parencite{IEC61400-5}. Ambos son necesarios porque las dos magnitudes convergen a ritmos distintos, y con la estabilidad gobernando el diseño, es el segundo el que condiciona el veredicto.
 
-Ambos estudios se ejecutan sobre el mismo barrido paramétrico de cuatro tamaños de elemento, de $50$ a $18$~mm, elegidos de modo que cada paso duplique aproximadamente la densidad del anterior, condición que la norma exige de forma literal para el autovalor. La Tabla~\ref{tab:convergencia_malla} recoge los resultados y la Figura~\ref{fig:convergencia_malla} los presenta gráficamente.
+Ambos estudios se ejecutan para el DLC 1.1 en su dirección gobernante, sobre el mismo barrido paramétrico de cuatro tamaños de elemento, de $50$ a $18$~mm, elegidos de modo que cada paso duplique aproximadamente la densidad del anterior, condición que la norma exige de forma literal para el autovalor. La Tabla~\ref{tab:convergencia_malla} recoge los resultados y la Figura~\ref{fig:convergencia_malla} los presenta gráficamente.
 
 \begin{table}[H]
     \centering
-    \caption[Análisis de convergencia de malla.]{Análisis de convergencia de malla sobre la tensión principal máxima, en las cuatro regiones instrumentadas y en la sección de apoyo inferior, y sobre el autovalor de los tres primeros modos de pandeo, para cuatro tamaños de cara. Caso DLC 1.1, dirección gobernante.}
+    \caption[Análisis de convergencia de malla.]{Análisis de convergencia de malla sobre la tensión principal máxima, en las cuatro regiones instrumentadas y en la sección de apoyo inferior, y sobre el autovalor de los tres primeros modos de pandeo, para cuatro tamaños de cara.}
     \label{tab:convergencia_malla}
     \begin{tabular}{cccccccc}
         \hline
@@ -739,7 +739,7 @@ Ambos estudios se ejecutan sobre el mismo barrido paramétrico de cuatro tamaño
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Figuras/Figuras Resultados/convergencia_malla.pdf}
-    \caption[Convergencia de malla de la tensión y del autovalor de pandeo.]{(a) Tensión principal máxima en las cuatro regiones instrumentadas y en la sección del apoyo inferior. (b) Multiplicador de carga de los tres primeros modos de pandeo. Ambos en función del tamaño de cara de la malla. La figura ilustra la convergencia de cada magnitud; los umbrales de verificación se contrastan en las Tablas~\ref{tab:resumen_uls} y~\ref{tab:pandeo}.}
+    \caption[Convergencia de malla de la tensión y del autovalor de pandeo.]{(a) Tensión principal máxima en las cuatro regiones instrumentadas y en la sección del apoyo inferior. (b) Multiplicador de carga de los tres primeros modos de pandeo. Ambos en función del tamaño de cara de la malla.}
     \label{fig:convergencia_malla}
 \end{figure}
 
@@ -854,11 +854,11 @@ Para el DLC 1.1, $\sigma_{1,\max} = 187{,}09$~MPa resulta en un factor de reserv
 \subsubsection{Verificación de estabilidad}
 \label{sec:verif_estabilidad}
 
-El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma de palas.
+El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma de palas.
 
 \begin{table}[H]
     \centering
-    \caption[Multiplicadores de carga del análisis de pandeo lineal.]{Multiplicadores de carga del análisis de pandeo lineal sobre la malla convergida de $18$~mm, contrastados con el umbral de la norma IEC 61400-5.}
+    \caption[Multiplicadores de carga del análisis de pandeo lineal.]{Multiplicadores de carga del análisis de pandeo lineal sobre la malla convergida.}
     \label{tab:pandeo}
     \begin{tabular}{lcc}
         \hline
@@ -876,12 +876,12 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
 
 \medskip
 \noindent\textbf{Localización de los modos.}
-Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga, como muestra la Figura~\ref{fig:fem_modos_pandeo}. Una extracción ampliada a diez modos confirma que todos emanan de ese panel, nueve junto a las conexiones, donde la compresión es máxima, y uno en el centro del vano, sin que ninguna otra región de la pala comparezca por debajo.
+Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga, como muestra la Figura~\ref{fig:fem_modos_pandeo}, cuyo contorno es la forma del modo con amplitud normalizada y no un desplazamiento físico, ya que el autovector del pandeo lineal carece de magnitud propia. Una extracción ampliada a diez modos confirma que todos emanan de ese panel, nueve junto a las conexiones, donde la compresión es máxima, y uno en el centro del vano, sin que ninguna otra región de la pala comparezca por debajo.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{Figuras/Figuras Resultados/fem_modos_pandeo.png}
-    \caption[Primeros tres modos de pandeo, DLC 1.1.]{Primeros tres modos de pandeo del DLC 1.1 con sus multiplicadores de carga. El panel (A) ubica los modos sobre la pala, junto a las dos conexiones; los paneles (B) a (D) amplían el modo 1, el 2 y el 3 sobre el panel de borde de fuga del extradós. El contorno es la forma del modo con amplitud normalizada, no un desplazamiento físico, ya que el autovector del pandeo lineal carece de magnitud propia.}
+    \caption[Primeros tres modos de pandeo, DLC 1.1.]{Primeros tres modos de pandeo del DLC 1.1 con sus multiplicadores de carga. El panel (A) ubica los modos sobre la pala, junto a las dos conexiones; los paneles (B) a (D) amplían el modo 1, el 2 y el 3 sobre el panel de borde de fuga del extradós.}
     \label{fig:fem_modos_pandeo}
 \end{figure}
 
