@@ -604,21 +604,42 @@ El factor de cargas se aplica por igual a las solicitaciones aerodinámicas y a 
 \subsection{Procesamiento de cargas aerodinámicas}
 \label{sec:procesamiento_cargas}
 
-Cada uno de los tres DLC recibe el tratamiento estadístico que corresponde a la pregunta de verificación que responde (Sección~\ref{sec:seleccion_dlc}). A continuación se describe el procesamiento aplicado a las series temporales de fuerzas obtenidas de las simulaciones en QBlade para cada uno de ellos, con los factores parciales de la Tabla~\ref{tab:factores_seguridad}. La Figura~\ref{fig:pasos_dlc} resume los pasos de cada uno.
+Cada uno de los tres DLC recibe el tratamiento estadístico que corresponde a la pregunta de verificación que responde (Sección~\ref{sec:seleccion_dlc}). A continuación se describe el procesamiento aplicado a las series temporales de fuerzas obtenidas de las simulaciones en QBlade para cada uno de ellos, con los factores parciales de la Tabla~\ref{tab:factores_seguridad}. La Tabla~\ref{tab:procesamiento_dlc} resume las diferencias entre los tres casos. Los dos de resistencia última se presentan primero, ya que comparten las magnitudes de carga, y el de fatiga al final.
 
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{Figuras/Figuras Metodología/pasos_dlc.pdf}
-    \caption{Pasos del procesamiento de las series de carga en cada caso de carga.}
-    \label{fig:pasos_dlc}
-\end{figure}
+    \caption{Procesamiento de las series de carga en cada caso de carga.}
+    \label{tab:procesamiento_dlc}
+    \small
+    \begin{tabular}{>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{3.65cm}>{\raggedright\arraybackslash}p{3.65cm}>{\raggedright\arraybackslash}p{3.65cm}}
+        \hline
+         & \textbf{DLC 1.1 (ULS)} & \textbf{DLC 1.3 (ULS)} & \textbf{DLC 1.2 (fatiga)} \\
+        \hline
+        Modelo de viento & NTM & ETM & NTM \\
+        Simulaciones & $144$ & $30$ & Las $144$ del DLC 1.1 \\
+        Variable procesada & Máximo de cada realización & Máximo de cada realización & Serie temporal completa \\
+        Tratamiento estadístico & Extrapolación de Gumbel a $50$ años (Anexo G) & Media de los máximos por velocidad (Sección 7.6.2.2) & Conteo Rainflow y regla de Palmgren-Miner (Anexo H) \\
+        Factor de cargas $\gamma_f$ & $1{,}25$ & $1{,}35$ & $1{,}00$ \\
+        Resultado & Doce casos de carga para el modelo de elementos finitos & Doce casos de carga para el modelo de elementos finitos & Daño acumulado $D_{20}$ \\
+        \hline
+        \multicolumn{4}{l}{\footnotesize Secciones y anexos de la norma IEC 61400-1.}\\
+    \end{tabular}
+\end{table}
 
 \subsubsection{DLC 1.1, estado límite último}
 \label{sec:anexo_f}
 
-El procedimiento de extrapolación estadística del Anexo G, informativo, de la IEC 61400-1~\parencite{IEC61400-1} determina la carga característica a 50 años a partir de los máximos observados en simulaciones de corta duración. La norma exige aplicarlo sobre efectos de carga escalares, tomados de uno en uno (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}, y en este trabajo esos efectos son los momentos flectores en las dos secciones en que la pala se apoya en los brazos. Todo el procedimiento que sigue proviene de ese anexo, por lo que sus secciones se citan de forma reiterada.
+El procedimiento de extrapolación estadística del Anexo G, informativo, de la IEC 61400-1~\parencite{IEC61400-1} determina la carga característica a 50 años a partir de los máximos observados en simulaciones de corta duración. La norma exige aplicarlo sobre efectos de carga escalares, tomados de uno en uno (Sección 7.5 de la norma IEC 61400-1)~\parencite{IEC61400-1}, y en este trabajo esos efectos son los momentos flectores en las dos secciones en que la pala se apoya en los brazos.
 
-El procedimiento se resuelve en cinco pasos. Primero se calculan, en cada instante, los efectos de carga escalares que se extrapolan. Segundo, de cada simulación se toma el máximo y se ajusta una distribución de Gumbel~\parencite{Gumbel1958} por velocidad. Tercero, esas distribuciones se integran sobre las velocidades del emplazamiento para obtener la probabilidad de excedencia de largo plazo. Cuarto, se despeja la carga característica a 50 años y se mayora para obtener la carga de diseño. Quinto, con esa carga se construye el perfil de fuerzas por estación que entra al modelo de elementos finitos.
+El procedimiento se resuelve en cinco pasos, que resume la Figura~\ref{fig:flujo_dlc11}. Primero se calculan, en cada instante, los efectos de carga escalares que se extrapolan. Segundo, de cada simulación se toma el máximo y se ajusta una distribución de Gumbel~\parencite{Gumbel1958} por velocidad. Tercero, esas distribuciones se integran sobre las velocidades del emplazamiento para obtener la probabilidad de excedencia de largo plazo. Cuarto, se despeja la carga característica a 50 años y se mayora para obtener la carga de diseño. Quinto, con esa carga se construye el perfil de fuerzas por estación que entra al modelo de elementos finitos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figuras/Figuras Metodología/flujo_dlc11.pdf}
+    \caption{Procesamiento de cargas del DLC 1.1.}
+    \label{fig:flujo_dlc11}
+\end{figure}
+
 
 \medskip
 \noindent\textbf{Paso 1. Efectos de carga que se extrapolan.}
@@ -649,14 +670,14 @@ donde:
 
 El momento se evalúa en los apoyos porque cada voladizo cuelga de una sola conexión, de modo que su momento en ella resulta directamente de las fuerzas que actúan sobre él y de sus brazos, sin necesidad de conocer el resto de la pala.
 
-A partir de $M_x$ y $M_y$ se definen las demás magnitudes. La mayor carga de la simulación no es necesariamente la que produce el mayor esfuerzo, porque la sección resiste de forma distinta según la dirección en que flecta. Por eso se obtiene la carga máxima en doce direcciones separadas $30^\circ$ y cada una se simula en el modelo de elementos finitos, para quedarse con la que produce el mayor esfuerzo. Cada dirección se obtiene proyectando el momento sobre ella, según la Ec.~\ref{eq:P_k}:
+A partir de $M_x$ y $M_y$ se definen las demás magnitudes. El momento de mayor módulo no produce necesariamente el mayor esfuerzo, porque la sección resiste de forma distinta según la dirección en que flecta. Por eso la carga se evalúa en doce direcciones separadas $30^\circ$, cada una obtenida proyectando el momento sobre ella, según la Ec.~\ref{eq:P_k}:
 
 \begin{equation}
     P_k(t) = M_x(t) \cos\theta_k + M_y(t) \sin\theta_k, \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}, \qquad k = 1,\dots,12.
     \label{eq:P_k}
 \end{equation}
 
-El ángulo $\theta_k$ indica la dirección de la carga, medida desde la cuerda ($Y_l$) hacia la normal ($X_l$) del sistema local de la Figura~\ref{fig:ejes_locales}. La Figura~\ref{fig:envolvente_direccional} ilustra la proyección del momento de un instante sobre las doce direcciones.
+El ángulo $\theta_k$ indica la dirección de la carga, medida desde la cuerda ($Y_l$) hacia la normal ($X_l$) del sistema local de la Figura~\ref{fig:ejes_locales}. Como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente. La Figura~\ref{fig:envolvente_direccional} ilustra la proyección del momento de un instante sobre las doce direcciones.
 
 \begin{figure}[H]
     \centering
@@ -665,7 +686,7 @@ El ángulo $\theta_k$ indica la dirección de la carga, medida desde la cuerda (
     \label{fig:envolvente_direccional}
 \end{figure}
 
-Con ellos se definen además dos magnitudes para cada apoyo. La resultante, Ec.~\ref{eq:M_res}, es el módulo del vector que forman ambas componentes:
+Con $M_x$ y $M_y$ se definen además dos magnitudes para cada apoyo. La resultante, Ec.~\ref{eq:M_res}, es el módulo del vector que forman ambas componentes:
 
 \begin{equation}
     M_{res}(t) = \sqrt{M_x^2(t) + M_y^2(t)}.
@@ -679,9 +700,28 @@ La envolvente direccional, Ec.~\ref{eq:M_env}, toma en cada instante la mayor de
     \label{eq:M_env}
 \end{equation}
 
-Como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente.
+Cada una de estas magnitudes se extrapola por separado. Como $M_x$ y $M_y$ llevan signo, se extrapolan en sus dos sentidos, tomando primero $M$ y luego $-M$, mientras que la resultante y la envolvente son siempre positivas y se extrapolan una sola vez. A ellas se suman los doce momentos proyectados del apoyo más solicitado, de los que se obtienen los casos de carga del Paso 5. La Tabla~\ref{tab:magnitudes_extrapoladas} reúne las $24$ magnitudes resultantes.
 
-Cada una de estas magnitudes se extrapola por separado en cada apoyo. Como $M_x$ y $M_y$ llevan signo, se extrapola tanto su máximo como su mínimo, tomando primero $M$ y luego $-M$. Las magnitudes extrapoladas son así las componentes en sus dos sentidos en cada apoyo, y la resultante y la envolvente de cada apoyo, que son siempre positivas y se extrapolan una sola vez. A ellas se suman los doce momentos proyectados del apoyo superior, de los que se obtienen los casos de carga del Paso 5. Disponer de todas permite además aplicar el criterio de omisión del DLC 1.1 de la Sección 7.4.2 de la norma~\parencite{IEC61400-1}, que se explica en la Sección~\ref{sec:criterio_omision}.
+\begin{table}[H]
+    \centering
+    \caption{Magnitudes que se extrapolan en el DLC 1.1.}
+    \label{tab:magnitudes_extrapoladas}
+    \begin{tabular}{llcc}
+        \hline
+        \textbf{Magnitud} & \textbf{Apoyos} & \textbf{Ecuación} & \textbf{Cantidad} \\
+        \hline
+        $M_x$ y $-M_x$ & Inferior y superior & \ref{eq:M_apoyo} & $4$ \\
+        $M_y$ y $-M_y$ & Inferior y superior & \ref{eq:M_apoyo} & $4$ \\
+        $M_{res}$ & Inferior y superior & \ref{eq:M_res} & $2$ \\
+        $M_{env}$ & Inferior y superior & \ref{eq:M_env} & $2$ \\
+        $P_k$, $k = 1,\dots,12$ & Más solicitado & \ref{eq:P_k} & $12$ \\
+        \hline
+        \multicolumn{3}{l}{Total} & $24$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Disponer de todas las magnitudes permite además aplicar el criterio de omisión del DLC 1.1 de la Sección 7.4.2 de la norma~\parencite{IEC61400-1}, que se explica en la Sección~\ref{sec:criterio_omision}.
 
 \medskip
 \noindent\textbf{Paso 2. Máximos por simulación y ajuste de Gumbel.}
@@ -719,7 +759,9 @@ La Gumbel ajustada en el paso anterior permite calcular, para una velocidad fija
 
 La probabilidad anterior está condicionada a una velocidad fija. Dado que cada velocidad $V_j$ ocurre con una frecuencia distinta a lo largo del año, se requiere la probabilidad de excedencia no condicionada. Para obtenerla, la norma prescribe integrar sobre la distribución de velocidades de viento en el emplazamiento (Ecuación G.2, Sección G.3.2 del Anexo G de la norma IEC 61400-1)~\parencite{IEC61400-1}.
 
-Como ponderación se emplea la frecuencia empírica de la propia serie del emplazamiento, contada banda a banda sobre los $38$ años de registro extrapolados a la altura del centro del rotor (Sección~\ref{sec:recurso_metodo}), en lugar de la densidad de Weibull ajustada a esa misma serie. La Sección G.3.4 de la norma admite ponderar por la distribución de Weibull o por la que resulte apropiada~\parencite{IEC61400-1}, y aquí la apropiada es la empírica, ya que el ajuste de Weibull subestima la banda alta de velocidades, que es la que domina la cola de la extrapolación, y emplearlo introduciría un sesgo en contra del margen de seguridad. La magnitud de esa desviación se cuantifica en el Capítulo~4. Los parámetros $k$ y $c$ se conservan como caracterización sintética del recurso y siguen empleándose en el cálculo de fatiga, donde la ponderación abarca todo el rango y no solo su extremo. La integral se discretiza en bandas de ancho $\Delta V = 2$~m/s centradas en cada una de las $12$ velocidades simuladas, que es la discretización que describe la Sección G.3.1 de la norma y que la nota 6 de la Sección 7.4 da por suficiente~\parencite{IEC61400-1}, de modo que cada banda dispone de su propio par $\mu(V_m)$, $\beta(V_m)$. Las velocidades por debajo de $V_{in}$ y por encima de $V_{out}$ quedan fuera, ya que en ellas la turbina no produce, por lo que la banda de $V = 2$~m/s es la única asimétrica y cubre el intervalo $[2; 3)$~m/s en lugar de $[1; 3)$~m/s.
+Como ponderación se emplea la frecuencia empírica de la propia serie del emplazamiento, contada banda a banda sobre los $38$ años de registro extrapolados a la altura del centro del rotor (Sección~\ref{sec:recurso_metodo}), en lugar de la densidad de Weibull ajustada a esa misma serie. La Sección G.3.4 de la norma admite ponderar por la distribución de Weibull o por la que resulte apropiada~\parencite{IEC61400-1}, y aquí la apropiada es la empírica, ya que el ajuste de Weibull subestima la banda alta de velocidades, que es la que domina la cola de la extrapolación, y emplearlo introduciría un sesgo en contra del margen de seguridad. La magnitud de esa desviación se cuantifica en el Capítulo~4. Los parámetros $k$ y $c$ se conservan como caracterización sintética del recurso y siguen empleándose en el cálculo de fatiga, donde la ponderación abarca todo el rango y no solo su extremo.
+
+La integral se discretiza en bandas de ancho $\Delta V = 2$~m/s centradas en cada una de las $12$ velocidades simuladas, que es la discretización que describe la Sección G.3.1 de la norma y que la nota 6 de la Sección 7.4 da por suficiente~\parencite{IEC61400-1}, de modo que cada banda dispone de su propio par $\mu(V_m)$, $\beta(V_m)$. Las velocidades por debajo de $V_{in}$ y por encima de $V_{out}$ quedan fuera, ya que en ellas la turbina no produce, por lo que la banda de $V = 2$~m/s es la única asimétrica y cubre el intervalo $[2; 3)$~m/s en lugar de $[1; 3)$~m/s.
 
 La probabilidad de excedencia de largo plazo resulta según la Ec.~\ref{eq:pe_longterm}:
 
@@ -734,26 +776,71 @@ En esta expresión cada velocidad se pondera por su frecuencia de ocurrencia anu
 
 \medskip
 \noindent\textbf{Paso 4. Carga característica y carga de diseño.}
-La norma define la carga característica $F_k$ como aquella cuya probabilidad de ser superada en el período de retorno de diseño es exactamente $T_{obs} / T_{retorno}$, según la Ec.~\ref{eq:fk_criterion}:
+La norma define la carga característica $F_k$ como aquella cuya probabilidad de ser superada en el período de retorno de diseño es $T_{obs} / T_{retorno}$, según la Ec.~\ref{eq:fk_criterion}:
 
 \begin{equation}
     P_e(F_k) = \frac{T_{\text{obs}}}{T_{\text{retorno}}},
     \label{eq:fk_criterion}
 \end{equation}
 
-con $T_{obs} = 600$~s el período de observación de cada realización y $T_{retorno} = 50$ años el de diseño; el valor numérico de esta probabilidad objetivo se presenta en el Capítulo~4. La raíz $F_k$ se determina numéricamente por bisección sobre la Ec.~\ref{eq:pe_longterm}. Se prueban valores de $F_{max}$, se evalúa $P_e(F_{max})$, y se ajusta el intervalo de búsqueda hasta alcanzar la probabilidad objetivo. La carga característica $F_k$ es el valor de $F_{max}$ que la satisface.
+con $T_{obs} = 600$~s el período de observación de cada realización y $T_{retorno} = 50$ años el de diseño. El valor numérico de esta probabilidad objetivo se presenta en el Capítulo~4. La raíz $F_k$ se determina numéricamente por bisección sobre la Ec.~\ref{eq:pe_longterm}. Se prueban valores de $F_{max}$, se evalúa $P_e(F_{max})$, y se ajusta el intervalo de búsqueda hasta alcanzar la probabilidad objetivo. La carga característica $F_k$ es el valor de $F_{max}$ que la satisface.
 
-La carga característica $F_k$ es un valor estadístico; la carga de diseño $F_d$ incorpora además un margen para cubrir las incertidumbres del modelo de carga y de la extrapolación estadística. Se obtiene mayorando la carga característica por el factor parcial de carga, según la Ec.~\ref{eq:fd_anexof} de la Sección~\ref{sec:extrapolacion_teoria} (Ecuación 29, Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, con $\gamma_f = 1{,}25$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
+La carga característica $F_k$ es un valor estadístico, y la carga de diseño $F_d$ incorpora además un margen para cubrir las incertidumbres del modelo de carga y de la extrapolación estadística. Se obtiene mayorando la carga característica por el factor parcial de carga, según la Ec.~\ref{eq:fd_anexof} de la Sección~\ref{sec:extrapolacion_teoria} (Ecuación 29, Sección 7.6.1.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}, con $\gamma_f = 1{,}25$, justificado en la Sección~\ref{sec:factores_seguridad}.
 
 \medskip
 \noindent\textbf{Paso 5. Casos de carga direccionales.}
-Con la carga de diseño $P_{k,d}$ de cada una de las doce direcciones, evaluadas en el apoyo que presenta mayor carga, se construye un caso de carga para el modelo de elementos finitos, conforme al enfoque avanzado de la Sección 6.1.4.3 de la IEC 61400-5~\parencite{IEC61400-5}. Para cada dirección se toma el instante $t_{max,k}$ en que $P_k$ alcanza su máximo sobre las 144 realizaciones, y las fuerzas que actúan en ese instante en las 21 estaciones se escalan uniformemente por el factor $P_{k,d} / P_k(t_{max,k})$~\parencite{IEC61400-1}. Así la distribución de fuerzas a lo largo de la pala es la que entrega la simulación en un único instante, con la correlación entre estaciones que ella produce, y su magnitud es consistente con la carga de diseño a 50 años. Las fuerzas se aplican conservando su signo, y las doce direcciones se resuelven en el modelo, de modo que el caso gobernante es el que produce el mayor esfuerzo. El Anexo~\ref{anexo:fuerzas} presenta, para el caso gobernante, la fuerza simulada y la fuerza de diseño en cada estación.
+Con la carga de diseño de cada dirección $k$, $P_{k,d}$, evaluada en el apoyo más solicitado, se construye un caso de carga para el modelo de elementos finitos, conforme al enfoque avanzado de la Sección 6.1.4.3 de la IEC 61400-5~\parencite{IEC61400-5}. Para cada dirección se toma el instante $t_{max,k}$ en que $P_k$ alcanza su máximo sobre las 144 realizaciones. Las fuerzas que actúan en ese instante en las 21 estaciones, denominadas fuerzas compañeras, se escalan uniformemente por el factor $P_{k,d} / P_k(t_{max,k})$. Así la distribución de fuerzas a lo largo de la pala es la que entrega la simulación en un único instante, con la correlación entre estaciones que ella produce, y su magnitud es consistente con la carga de diseño a 50 años. Las fuerzas se aplican conservando su signo, y las doce direcciones se resuelven en el modelo, de modo que el caso gobernante es el que produce el mayor esfuerzo. El Anexo~\ref{anexo:fuerzas} presenta, para el caso gobernante, la fuerza simulada y la fuerza de diseño en cada estación.
+
+\bigskip
+\subsubsection{DLC 1.3, estado límite último}
+\label{sec:anexo_dlc13}
+
+En el DLC 1.3 la severidad de la carga no proviene de extrapolar en el tiempo, como en el DLC 1.1, sino de la propia condición de viento. El modelo de turbulencia extrema (ETM) fija una turbulencia mayor que la del modelo normal (NTM), por lo que los máximos de las simulaciones ya representan la condición que se verifica. Por ello la norma no exige extrapolación y define la carga característica, a cada velocidad, como la media de los máximos de las realizaciones (Sección 7.6.2.2 de IEC 61400-1~\parencite{IEC61400-1}). El procedimiento se resuelve en tres pasos, que resume la Figura~\ref{fig:flujo_dlc13}. Primero se extraen los máximos de cada simulación, segundo se promedian por velocidad y la mayor media se mayora para obtener la carga de diseño, y tercero se construye el perfil de diseño por dirección.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figuras/Figuras Metodología/flujo_dlc13.pdf}
+    \caption{Procesamiento de cargas del DLC 1.3.}
+    \label{fig:flujo_dlc13}
+\end{figure}
+
+
+\medskip
+\noindent\textbf{Paso 1. Extracción de máximos.}
+Se procesan las $30$ simulaciones del DLC 1.3 con la misma formulación de momentos del DLC 1.1 (Ecs.~\ref{eq:M_apoyo} a~\ref{eq:M_env}) y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Para cada una de las cinco velocidades $V_j$, se extrae de las $6$ simulaciones (semillas $s = 1,\dots,6$) el máximo $F_{\max}(V_j, s)$ sobre el intervalo $t \geq 50$~s.
+
+\medskip
+\noindent\textbf{Paso 2. Carga característica por velocidad.}
+La carga característica a cada velocidad, $F_k(V_j)$, es el promedio aritmético de los $6$ máximos del paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
+
+\begin{equation}
+    F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s),
+    \label{eq:dlc13_Fk_local}
+\end{equation}
+
+donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$. El cálculo se repite para cada velocidad y cada magnitud.
+
+La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de sus cinco cargas por velocidad, y la velocidad que la produce se denomina velocidad gobernante, $V_{gob}$. Esta carga se mayora por el factor $\gamma_f = 1{,}35$, justificado en la Sección~\ref{sec:factores_seguridad}.
+
+\medskip
+\noindent\textbf{Paso 3. Perfil de diseño por dirección.}
+Los casos de carga se construyen sobre los mismos doce momentos proyectados de la Ec.~\ref{eq:P_k} que en el DLC 1.1, pero de forma coherente con la definición de carga característica que rige aquí. Para cada dirección, de cada una de las seis semillas de su velocidad gobernante se captura el perfil de fuerzas compañeras en el instante en que esa semilla alcanza su propio máximo, y el perfil de diseño es la media por estación de los seis, mayorada por $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que la Ec.~\ref{eq:dlc13_Fk_local} aplica a la magnitud escalar, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
+
+Disponer de las magnitudes en ambos casos de carga es lo que permite aplicar el criterio de la Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando la carga de diseño del DLC 1.3 resulta mayor. La comparación se realiza magnitud a magnitud, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas; el resultado de esa comparación se presenta en el Capítulo~4.
 
 \bigskip
 \subsubsection{DLC 1.2, fatiga}
 \label{sec:anexo_g}
 
-Las mismas 144 series temporales empleadas para el DLC 1.1 se procesan conforme al Anexo H, informativo, de la IEC 61400-1~\parencite{IEC61400-1} para estimar el daño acumulado por fatiga durante la vida útil de diseño de $20$ años, valor que corresponde al mínimo exigido por la norma para las turbinas de clase I a III (Sección 6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. El cálculo sigue seis pasos. Primero se obtiene el momento flector que soporta la sección crítica en cada instante. Segundo, ese momento se traduce a una historia de tensión mediante un factor calibrado con el modelo de elementos finitos. Tercero, se cuentan los ciclos de esa historia por el método Rainflow~\parencite{ASTM_E1049,Matsuishi1968}. Cuarto, cada ciclo se corrige por tensión media y se mayora con el factor combinado de fatiga. Quinto, los ciclos de cada velocidad se escalan a un año de operación. Sexto, se acumula el daño con la regla de Palmgren-Miner~\parencite{Palmgren1924,Miner1945} y se compara con la unidad.
+Las mismas 144 series temporales empleadas para el DLC 1.1 se procesan conforme al Anexo H, informativo, de la IEC 61400-1~\parencite{IEC61400-1} para estimar el daño acumulado por fatiga durante la vida útil de diseño de $20$ años, valor que corresponde al mínimo exigido por la norma para las turbinas de clase I a III (Sección 6.2 de la norma IEC 61400-1)~\parencite{IEC61400-1}. El cálculo sigue seis pasos, que resume la Figura~\ref{fig:flujo_dlc12}. Primero se obtiene el momento flector que soporta la sección crítica en cada instante. Segundo, ese momento se traduce a una historia de tensión mediante un factor calibrado con el modelo de elementos finitos. Tercero, se cuentan los ciclos de esa historia por el método Rainflow~\parencite{ASTM_E1049,Matsuishi1968}. Cuarto, cada ciclo se corrige por tensión media y se mayora con el factor combinado de fatiga. Quinto, los ciclos de cada velocidad se escalan a un año de operación. Sexto, se acumula el daño con la regla de Palmgren-Miner~\parencite{Palmgren1924,Miner1945} y se compara con la unidad.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Figuras/Figuras Metodología/flujo_dlc12.pdf}
+    \caption{Procesamiento de cargas del DLC 1.2.}
+    \label{fig:flujo_dlc12}
+\end{figure}
+
 
 \medskip
 \noindent\textbf{Paso 1. Momento flector en la sección crítica.}
@@ -836,7 +923,7 @@ donde:
 \begin{itemize}
     \item $f_W(V_j)$ es la densidad de probabilidad Weibull evaluada en $V_j$.
     \item $\Delta V = 2$~m/s es el ancho del intervalo de velocidad.
-    \item $365{,}25 \cdot 24 \cdot 3600$ es la duración de un año calendario en segundos, considerando el promedio de $365{,}25$ días que incorpora los años bisiestos. No es un valor prescrito por la norma, sino la conversión que lleva la densidad de probabilidad a una tasa temporal.
+    \item $365{,}25 \cdot 24 \cdot 3600$ es la duración de un año calendario en segundos, considerando el promedio de $365{,}25$ días que incorpora los años bisiestos.
 \end{itemize}
 
 La Tabla~\ref{tab:weibull_fatiga} en el Capítulo~4 presenta, para las doce velocidades $V_j$ del rango operacional, los valores de $f_W(V_j)$, $t_j$ y el factor de escalamiento temporal $t_j / T_{obs}$.
@@ -879,35 +966,6 @@ La verificación del estado límite de fatiga exige que el daño acumulado no su
     D_{20} \leq 1{,}0.
     \label{eq:fatiga_criterio}
 \end{equation}
-
-\bigskip
-\subsubsection{DLC 1.3, estado límite último}
-\label{sec:anexo_dlc13}
-
-En el DLC 1.3 la severidad de la carga no proviene de extrapolar en el tiempo, como en el DLC 1.1, sino de la propia condición de viento. El modelo de turbulencia extrema (ETM) fija una turbulencia mayor que la del modelo normal (NTM), por lo que los máximos de las simulaciones ya representan la condición que se verifica. Por ello la norma no exige extrapolación y define la carga característica, a cada velocidad, como la media de los máximos de las realizaciones (Sección 7.6.2.2 de IEC 61400-1~\parencite{IEC61400-1}). El procedimiento se resuelve en tres pasos. Primero se extraen los máximos de cada simulación, segundo se promedian por velocidad y se toma la mayor media, y tercero se mayora y se construye el perfil de diseño por dirección.
-
-\medskip
-\noindent\textbf{Paso 1. Extracción de máximos.}
-Se procesan las $30$ simulaciones del DLC 1.3 con la misma formulación de momentos del DLC 1.1 (Ecs.~\ref{eq:M_apoyo} a~\ref{eq:M_env}) y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Para cada una de las cinco velocidades $V_j$, se extrae de las $6$ simulaciones (semillas $s = 1,\dots,6$) el máximo $F_{\max}(V_j, s)$ sobre el intervalo $t \geq 50$~s.
-
-\medskip
-\noindent\textbf{Paso 2. Carga característica por velocidad.}
-La carga característica a cada velocidad, $F_k(V_j)$, es el promedio aritmético de los $6$ máximos del paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
-
-\begin{equation}
-    F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s),
-    \label{eq:dlc13_Fk_local}
-\end{equation}
-
-donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$. El cálculo se repite para cada velocidad y cada magnitud.
-
-La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de sus cinco cargas por velocidad, y la velocidad que la produce se denomina velocidad gobernante, $V_{gob}$, por ser la que domina el caso de carga. Esta carga se amplifica por el factor $\gamma_f = 1{,}35$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
-
-\medskip
-\noindent\textbf{Paso 3. Perfil de diseño por dirección.}
-Los casos de carga se construyen sobre los mismos doce momentos proyectados de la Ec.~\ref{eq:P_k} que en el DLC 1.1, pero de forma coherente con la definición de carga característica que rige aquí. Para cada dirección, de cada una de las seis semillas de su velocidad gobernante se captura el perfil de fuerzas compañeras en el instante en que esa semilla alcanza su propio máximo, y el perfil de diseño es la media por estación de los seis, amplificada por $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que la Ec.~\ref{eq:dlc13_Fk_local} aplica a la magnitud escalar, lo que preserva la coherencia entre la carga global y su distribución a lo largo de la envergadura.
-
-Disponer de las magnitudes en ambos casos de carga es lo que permite aplicar el criterio de la Sección 7.4.2 de la norma IEC 61400-1~\parencite{IEC61400-1}, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando la carga de diseño del DLC 1.3 resulta mayor. La comparación se realiza magnitud a magnitud, y el DLC 1.1 solo puede omitirse si el DLC 1.3 gobierna en todas ellas; el resultado de esa comparación se presenta en el Capítulo~4.
 
 \section{Etapa 3: análisis estructural}
 
