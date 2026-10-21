@@ -892,14 +892,14 @@ Se procesan las $30$ simulaciones del DLC 1.3 con la misma formulación de momen
 
 \medskip
 \noindent\textbf{Paso 2. Carga característica por velocidad.}
-Para una velocidad de viento dada, la carga característica es la media de los máximos de las realizaciones estocásticas disponibles a esa velocidad. Para cada una de las cinco velocidades $V_j$ ensayadas en el DLC 1.3, la carga característica $F_k(V_j)$ se calcula, en consecuencia, como el promedio aritmético de los $6$ máximos $F_{\max}(V_j, s)$ obtenidos en el paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
+La carga característica a cada velocidad, $F_k(V_j)$, es el promedio aritmético de los $6$ máximos del paso anterior, uno por semilla, según la Ec.~\ref{eq:dlc13_Fk_local}:
 
 \begin{equation}
     F_k(V_j) = \frac{1}{6}\sum_{s=1}^{6} F_{\max}(V_j, s),
     \label{eq:dlc13_Fk_local}
 \end{equation}
 
-donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$, extraído en el paso anterior. Este cálculo se repite de forma independiente para cada una de las cinco velocidades ensayadas y para cada una de las magnitudes.
+donde $F_{\max}(V_j, s)$ es el máximo que la magnitud analizada alcanza en la simulación de semilla $s$ a la velocidad $V_j$. El cálculo se repite para cada velocidad y cada magnitud.
 
 La carga característica global del DLC 1.3 es, para cada magnitud, la mayor de sus cinco cargas por velocidad, y la velocidad que la produce se denomina velocidad gobernante, $V_{gob}$, por ser la que domina el caso de carga. Esta carga se amplifica por el factor $\gamma_f = 1{,}35$; ver su justificación en la Sección~\ref{sec:factores_seguridad}.
 
