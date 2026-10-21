@@ -222,28 +222,28 @@ El mismo criterio, aplicado a la T1-turbine ($R = 13$~m), reproduce su límite d
 
 Con el TSR óptimo determinado y las polares validadas, se procede a la simulación aerodinámica del rotor. A diferencia del barrido DMST, que opera sobre promedios estacionarios, las simulaciones LLFVW resuelven la interacción dinámica entre el campo de viento turbulento y la estela tridimensional que el rotor genera~\parencite{marten2019qblade}.
 
-Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden al promedio temporal de cada una de las 144 simulaciones LLFVW (Sección~\ref{sec:velocidades_simulacion}), descartado el transitorio inicial, y promediado a su vez sobre las semillas de cada velocidad de viento, seis por debajo de $10$~m/s y quince desde esa velocidad. El $C_p$ se refiere al cubo de la velocidad media nominal y el $C_p^{*}$ a la potencia que el campo turbulento transporta efectivamente.
+Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden al promedio temporal de cada una de las 144 simulaciones LLFVW (Sección~\ref{sec:velocidades_simulacion}), descartado el transitorio inicial, y promediado a su vez sobre las semillas de cada velocidad de viento, seis por debajo de $10$~m/s y quince desde esa velocidad.
 
 \begin{table}[H]
     \centering
     \caption[Parámetros operacionales promedio de la turbina.]{Parámetros operacionales promedio de la turbina por velocidad de viento.}
     \label{tab:curva_potencia}
-    \begin{tabular}{lccccc}
+    \begin{tabular}{lcccc}
         \hline
-        $V$ (m/s) & RPM & $\lambda$ & $P_{med}$ (kW) & $C_{p}$ & $C_{p}^{*}$ \\
+        $V$ (m/s) & RPM & $\lambda$ & $P_{med}$ (kW) & $C_{p}$ \\
         \hline
-        $2$ & $7{,}00$ & $3{,}800$ & $1{,}3$ & $0{,}548$ & $0{,}260$ \\
-        $4$ & $14{,}00$ & $3{,}800$ & $11{,}1$ & $0{,}592$ & $0{,}434$ \\
-        $6$ & $21{,}01$ & $3{,}800$ & $36{,}6$ & $0{,}581$ & $0{,}478$ \\
-        $8$ & $28{,}01$ & $3{,}800$ & $84{,}9$ & $0{,}568$ & $0{,}491$ \\
-        $10$ & $35{,}01$ & $3{,}800$ & $163{,}8$ & $0{,}561$ & $0{,}498$ \\
-        $12$ & $42{,}00$ & $3{,}799$ & $280{,}9$ & $0{,}557$ & $0{,}503$ \\
-        $14$ & $42{,}00$ & $3{,}256$ & $429{,}9$ & $0{,}537$ & $0{,}490$ \\
-        $16$ & $42{,}00$ & $2{,}849$ & $511{,}7$ & $0{,}428$ & $0{,}394$ \\
-        $18$ & $42{,}00$ & $2{,}533$ & $491{,}6$ & $0{,}289$ & $0{,}268$ \\
-        $20$ & $42{,}00$ & $2{,}279$ & $437{,}6$ & $0{,}187$ & $0{,}175$ \\
-        $22$ & $42{,}00$ & $2{,}072$ & $396{,}9$ & $0{,}128$ & $0{,}119$ \\
-        $24$ & $42{,}00$ & $1{,}899$ & $378{,}9$ & $0{,}094$ & $0{,}088$ \\
+        $2$ & $7{,}00$ & $3{,}800$ & $1{,}3$ & $0{,}260$ \\
+        $4$ & $14{,}00$ & $3{,}800$ & $11{,}1$ & $0{,}434$ \\
+        $6$ & $21{,}01$ & $3{,}800$ & $36{,}6$ & $0{,}478$ \\
+        $8$ & $28{,}01$ & $3{,}800$ & $84{,}9$ & $0{,}491$ \\
+        $10$ & $35{,}01$ & $3{,}800$ & $163{,}8$ & $0{,}498$ \\
+        $12$ & $42{,}00$ & $3{,}799$ & $280{,}9$ & $0{,}503$ \\
+        $14$ & $42{,}00$ & $3{,}256$ & $429{,}9$ & $0{,}490$ \\
+        $16$ & $42{,}00$ & $2{,}849$ & $511{,}7$ & $0{,}394$ \\
+        $18$ & $42{,}00$ & $2{,}533$ & $491{,}6$ & $0{,}268$ \\
+        $20$ & $42{,}00$ & $2{,}279$ & $437{,}6$ & $0{,}175$ \\
+        $22$ & $42{,}00$ & $2{,}072$ & $396{,}9$ & $0{,}119$ \\
+        $24$ & $42{,}00$ & $1{,}899$ & $378{,}9$ & $0{,}088$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -268,7 +268,7 @@ La figura responde dos preguntas de la campaña. La primera es la duración de c
 
 \subsection{Curva de potencia y coeficiente de potencia}
 
-La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}7$~kW a $V = 16$~m/s y disminuye después hasta $378{,}9$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. Los puntos son el promedio de las realizaciones estocásticas de cada velocidad y las barras verticales indican $\pm 1$ desviación estándar entre ellas. En el panel (b), la curva azul corresponde al $C_p$ y la verde al $C_p^{*}$ de la Tabla~\ref{tab:curva_potencia}. La línea discontinua del panel (b) indica el límite de Betz, la fracción máxima de energía cinética que un rotor puede extraer según la teoría del disco actuador, $C_{p,Betz} = 16/27 \approx 0{,}593$~\parencite{Paraschivoiu2002}.
+La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente de potencia de las simulaciones LLFVW en función de la velocidad de viento. La potencia aumenta de forma sostenida hasta un máximo de $511{,}7$~kW a $V = 16$~m/s y disminuye después hasta $378{,}9$~kW a $V = 24$~m/s, caída que obedece al límite de velocidad de rotación y no a una pérdida de recurso. Los puntos son el promedio de las realizaciones estocásticas de cada velocidad y las barras verticales indican $\pm 1$ desviación estándar entre ellas. El panel (b) presenta el coeficiente de potencia y, en línea discontinua, el límite de Betz.
 
 \begin{figure}[H]
     \centering
@@ -277,15 +277,13 @@ La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente d
     \label{fig:curva_potencia}
 \end{figure}
 
-El coeficiente de potencia requiere una precisión sobre su definición, sin la cual los valores del panel (b) resultan engañosos. La curva de potencia de un aerogenerador se construye por convención refiriendo la potencia media a la velocidad media del intervalo, esto es, $C_p = \overline{P} / (\tfrac{1}{2}\rho A \overline{V}^3)$. Esa definición supone implícitamente que la potencia que el flujo transporta es proporcional al cubo de su media, lo que solo es cierto con viento uniforme. Bajo viento turbulento la potencia disponible corresponde a la media del cubo de la velocidad, $\langle u^3 \rangle$, que por la desigualdad de Jensen es siempre mayor que $\overline{V}^3$. El cociente entre ambas se midió directamente sobre las cajas de turbulencia de la campaña, promediando $u^3$ en el tiempo y sobre el rectángulo que barre el rotor, y vale $1{,}08$ a $24$~m/s, $1{,}12$ a $12$~m/s y $2{,}10$ a $2$~m/s, siguiendo el crecimiento de la intensidad de turbulencia relativa al bajar la velocidad media (Ec.~\ref{eq:ntm_sigma}).
-
-La consecuencia es directa. Referido a $\overline{V}^3$, el coeficiente de potencia alcanza $0{,}592$ a $4$~m/s, valor que coincide con el límite de Betz y que ningún rotor real puede sostener. No se trata de una violación del límite, sino de la inconsistencia entre el numerador y el denominador de la definición convencional, que compara la potencia extraída de un flujo turbulento con la que transportaría un flujo uniforme de la misma velocidad media. Referido a la potencia efectivamente disponible, el coeficiente $C_p^{*}$ de la última columna de la Tabla~\ref{tab:curva_potencia} alcanza su máximo de $0{,}503$ a $12$~m/s y se mantiene por debajo del límite de Betz en todo el rango, con un margen que en el punto de diseño es del $15\%$. Es esta segunda magnitud la que admite lectura física, y es la que se emplea al comparar con otros rotores.
+El coeficiente de potencia se evalúa con la Ec.~\ref{eq:cp}, sustituyendo $V_{hub}^3$ por la media de $u^3$ en el tiempo y sobre el área barrida, medida en las cajas de turbulencia de la campaña. Su cociente con $\overline{V}^3$ vale $1{,}08$ a $24$~m/s, $1{,}12$ a $12$~m/s y $2{,}10$ a $2$~m/s, y crece al bajar la velocidad media con la intensidad de turbulencia (Ec.~\ref{eq:ntm_sigma}). El coeficiente alcanza su máximo de $0{,}503$ a $12$~m/s, se mantiene sobre $0{,}47$ entre $6$ y $14$~m/s y queda bajo el límite de Betz en todo el rango, con un margen del $15\%$ en el punto de diseño. Sobre $14$~m/s cae hasta $0{,}088$ a $24$~m/s, ya que la rotación limitada reduce el TSR y aleja el rotor de su óptimo. Referido a $\overline{V}^3$, como en la definición convencional de la curva de potencia, el coeficiente alcanzaría $0{,}592$ a $4$~m/s, valor que no viola el límite sino que compara la potencia extraída de un flujo turbulento con la que transportaría un flujo uniforme.
 
 La dispersión entre semillas sigue el mismo patrón. La desviación estándar de $C_p$ pasa del $11{,}7\%$ de su media a $2$~m/s al $0{,}9\%$ a $24$~m/s, y el origen está en la turbulencia que prescribe el NTM, ya que su desviación estándar crece con la velocidad media pero de forma menos que proporcional (Ec.~\ref{eq:ntm_sigma}), de modo que su valor relativo aumenta al bajar $V$. Con la rotación prescrita, el \gls{tsr} nominal es idéntico en las semillas de una misma velocidad, y toda la dispersión proviene por tanto del campo de viento y no del punto de operación. La dispersión no compromete las verificaciones de este capítulo, ya que la carga extrema de diseño proviene del extremo superior del rango de velocidades (Sección~\ref{sec:resultados_uls}) y el daño por fatiga se concentra igualmente en las velocidades altas (Sección~\ref{sec:resultados_fatiga}), de modo que la contribución de la condición de $2$~m/s a ambos estados límite es marginal.
 
-El valor máximo de $C_p^{*} = 0{,}503$ supera el intervalo de $0{,}35$ a $0{,}42$ que \textcite{Essahraoui2026} reportan para configuraciones H-Darrieus, e incluso el $0{,}45$ que la misma fuente atribuye a rotores optimizados (Tabla~\ref{tab:tabla_vawt}). La comparación, sin embargo, no enfrenta magnitudes equivalentes. Ese intervalo procede de máquinas completas medidas en operación, de modo que incorpora las pérdidas de generador y transmisión, la rugosidad superficial real, las tolerancias de fabricación y el acabado de pala. El valor obtenido aquí es un resultado numérico de aerodinámica limpia, calculado con polares ideales sobre una geometría sin imperfecciones y sin ninguna pérdida mecánica ni eléctrica, y constituye por tanto una cota superior del rendimiento alcanzable por esta máquina. Es el mismo razonamiento con que la Sección~\ref{sec:tsr_optimo} explica la sobreestimación del barrido DMST preliminar, y es la razón por la que el coeficiente de potencia no se emplea en este trabajo como magnitud de verificación, sino como indicador de que el punto de operación adoptado es el correcto.
+El valor máximo de $C_p = 0{,}503$ supera el intervalo de $0{,}35$ a $0{,}42$ que \textcite{Essahraoui2026} reportan para configuraciones H-Darrieus, e incluso el $0{,}45$ que la misma fuente atribuye a rotores optimizados (Tabla~\ref{tab:tabla_vawt}). La comparación, sin embargo, no enfrenta magnitudes equivalentes. Ese intervalo procede de máquinas completas medidas en operación, de modo que incorpora las pérdidas de generador y transmisión, la rugosidad superficial real, las tolerancias de fabricación y el acabado de pala. El valor obtenido aquí es un resultado numérico de aerodinámica limpia, calculado con polares ideales sobre una geometría sin imperfecciones y sin ninguna pérdida mecánica ni eléctrica, y constituye por tanto una cota superior del rendimiento alcanzable por esta máquina. Es el mismo razonamiento con que la Sección~\ref{sec:tsr_optimo} explica la sobreestimación del barrido DMST preliminar, y es la razón por la que el coeficiente de potencia no se emplea en este trabajo como magnitud de verificación, sino como indicador de que el punto de operación adoptado es el correcto.
 
-La Tabla~\ref{tab:comparacion_adim} contrasta el rotor en estudio con las dos máquinas H-rotor de referencia de la Sección~\ref{sec:turbinas_referencia}~\parencite{Mollerstrom2019}, sobre los parámetros normalizados allí definidos. A $V = 12$~m/s la turbina del proyecto entrega $P = 280{,}9$~kW con $C_p^{*} = 0{,}503$, del orden de la potencia nominal de la T1-turbine y de la ANew-M1, ambas de $200$~kW a esa misma velocidad, y lo hace con un área de barrido intermedia entre las de ambas máquinas.
+La Tabla~\ref{tab:comparacion_adim} contrasta el rotor en estudio con las dos máquinas H-rotor de referencia de la Sección~\ref{sec:turbinas_referencia}~\parencite{Mollerstrom2019}, sobre los parámetros normalizados allí definidos. A $V = 12$~m/s la turbina del proyecto entrega $P = 280{,}9$~kW con $C_p = 0{,}503$, del orden de la potencia nominal de la T1-turbine y de la ANew-M1, ambas de $200$~kW a esa misma velocidad, y lo hace con un área de barrido intermedia entre las de ambas máquinas.
 
 \begin{table}[H]
     \centering
