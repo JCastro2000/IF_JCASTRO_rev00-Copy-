@@ -315,15 +315,6 @@ La caída del coeficiente de potencia para $V > 14$~m/s es consecuencia directa 
 \section{Cargas aerodinámicas para DLC 1.1}
 \label{sec:resultados_uls}
 
-\subsection{Sentido físico de las componentes locales}
-\label{sec:ejes_locales_res}
-
-Las fuerzas que entrega la simulación se expresan en el sistema local de la pala, y su signo determina cómo se combinan con las cargas inerciales en el modelo estructural. Un error de sentido no altera la magnitud de la solicitación aerodinámica, pero sí decide si esta se suma o se resta a la fuerza centrífuga, de modo que conviene establecerlo por medición antes de usar los perfiles.
-
-El sentido se determinó promediando en fase la fuerza de una estación central sobre varias decenas de revoluciones, con rotación prescrita, y apoyándose en dos hechos que no dependen de ningún convenio de programa. El primero es que la mitad de barlovento del recorrido ve el flujo íntegro, mientras que la de sotavento lo recibe ya frenado por la propia estela del rotor, por lo que el par y los picos de fuerza se concentran en la primera. El segundo es que en esa mitad la velocidad relativa tiene componente radial hacia el interior, de modo que el flujo incide sobre la cara exterior de la pala y la sustentación apunta hacia el eje.
-
-La medición identifica como barlovento la mitad del recorrido que produce el mayor par, con una fuerza tangencial media un $55\%$ superior a la de la otra mitad, y registra en ella una fuerza normal media positiva. De ahí se concluye que, en la convención que entregan las salidas empleadas, la fuerza normal es positiva cuando apunta hacia el eje del rotor y negativa cuando apunta hacia afuera. La fuerza tangencial, por su parte, tiene media positiva a lo largo de la revolución completa, condición necesaria para que el rotor entregue potencia, de modo que su sentido positivo es el del movimiento de la pala.
-
 \subsection{Extrapolación estadística}
 
 Las series temporales de fuerzas obtenidas de las simulaciones anteriores constituyen la base de las verificaciones normativas que siguen. El procedimiento del Anexo G se aplica de forma independiente a las magnitudes definidas en la Sección~\ref{sec:anexo_f}, esto es, las componentes del momento flector en sus dos sentidos, la resultante y la envolvente direccional en cada una de las dos secciones de apoyo. La Tabla~\ref{tab:dlc11_magnitudes} reúne la carga característica y la carga de diseño de cada una, esta última con $\gamma_f = 1{,}25$.
@@ -547,7 +538,7 @@ Cada panel recorre la envergadura desde la base de la pala ($z = 0$) hasta su ex
 
 \medskip
 \noindent\textbf{Los dos sentidos de la carga normal.}
-Los perfiles conservan el signo que entrega la simulación, y ese signo obliga a distinguir dos estados de carga que la extrapolación trata por separado. En el sistema local de la pala, la fuerza normal es positiva cuando apunta hacia el eje del rotor, sentido que se determinó promediando en fase varias revoluciones y que corresponde a la sustentación de la mitad de barlovento, donde el flujo llega íntegro y se concentra el par (Sección~\ref{sec:ejes_locales_res}).
+Los perfiles conservan el signo que entrega la simulación, y ese signo obliga a distinguir dos estados de carga que la extrapolación trata por separado. En el sistema local de la pala, la fuerza normal es positiva cuando apunta hacia el eje del rotor (Figura~\ref{fig:ejes_locales}).
 
 La dirección de mayor momento de diseño, $\theta_k = 90^\circ$, corresponde a un instante de carga normal positiva en las 21 estaciones, esto es, dirigida hacia el eje. Esa carga se opone a la fuerza centrífuga, que apunta hacia afuera y que en esta máquina domina la solicitación estructural, de modo que el extremo aerodinámico alivia parcialmente el estado combinado en lugar de agravarlo. El mayor momento aerodinámico no produce, por tanto, la mayor tensión en la pala.
 
