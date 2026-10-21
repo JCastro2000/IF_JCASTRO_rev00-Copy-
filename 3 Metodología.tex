@@ -884,11 +884,11 @@ La verificación del estado límite de fatiga exige que el daño acumulado no su
 \subsubsection{DLC 1.3, estado límite último}
 \label{sec:anexo_dlc13}
 
-En el DLC 1.3 la severidad de la carga no proviene de extrapolar en el tiempo, como en el DLC 1.1, sino de la propia condición de viento. El modelo de turbulencia extrema (ETM) fija una turbulencia mayor que la del modelo normal (NTM), por lo que los máximos de las simulaciones ya representan la condición que se verifica. Por ello la norma no exige extrapolación y define la carga característica, a cada velocidad, como la media de los máximos de las realizaciones (Sección 7.6.2.2 de IEC 61400-1~\parencite{IEC61400-1}). El procedimiento reutiliza las magnitudes del DLC 1.1 y cambia solo la forma de obtener la carga característica, en tres pasos. Primero se extraen los máximos de cada simulación, segundo se promedian por velocidad y se toma la mayor media, y tercero se mayora y se construye el perfil de diseño por dirección.
+En el DLC 1.3 la severidad de la carga no proviene de extrapolar en el tiempo, como en el DLC 1.1, sino de la propia condición de viento. El modelo de turbulencia extrema (ETM) fija una turbulencia mayor que la del modelo normal (NTM), por lo que los máximos de las simulaciones ya representan la condición que se verifica. Por ello la norma no exige extrapolación y define la carga característica, a cada velocidad, como la media de los máximos de las realizaciones (Sección 7.6.2.2 de IEC 61400-1~\parencite{IEC61400-1}). La carga característica se obtiene en tres pasos. Primero se extraen los máximos de cada simulación, segundo se promedian por velocidad y se toma la mayor media, y tercero se mayora y se construye el perfil de diseño por dirección.
 
 \medskip
 \noindent\textbf{Paso 1. Extracción de máximos.}
-Se procesan las $30$ simulaciones del DLC 1.3 con la misma formulación de momentos del DLC 1.1 (Ecs.~\ref{eq:M_apoyo} a~\ref{eq:M_env}) y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Para cada velocidad $V_j$ ($j = 1,\dots,5$, correspondientes a $V = 16$, $18$, $20$, $22$ y $24$~m/s), se extraen los $6$ máximos $F_{\max}(V_j, s)$ con $s = 1,\dots,6$, sobre el intervalo $t \geq 50$~s.
+Se procesan las $30$ simulaciones del DLC 1.3 con la misma formulación de momentos del DLC 1.1 (Ecs.~\ref{eq:M_apoyo} a~\ref{eq:M_env}) y sobre las mismas 21 estaciones, condición necesaria para que los dos casos puedan compararse magnitud a magnitud. Para cada velocidad $V_j$, se extraen los $6$ máximos $F_{\max}(V_j, t)$ con $t \geq 50$~s.
 
 \medskip
 \noindent\textbf{Paso 2. Carga característica por velocidad.}
