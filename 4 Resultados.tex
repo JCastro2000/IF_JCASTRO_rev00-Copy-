@@ -472,7 +472,7 @@ Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se pr
     \end{tabular}
 \end{table}
 
-La carga característica corresponde a la mayor media entre las velocidades simuladas, $F_k = 65{,}66$~kN$\cdot$m a $V = 24$~m/s, destacada en la Tabla~\ref{tab:dlc13_maximos}. Las medias crecen de forma monótona con la velocidad, lo que confirma que la condición dimensionante se ubica en el extremo superior del rango restringido de $16$ a $24$~m/s (Sección~\ref{sec:velocidades_simulacion}). Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
+La carga característica, $F_k = 65{,}66$~kN$\cdot$m a $V = 24$~m/s, corresponde a la mayor media entre las velocidades simuladas y se destaca en la Tabla~\ref{tab:dlc13_maximos}. Las medias crecen de forma monótona con la velocidad, lo que confirma que la condición dimensionante se ubica en el extremo superior del rango restringido de $16$ a $24$~m/s (Sección~\ref{sec:velocidades_simulacion}). Aplicando $\gamma_f = 1{,}35$ (Tabla 3 de la norma IEC 61400-1~\parencite{IEC61400-1}, situaciones normales sin extrapolación estadística), la carga de diseño resulta según la Ec.~\ref{eq:Fd_dlc13_res}:
 
 \begin{equation}
     M_{env,d} = \gamma_f \cdot F_k = 1{,}35 \times 65{,}66 = 88{,}64\ \text{kN}\cdot\text{m}.
@@ -861,7 +861,7 @@ Los modos extraídos corresponden a pandeo local del manto y todos se localizan 
     \label{fig:fem_modos_pandeo}
 \end{figure}
 
-Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Como toda la pala se modela con un mismo laminado y la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), ese panel resulta, a igualdad de condiciones de borde, entre $6$ y $12$ veces menos capaz que los otros dos, según se recoge en la Tabla~\ref{tab:paneles_manto}.
+Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Como toda la pala se modela con un mismo laminado y la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), ese panel resulta, a igualdad de condiciones de borde, entre $6$ y $12$ veces menos capaz que los otros dos. La Tabla~\ref{tab:paneles_manto} recoge esa comparación, en la que la capacidad relativa de cada panel es el cociente entre su valor de $(t/b)^2$ y el del panel de borde de fuga, ya que los demás términos de la Ec.~\ref{eq:pandeo_placa} son comunes a los tres.
 
 \begin{table}[H]
     \centering
@@ -895,8 +895,6 @@ En consecuencia, se mantiene la sección característica como configuración ana
 Que la estabilidad resulte mucho más deficitaria que la resistencia última merece detenerse, porque ambos criterios interrogan propiedades distintas del laminado. La resistencia depende de cuánta tensión soporta el material, de modo que su déficit, de $1{,}91$ veces, se resuelve especificando un laminado más resistente (Sección~\ref{sec:propiedades_minimas}). El pandeo, en cambio, depende de la rigidez del panel y de su geometría, y crece con el cuadrado de la razón entre el espesor y el ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), de modo que un cascarón puede abollarse por debajo de la resistencia de su material. Que el déficit de estabilidad duplique al de resistencia es la manifestación de esa diferencia, y señala que lo que la pala necesita en ese criterio no es material sino apoyo.
 
 Dos supuestos del modelo pesan sobre este resultado y conviene declararlos. El primero es la representación del laminado como un material isótropo equivalente, que no distingue la orientación del refuerzo, siendo que la carga crítica de un panel ortótropo depende de sus rigideces flexionales en cada dirección. El segundo es la extensión de la sección característica a toda la envergadura (Sección~\ref{sec:seccion_caracteristica}), ya que una distribución real podría concentrar material en las zonas de mayor solicitación. Ninguno de los dos altera el sentido del resultado, dado el tamaño del déficit, pero ambos recomiendan leer el factor obtenido como el orden de magnitud de lo que falta y no como su cuantificación exacta.
-
-La norma de palas admite además dos vías alternativas de verificación que este trabajo no está en condiciones de recorrer y que conviene consignar. Un análisis geométricamente no lineal, con la imperfección impuesta que su Sección 6.6.5.6 prescribe, rebaja el umbral de $1{,}98$ a $1{,}65$ y admite de forma expresa que un pandeo local estable sea aceptable siempre que no produzca fallo de ningún miembro ni daño por fatiga. La verificación mediante ensayo a escala real lo rebaja a $1{,}60$~\parencite{IEC61400-5}. Ninguna de las dos modifica el veredicto con el multiplicador obtenido, pero ambas señalan la dirección en que debería continuarse el análisis.
 
 \subsubsection{Verificación de deflexiones}
 
@@ -992,9 +990,7 @@ La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el
     \centering
     \caption{Resistencias características mínimas del laminado en el punto crítico según IEC 61400-5.}
     \label{tab:propiedades_minimas}
-    \renewcommand{\arraystretch}{1.2}
-    \footnotesize
-    \begin{tabular}{l c c c}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{6.4cm}ccc}
         \hline
         \textbf{Escenario} & $\gamma_m$ & \textbf{Envergadura (MPa)} & \textbf{Contorno (MPa)}\\
         \hline
@@ -1013,8 +1009,6 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
     \centering
     \caption{Daño acumulado en la vida de diseño según el laminado, dirección gobernante.}
     \label{tab:fatiga_laminados}
-    \renewcommand{\arraystretch}{1.2}
-    \footnotesize
     \begin{tabular}{l c c c c}
         \hline
         \textbf{Laminado} & $\sigma_u$ (MPa) & $b$ & $D_{20}$ & \textbf{Verificación}\\
@@ -1030,4 +1024,4 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
 
 El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $1{,}79$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
 
-La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma de palas solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$, y el espesor requerido del panel de borde de fuga pasa de $8{,}1$ a unos $8{,}9$~mm.
+La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma de palas solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$.
