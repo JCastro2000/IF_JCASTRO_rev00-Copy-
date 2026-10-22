@@ -852,8 +852,6 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
     \end{tabular}
 \end{table}
 
-\medskip
-\noindent\textbf{Localización de los modos.}
 Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga, como muestra la Figura~\ref{fig:fem_modos_pandeo}, cuyo contorno es la forma del modo con amplitud normalizada y no un desplazamiento físico, ya que el autovector del pandeo lineal carece de magnitud propia. Una extracción ampliada a diez modos confirma que todos emanan de ese panel, nueve junto a las conexiones, donde la compresión es máxima, y uno en el centro del vano, sin que ninguna otra región de la pala comparezca por debajo.
 
 \begin{figure}[H]
@@ -863,7 +861,7 @@ Los modos extraídos corresponden a pandeo local del manto y todos se localizan 
     \label{fig:fem_modos_pandeo}
 \end{figure}
 
-Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Como la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), ese panel resulta entre $6$ y $12$ veces menos capaz que los otros dos, según se recoge en la Tabla~\ref{tab:paneles_manto}.
+Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Como toda la pala se modela con un mismo laminado y la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), ese panel resulta, a igualdad de condiciones de borde, entre $6$ y $12$ veces menos capaz que los otros dos, según se recoge en la Tabla~\ref{tab:paneles_manto}.
 
 \begin{table}[H]
     \centering
@@ -882,23 +880,17 @@ Esa concentración tiene una explicación geométrica directa. De los tres panel
 
 Que los modos emanen de un mismo panel y respondan a una misma respuesta estructural los sitúa, en los términos que la Sección 6.6.5.6 de la norma de palas emplea, entre los modos no independientes~\parencite{IEC61400-5}. El déficit no procede por tanto de varios mecanismos que haya que atender por separado, sino de una única región con capacidad insuficiente.
 
-\medskip
-\noindent\textbf{Veredicto.}
-El resultado es inequívoco y más severo que el de resistencia última. Con $LM = 0{,}5153$ frente al umbral de $1{,}98$ de la Ec.~\ref{eq:criterio_pandeo_p5}, el factor de aprovechamiento es de $0{,}260$ y falta un factor de $3{,}84$ para cumplir.
+Frente al criterio de la norma, el resultado es inequívoco y más severo que el de resistencia última. Con $LM = 0{,}5153$ frente al umbral de $1{,}98$ de la Ec.~\ref{eq:criterio_pandeo_p5}, el factor de aprovechamiento es de $0{,}260$ y falta un factor de $3{,}84$ para cumplir.
 
 El multiplicador no solo no alcanza el umbral, sino que queda por debajo de la unidad, lo que significa que el modelo predice inestabilidad bajo la propia carga de diseño. Tampoco satisface la segunda condición de la Sección 7.6.4 de la norma IEC 61400-1, que exige que ningún componente pandee bajo la carga característica~\parencite{IEC61400-1}, ya que el multiplicador referido a esa carga es $LM \cdot \gamma_f = 0{,}5153 \times 1{,}25 = 0{,}644$. La pala pandea, según el modelo, al $64\%$ de la carga extrema esperada, antes de aplicar factor de seguridad alguno. Dado que el método lineal por autovalores constituye una cota superior de la carga crítica (Sección~\ref{sec:pandeo_met}), el déficit no es atribuible a conservadurismo del método, y la carga crítica real será menor que la calculada.
 
 El estudio de convergencia sobre el autovalor es lo que hace admisible este veredicto. Sin él no podría distinguirse un déficit real de un artefacto de discretización, y con un resultado tan alejado del umbral esa distinción es lo que separa una conclusión de diseño de un error de modelo.
 
-\medskip
-\noindent\textbf{Hacia dónde debe dirigirse el refuerzo.}
-La misma relación cuadrática que explica la localización de los modos permite comparar las dos vías disponibles a igualdad de criterio. Cubrir el factor de $3{,}84$ engrosando el panel de borde de fuga exige multiplicar su espesor por la raíz cúbica de ese factor, esto es, llevarlo de $5{,}2$ a $8{,}1$~mm sobre las dos caras y la envergadura completa, lo que supone del orden de $130$~kg añadidos a una pala de $851$~kg. Subdividir ese mismo panel con un alma adicional al $75\%$ de la cuerda reduce su ancho no apoyado de $540$ a $270$~mm y cuadruplica por tanto su capacidad, con una altura libre de unos $95$~mm y una masa añadida del orden de $20$~kg. Ese factor de cuatro supera el de $3{,}84$ que falta, de modo que el alma basta por sí sola.
-
-La diferencia entre ambas alternativas es de un factor cercano a seis y medio en masa para un mismo resultado, y señala la subdivisión del panel, y no el engrosamiento, como la vía eficiente. Esa comparación es además más determinante en un rotor de eje vertical que en uno de eje horizontal, ya que la carga dominante es proporcional a la masa, de modo que cada kilogramo añadido a la pala suma $0{,}25$~kN de solicitación centrífuga y una parte del refuerzo se consume en sostenerse a sí mismo.
+El mismo resultado indica dónde actuar. Según la Ec.~\ref{eq:pandeo_placa}, un alma adicional al $75\%$ de la cuerda reduce a la mitad el ancho no apoyado del panel de borde de fuga, de $540$ a $270$~mm, y cuadruplica por tanto su tensión crítica, factor que supera el de $3{,}84$ que falta. El engrosamiento, en cambio, actúa sobre toda la superficie del panel y añade bastante más masa para un mismo efecto, desventaja que en un rotor de eje vertical pesa más que en uno de eje horizontal, ya que cada kilogramo añadido a la pala suma $0{,}25$~kN de solicitación centrífuga (Tabla~\ref{tab:corridas_fem}).
 
 El alma debe atravesar el perfil de piel a piel y no limitarse a reforzar una de ellas. La pala es una viga con dos apoyos y voladizos, de modo que el signo del momento flector cambia a lo largo de la envergadura y la cara comprimida no es la misma sobre los apoyos que en el centro del vano. Los modos obtenidos lo reflejan, ya que nueve se sitúan junto a las conexiones y el restante en el vano. Un refuerzo aplicado sobre una sola cara apoyaría uno de los dos tramos y dejaría el otro sin cambios.
 
-En consecuencia, se mantiene la sección característica como configuración analizada y el cumplimiento del criterio de estabilidad queda supeditado a una rigidización del panel de borde de fuga cuyo dimensionamiento excede el alcance comprobatorio de este trabajo. Las estimaciones anteriores se apoyan en la ley de escala de la Ec.~\ref{eq:pandeo_placa} y no en una corrida del modelo, por lo que fijan el orden de magnitud del refuerzo necesario y no su dimensionamiento.
+En consecuencia, se mantiene la sección característica como configuración analizada y el cumplimiento del criterio de estabilidad queda supeditado a una rigidización del panel de borde de fuga cuyo dimensionamiento excede el alcance comprobatorio de este trabajo. La estimación anterior se apoya en la Ec.~\ref{eq:pandeo_placa} y no en una corrida del modelo, por lo que orienta el refuerzo necesario pero no lo dimensiona.
 
 Que la estabilidad resulte mucho más deficitaria que la resistencia última merece detenerse, porque ambos criterios interrogan propiedades distintas del laminado. La resistencia depende de cuánta tensión soporta el material, de modo que su déficit, de $1{,}91$ veces, se resuelve especificando un laminado más resistente (Sección~\ref{sec:propiedades_minimas}). El pandeo, en cambio, depende de la rigidez del panel y de su geometría, y crece con el cuadrado de la razón entre el espesor y el ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), de modo que un cascarón puede abollarse por debajo de la resistencia de su material. Que el déficit de estabilidad duplique al de resistencia es la manifestación de esa diferencia, y señala que lo que la pala necesita en ese criterio no es material sino apoyo.
 
