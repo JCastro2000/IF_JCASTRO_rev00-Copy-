@@ -837,7 +837,7 @@ Las 144 series del DLC 1.1 se procesan conforme al Anexo H, informativo, de la I
 
 \medskip
 \noindent\textbf{Paso 1. Momento flector en la sección crítica.}
-La sección crítica es aquella en que el modelo de elementos finitos bajo carga estática (Sección~\ref{sec:fem}) registra la mayor tensión principal, con coordenada $z_{crit}$ medida desde la base de la pala, y su ubicación se reporta en el Capítulo~4. Los momentos se calculan con las Ecs.~\ref{eq:M_apoyo}, tomando como referencia esa sección y el voladizo que ella sostiene. La variable de carga es el momento proyectado $P_k(t)$ de la Ec.~\ref{eq:P_k} en las doce direcciones, sobre la serie completa y no sobre su máximo, porque la fatiga acumula daño con todos los ciclos. Al conservar el signo, la proyección registra la inversión de la componente normal entre barlovento, donde apunta hacia el eje, y sotavento, donde apunta hacia afuera. El daño se evalúa en cada dirección y rige la más desfavorable, en línea con la Sección 6.6.5.3 de la IEC 61400-5 para el espectro evaluado en al menos seis direcciones~\parencite{IEC61400-5}.
+La sección crítica es aquella en que el modelo de elementos finitos bajo carga estática (Sección~\ref{sec:fem}) registra la mayor tensión principal, con coordenada $z_{crit}$ medida desde la base de la pala, y dentro de ella el punto crítico es el nodo en que se alcanza ese máximo en el caso gobernante del DLC 1.1. Su ubicación se reporta en el Capítulo~4. Los momentos se calculan con las Ecs.~\ref{eq:M_apoyo}, tomando como referencia esa sección y el voladizo que ella sostiene. La variable de carga es el momento proyectado $P_k(t)$ de la Ec.~\ref{eq:P_k} en las doce direcciones, sobre la serie completa y no sobre su máximo, porque la fatiga acumula daño con todos los ciclos. Al conservar el signo, la proyección registra la inversión de la componente normal entre barlovento, donde apunta hacia el eje, y sotavento, donde apunta hacia afuera. El daño se evalúa en las seis direcciones que traccionan el punto crítico, esto es, aquellas cuyo momento tiene proyección positiva sobre el de la carga de calibración del Paso 2, y rige la más desfavorable, en línea con la Sección 6.6.5.3 de la IEC 61400-5 para el espectro evaluado en al menos seis direcciones~\parencite{IEC61400-5}. Las seis restantes flectan la sección hacia la cara opuesta, que el factor calibrado en ese punto no representa.
 
 \medskip
 \noindent\textbf{Paso 2. Conversión momento--tensión.}
@@ -850,18 +850,41 @@ Bajo la hipótesis de linealidad elástica del GFRP hasta rotura~\parencite{Mora
 
 donde:
 \begin{itemize}
-    \item $\sigma_{in}$ es la tensión principal máxima en la sección crítica de la corrida solo inercial de la Tabla~\ref{tab:corridas_fem}.
+    \item $\sigma_{in}$ es la tensión principal máxima en el punto crítico de la corrida solo inercial de la Tabla~\ref{tab:corridas_fem}.
     \item $K_{aero}$ es el factor que traduce el momento aerodinámico en tensión.
 \end{itemize}
 
-El factor se obtiene de la corrida de calibración, resuelta con las fuerzas aerodinámicas como única solicitación, según la Ec.~\ref{eq:keff}:
+El factor se obtiene de la corrida de calibración, que aplica el caso gobernante del DLC 1.1 sin mayorar y con las fuerzas aerodinámicas como única solicitación, según la Ec.~\ref{eq:keff}:
 
 \begin{equation}
     K_{aero} = \frac{\sigma_{aero}}{M_{res,cal}},
     \label{eq:keff}
 \end{equation}
 
-donde $\sigma_{aero}$ es la tensión principal máxima de esa corrida en la sección crítica y $M_{res,cal}$ el momento resultante, Ec.~\ref{eq:M_res}, que sus fuerzas producen en ella. Las corridas se resuelven sin mayorar, coherentemente con el $\gamma_f = 1{,}00$ de fatiga, de modo que la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo (Ec.~\ref{eq:sigma_eq}). El planteamiento corresponde a la Sección H.1 de la norma IEC 61400-1~\parencite{IEC61400-1}, que admite una tensión local linealmente proporcional a la carga. Aplicar a cada dirección un factor calibrado con una sola carga supone además que el punto crítico responde por igual a la flexión en cualquiera de ellas, aproximación cuyo efecto se cuantifica en el Capítulo~4.
+donde $\sigma_{aero}$ es la tensión principal máxima de esa corrida en el punto crítico y $M_{res,cal}$ el momento resultante, Ec.~\ref{eq:M_res}, que sus fuerzas producen en la sección crítica.
+
+Las dos tensiones se leen en el mismo punto, ya que la Ec.~\ref{eq:sigma_from_M} describe la historia de tensión de un punto del laminado y sumar lecturas de nodos distintos daría una tensión que no ocurre en ninguno. El punto se fija con el caso gobernante del DLC 1.1, y la carga de calibración es ese mismo caso, de modo que la calibración se realiza con la carga que tracciona el punto que se verifica. La Tabla~\ref{tab:corridas_fatiga} resume las corridas que intervienen y la variable que cada una aporta al cálculo.
+
+\begin{table}[H]
+    \centering
+    \caption{Corridas del modelo de elementos finitos que intervienen en la conversión momento-tensión.}
+    \label{tab:corridas_fatiga}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{2.7cm}cc>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}p{2.8cm}}
+        \hline
+        \textbf{Corrida} & \textbf{Fuerzas aerodinámicas} & \textbf{Inercia} & $\boldsymbol{\gamma_f}$ & \textbf{Variable} & \textbf{Uso en el cálculo} \\
+        \hline
+        Caso del máximo & Caso gobernante del DLC 1.1 & Sí & $1{,}25$ & $\sigma_{1,\max}$ & Ubica el punto crítico \\
+        Calibración & Caso gobernante del DLC 1.1 & No & $1{,}00$ & $\sigma_{aero}$ & $K_{aero}$, Ec.~\ref{eq:keff} \\
+        Solo inercial & Ninguna & Sí & $1{,}00$ & $\sigma_{in}$ & Nivel de la Ec.~\ref{eq:sigma_from_M} \\
+        --- & Perfil de la calibración & --- & $1{,}00$ & $M_{res,cal}$ & $K_{aero}$, Ec.~\ref{eq:keff} \\
+        \hline
+        \multicolumn{6}{l}{\footnotesize La inercia comprende la aceleración centrífuga y la gravedad.}\\
+        \multicolumn{6}{l}{\footnotesize $M_{res,cal}$ no proviene del modelo, sino de la Ec.~\ref{eq:M_res}.}\\
+        \multicolumn{6}{l}{\footnotesize Las tres tensiones se leen en el mismo punto.}
+    \end{tabular}
+\end{table}
+
+Las corridas que entran al cálculo se resuelven sin mayorar, coherentemente con el $\gamma_f = 1{,}00$ de fatiga, de modo que la mayoración se aplica una sola vez, sobre la amplitud de cada ciclo (Ec.~\ref{eq:sigma_eq}). El planteamiento corresponde a la Sección H.1 de la norma IEC 61400-1~\parencite{IEC61400-1}, que admite una tensión local linealmente proporcional a la carga. Aplicar a cada dirección un factor calibrado con una sola carga supone además que el punto crítico responde por igual a la flexión en cualquiera de las seis que lo traccionan, aproximación cuyo efecto se cuantifica en el Capítulo~4.
 
 \medskip
 \noindent\textbf{Paso 3. Conteo de ciclos Rainflow.}
@@ -1082,9 +1105,9 @@ El modelo se resuelve en las siete corridas de la Tabla~\ref{tab:corridas_fem}, 
 
 Las corridas 4 y 5 resuelven sobre la malla más fina los doce casos direccionales del DLC 1.1 y del DLC 1.3 (Secciones~\ref{sec:anexo_f} y~\ref{sec:anexo_dlc13}). Las tres primeras repiten el caso gobernante del DLC 1.1 sobre mallas más gruesas y, con la cuarta, forman el estudio de convergencia de la Sección~\ref{sec:malla}, de modo que el DLC 1.3 se evalúa sobre una discretización ya acreditada.
 
-Las dos últimas separan las dos contribuciones de la carga, lo que ninguna corrida combinada permite. La corrida \textbf{solo inercial} impone las aceleraciones de gravedad y centrífuga sin mayorar y sin fuerzas aerodinámicas. Entrega la tensión permanente con el rotor en giro, que es la tensión media de la corrección de Goodman (Sección~\ref{sec:anexo_g}), y permite medir la masa del modelo a partir de las reacciones en los apoyos.
+Las dos últimas separan las dos contribuciones de la carga, lo que ninguna corrida combinada permite. La corrida \textbf{solo inercial} impone las aceleraciones de gravedad y centrífuga sin mayorar y sin fuerzas aerodinámicas. Entrega la tensión permanente con el rotor en giro, que fija el nivel en torno al cual oscila la tensión y entra así en la tensión media de la corrección de Goodman (Sección~\ref{sec:anexo_g}), y permite medir la masa del modelo a partir de las reacciones en los apoyos.
 
-La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del DLC 1.1 sin mayorar y sin aceleraciones. Con ella se determina el factor que convierte el momento flector en tensión (Ec.~\ref{eq:keff}), ya que las series temporales entregan momentos y la curva S-N se expresa en tensiones.
+La corrida de \textbf{calibración} hace lo contrario, aplica el perfil de fuerzas del caso gobernante del DLC 1.1 sin mayorar y sin aceleraciones. Con ella se determina el factor que convierte el momento flector en tensión (Ec.~\ref{eq:keff}), ya que las series temporales entregan momentos y la curva S-N se expresa en tensiones.
 
 \medskip
 \noindent\textbf{Verificación del montaje por equilibrio global.}

@@ -70,15 +70,16 @@ T_OBS     = 600.0     # ventana útil de cada realización [s]
 T_YEAR    = 365.25 * 24 * 3600.0
 ANIOS     = 20        # vida de diseño [años]
 
-# Tensiones principales obtenidas del FEM en la sección crítica, ambas sin
-# mayorar: la primera con el caso direccional de theta = 90 grados del
-# DLC 1.1 como única solicitación y la segunda con las cargas inerciales
-# como única solicitación. La aerodinámica escala con el momento y define K_aero; la
-# inercial no escala y se reincorpora como tensión media. Se calibran sobre
-# cargas características porque en fatiga la mayoración se aplica una sola
-# vez, sobre la amplitud de cada ciclo.
-SIGMA_AERO = 67.746   # [MPa] solo cargas aerodinámicas
-SIGMA_IN   = 81.064   # [MPa] solo centrífuga y gravedad
+# Tensiones principales obtenidas del FEM en el punto crítico, ambas sin
+# mayorar y leídas en el MISMO nodo, el del máximo del caso gobernante del
+# DLC 1.1 (theta = 240 grados): la primera con ese caso como única
+# solicitación y la segunda con las cargas inerciales como única
+# solicitación. La aerodinámica escala con el momento y define K_aero; la
+# inercial no escala y se reincorpora como nivel de la historia. Se calibran
+# sobre cargas características porque en fatiga la mayoración se aplica una
+# sola vez, sobre la amplitud de cada ciclo.
+SIGMA_AERO = 68.600   # [MPa] solo cargas aerodinámicas
+SIGMA_IN   = 80.473   # [MPa] solo centrífuga y gravedad
 \end{pycode}
 
 \subsection*{Del vector de cargas al momento flector}
@@ -122,9 +123,17 @@ Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura,
 
 \begin{pycode}
 # fn_k, ft_k son las fuerzas por estación del caso direccional de
-# theta = 90 grados del DLC 1.1 SIN mayorar, es decir las mismas que se
+# theta = 240 grados del DLC 1.1 SIN mayorar, es decir las mismas que se
 # aplicaron en la corrida de calibración del modelo de elementos finitos.
 M_res_k = momento_resultante(fn_k, ft_k) / 1000.0     # [kN*m]
+
+# Dirección del momento de calibración. K_aero solo representa los momentos
+# que flectan la sección hacia el mismo lado, es decir, con proyección
+# positiva sobre ella; los opuestos traccionan la otra cara, donde la
+# inercia comprime.
+mx_k, my_k = momento_componentes(fn_k, ft_k)
+TH_CAL = np.arctan2(my_k, mx_k)
+TRACCIONA = np.cos(TH - TH_CAL) > 0.0                 # seis de las doce
 
 # K_aero traduce momento aerodinámico a tensión, calibrado con la corrida
 # de cargas aerodinámicas únicamente. Calibrar sobre la tensión total, que
@@ -237,9 +246,10 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
 # --- Daño anual y en la vida de diseño ---------------------------------
 # Para cada velocidad se promedian sus semillas (seis por debajo de 10 m/s
 # y quince desde esa velocidad), y los aportes de todas se suman. La
-# verificación se rige por la dirección de mayor daño.
+# verificación se rige por la dirección de mayor daño entre las que
+# traccionan el punto crítico.
 D_vida_k = [ANIOS * sum(float(np.mean(d[V])) for V in d) for d in danio_por_V]
-k_gob    = int(np.argmax(D_vida_k))
+k_gob    = max(np.flatnonzero(TRACCIONA), key=lambda k: D_vida_k[k])
 D_vida   = D_vida_k[k_gob]
 
 # Criterio de verificación del Anexo H: la pala cumple si el daño

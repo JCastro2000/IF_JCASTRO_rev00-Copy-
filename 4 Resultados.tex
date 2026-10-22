@@ -567,9 +567,29 @@ Los resultados siguen los pasos de la Sección~\ref{sec:anexo_g}. Se presentan p
 
 \subsection{Procesamiento de las series de carga}
 
-La sección crítica es la conexión con el brazo superior, $z_{crit} = 18$~m, en la que el modelo de elementos finitos registra la mayor tensión principal (Sección~\ref{sec:resultados_fem}). La carga de calibración, el caso direccional de $\theta_k = 90^\circ$ del DLC 1.1 sin mayorar, produce en ella un momento resultante de $80{,}97$~kN$\cdot$m y una tensión de $67{,}75$~MPa, de donde $K_{aero} = 0{,}837$~MPa/(kN$\cdot$m), y la corrida solo inercial entrega $\sigma_{in} = 81{,}1$~MPa, que fija el nivel medio de la historia. El daño se evalúa en las doce direcciones, y las cifras que siguen corresponden a la gobernante, $\theta_k = 90^\circ$, de carga normal hacia el eje (Sección~\ref{sec:dano_total}).
+La sección crítica es la conexión con el brazo superior, $z_{crit} = 18$~m, en la que el modelo de elementos finitos registra la mayor tensión principal (Sección~\ref{sec:resultados_fem}). El punto crítico se ubica en la terminación del vendaje de esa conexión, en el nodo del máximo del caso gobernante del DLC 1.1, $\theta_k = 240^\circ$, y en él se leen las tres corridas de la Tabla~\ref{tab:calibracion_fatiga}.
 
-Las 144 realizaciones aportan $389\,782$ ciclos contados sobre sus ventanas útiles de $600$~s, que se expanden al tiempo que el viento permanece en cada velocidad a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de ese escalamiento, donde $f_W(V)$ es la densidad de probabilidad de Weibull, $t_j$ el tiempo anual que el viento permanece en cada intervalo de velocidad y $t_j/T_{obs}$ el número de realizaciones equivalentes por año.
+\begin{table}[H]
+    \centering
+    \caption{Variables de la conversión momento-tensión en el punto crítico, $z_{crit} = 18$~m.}
+    \label{tab:calibracion_fatiga}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.3cm}cccc}
+        \hline
+        \textbf{Corrida} & \textbf{Fuerzas aerodinámicas} & \textbf{Inercia} & $\boldsymbol{\gamma_f}$ & \textbf{Variable} & \textbf{Valor} \\
+        \hline
+        Caso del máximo & DLC 1.1, $\theta_k = 240^\circ$ & Sí & $1{,}25$ & $\sigma_{1,\max}$ & $185{,}73$~MPa \\
+        Calibración & DLC 1.1, $\theta_k = 240^\circ$ & No & $1{,}00$ & $\sigma_{aero}$ & $68{,}60$~MPa \\
+        Solo inercial & Ninguna & Sí & $1{,}00$ & $\sigma_{in}$ & $80{,}47$~MPa \\
+        --- & Perfil de la calibración & --- & $1{,}00$ & $M_{res,cal}$ & $66{,}60$~kN$\cdot$m \\
+        \hline
+        \multicolumn{4}{l}{Factor momento-tensión, Ec.~\ref{eq:keff}} & $K_{aero}$ & $1{,}030$~MPa/(kN$\cdot$m) \\
+        \hline
+    \end{tabular}
+\end{table}
+
+La lectura en un mismo punto es la que da sentido a la suma de la Ec.~\ref{eq:sigma_from_M}, ya que la carga de calibración y la rotación no traccionan por igual toda la sección. En el nodo del máximo de la carga de $\theta_k = 90^\circ$, de carga normal hacia el eje, la corrida solo inercial entrega una tensión normal axial de $-73{,}68$~MPa, esto es, compresión, y en el punto crítico esa misma carga no produce tracción. Las direcciones de $30^\circ$ a $180^\circ$ flectan la sección hacia esa cara opuesta, en la que la rotación comprime y los ciclos oscilan en torno a una media de compresión, de modo que el daño se evalúa en las seis que traccionan el punto crítico, de $210^\circ$ a $330^\circ$ y $0^\circ$. Las cifras que siguen corresponden a la gobernante, $\theta_k = 270^\circ$, de carga normal hacia afuera (Sección~\ref{sec:dano_total}).
+
+Las 144 realizaciones aportan $378\,064$ ciclos contados sobre sus ventanas útiles de $600$~s, que se expanden al tiempo que el viento permanece en cada velocidad a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de ese escalamiento, donde $f_W(V)$ es la densidad de probabilidad de Weibull, $t_j$ el tiempo anual que el viento permanece en cada intervalo de velocidad y $t_j/T_{obs}$ el número de realizaciones equivalentes por año.
 
 \begin{table}[H]
     \centering
@@ -597,7 +617,7 @@ Las 144 realizaciones aportan $389\,782$ ciclos contados sobre sus ventanas úti
     \end{tabular}
 \end{table}
 
-El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, de $6$ a $8$~m/s, y cae más de dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas pocas horas al año. Con este escalamiento el espectro suma $1{,}20 \times 10^{8}$ ciclos anuales, que la Figura~\ref{fig:espectro_fatiga} recoge en forma acumulada.
+El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, de $6$ a $8$~m/s, y cae más de dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas pocas horas al año. Con este escalamiento el espectro suma $1{,}22 \times 10^{8}$ ciclos anuales, que la Figura~\ref{fig:espectro_fatiga} recoge en forma acumulada.
 
 \begin{figure}[H]
     \centering
@@ -606,7 +626,7 @@ El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, d
     \label{fig:espectro_fatiga}
 \end{figure}
 
-El número de ciclos cae siete órdenes de magnitud a lo largo del rango de amplitudes. De los $1{,}20 \times 10^{8}$ ciclos anuales, $9{,}36 \times 10^{6}$ superan los $10$~MPa de amplitud equivalente y $3{,}12 \times 10^{5}$ superan los $40$~MPa.
+El número de ciclos cae siete órdenes de magnitud a lo largo del rango de amplitudes. De los $1{,}22 \times 10^{8}$ ciclos anuales, $1{,}04 \times 10^{7}$ superan los $10$~MPa de amplitud equivalente y $9{,}21 \times 10^{5}$ superan los $40$~MPa.
 
 \subsection{Curva S-N y espectro de fatiga}
 
@@ -619,7 +639,7 @@ La Figura~\ref{fig:curva_sn_gfrp} presenta la curva S-N del GFRP en sus formas n
     \label{fig:curva_sn_gfrp}
 \end{figure}
 
-Varios niveles del espectro alcanzan por sí solos la curva de diseño, y el daño suma además la contribución de todos los ciclos. Las amplitudes brutas no superan los $49{,}7$~MPa y su mediana es de $0{,}29$~MPa, de modo que la gran mayoría de los ciclos son de amplitud pequeña. Esas amplitudes se superponen a una tensión media comprendida entre $44{,}3$ y $127{,}4$~MPa, que impone la rotación y que mantiene los ciclos en régimen de tracción-tracción aun cuando la carga aerodinámica invierte su sentido. El ciclo más severo, de amplitud $49{,}7$~MPa sobre una media de $86{,}0$~MPa ($R = 0{,}27$), pasa con la corrección de Goodman a una amplitud equivalente a media nula de $77{,}0$~MPa, esto es, se multiplica por $1{,}55$, y llega a $190{,}4$~MPa con el factor combinado de fatiga. La tensión media que impone la rotación amplifica así en torno a un $55\%$ la amplitud dañina de las fluctuaciones aerodinámicas.
+Varios niveles del espectro alcanzan por sí solos la curva de diseño, y el daño suma además la contribución de todos los ciclos. Las amplitudes brutas no superan los $61{,}2$~MPa y su mediana es de $0{,}36$~MPa, de modo que la gran mayoría de los ciclos son de amplitud pequeña. Esas amplitudes se superponen a una tensión media comprendida entre $23{,}5$ y $125{,}7$~MPa, que impone la rotación y que mantiene los ciclos en régimen de tracción-tracción aun cuando la carga aerodinámica invierte su sentido. El ciclo más severo, de amplitud $61{,}2$~MPa sobre una media de $74{,}4$~MPa ($R = 0{,}10$), pasa con la corrección de Goodman a una amplitud equivalente a media nula de $88{,}3$~MPa, esto es, se multiplica por $1{,}44$, y llega a $218{,}2$~MPa con el factor combinado de fatiga. La tensión media que impone la rotación amplifica así en torno a un $44\%$ la amplitud dañina de las fluctuaciones aerodinámicas.
 
 \subsection{Daño acumulado por velocidad de viento}
 
@@ -632,42 +652,39 @@ La Figura~\ref{fig:daño_por_viento} presenta el reparto del daño anual entre l
     \label{fig:daño_por_viento}
 \end{figure}
 
-El $98{,}2\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}0\%$ del año ($88$~h/año), y solo la condición de $24$~m/s aporta el $64{,}2\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
+El $97{,}1\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}0\%$ del año ($88$~h/año), y solo la condición de $24$~m/s aporta el $58{,}9\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
 
-La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $376\,874$ clases de ciclo contadas, el $90\%$ del daño lo aportan $2\,031$, esto es, un $0{,}54\%$ del total, todas ellas de amplitud de diseño superior a $125{,}1$~MPa, esto es, equivalente a media nula y mayorada por $\gamma_{fat}$. Los ciclos de amplitud de diseño mayor o igual a $40$~MPa son $6{,}21 \times 10^{6}$ al año, frente a los $1{,}20 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
+La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $379\,452$ clases de ciclo contadas, el $90\%$ del daño lo aportan $2\,621$, esto es, un $0{,}69\%$ del total, todas ellas de amplitud de diseño superior a $139{,}7$~MPa, esto es, equivalente a media nula y mayorada por $\gamma_{fat}$. Los ciclos de amplitud de diseño mayor o igual a $40$~MPa son $7{,}58 \times 10^{6}$ al año, frente a los $1{,}22 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
 
 \subsection{Daño acumulado total}
 \label{sec:dano_total}
 
-La Tabla~\ref{tab:dano_direcciones} recoge el daño acumulado en la vida de diseño en cada dirección. Se concentra en las direcciones próximas a la normal a la cuerda, $90^\circ$ y $270^\circ$, que recogen la inversión de la carga normal entre barlovento y sotavento, y cae en más de diez órdenes de magnitud en las de la cuerda, $0^\circ$ y $180^\circ$.
+La Tabla~\ref{tab:dano_direcciones} recoge el daño acumulado en la vida de diseño en las seis direcciones que traccionan el punto crítico. Se concentra en torno a la normal a la cuerda, $270^\circ$, dirección de carga normal hacia afuera en la que la fuerza aerodinámica se suma a la flexión que induce la rotación, y cae en más de diez órdenes de magnitud en la dirección de la cuerda, $0^\circ$.
 
 \begin{table}[H]
     \centering
-    \caption{Daño acumulado en la vida de diseño por dirección de carga.}
+    \caption{Daño acumulado en la vida de diseño por dirección de carga, en las direcciones que traccionan el punto crítico.}
     \label{tab:dano_direcciones}
     \begin{tabular}{cccc}
         \hline
         \textbf{Dirección} & \textbf{Daño en 20 años} & \textbf{Dirección} & \textbf{Daño en 20 años} \\
         $\theta_k$ & $D_{20}$ & $\theta_k$ & $D_{20}$ \\
         \hline
-        $0^\circ$   & $2{,}57 \times 10^{-16}$ & $180^\circ$ & $5{,}75 \times 10^{-17}$ \\
-        $30^\circ$  & $1{,}60 \times 10^{-4}$  & $210^\circ$ & $1{,}02 \times 10^{-5}$ \\
-        $60^\circ$  & $3{,}51$                 & $240^\circ$ & $3{,}71 \times 10^{-1}$ \\
-        $90^\circ$  & $\mathbf{18{,}3}$        & $270^\circ$ & $6{,}04$ \\
-        $120^\circ$ & $1{,}40 \times 10^{-1}$  & $300^\circ$ & $1{,}92 \times 10^{-1}$ \\
-        $150^\circ$ & $7{,}83 \times 10^{-8}$  & $330^\circ$ & $3{,}72 \times 10^{-7}$ \\
+        $210^\circ$ & $7{,}14 \times 10^{-4}$ & $300^\circ$ & $18{,}7$ \\
+        $240^\circ$ & $27{,}5$                & $330^\circ$ & $4{,}20 \times 10^{-5}$ \\
+        $270^\circ$ & $\mathbf{503}$          & $0^\circ$   & $2{,}87 \times 10^{-14}$ \\
         \hline
     \end{tabular}
 \end{table}
 
-En la dirección gobernante, $\theta_k = 90^\circ$, el daño anual según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 9{,}16 \times 10^{-1}$, y en la vida de diseño asciende al valor de la Ec.~\ref{eq:D20_res}:
+En la dirección gobernante, $\theta_k = 270^\circ$, el daño anual según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 25{,}2$, y en la vida de diseño asciende al valor de la Ec.~\ref{eq:D20_res}:
 
 \begin{equation}
-    D_{20} = 20 \cdot D_{\text{año}} = 18{,}3.
+    D_{20} = 20 \cdot D_{\text{año}} = 503.
     \label{eq:D20_res}
 \end{equation}
 
-Este valor supera el límite $D_{20} \leq 1$ de la Ec.~\ref{eq:fatiga_criterio}, de modo que con las propiedades de la ficha técnica preliminar la pala no satisface la verificación a fatiga. El resultado responde a dos factores. El primero es que la inversión de la carga normal en cada revolución produce ciclos de hasta $49{,}7$~MPa de amplitud, en torno a un $21\%$ de $\sigma_u$, sobre una tensión media permanente que la corrección de Goodman penaliza. El segundo es que el exponente $b = -0{,}045$ produce una curva S-N plana, con la que el daño crece con la amplitud elevada a $22{,}2$ y los ciclos de mayor amplitud dominan el resultado.
+Este valor supera el límite $D_{20} \leq 1$ de la Ec.~\ref{eq:fatiga_criterio}, de modo que con las propiedades de la ficha técnica preliminar la pala no satisface la verificación a fatiga. El resultado responde a dos factores. El primero es que la inversión de la carga normal en cada revolución produce ciclos de hasta $61{,}2$~MPa de amplitud, en torno a un $25\%$ de $\sigma_u$, sobre una tensión media permanente que la corrección de Goodman penaliza. El segundo es que el exponente $b = -0{,}045$ produce una curva S-N plana, con la que el daño crece con la amplitud elevada a $22{,}2$ y los ciclos de mayor amplitud dominan el resultado.
 
 \subsection{Sensibilidad del resultado a la calibración}
 \label{sec:sensibilidad_fatiga}
@@ -676,23 +693,23 @@ Esa misma planitud de la curva hace al resultado sensible a la tensión con que 
 
 \begin{table}[H]
     \centering
-    \caption[Sensibilidad del daño acumulado a la calibración momento-tensión.]{Daño acumulado en la vida de diseño en función del factor de conversión momento-tensión, referido a su valor calibrado $K_{aero} = 0{,}837$~MPa/(kN$\cdot$m).}
+    \caption[Sensibilidad del daño acumulado a la calibración momento-tensión.]{Daño acumulado en la vida de diseño en función del factor de conversión momento-tensión, referido a su valor calibrado $K_{aero} = 1{,}030$~MPa/(kN$\cdot$m).}
     \label{tab:sensibilidad_fatiga}
     \begin{tabular}{ccc}
         \hline
         \textbf{Factor relativo} & \textbf{Factor momento-tensión} & \textbf{Daño en 20 años} \\
         $K/K_{aero}$ & $K$ (MPa/(kN$\cdot$m)) & $D_{20}$ \\
         \hline
-        $0{,}80$ & $0{,}669$ & $1{,}14 \times 10^{-1}$ \\
-        $1{,}00$ & $0{,}837$ & $18{,}3$ \\
-        $1{,}25$ & $1{,}046$ & $3{,}04 \times 10^{3}$ \\
-        $1{,}50$ & $1{,}255$ & $2{,}05 \times 10^{5}$ \\
-        $2{,}00$ & $1{,}674$ & $1{,}70 \times 10^{8}$ \\
+        $0{,}80$ & $0{,}824$ & $4{,}00$ \\
+        $1{,}00$ & $1{,}030$ & $503$ \\
+        $1{,}25$ & $1{,}288$ & $6{,}17 \times 10^{4}$ \\
+        $1{,}50$ & $1{,}545$ & $3{,}06 \times 10^{6}$ \\
+        $2{,}00$ & $2{,}060$ & $1{,}38 \times 10^{9}$ \\
         \hline
     \end{tabular}
 \end{table}
 
-El daño alcanza la unidad para un factor un $12{,}0\%$ inferior al calibrado, margen que supera la incertidumbre de la calibración. El momento de la carga de calibración forma unos $15^\circ$ con la dirección gobernante y el factor que de ella resulta se aplica a todas las direcciones, pero con un $K_{aero}$ un $5\%$ menor el daño se mantiene en $5{,}7$ con la ficha técnica preliminar y en $1{,}20$ con el laminado multidireccional en epoxi de la Sección~\ref{sec:propiedades_minimas}, y con uno un $5\%$ mayor asciende a $55{,}9$ y $2{,}61$. La calibración que entrega $K_{aero}$ y $\sigma_{in}$ es por tanto parte integral de la verificación, y cualquier revisión del modelo estructural obliga a rehacer este cálculo.
+El daño alcanza la unidad para un factor un $24{,}9\%$ inferior al calibrado, margen que supera la incertidumbre de la calibración. El momento de la carga de calibración forma unos $10^\circ$ con la dirección gobernante y el factor que de ella resulta se aplica a las seis direcciones evaluadas, pero con un $K_{aero}$ un $5\%$ menor el daño se mantiene en $166$ con la ficha técnica preliminar y en $5{,}54$ con el laminado multidireccional en epoxi de la Sección~\ref{sec:propiedades_minimas}, y con uno un $5\%$ mayor asciende a $1\,444$ y $11{,}9$. La calibración que entrega $K_{aero}$ y $\sigma_{in}$ es por tanto parte integral de la verificación, y cualquier revisión del modelo estructural obliga a rehacer este cálculo.
 
 La cifra absoluta tiene además un alcance acotado, porque proviene de evaluar la curva de Basquin en un rango de ciclos superior al ensayado por \textcite{Huh2012} y no admite lectura literal como predicción de vida. Lo que la verificación establece es que, con las propiedades de la ficha técnica preliminar, la fatiga supera el límite normativo. Como en la resistencia última, el déficit depende de las propiedades supuestas para el material, y las que el laminado debe alcanzar se obtienen en la Sección~\ref{sec:propiedades_minimas}.
 
@@ -830,7 +847,7 @@ Que la tensión máxima y el desplazamiento resulten menores que en el DLC 1.1 e
 \subsubsection{Contribución de las cargas inerciales}
 \label{sec:solo_inercial}
 
-Para cuantificar el peso de la rotación en el estado tensional, el modelo se resuelve adicionalmente con las cargas inerciales, aceleración centrífuga de $20{,}4\,g$ y gravedad, como única solicitación y sin mayorar, prescindiendo de las fuerzas aerodinámicas (Sección~\ref{sec:corridas_fem}). La tensión principal máxima resultante es $\sigma_{1,\max} = 81{,}06$~MPa, en la misma zona crítica que el caso gobernante. Este mismo caso es el que entrega la tensión media del análisis de fatiga (Sección~\ref{sec:resultados_fatiga}), lo que explica que se resuelva sin factores parciales.
+Para cuantificar el peso de la rotación en el estado tensional, el modelo se resuelve adicionalmente con las cargas inerciales, aceleración centrífuga de $20{,}4\,g$ y gravedad, como única solicitación y sin mayorar, prescindiendo de las fuerzas aerodinámicas (Sección~\ref{sec:corridas_fem}). La tensión principal máxima resultante es $\sigma_{1,\max} = 81{,}06$~MPa, en la misma zona crítica que el caso gobernante, y en el punto crítico vale $80{,}47$~MPa. Este mismo caso es el que entrega la tensión inercial $\sigma_{in}$ del análisis de fatiga (Sección~\ref{sec:resultados_fatiga}), lo que explica que se resuelva sin factores parciales.
 
 Este caso de referencia entrega una conclusión de diseño central. Afectado por el factor parcial del DLC 1.1 para hacerlo comparable, el estado inercial aporta $101{,}3$ de los $187{,}09$~MPa del caso gobernante, esto es, algo más de la mitad de la tensión. Medido sobre la solicitación en lugar de sobre la respuesta, el predominio es aún más marcado, ya que la fuerza centrífuga suma $213{,}26$~kN frente a los $136{,}11$~kN de la fuerza normal aerodinámica integrada de diseño, un $61\%$ del total. La pala está dimensionada por tanto en primer término por la decisión que fija la velocidad máxima de rotación en $42$~rpm, y solo en segundo término por el viento del emplazamiento, incluso en su condición extrema a 50 años. Este resultado explica además que las reacciones en los brazos apenas difieran entre ambos DLC, dado que la componente inercial, idéntica en los dos casos, domina el equilibrio global.
 
@@ -930,12 +947,12 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         $\gamma_n \, \gamma_{m0}$ & Consecuencia de falla y factor base de material & $1{,}20$ \\
         $\gamma_{m1} \cdots \gamma_{m5}$ & Factores de material $\gamma_{m1}$ a $\gamma_{m5}$ (IEC 61400-5) & $2{,}059$ \\
         $\gamma_{fat}$ & Factor combinado sobre la amplitud & $2{,}471$ \\
-        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $0{,}837$~MPa/(kN$\cdot$m) \\
-        $\sigma_{in}$ & Tensión media de origen inercial & $81{,}1$~MPa \\
-        $\theta_k$ & Dirección gobernante & $90^\circ$ \\
-        --- & Ciclos anuales contabilizados & $1{,}20 \times 10^{8}$ \\
-        $D_{\text{año}}$ & Daño anual acumulado & $9{,}16 \times 10^{-1}$ \\
-        $D_{20}$ & Daño acumulado en 20 años & $18{,}3$ \\
+        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $1{,}030$~MPa/(kN$\cdot$m) \\
+        $\sigma_{in}$ & Tensión de origen inercial en el punto crítico & $80{,}5$~MPa \\
+        $\theta_k$ & Dirección gobernante & $270^\circ$ \\
+        --- & Ciclos anuales contabilizados & $1{,}22 \times 10^{8}$ \\
+        $D_{\text{año}}$ & Daño anual acumulado & $25{,}2$ \\
+        $D_{20}$ & Daño acumulado en 20 años & $503$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -979,7 +996,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
-Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma IEC 61400-5, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $18{,}3$.
+Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma IEC 61400-5, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $503$.
 
 El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, la resistencia última le sigue y la fatiga supera el límite por el margen menor, medido en tensión. La resistencia y la fatiga dependen de las propiedades supuestas para el material, mientras que la estabilidad depende de la geometría del panel.
 
@@ -1020,15 +1037,15 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
         \textbf{Laminado} & \textbf{Resistencia} & \textbf{Exponente} & \textbf{Daño en 20 años} & \textbf{Verificación} \\
         & $\sigma_u$ (MPa) & $b$ & $D_{20}$ & \\
         \hline
-        Ficha técnica preliminar & $242{,}1$ & $-0{,}045$ & $18{,}3$ & No cumple\\
-        UD $[0]$, epoxi & $995$ & $-0{,}088$ & $1{,}05 \times 10^{-5}$ & Cumple\\
-        Multidireccional $[(\pm 45)_2/(0)_2]_s$, epoxi & $704$ & $-0{,}130$ & $1{,}79$ & No cumple\\
-        Multidireccional $[(\pm 45)_2/(0)_2]_s$, poliéster & $663$ & $-0{,}151$ & $29{,}7$ & No cumple\\
-        $\pm 45^\circ$, epoxi & $224$ & $-0{,}092$ & $2{,}42 \times 10^{4}$ & No cumple\\
+        Ficha técnica preliminar & $242{,}1$ & $-0{,}045$ & $503$ & No cumple\\
+        UD $[0]$, epoxi & $995$ & $-0{,}088$ & $1{,}02 \times 10^{-4}$ & Cumple\\
+        Multidireccional $[(\pm 45)_2/(0)_2]_s$, epoxi & $704$ & $-0{,}130$ & $8{,}21$ & No cumple\\
+        Multidireccional $[(\pm 45)_2/(0)_2]_s$, poliéster & $663$ & $-0{,}151$ & $110$ & No cumple\\
+        $\pm 45^\circ$, epoxi & $224$ & $-0{,}092$ & $1{,}35 \times 10^{5}$ & No cumple\\
         \hline
     \end{tabular}
 \end{table}
 
-El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $1{,}79$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
+El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $8{,}21$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
 
 La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma IEC 61400-5 solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$.
