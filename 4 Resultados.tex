@@ -132,7 +132,9 @@ que mantienen $\rho$, $W$ y $c$ fijos frente a este efecto, por lo que su variac
     \label{tab:sensibilidad_re}
     \begin{tabular}{ccccc}
         \hline
-        \textbf{$\alpha$ (°)} & \textbf{$\Delta C_l(\nu_{min})$} & \textbf{$\Delta C_l(\nu_{max})$} & \textbf{$\Delta C_d(\nu_{min})$} & \textbf{$\Delta C_d(\nu_{max})$} \\
+        \textbf{Ángulo de ataque} & \multicolumn{2}{c}{\textbf{Variación de sustentación}} & \multicolumn{2}{c}{\textbf{Variación de arrastre}} \\
+        \cline{2-3} \cline{4-5}
+        $\alpha$ (°) & $\Delta C_l(\nu_{min})$ & $\Delta C_l(\nu_{max})$ & $\Delta C_d(\nu_{min})$ & $\Delta C_d(\nu_{max})$ \\
         \hline
         $5$  & $+0{,}11\%$ & $-0{,}13\%$ & $-0{,}33\%$ & $+0{,}55\%$ \\
         $8$  & $+0{,}13\%$ & $-0{,}18\%$ & $-0{,}49\%$ & $+0{,}76\%$ \\
@@ -230,6 +232,7 @@ Los parámetros operacionales de la Tabla~\ref{tab:curva_potencia} corresponden 
     \label{tab:curva_potencia}
     \begin{tabular}{lcccc}
         \hline
+        \textbf{Velocidad de viento} & \textbf{Rotación} & \textbf{TSR} & \textbf{Potencia media} & \textbf{Coef. de potencia} \\
         $V$ (m/s) & RPM & $\lambda$ & $P_{med}$ (kW) & $C_{p}$ \\
         \hline
         $2$ & $7{,}00$ & $3{,}800$ & $1{,}3$ & $0{,}260$ \\
@@ -358,6 +361,7 @@ Las magnitudes que siguen se ilustran sobre la envolvente direccional del apoyo 
     \label{tab:cargas_extremas}
     \begin{tabular}{lccc}
         \hline
+        \textbf{Velocidad de viento} & \textbf{Localización} & \textbf{Escala} & \textbf{Máximo observado} \\
         $V$ (m/s) & $\mu_j$ (kN$\cdot$m) & $\beta_j$ (kN$\cdot$m) & $M_{obs,max}$ (kN$\cdot$m) \\
         \hline
         $2$ & $1{,}14$ & $0{,}056$ & $1{,}29$ \\
@@ -424,9 +428,10 @@ Los casos de carga del modelo estructural se construyen con los doce momentos pr
     \label{tab:casos_direccionales}
     \begin{tabular}{cccccc}
         \hline
-        $\theta_k$ & $P_{k,d}$, DLC 1.1 & \multicolumn{2}{c}{Instante gobernante, DLC 1.1} & Factor de & $P_{k,d}$, DLC 1.3 \\
+        \textbf{Dirección} & \textbf{Carga de diseño} & \multicolumn{2}{c}{\textbf{Instante gobernante}} & \textbf{Factor} & \textbf{Carga de diseño} \\
+        & \textbf{DLC 1.1} & \multicolumn{2}{c}{\textbf{DLC 1.1}} & \textbf{de escala} & \textbf{DLC 1.3} \\
         \cline{3-4}
-        & (kN$\cdot$m) & Semilla & $t$ (s) & escala & (kN$\cdot$m) \\
+        $\theta_k$ & $P_{k,d}$ (kN$\cdot$m) & Semilla & $t$ (s) & & $P_{k,d}$ (kN$\cdot$m) \\
         \hline
         $0^\circ$   & $26{,}00$ & $2$  & $264{,}44$ & $1{,}428$ & $24{,}09$ \\
         $30^\circ$  & $70{,}61$ & $6$  & $84{,}42$  & $1{,}471$ & $64{,}96$ \\
@@ -459,9 +464,11 @@ Las 30 simulaciones correspondientes al DLC 1.3 (ETM, $V = 16$ a $24$~m/s) se pr
     \label{tab:dlc13_maximos}
     \begin{tabular}{lccccccc}
         \hline
-        & \multicolumn{7}{c}{$M_{env,max}$ (kN$\cdot$m)} \\
+        \textbf{Velocidad} & \multicolumn{7}{c}{\textbf{Máximo de la envolvente direccional}, $M_{env,max}$ (kN$\cdot$m)} \\
         \cline{2-8}
-        $V$ (m/s) & $S_1$ & $S_2$ & $S_3$ & $S_4$ & $S_5$ & $S_6$ & Media \\
+        \textbf{de viento} & \multicolumn{6}{c}{\textbf{Semilla}} & \textbf{Media} \\
+        \cline{2-7}
+        $V$ (m/s) & $S_1$ & $S_2$ & $S_3$ & $S_4$ & $S_5$ & $S_6$ & \\
         \hline
         $16$ & $44{,}38$ & $45{,}36$ & $43{,}86$ & $44{,}35$ & $42{,}00$ & $42{,}42$ & $43{,}73$ \\
         $18$ & $48{,}39$ & $48{,}33$ & $51{,}21$ & $50{,}34$ & $47{,}59$ & $50{,}11$ & $49{,}33$ \\
@@ -570,7 +577,9 @@ Las 144 realizaciones aportan $389\,782$ ciclos contados sobre sus ventanas úti
     \label{tab:weibull_fatiga}
     \begin{tabular}{lccccc}
         \hline
-        $V$ (m/s) & $f_W(V)$ & Prob. (\%) & $t_j$ (h/año) & $t_j$ (s/año) & $t_j/T_{obs}$ \\
+        \textbf{Velocidad} & \textbf{Densidad} & \textbf{Probabilidad} & \multicolumn{2}{c}{\textbf{Tiempo anual}} & \textbf{Realizaciones} \\
+        \textbf{de viento} & \textbf{de Weibull} & & \multicolumn{2}{c}{} & \textbf{por año} \\
+        $V$ (m/s) & $f_W(V)$ & (\%) & $t_j$ (h/año) & $t_j$ (s/año) & $t_j/T_{obs}$ \\
         \hline
         $2$  & $0{,}0413$ & $8{,}25$  & $723{,}3$    & $2{,}60 \times 10^6$ & $4\,340$ \\
         $4$  & $0{,}0767$ & $15{,}34$ & $1\,344{,}8$ & $4{,}84 \times 10^6$ & $8\,069$ \\
@@ -638,6 +647,7 @@ La Tabla~\ref{tab:dano_direcciones} recoge el daño acumulado en la vida de dise
     \label{tab:dano_direcciones}
     \begin{tabular}{cccc}
         \hline
+        \textbf{Dirección} & \textbf{Daño en 20 años} & \textbf{Dirección} & \textbf{Daño en 20 años} \\
         $\theta_k$ & $D_{20}$ & $\theta_k$ & $D_{20}$ \\
         \hline
         $0^\circ$   & $2{,}57 \times 10^{-16}$ & $180^\circ$ & $5{,}75 \times 10^{-17}$ \\
@@ -670,6 +680,7 @@ Esa misma planitud de la curva hace al resultado sensible a la tensión con que 
     \label{tab:sensibilidad_fatiga}
     \begin{tabular}{ccc}
         \hline
+        \textbf{Factor relativo} & \textbf{Factor momento-tensión} & \textbf{Daño en 20 años} \\
         $K/K_{aero}$ & $K$ (MPa/(kN$\cdot$m)) & $D_{20}$ \\
         \hline
         $0{,}80$ & $0{,}669$ & $1{,}14 \times 10^{-1}$ \\
@@ -933,44 +944,44 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \centering
     \caption{Resumen de la verificación a resistencia última.}
     \label{tab:resumen_uls}
-    \begin{tabular}{llcc}
+    \begin{tabular}{l>{\raggedright\arraybackslash}p{5.0cm}ccc}
         \hline
-        \textbf{Símbolo} & \textbf{Descripción} & \textbf{DLC 1.1 (NTM)} & \textbf{DLC 1.3 (ETM)} \\
+        \textbf{Símbolo} & \textbf{Descripción} & \textbf{DLC 1.1 (NTM)} & \textbf{DLC 1.3 (ETM)} & \textbf{Verificación} \\
         \hline
-        \multicolumn{4}{c}{\textit{Cargas de diseño}} \\
+        \multicolumn{5}{c}{\textit{Cargas de diseño}} \\
         \hline
-        $P_{k,d}$ & Proyectado de diseño, apoyo superior & $64{,}71$~kN$\cdot$m & $55{,}69$~kN$\cdot$m \\
-        $M_{res,d}$ & Resultante de diseño, apoyo superior & $100{,}96$~kN$\cdot$m & $91{,}68$~kN$\cdot$m \\
-        $F_{d,n}$ & Fuerza máx.\ por estación, normal & $12{,}85$~kN & $8{,}88$~kN \\
-        $F_{d,t}$ & Fuerza máx.\ por estación, tangencial & $2{,}53$~kN & $1{,}32$~kN \\
-        $\gamma_f$ & Factor parcial de carga & $1{,}25$ & $1{,}35$ \\
-        $\theta_k$ & Dirección de carga gobernante & $240^\circ$ & $240^\circ$ a $300^\circ$ \\
+        $P_{k,d}$ & Proyectado de diseño, apoyo superior & $64{,}71$~kN$\cdot$m & $55{,}69$~kN$\cdot$m &  \\
+        $M_{res,d}$ & Resultante de diseño, apoyo superior & $100{,}96$~kN$\cdot$m & $91{,}68$~kN$\cdot$m &  \\
+        $F_{d,n}$ & Fuerza máx.\ por estación, normal & $12{,}85$~kN & $8{,}88$~kN &  \\
+        $F_{d,t}$ & Fuerza máx.\ por estación, tangencial & $2{,}53$~kN & $1{,}32$~kN &  \\
+        $\gamma_f$ & Factor parcial de carga & $1{,}25$ & $1{,}35$ &  \\
+        $\theta_k$ & Dirección de carga gobernante & $240^\circ$ & $240^\circ$ a $300^\circ$ &  \\
         \hline
-        \multicolumn{4}{c}{\textit{Tensiones (FEM)}} \\
+        \multicolumn{5}{c}{\textit{Tensiones (FEM)}} \\
         \hline
-        $\sigma_{1,\max}$ & Tensión principal máxima del manto & $187{,}09$~MPa & $172{,}78$~MPa \\
-        $\sigma_{3,\min}$ & Tensión principal mínima & $-180{,}20$~MPa & $-167{,}81$~MPa \\
+        $\sigma_{1,\max}$ & Tensión principal máxima del manto & $187{,}09$~MPa & $172{,}78$~MPa &  \\
+        $\sigma_{3,\min}$ & Tensión principal mínima & $-180{,}20$~MPa & $-167{,}81$~MPa &  \\
         \hline
-        \multicolumn{4}{c}{\textit{Resistencia última}} \\
+        \multicolumn{5}{c}{\textit{Resistencia última}} \\
         \hline
-        $\sigma_{u,d}$ & Resistencia factoreada, IEC 61400-5 & $97{,}98$~MPa & $97{,}98$~MPa \\
-        $\eta_{\text{ULS}}$ & Factor de reserva & $0{,}524$ & $0{,}567$ \\
+        $\sigma_{u,d}$ & Resistencia factoreada, IEC 61400-5 & $97{,}98$~MPa & $97{,}98$~MPa &  \\
+        $\eta_{\text{ULS}}$ & Factor de reserva & $0{,}524$ & $0{,}567$ & No cumple \\
         \hline
-        \multicolumn{4}{c}{\textit{Estabilidad (FEM)}} \\
+        \multicolumn{5}{c}{\textit{Estabilidad (FEM)}} \\
         \hline
-        $LM$ & Multiplicador de carga mínimo (modo 1) & $0{,}5153$ & $0{,}5428$ \\
-        --- & Umbral IEC 61400-5 & $1{,}98$ & $1{,}98$ \\
-        $\eta_{\text{pandeo}}$ & Factor de aprovechamiento & $0{,}260$ & $0{,}274$ \\
+        $LM$ & Multiplicador de carga mínimo (modo 1) & $0{,}5153$ & $0{,}5428$ &  \\
+        --- & Umbral IEC 61400-5 & $1{,}98$ & $1{,}98$ &  \\
+        $\eta_{\text{pandeo}}$ & Factor de aprovechamiento & $0{,}260$ & $0{,}274$ & No cumple \\
         \hline
-        \multicolumn{4}{c}{\textit{Verificación del montaje}} \\
+        \multicolumn{5}{c}{\textit{Verificación del montaje}} \\
         \hline
-        --- & Masa del modelo por las reacciones & \multicolumn{2}{c}{$850{,}9$~kg} \\
-        --- & Cierre del equilibrio en los tres ejes & \multicolumn{2}{c}{$< 0{,}001\%$} \\
+        --- & Masa del modelo por las reacciones & \multicolumn{2}{c}{$850{,}9$~kg} &  \\
+        --- & Cierre del equilibrio en los tres ejes & \multicolumn{2}{c}{$< 0{,}001\%$} &  \\
         \hline
-        \multicolumn{4}{c}{\textit{Deformación (FEM)}} \\
+        \multicolumn{5}{c}{\textit{Deformación (FEM)}} \\
         \hline
-        $\delta_{\max}$ & Deformación máxima, vano central & $0{,}288$~m & $0{,}261$~m \\
-        $\delta/L$ & Referida al vano de $13{,}0$~m & $2{,}21\%$ & $2{,}01\%$ \\
+        $\delta_{\max}$ & Deformación máxima, vano central & $0{,}288$~m & $0{,}261$~m &  \\
+        $\delta/L$ & Referida al vano de $13{,}0$~m & $2{,}21\%$ & $2{,}01\%$ & Cumple \\
         \hline
     \end{tabular}
 \end{table}
@@ -992,7 +1003,9 @@ La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el
     \label{tab:propiedades_minimas}
     \begin{tabular}{>{\raggedright\arraybackslash}p{6.4cm}ccc}
         \hline
-        \textbf{Escenario} & $\gamma_m$ & \textbf{Envergadura (MPa)} & \textbf{Contorno (MPa)}\\
+        \textbf{Escenario} & \textbf{Factor de material} & \multicolumn{2}{c}{\textbf{Resistencia mínima (MPa)}} \\
+        \cline{3-4}
+        & $\gamma_m$ & Envergadura & Contorno \\
         \hline
         Propiedades nominales, sin ensayo de pala (adoptado) & $2{,}47$ & $462$ & $83$\\
         Propiedades de diseño con tolerancias de fabricación & $2{,}09$ & $391$ & $70$\\
@@ -1009,9 +1022,10 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
     \centering
     \caption{Daño acumulado en la vida de diseño según el laminado, dirección gobernante.}
     \label{tab:fatiga_laminados}
-    \begin{tabular}{l c c c c}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{4.6cm}cccc}
         \hline
-        \textbf{Laminado} & $\sigma_u$ (MPa) & $b$ & $D_{20}$ & \textbf{Verificación}\\
+        \textbf{Laminado} & \textbf{Resistencia} & \textbf{Exponente} & \textbf{Daño en 20 años} & \textbf{Verificación} \\
+        & $\sigma_u$ (MPa) & $b$ & $D_{20}$ & \\
         \hline
         Ficha técnica preliminar & $242{,}1$ & $-0{,}045$ & $18{,}3$ & No cumple\\
         UD $[0]$, epoxi & $995$ & $-0{,}088$ & $1{,}05 \times 10^{-5}$ & Cumple\\
