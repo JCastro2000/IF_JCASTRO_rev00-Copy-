@@ -31,10 +31,10 @@ BORDES       = 0.5 * BLADE_LENGTH * (
 Z_POS        = 0.5 * (BORDES[:-1] + BORDES[1:])   # centro de panel [m]
 DELTA_S      = np.diff(BORDES)                    # ancho de panel [m]
 
-# La sección crítica es la unión con el strut inferior, donde el modelo de
-# elementos finitos localiza la tensión principal máxima. Los struts son
+# La sección crítica es la unión con el brazo superior, donde el modelo de
+# elementos finitos localiza la tensión principal máxima. Los brazos son
 # simétricos y se sitúan a 5,0 y 18,0 m sobre la base de la pala.
-Z_CRIT = 5.0
+Z_CRIT = 18.0
 
 # --- Material (GFRP, ensayos de Huh et al. 2012 para tejido +/-45) ------
 SIGMA_U = 242.1      # resistencia última a tracción [MPa]
@@ -71,38 +71,38 @@ T_YEAR    = 365.25 * 24 * 3600.0
 ANIOS     = 20        # vida de diseño [años]
 
 # Tensiones principales obtenidas del FEM en la sección crítica, ambas sin
-# mayorar: la primera con las cargas aerodinámicas del DLC 1.1 como única
-# solicitación y la segunda con las cargas inerciales como única
-# solicitación. La aerodinámica escala con el momento y define K_aero; la
+# mayorar: la primera con el caso direccional de theta = 90 grados del
+# DLC 1.1 como única solicitación y la segunda con las cargas inerciales
+# como única solicitación. La aerodinámica escala con el momento y define K_aero; la
 # inercial no escala y se reincorpora como tensión media. Se calibran sobre
 # cargas características porque en fatiga la mayoración se aplica una sola
 # vez, sobre la amplitud de cada ciclo.
-SIGMA_AERO = 60.530   # [MPa] solo cargas aerodinámicas
-SIGMA_IN   = 80.625   # [MPa] solo centrífuga y gravedad
+SIGMA_AERO = 67.746   # [MPa] solo cargas aerodinámicas
+SIGMA_IN   = 81.064   # [MPa] solo centrífuga y gravedad
 \end{pycode}
 
 \subsection*{Del vector de cargas al momento flector}
 
-El momento flector en la sección crítica se obtiene sumando el aporte de todas las estaciones situadas por debajo de ella, cada una multiplicada por su brazo. Las dos componentes se combinan en un momento resultante, que se emplea en la calibración, y se proyectan en las doce direcciones de carga, que son la variable del conteo de ciclos.
+El momento flector en la sección crítica se obtiene sumando el aporte de todas las estaciones situadas por encima de ella, cada una multiplicada por su brazo. Las dos componentes se combinan en un momento resultante, que se emplea en la calibración, y se proyectan en las doce direcciones de carga, que son la variable del conteo de ciclos.
 
 \begin{pycode}
 def momento_componentes(fx, fy):
     """
     Componentes del momento flector en la sección crítica:
 
-        Mx = suma_i Fy_i * (z_crit - z_i)      para z_i < z_crit
-        My = suma_i Fx_i * (z_crit - z_i)
+        Mx = suma_i Fy_i * (z_i - z_crit)      para z_i > z_crit
+        My = suma_i Fx_i * (z_i - z_crit)
 
-    Solo contribuyen las estaciones por debajo de z_crit: el strut
-    inferior es el apoyo, de modo que el tramo de pala que queda bajo él
+    Solo contribuyen las estaciones por encima de z_crit: el brazo
+    superior es el apoyo, de modo que el tramo de pala que queda sobre él
     actúa en voladizo y es el único que genera momento sobre la sección.
 
     fx, fy son las fuerzas por segmento [N] y el brazo está en metros, de
     modo que los momentos quedan en N*m.
     """
-    bajo  = Z_POS < Z_CRIT
-    brazo = Z_CRIT - Z_POS[bajo]
-    return float(np.sum(fy[bajo] * brazo)), float(np.sum(fx[bajo] * brazo))
+    sobre = Z_POS > Z_CRIT
+    brazo = Z_POS[sobre] - Z_CRIT
+    return float(np.sum(fy[sobre] * brazo)), float(np.sum(fx[sobre] * brazo))
 
 
 def momento_resultante(fx, fy):
@@ -121,9 +121,9 @@ TH = 2.0 * np.pi * np.arange(12) / 12
 Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura, la parte aerodinámica de la tensión en el punto crítico es proporcional al momento flector. La constante de proporcionalidad se obtiene de las corridas del modelo de elementos finitos, lo que evita repetir el cálculo estructural para cada uno de los millones de ciclos del espectro. La contribución inercial no escala con el momento aerodinámico, de modo que la calibración emplea la corrida con cargas aerodinámicas únicamente y la tensión inercial se reincorpora después como tensión media.
 
 \begin{pycode}
-# fn_k, ft_k son las fuerzas por estación del instante gobernante del
-# DLC 1.1 SIN mayorar, es decir las mismas que se aplicaron en las dos
-# corridas de calibración del modelo de elementos finitos.
+# fn_k, ft_k son las fuerzas por estación del caso direccional de
+# theta = 90 grados del DLC 1.1 SIN mayorar, es decir las mismas que se
+# aplicaron en la corrida de calibración del modelo de elementos finitos.
 M_res_k = momento_resultante(fn_k, ft_k) / 1000.0     # [kN*m]
 
 # K_aero traduce momento aerodinámico a tensión, calibrado con la corrida
