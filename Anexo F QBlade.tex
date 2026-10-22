@@ -17,11 +17,9 @@ anotado a la derecha de su valor. El formato y el significado detallado de cada 
 están descritos en la documentación oficial de QBlade, de modo que aquí solo se comentan
 los que condicionan la lectura de los resultados.
 
-\vspace{0.5em}
-\noindent\textbf{Advertencia sobre los campos que la ejecución sobrescribe.}
-Cuatro campos de la definición de simulación contienen valores que \textbf{no} son los
+Varios campos de la definición de simulación contienen valores que \textbf{no} son los
 que se emplearon, porque la interfaz \gls{sil} los reemplaza en cada caso antes de
-inicializar (Sección~\ref{sec:sil}):
+inicializar (Sección~\ref{sec:sil}). Son los siguientes.
 
 \begin{itemize}
     \item \texttt{TIMESTEP}, que se recalcula para cada velocidad a partir del
@@ -40,7 +38,7 @@ avanza la simulación paso a paso y determina el número de pasos a partir de lo
 de duración y del paso temporal del caso.
 
 
-\section{Definición de simulación: \texttt{definitiva.sim}}
+\subsection*{Definición de simulación: \texttt{definitiva.sim}}
 \label{sec:anexo_sim}
 
 Fija el entorno de la simulación y apunta al archivo de turbina.
@@ -173,7 +171,7 @@ false                                  USEMBC
 \end{cfgcode}
 
 
-\section{Definición de la turbina: \texttt{definitiva.trb}}
+\subsection*{Definición de la turbina: \texttt{definitiva.trb}}
 \label{sec:anexo_trb}
 
 Define el rotor y los modelos aerodinámicos, con el reparto coseno
@@ -289,7 +287,7 @@ false                                              AEROGRADIENTS      - enable d
 \end{cfgcode}
 
 
-\section{Definición de la pala: \texttt{New\_Blade.bld}}
+\subsection*{Definición de la pala: \texttt{New\_Blade.bld}}
 \label{sec:anexo_bld}
 
 Define la geometría de la pala y le asigna las polares. La pala
@@ -351,7 +349,7 @@ END_STRUT_2
 \end{cfgcode}
 
 
-\section{Generación de las cajas de turbulencia}
+\subsection*{Generación de las cajas de turbulencia}
 \label{sec:anexo_mann}
 
 Las cajas de viento turbulento no se generan desde QBlade, sino con el ejecutable
@@ -365,9 +363,7 @@ MannTurb64  <prefijo>  <alpha_epsilon>  <L>  <Gamma>  <semilla>
             <Nx>  <Ny>  <Nz>  <dx>  <dy>  <dz>  <compensacion_alta_frecuencia>
 \end{cfgcode}
 
-\noindent donde:
-
-\noindent De todos ellos, el único que cambia con cada caso es
+\noindent De esos argumentos, el único que cambia con cada caso es
 \texttt{alpha\_epsilon}, el parámetro de intensidad del tensor espectral, que se obtiene
 de la desviación estándar representativa de la velocidad y del modelo de turbulencia
 empleado (Secciones~\ref{sec:ntm} y~\ref{sec:campo_turbulento}). La escala de longitud y

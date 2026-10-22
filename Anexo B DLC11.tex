@@ -130,7 +130,7 @@ def efectos_de_carga(fn_lin, ft_lin):
 
 \subsection*{Ajuste de la distribución de extremos por velocidad}
 
-De cada realización se extrae el máximo de cada magnitud sobre la ventana útil. Para cada velocidad de viento se dispone así de entre seis y quince máximos, uno por semilla, a los que el Anexo G ajusta una distribución de Gumbel por el método de los momentos, según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
+De cada realización se extrae el máximo de cada magnitud sobre la ventana útil. Para cada velocidad de viento se dispone así de entre seis y quince máximos, uno por semilla, a los que el Anexo G de la IEC 61400-1 ajusta una distribución de Gumbel por el método de los momentos, según las Ecs.~\ref{eq:gumbel_beta} y~\ref{eq:gumbel_mu}.
 
 \begin{pycode}
 GAMMA_EULER = 0.5772156649   # constante de Euler-Mascheroni
@@ -275,7 +275,7 @@ P_d = [extrapolar(max_dir[k])['F_d'] for k in range(len(TH))]
 
 \subsection*{Del escalar a las fuerzas por estación}
 
-El Anexo G entrega un valor escalar por dirección, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil de cada dirección se toma de su instante gobernante y se escala de manera uniforme, conforme a la Sección 7.5 de la norma. Las cargas que actúan simultáneamente con el extremo son las que el Anexo I denomina cargas compañeras.
+El Anexo G entrega un valor escalar por dirección, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil de cada dirección se toma de su instante gobernante y se escala de manera uniforme, conforme a la Sección 6.1.4.3 de la IEC 61400-5~\parencite{IEC61400-5}. Las cargas que actúan simultáneamente con el extremo se denominan fuerzas compañeras.
 
 \begin{pycode}
 casos = []

@@ -2,7 +2,7 @@
 
 Este anexo reproduce el código que evalúa el estado límite de fatiga a partir de las series temporales de cargas, siguiendo el Anexo H de IEC 61400-1~\parencite{IEC61400-1}. Se omiten las rutinas de exportación y de generación de figuras.
 
-La variable de carga es el momento flector en la sección crítica, proyectado en doce direcciones de carga, y no una suma de fuerzas. La razón es que la tensión en esa sección es proporcional al momento actuante y no a la suma de fuerzas, de modo que el momento se vincula directamente con el mecanismo de falla por fatiga. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3.1 de la norma, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
+La variable de carga es el momento flector en la sección crítica, proyectado en doce direcciones de carga, y no una suma de fuerzas, ya que la tensión en esa sección es proporcional al momento actuante. Sobre la historia de tensión así construida se aplica la corrección por tensión media que exige la Sección 7.6.3.1 de la IEC 61400-1, necesaria porque la carga permanente de rotación sitúa los ciclos en régimen de tracción-tracción.
 
 \subsection*{Parámetros de entrada}
 
@@ -36,9 +36,9 @@ DELTA_S      = np.diff(BORDES)                    # ancho de panel [m]
 # simétricos y se sitúan a 5,0 y 18,0 m sobre la base de la pala.
 Z_CRIT = 18.0
 
-# --- Material (GFRP, ensayos de Huh et al. 2012 para tejido +/-45) ------
-SIGMA_U = 242.1      # resistencia última a tracción [MPa]
-B_EXP   = -0.045     # exponente de Basquin de la curva S-N
+# --- Material (GFRP) -------------------------------------------------------
+SIGMA_U = 242.1      # resistencia última a tracción, ficha técnica [MPa]
+B_EXP   = -0.045     # exponente de Basquin, tejido +/-45 de Huh et al. 2012
 
 # --- Factores parciales de seguridad -------------------------------------
 GAMMA_F = 1.00       # cargas de fatiga (IEC 61400-1, Sección 7.6.3.2)
@@ -134,7 +134,7 @@ K_AERO = SIGMA_AERO / M_res_k                         # [MPa/(kN*m)]
 
 \subsection*{Corrección por tensión media, curva S-N y conteo de ciclos}
 
-La Sección 7.6.3.1 de la norma exige que el daño considere el rango cíclico y la tensión media. Como la rotación impone una tensión media elevada, cada ciclo se reduce primero a su amplitud equivalente a media nula mediante el diagrama de Goodman.
+La Sección 7.6.3.1 de la IEC 61400-1 exige que el daño considere el rango cíclico y la tensión media. Como la rotación impone una tensión media elevada, cada ciclo se reduce primero a su amplitud equivalente a media nula mediante el diagrama de Goodman.
 
 \begin{pycode}
 def amplitud_equivalente(sigma_a, sigma_m):
@@ -187,7 +187,7 @@ for ruta in sorted(glob.glob(os.path.join(DIR_RESULTADOS, 'sim_*_forces.csv'))):
     V = int(partes[2][1:])
 
     datos = np.genfromtxt(ruta, delimiter=',', names=True)
-    mask  = datos['Times'] >= 50.0          # descarte que exige la norma
+    mask  = datos['Times'] >= 50.0          # descarte inicial (norma: al menos 5 s)
 
     # Columnas de fuerza, en el orden de las estaciones
     col_fx = [c for c in datos.dtype.names if c.startswith('Fx_')]
@@ -243,6 +243,6 @@ k_gob    = int(np.argmax(D_vida_k))
 D_vida   = D_vida_k[k_gob]
 
 # Criterio de verificación del Anexo H: la pala cumple si el daño
-# acumulado en la vida de diseño no alcanza la unidad.
-cumple = D_vida < 1.0
+# acumulado en la vida de diseño no supera la unidad.
+cumple = D_vida <= 1.0
 \end{pycode}

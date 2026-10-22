@@ -2,7 +2,7 @@
 
 Este anexo reproduce el código que determina las cargas de diseño del DLC 1.3, que la norma resuelve por una vía distinta de la del DLC 1.1. Al tratarse de un caso con modelo de turbulencia extrema, IEC 61400-1~\parencite{IEC61400-1} no exige extrapolación temporal a $50$ años, ya que la carga característica es la media de los máximos de las realizaciones estocásticas (Sección 7.6.2.2). Se omiten las rutinas de exportación y de generación de figuras.
 
-Las funciones que reducen el vector de cargas a los efectos de carga en las secciones de apoyo son idénticas a las del Anexo~\ref{anexo:dlc11}, por lo que aquí se reutilizan sin repetirlas. Esa identidad no es una comodidad de programación, sino una condición del análisis, ya que el criterio de omisión de la Sección 7.4.2 exige comparar ambos casos magnitud a magnitud y esa comparación solo es válida si ambas se calculan igual.
+Las funciones que reducen el vector de cargas a los efectos de carga en las secciones de apoyo son idénticas a las del Anexo~\ref{anexo:dlc11}, por lo que aquí se reutilizan sin repetirlas. Esa identidad no es una comodidad de programación, sino una condición del análisis, ya que el criterio de omisión de la Sección 7.4.2 de la IEC 61400-1 exige comparar ambos casos magnitud a magnitud y esa comparación solo es válida si ambas se calculan igual.
 
 \subsection*{Parámetros de entrada}
 
@@ -21,9 +21,10 @@ import numpy as np
 from anexo_b import (DELTA_S, N_DIRECCIONES, T_DISCARD, Z_APOYO_SUP,
                      efectos_de_carga, momentos_en_apoyo)
 
-# Velocidades evaluadas. Como las fuerzas aerodinámicas crecen con V^2, la
-# condición más adversa se ubica en el extremo superior del rango
-# operacional, que es donde la Tabla 2 de la norma prescribe buscarla.
+# Velocidades evaluadas. La campaña resuelve el DLC 1.3 en las cinco
+# velocidades superiores del rango operacional, donde se ubica la
+# condición más adversa, por el criterio de coste de cómputo de la
+# metodología. La Tabla 2 de la norma lo prescribe sobre el rango completo.
 V_ENSAYADAS = [16, 18, 20, 22, 24]
 
 # Factor parcial de carga para situaciones de diseño normales sin
@@ -89,7 +90,7 @@ for nombre, por_v in maximos.items():
 
 \subsection*{Perfil espacial de diseño}
 
-El perfil de cada dirección que ingresa al modelo de elementos finitos se construye como la media por estación de los perfiles compañeros de las seis semillas a su velocidad gobernante, amplificada por el mismo factor $\gamma_f$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que se aplica a la magnitud escalar, de modo que la distribución resulta consistente con la carga global.
+El perfil de cada dirección que ingresa al modelo de elementos finitos se construye como la media por estación de los perfiles compañeros de las seis semillas a su velocidad gobernante, amplificada por el factor $\gamma_f = 1{,}35$. Promediar los perfiles, y no escalar uno solo, reproduce a nivel espacial la misma operación que se aplica a la magnitud escalar, de modo que la distribución resulta consistente con la carga global.
 
 \begin{pycode}
 casos = []
@@ -112,7 +113,7 @@ for k in range(len(TH)):
 
 \subsection*{Criterio de omisión del DLC 1.1}
 
-Disponer de las magnitudes en ambos casos permite evaluar el criterio de la Sección 7.4.2, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando las cargas de diseño del DLC 1.3 superan a las suyas. La comparación se realiza magnitud a magnitud y el resultado se presenta en la Sección~\ref{sec:criterio_omision}.
+Disponer de las magnitudes en ambos casos permite evaluar el criterio de la Sección 7.4.2 de la IEC 61400-1, que autoriza prescindir del análisis estadístico del DLC 1.1 cuando las cargas de diseño del DLC 1.3 superan a las suyas. La comparación se realiza magnitud a magnitud y el resultado se presenta en la Sección~\ref{sec:criterio_omision}.
 
 \begin{pycode}
 with open('resultados_DLC11.json') as fh:
