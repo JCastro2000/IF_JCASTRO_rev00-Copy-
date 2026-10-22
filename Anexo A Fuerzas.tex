@@ -2,13 +2,14 @@
 
 Este anexo reúne la solicitación completa de entrada del modelo de elementos finitos, de
 modo que baste con él para reproducirla. Las corridas que describe la
-Sección~\ref{sec:corridas_fem} se reducen aquí a cuatro estados de carga, el caso
-direccional gobernante de cada estado límite último y los dos que separan las
-contribuciones de la carga, ya que el barrido de malla comparte la solicitación del
-DLC 1.1 y difiere únicamente en la discretización. La Tabla~\ref{tab:anexo_entradas_fem} resume los cuatro estados, con
-las aceleraciones inerciales que cada uno impone y sus fuerzas aerodinámicas integradas,
-y las tablas siguientes entregan el detalle por estación de los tres que llevan carga
-aerodinámica.
+Sección~\ref{sec:corridas_fem} se reducen aquí a cuatro estados de carga, los dos de
+resistencia última y los dos que separan las contribuciones de la carga, ya que el
+barrido de malla comparte la solicitación del DLC 1.1 y difiere únicamente en la
+discretización. La Tabla~\ref{tab:anexo_entradas_fem} resume los cuatro estados, con las
+aceleraciones inerciales que cada uno impone y las fuerzas aerodinámicas integradas de su
+caso gobernante. Las tablas siguientes entregan el detalle por estación de los tres que
+llevan carga aerodinámica y, al final, las fuerzas de los doce casos direccionales de los
+dos estados de resistencia última.
 
 Los dos estados de resistencia última corresponden a la dirección de carga
 gobernante entre las doce de la Ec.~\ref{eq:P_k}, $\theta_k = 240^\circ$, y llevan la
@@ -168,6 +169,166 @@ solicitación aerodinámica se suma o se resta a la inercial.
         19 & 22{,}175 & 0{,}6279 & $-$4559 & 659 & $-$3353 & 485 \\
         20 & 22{,}680 & 0{,}3825 & $-$3697 & 381 & $-$1657 & 171 \\
         21 & 22{,}936 & 0{,}1284 & $-$1557 & 17 & $-$234 & 3 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Las tablas anteriores detallan el caso gobernante de cada estado. Las corridas 4 y 5
+resuelven además los doce casos direccionales del DLC 1.1 y del DLC 1.3, cuyas fuerzas de
+diseño por estación recogen las Tablas~\ref{tab:anexo_dir_dlc11_n}
+a~\ref{tab:anexo_dir_dlc13_t}, tal como ingresan al modelo. Las estaciones y sus cotas son
+las de las tablas anteriores, y cada caso lleva las aceleraciones mayoradas de su estado
+límite último (Tabla~\ref{tab:anexo_entradas_fem}). En el modelo, la componente normal se
+ingresa como fuerza remota según $Z$ y la tangencial con signo cambiado según $X$. Las
+direcciones que comparten instante gobernante reciben distribuciones de la misma forma,
+como ocurre de $240^\circ$ a $330^\circ$ en el DLC 1.1, donde difieren solo en el
+escalamiento a la carga de diseño de cada una, y de $240^\circ$ a $300^\circ$ en el
+DLC 1.3, donde coinciden (Sección~\ref{sec:resultados_fem}).
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3.2pt}
+    \caption{Fuerza normal de diseño $F_{d,n}$ por estación en las doce direcciones del DLC 1.1, en N.}
+    \label{tab:anexo_dir_dlc11_n}
+    \begin{tabular}{crrrrrrrrrrrr}
+        \hline
+        \textbf{Estación} & \multicolumn{12}{c}{\textbf{Dirección de carga} $\theta_k$} \\
+        \cline{2-13}
+        & $0^\circ$ & $30^\circ$ & $60^\circ$ & $90^\circ$ & $120^\circ$ & $150^\circ$ & $180^\circ$ & $210^\circ$ & $240^\circ$ & $270^\circ$ & $300^\circ$ & $330^\circ$ \\
+        \hline
+        1 & 168 & 155 & 156 & 157 & 157 & 175 & $-$241 & $-$46 & $-$47 & $-$47 & $-$47 & $-$47 \\
+        2 & 1651 & 1438 & 1447 & 1452 & 1458 & 1812 & $-$1078 & $-$744 & $-$760 & $-$759 & $-$757 & $-$757 \\
+        3 & 3325 & 2972 & 2990 & 3001 & 3012 & 3669 & $-$2097 & $-$1550 & $-$1583 & $-$1582 & $-$1578 & $-$1578 \\
+        4 & 5008 & 4556 & 4584 & 4601 & 4619 & 5465 & $-$3029 & $-$2416 & $-$2467 & $-$2465 & $-$2459 & $-$2458 \\
+        5 & 6772 & 5819 & 5854 & 5876 & 5898 & 7082 & $-$3461 & $-$3530 & $-$3604 & $-$3602 & $-$3593 & $-$3592 \\
+        6 & 8082 & 7013 & 7056 & 7082 & 7109 & 8730 & $-$3950 & $-$5060 & $-$5166 & $-$5163 & $-$5150 & $-$5149 \\
+        7 & 9073 & 8071 & 8120 & 8151 & 8182 & 10322 & $-$4887 & $-$6868 & $-$7013 & $-$7008 & $-$6991 & $-$6989 \\
+        8 & 9871 & 8778 & 8832 & 8865 & 8898 & 11447 & $-$5025 & $-$9301 & $-$9497 & $-$9492 & $-$9468 & $-$9465 \\
+        9 & 9978 & 9242 & 9299 & 9334 & 9369 & 12140 & $-$10179 & $-$10839 & $-$11068 & $-$11061 & $-$11034 & $-$11030 \\
+        10 & 10045 & 9780 & 9840 & 9877 & 9914 & 13010 & $-$11165 & $-$9267 & $-$9462 & $-$9456 & $-$9433 & $-$9430 \\
+        11 & 10697 & 10634 & 10698 & 10739 & 10779 & 13352 & $-$11069 & $-$12585 & $-$12850 & $-$12842 & $-$12811 & $-$12807 \\
+        12 & 11870 & 11302 & 11371 & 11413 & 11456 & 13274 & $-$10458 & $-$11463 & $-$11705 & $-$11698 & $-$11669 & $-$11665 \\
+        13 & 12576 & 12368 & 12443 & 12490 & 12537 & 13230 & $-$5460 & $-$10593 & $-$10816 & $-$10810 & $-$10783 & $-$10780 \\
+        14 & 12282 & 12853 & 12931 & 12980 & 13028 & 12671 & $-$5772 & $-$10118 & $-$10331 & $-$10325 & $-$10299 & $-$10296 \\
+        15 & 11308 & 12410 & 12485 & 12532 & 12580 & 9926 & $-$5365 & $-$9521 & $-$9722 & $-$9716 & $-$9692 & $-$9689 \\
+        16 & 10030 & 11160 & 11228 & 11271 & 11313 & 10343 & $-$4827 & $-$8815 & $-$9001 & $-$8995 & $-$8973 & $-$8970 \\
+        17 & 8436 & 9552 & 9611 & 9647 & 9683 & 7590 & $-$4283 & $-$7846 & $-$8012 & $-$8007 & $-$7987 & $-$7985 \\
+        18 & 6749 & 7178 & 7221 & 7248 & 7276 & 6569 & $-$3500 & $-$6318 & $-$6451 & $-$6447 & $-$6431 & $-$6429 \\
+        19 & 4785 & 4826 & 4855 & 4873 & 4892 & 5223 & $-$2489 & $-$4105 & $-$4192 & $-$4189 & $-$4179 & $-$4178 \\
+        20 & 2614 & 2597 & 2613 & 2623 & 2633 & 2821 & $-$1337 & $-$2028 & $-$2071 & $-$2069 & $-$2064 & $-$2064 \\
+        21 & 405 & 384 & 386 & 388 & 389 & 434 & $-$322 & $-$287 & $-$293 & $-$293 & $-$292 & $-$292 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3.2pt}
+    \caption{Fuerza tangencial de diseño $F_{d,t}$ por estación en las doce direcciones del DLC 1.1, en N.}
+    \label{tab:anexo_dir_dlc11_t}
+    \begin{tabular}{crrrrrrrrrrrr}
+        \hline
+        \textbf{Estación} & \multicolumn{12}{c}{\textbf{Dirección de carga} $\theta_k$} \\
+        \cline{2-13}
+        & $0^\circ$ & $30^\circ$ & $60^\circ$ & $90^\circ$ & $120^\circ$ & $150^\circ$ & $180^\circ$ & $210^\circ$ & $240^\circ$ & $270^\circ$ & $300^\circ$ & $330^\circ$ \\
+        \hline
+        1 & 8 & 6 & 6 & 6 & 6 & 9 & 8 & $-$4 & $-$4 & $-$4 & $-$4 & $-$4 \\
+        2 & 296 & 214 & 215 & 216 & 216 & 341 & $-$49 & 25 & 26 & 26 & 26 & 26 \\
+        3 & 722 & 543 & 546 & 548 & 550 & 841 & $-$96 & 82 & 84 & 84 & 84 & 84 \\
+        4 & 1199 & 920 & 925 & 929 & 932 & 1372 & $-$94 & 152 & 156 & 156 & 155 & 155 \\
+        5 & 1714 & 1154 & 1160 & 1165 & 1169 & 1771 & $-$222 & 274 & 279 & 279 & 278 & 278 \\
+        6 & 2141 & 1371 & 1379 & 1384 & 1390 & 2250 & $-$279 & 516 & 527 & 527 & 525 & 525 \\
+        7 & 2518 & 1581 & 1591 & 1597 & 1603 & 2805 & $-$224 & 896 & 914 & 914 & 912 & 911 \\
+        8 & 2778 & 1732 & 1743 & 1750 & 1756 & 3238 & $-$147 & 1554 & 1586 & 1585 & 1581 & 1581 \\
+        9 & 2644 & 1842 & 1854 & 1861 & 1868 & 3505 & 1876 & 2043 & 2086 & 2085 & 2080 & 2079 \\
+        10 & 2564 & 1996 & 2008 & 2016 & 2023 & 3728 & 2034 & 1831 & 1869 & 1868 & 1864 & 1863 \\
+        11 & 2736 & 2383 & 2398 & 2407 & 2416 & 3772 & 1906 & 2474 & 2526 & 2525 & 2518 & 2518 \\
+        12 & 3237 & 2626 & 2642 & 2652 & 2662 & 3669 & 1814 & 1916 & 1956 & 1955 & 1950 & 1949 \\
+        13 & 3685 & 3289 & 3309 & 3321 & 3334 & 3925 & 258 & 1606 & 1640 & 1638 & 1634 & 1634 \\
+        14 & 3430 & 3800 & 3823 & 3838 & 3852 & 2487 & $-$606 & 1511 & 1543 & 1542 & 1538 & 1538 \\
+        15 & 3149 & 3025 & 3043 & 3055 & 3066 & 1590 & $-$515 & 1500 & 1532 & 1531 & 1527 & 1526 \\
+        16 & 2927 & 3252 & 3272 & 3284 & 3296 & 2099 & $-$471 & 1473 & 1504 & 1503 & 1500 & 1499 \\
+        17 & 2494 & 2775 & 2792 & 2803 & 2813 & 1135 & $-$432 & 1430 & 1460 & 1459 & 1456 & 1455 \\
+        18 & 2027 & 1953 & 1964 & 1972 & 1979 & 1093 & $-$341 & 1113 & 1136 & 1135 & 1132 & 1132 \\
+        19 & 1383 & 1193 & 1201 & 1205 & 1210 & 1554 & $-$250 & 594 & 606 & 606 & 604 & 604 \\
+        20 & 658 & 567 & 571 & 573 & 575 & 705 & $-$163 & 209 & 213 & 213 & 212 & 212 \\
+        21 & 47 & 38 & 38 & 38 & 38 & 50 & 12 & 3 & 3 & 3 & 3 & 3 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3.2pt}
+    \caption{Fuerza normal de diseño $F_{d,n}$ por estación en las doce direcciones del DLC 1.3, en N.}
+    \label{tab:anexo_dir_dlc13_n}
+    \begin{tabular}{crrrrrrrrrrrr}
+        \hline
+        \textbf{Estación} & \multicolumn{12}{c}{\textbf{Dirección de carga} $\theta_k$} \\
+        \cline{2-13}
+        & $0^\circ$ & $30^\circ$ & $60^\circ$ & $90^\circ$ & $120^\circ$ & $150^\circ$ & $180^\circ$ & $210^\circ$ & $240^\circ$ & $270^\circ$ & $300^\circ$ & $330^\circ$ \\
+        \hline
+        1 & 150 & 161 & 154 & 148 & 158 & 132 & $-$124 & $-$143 & $-$74 & $-$74 & $-$74 & $-$72 \\
+        2 & 1390 & 1459 & 1414 & 1357 & 1492 & 1250 & $-$1224 & $-$1009 & $-$1001 & $-$1001 & $-$1001 & $-$971 \\
+        3 & 2721 & 2844 & 2781 & 2666 & 2925 & 2466 & $-$2144 & $-$1685 & $-$2091 & $-$2091 & $-$2091 & $-$2075 \\
+        4 & 3967 & 4162 & 4113 & 3937 & 4294 & 3612 & $-$2972 & $-$2505 & $-$3223 & $-$3223 & $-$3223 & $-$3194 \\
+        5 & 5242 & 5629 & 5582 & 5337 & 5651 & 4585 & $-$3226 & $-$3449 & $-$4501 & $-$4501 & $-$4501 & $-$4268 \\
+        6 & 6512 & 6906 & 6796 & 6530 & 6812 & 5729 & $-$4209 & $-$4246 & $-$5522 & $-$5522 & $-$5522 & $-$5270 \\
+        7 & 7756 & 8066 & 7876 & 7655 & 8055 & 7004 & $-$4804 & $-$4946 & $-$6222 & $-$6222 & $-$6222 & $-$6085 \\
+        8 & 8763 & 8727 & 8600 & 8401 & 9010 & 8089 & $-$5483 & $-$5820 & $-$6912 & $-$6912 & $-$6912 & $-$6734 \\
+        9 & 9308 & 8814 & 8773 & 8542 & 8946 & 8750 & $-$5876 & $-$6600 & $-$7646 & $-$7646 & $-$7646 & $-$7027 \\
+        10 & 9952 & 9840 & 9592 & 9722 & 9650 & 8859 & $-$4827 & $-$6780 & $-$7781 & $-$7781 & $-$7781 & $-$7226 \\
+        11 & 10461 & 9673 & 9547 & 9566 & 9462 & 9504 & $-$5195 & $-$7239 & $-$8275 & $-$8275 & $-$8275 & $-$7623 \\
+        12 & 10775 & 10715 & 10556 & 10449 & 10615 & 9102 & $-$5406 & $-$7524 & $-$8879 & $-$8879 & $-$8879 & $-$8239 \\
+        13 & 10660 & 10472 & 10481 & 10679 & 10178 & 9483 & $-$5420 & $-$7476 & $-$8715 & $-$8715 & $-$8715 & $-$8225 \\
+        14 & 10424 & 10458 & 10294 & 10571 & 10687 & 10310 & $-$5023 & $-$7310 & $-$8464 & $-$8464 & $-$8464 & $-$7133 \\
+        15 & 9437 & 9653 & 9962 & 10082 & 10197 & 9755 & $-$4667 & $-$6814 & $-$8230 & $-$8230 & $-$8230 & $-$7040 \\
+        16 & 9296 & 9539 & 9356 & 9420 & 9180 & 8945 & $-$4130 & $-$6124 & $-$7629 & $-$7629 & $-$7629 & $-$7474 \\
+        17 & 8096 & 8346 & 8319 & 8374 & 8412 & 7438 & $-$3445 & $-$5245 & $-$6778 & $-$6778 & $-$6778 & $-$6674 \\
+        18 & 6541 & 6657 & 6679 & 6679 & 6682 & 6453 & $-$2709 & $-$4227 & $-$5501 & $-$5501 & $-$5501 & $-$5445 \\
+        19 & 4587 & 4613 & 4650 & 4625 & 4615 & 4425 & $-$1913 & $-$2948 & $-$3684 & $-$3684 & $-$3684 & $-$3719 \\
+        20 & 2466 & 2452 & 2483 & 2464 & 2462 & 2334 & $-$1057 & $-$1542 & $-$1856 & $-$1856 & $-$1856 & $-$1877 \\
+        21 & 384 & 378 & 384 & 379 & 381 & 363 & $-$258 & $-$323 & $-$269 & $-$269 & $-$269 & $-$276 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3.2pt}
+    \caption{Fuerza tangencial de diseño $F_{d,t}$ por estación en las doce direcciones del DLC 1.3, en N.}
+    \label{tab:anexo_dir_dlc13_t}
+    \begin{tabular}{crrrrrrrrrrrr}
+        \hline
+        \textbf{Estación} & \multicolumn{12}{c}{\textbf{Dirección de carga} $\theta_k$} \\
+        \cline{2-13}
+        & $0^\circ$ & $30^\circ$ & $60^\circ$ & $90^\circ$ & $120^\circ$ & $150^\circ$ & $180^\circ$ & $210^\circ$ & $240^\circ$ & $270^\circ$ & $300^\circ$ & $330^\circ$ \\
+        \hline
+        1 & 7 & 8 & 7 & 6 & 8 & 5 & $-$0 & 4 & $-$4 & $-$4 & $-$4 & $-$4 \\
+        2 & 227 & 237 & 228 & 215 & 271 & 191 & 102 & 28 & 57 & 57 & 57 & 61 \\
+        3 & 514 & 533 & 520 & 490 & 621 & 445 & 174 & $-$15 & 175 & 175 & 175 & 205 \\
+        4 & 789 & 824 & 820 & 771 & 966 & 692 & 194 & 13 & 322 & 322 & 322 & 369 \\
+        5 & 1083 & 1188 & 1182 & 1113 & 1307 & 893 & 4 & 87 & 520 & 520 & 520 & 512 \\
+        6 & 1406 & 1505 & 1460 & 1385 & 1576 & 1157 & 103 & 129 & 654 & 654 & 654 & 639 \\
+        7 & 1778 & 1864 & 1780 & 1706 & 1965 & 1512 & 42 & 123 & 720 & 720 & 720 & 735 \\
+        8 & 2121 & 1887 & 1856 & 1765 & 2138 & 1861 & 113 & 147 & 822 & 822 & 822 & 839 \\
+        9 & 2288 & 1879 & 1910 & 1830 & 2082 & 2102 & 184 & 208 & 998 & 998 & 998 & 922 \\
+        10 & 2429 & 2243 & 2199 & 2275 & 2284 & 1946 & $-$157 & 192 & 990 & 990 & 990 & 868 \\
+        11 & 2650 & 2154 & 2196 & 2221 & 2277 & 2240 & $-$338 & 288 & 1148 & 1148 & 1148 & 994 \\
+        12 & 2665 & 2535 & 2600 & 2591 & 2660 & 1978 & $-$286 & 383 & 1287 & 1287 & 1287 & 1126 \\
+        13 & 2701 & 2576 & 2650 & 2778 & 2530 & 2142 & $-$230 & 411 & 1250 & 1250 & 1250 & 1170 \\
+        14 & 2560 & 2556 & 2570 & 2751 & 2908 & 2496 & $-$324 & 371 & 1222 & 1222 & 1222 & 934 \\
+        15 & 2321 & 2333 & 2581 & 2695 & 2649 & 2380 & $-$475 & 331 & 1301 & 1301 & 1301 & 1056 \\
+        16 & 2662 & 2679 & 2591 & 2648 & 2424 & 2132 & $-$449 & 295 & 1319 & 1319 & 1319 & 1298 \\
+        17 & 2281 & 2261 & 2236 & 2269 & 2219 & 1564 & $-$383 & 225 & 1232 & 1232 & 1232 & 1248 \\
+        18 & 1938 & 1948 & 1943 & 1934 & 1894 & 1611 & $-$296 & 185 & 972 & 972 & 972 & 998 \\
+        19 & 1278 & 1269 & 1279 & 1258 & 1220 & 1089 & $-$209 & 92 & 561 & 561 & 561 & 602 \\
+        20 & 598 & 577 & 589 & 579 & 565 & 496 & $-$122 & 2 & 208 & 208 & 208 & 226 \\
+        21 & 44 & 42 & 43 & 42 & 41 & 36 & 10 & 11 & 5 & 5 & 5 & 6 \\
         \hline
     \end{tabular}
 \end{table}
