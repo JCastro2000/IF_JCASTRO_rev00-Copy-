@@ -752,7 +752,7 @@ El máximo sobre una región no converge de forma monótona, porque al refinar e
 
 \medskip
 \noindent\textbf{Tratamiento de la sonda del vendaje.}
-Su máximo se localiza en la transición de espesor, donde el refuerzo termina escalonando capas hasta el manto (Sección~\ref{sec:seccion_caracteristica}). Esa terminación es un concentrador real, que la norma de palas incluye entre los detalles a ensayar a nivel de elemento en su Sección 6.1.2 y a cuyo ensayo condiciona la reducción de $\gamma_{m3}$ en su Sección 6.6.5.2~\parencite{IEC61400-5}, pero el modelo no entrega su magnitud, ya que discretiza la transición en dos escalones. En el escalón más delgado, de $2{,}6$~mm, el vendaje comparte además nodos y deformación de membrana con el manto, de modo que su tensión tiende a la de aquel con independencia de su propio espesor. Su valor no se emplea por tanto en la verificación, y el punto corresponde a las solicitaciones interlaminares de la Sección 6.6.5.8 de la norma~\parencite{IEC61400-5}, cuya verificación exige una resistencia de adherencia de la que no se dispone y queda fuera del alcance, sin alterar el veredicto de resistencia, que gobierna el manto.
+Su máximo se localiza en la transición de espesor, donde el refuerzo termina escalonando capas hasta el manto (Sección~\ref{sec:seccion_caracteristica}). Esa terminación es un concentrador real, que la norma IEC 61400-5 incluye entre los detalles a ensayar a nivel de elemento en su Sección 6.1.2 y a cuyo ensayo condiciona la reducción de $\gamma_{m3}$ en su Sección 6.6.5.2~\parencite{IEC61400-5}, pero el modelo no entrega su magnitud, ya que discretiza la transición en dos escalones. En el escalón más delgado, de $2{,}6$~mm, el vendaje comparte además nodos y deformación de membrana con el manto, de modo que su tensión tiende a la de aquel con independencia de su propio espesor. Su valor no se emplea por tanto en la verificación, y el punto corresponde a las solicitaciones interlaminares de la Sección 6.6.5.8 de la norma~\parencite{IEC61400-5}, cuya verificación exige una resistencia de adherencia de la que no se dispone y queda fuera del alcance, sin alterar el veredicto de resistencia, que gobierna el manto.
 
 La malla definitiva, de $18$~mm de tamaño de cara, comprende $219\,169$ elementos y $216\,967$ nodos, y presenta una calidad de elemento media (\textit{element quality}) de $0{,}99287$ con una desviación estándar de $0{,}0296$. Esta métrica de Ansys toma el valor $1$ para un elemento de forma ideal, por lo que la media obtenida indica que la práctica totalidad de los elementos conserva una geometría próxima a la óptima.
 
@@ -843,7 +843,7 @@ Para el DLC 1.1, $\sigma_{1,\max} = 187{,}09$~MPa resulta en un factor de reserv
 \subsubsection{Verificación de estabilidad}
 \label{sec:verif_estabilidad}
 
-El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma de palas.
+El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma IEC 61400-5.
 
 \begin{table}[H]
     \centering
@@ -889,7 +889,7 @@ Esa concentración tiene una explicación geométrica directa. De los tres panel
     \end{tabular}
 \end{table}
 
-Que los modos emanen de un mismo panel y respondan a una misma respuesta estructural los sitúa, en los términos que la Sección 6.6.5.6 de la norma de palas emplea, entre los modos no independientes~\parencite{IEC61400-5}. El déficit no procede por tanto de varios mecanismos que haya que atender por separado, sino de una única región con capacidad insuficiente.
+Que los modos emanen de un mismo panel y respondan a una misma respuesta estructural los sitúa, en los términos que la Sección 6.6.5.6 de la norma IEC 61400-5 emplea, entre los modos no independientes~\parencite{IEC61400-5}. El déficit no procede por tanto de varios mecanismos que haya que atender por separado, sino de una única región con capacidad insuficiente.
 
 Frente al criterio de la norma, el resultado es inequívoco y más severo que el de resistencia última. Con $LM = 0{,}5153$ frente al umbral de $1{,}98$ de la Ec.~\ref{eq:criterio_pandeo_p5}, el factor de aprovechamiento es de $0{,}260$ y falta un factor de $3{,}84$ para cumplir.
 
@@ -979,7 +979,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
-Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma de palas, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $18{,}3$.
+Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma IEC 61400-5, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $18{,}3$.
 
 El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, la resistencia última le sigue y la fatiga supera el límite por el margen menor, medido en tensión. La resistencia y la fatiga dependen de las propiedades supuestas para el material, mientras que la estabilidad depende de la geometría del panel.
 
@@ -988,7 +988,7 @@ El caso de referencia con cargas exclusivamente inerciales cuantifica además la
 \subsubsection{Propiedades mínimas del laminado}
 \label{sec:propiedades_minimas}
 
-La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el laminado debe alcanzar en el punto crítico, la conexión con el brazo superior, para satisfacer la norma de palas. En ese punto la tensión normal de diseño vale $187{,}07$~MPa según la envergadura y $33{,}5$~MPa según el contorno del perfil, y cada requisito resulta de multiplicarlas por el factor parcial de material del escenario correspondiente (Sección~\ref{sec:material_pala}).
+La Tabla~\ref{tab:propiedades_minimas} presenta las resistencias mínimas que el laminado debe alcanzar en el punto crítico, la conexión con el brazo superior, para satisfacer la norma IEC 61400-5. En ese punto la tensión normal de diseño vale $187{,}07$~MPa según la envergadura y $33{,}5$~MPa según el contorno del perfil, y cada requisito resulta de multiplicarlas por el factor parcial de material del escenario correspondiente (Sección~\ref{sec:material_pala}).
 
 \begin{table}[H]
     \centering
@@ -1031,4 +1031,4 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
 
 El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $1{,}79$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
 
-La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma de palas solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$.
+La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma IEC 61400-5 solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$.
