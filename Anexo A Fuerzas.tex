@@ -10,14 +10,11 @@ las aceleraciones inerciales que cada uno impone y sus fuerzas aerodinámicas in
 y las tablas siguientes entregan el detalle por estación de los tres que llevan carga
 aerodinámica.
 
-Los dos estados de estado límite último corresponden a la dirección de carga
+Los dos estados de resistencia última corresponden a la dirección de carga
 gobernante entre las doce de la Ec.~\ref{eq:P_k}, $\theta_k = 240^\circ$, y llevan la
 componente normal dirigida hacia afuera, que es la que resulta solidaria con la
-deformación centrífuga (Sección~\ref{sec:resultados_fem}).
-
-\vspace{0.5em}
-\noindent\textbf{Aceleraciones inerciales.}
-Se aplican como campos de aceleración global sobre toda la masa del modelo, mayoradas
+deformación centrífuga (Sección~\ref{sec:resultados_fem}). Sus aceleraciones inerciales
+se aplican como campos de aceleración global sobre toda la masa del modelo, mayoradas
 por el mismo factor parcial de carga que las aerodinámicas, según se justifica en la
 Sección~\ref{sec:factores_seguridad}. La centrífuga nominal es $\Omega^2 R$ evaluada a la
 velocidad de rotación máxima, y la gravedad actúa vertical y hacia abajo.
@@ -25,26 +22,20 @@ velocidad de rotación máxima, y la gravedad actúa vertical y hacia abajo.
 Los dos estados restantes aíslan cada contribución por separado, según se justifica en la
 Sección~\ref{sec:corridas_fem}. El estado solo inercial impone únicamente las dos
 aceleraciones, sin mayorar y sin fuerzas aerodinámicas, y entrega la tensión media que
-exige la verificación de fatiga. El estado de calibración hace lo contrario, aplica el
-perfil del DLC 1.1 sin mayorar y suprime las aceleraciones, de modo que la tensión que
-entrega es proporcional al momento de esa misma carga y permite obtener el factor de
-conversión momento-tensión como un cociente directo.
+exige la verificación de fatiga. El estado de calibración hace lo contrario, aplica sin
+mayorar el caso direccional de $\theta_k = 90^\circ$ del DLC 1.1, construido sobre el
+apoyo superior, y suprime las aceleraciones, de modo que la tensión que entrega es
+proporcional al momento de esa misma carga y permite obtener el factor de conversión
+momento-tensión como un cociente directo.
 
-\vspace{0.5em}
-\noindent\textbf{Columnas de las tablas por estación.}
-
-\begin{itemize}
-    \item \textbf{Est.} numera las estaciones desde la base de la pala hacia su extremo
-          superior, y \textbf{z} es la cota del centroide de cada una sobre la base, que
-          es el punto en que la carga remota debe aplicarse en el modelo.
-    \item \textbf{$\Delta s$} es la longitud de pala que representa la estación. Los
-          $21$ valores suman por construcción los $23{,}000$~m de envergadura.
-    \item \textbf{$F_{sim,n}$} y \textbf{$F_{sim,t}$} son la fuerza aerodinámica por
-          unidad de longitud que entrega la simulación, en N/m.
-    \item \textbf{$F_{d,n}$} y \textbf{$F_{d,t}$} son la fuerza puntual de diseño, en N,
-          que resulta de multiplicar la anterior por $\Delta s$ y por el factor de
-          escalamiento del estado.
-\end{itemize}
+Las tablas por estación recogen, para cada una de las $21$ estaciones numeradas desde la
+base de la pala hacia su extremo superior, la cota $z$ de su centroide sobre la base, que
+es el punto en que la carga remota debe aplicarse en el modelo, y la longitud de pala
+$\Delta s$ que representa, cuyos valores suman por construcción los $23{,}000$~m de
+envergadura. Las fuerzas simuladas $F_{sim,n}$ y $F_{sim,t}$ son las fuerzas por unidad
+de longitud que entrega QBlade, y las fuerzas de diseño $F_{d,n}$ y $F_{d,t}$ son las
+fuerzas puntuales que resultan de multiplicarlas por $\Delta s$ y por el factor de
+escalamiento del estado.
 
 Los valores conservan su signo, y el signo es el que fija el sistema local de la pala de
 la Figura~\ref{fig:ejes_locales}. La componente normal $F_n$ es \textbf{positiva hacia
@@ -58,14 +49,16 @@ solicitación aerodinámica se suma o se resta a la inercial.
     \centering
     \caption{Solicitación de entrada de los cuatro estados de carga del modelo de elementos finitos.}
     \label{tab:anexo_entradas_fem}
-    \begin{tabular}{llcrrrr}
+    \begin{tabular}{>{\raggedright\arraybackslash}p{2.6cm}lcrrrr}
         \hline
-        \textbf{Estado} & \textbf{Corridas} & $\mathbf{\gamma_f}$ & \textbf{g} [m/s$^2$] & $\mathbf{a_c}$ [m/s$^2$] & $\mathbf{\sum F_{d,n}}$ [kN] & $\mathbf{\sum F_{d,t}}$ [kN] \\
+        \textbf{Estado} & \textbf{Corridas} & \textbf{Factor} & \textbf{Gravedad} & \textbf{Centrífuga} & \multicolumn{2}{c}{\textbf{Fuerza integrada}} \\
+        & & \textbf{de carga} & & & \textbf{Normal} & \textbf{Tangencial} \\
+        & & $\gamma_f$ & $g$ [m/s$^2$] & $a_c$ [m/s$^2$] & $\sum F_{d,n}$ [kN] & $\sum F_{d,t}$ [kN] \\
         \hline
         DLC 1.1 & 1 a 4 & 1{,}25 & 12{,}26 & 250{,}6 & $-$136{,}1 & 21{,}6 \\
         DLC 1.3 & 5 & 1{,}35 & 13{,}24 & 270{,}7 & $-$113{,}3 & 15{,}8 \\
         Solo inercial & 6 & 1{,}00 & 9{,}81 & 200{,}5 & --- & --- \\
-        Calibración de fatiga & 7 & 1{,}00 & --- & --- & 78{,}3 & 10{,}3 \\
+        Calibración de fatiga & 7 & 1{,}00 & --- & --- & 123{,}7 & 29{,}3 \\
         \hline
         \multicolumn{7}{p{0.95\textwidth}}{\footnotesize Las sumas de fuerza conservan el signo de cada estación, de modo que no coinciden con la resultante en módulo. Los guiones indican que ese estado no impone la solicitación correspondiente.}
     \end{tabular}
@@ -73,11 +66,14 @@ solicitación aerodinámica se suma o se resta a la inercial.
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas aerodinámicas por estación del estado DLC 1.1.}
+    \caption{Fuerzas aerodinámicas por estación del estado del DLC 1.1.}
     \label{tab:anexo_fuerzas_dlc11}
     \begin{tabular}{ccrrrrr}
         \hline
-        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
+        \textbf{Estación} & \textbf{Cota} & \textbf{Tramo} & \multicolumn{2}{c}{\textbf{Fuerza simulada}} & \multicolumn{2}{c}{\textbf{Fuerza de diseño}} \\
+        \cline{4-5} \cline{6-7}
+        & & & \textbf{Normal} & \textbf{Tangencial} & \textbf{Normal} & \textbf{Tangencial} \\
+        & $z$ [m] & $\Delta s$ [m] & $F_{sim,n}$ [N/m] & $F_{sim,t}$ [N/m] & $F_{d,n}$ [N] & $F_{d,t}$ [N] \\
         \hline
         1 & 0{,}064 & 0{,}1284 & $-$251 & $-$22 & $-$47 & $-$4 \\
         2 & 0{,}320 & 0{,}3825 & $-$1357 & 46 & $-$760 & 26 \\
@@ -106,11 +102,14 @@ solicitación aerodinámica se suma o se resta a la inercial.
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas aerodinámicas por estación del estado DLC 1.3.}
+    \caption{Fuerzas aerodinámicas por estación del estado del DLC 1.3.}
     \label{tab:anexo_fuerzas_dlc13}
     \begin{tabular}{ccrrrrr}
         \hline
-        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
+        \textbf{Estación} & \textbf{Cota} & \textbf{Tramo} & \multicolumn{2}{c}{\textbf{Fuerza simulada}} & \multicolumn{2}{c}{\textbf{Fuerza de diseño}} \\
+        \cline{4-5} \cline{6-7}
+        & & & \textbf{Normal} & \textbf{Tangencial} & \textbf{Normal} & \textbf{Tangencial} \\
+        & $z$ [m] & $\Delta s$ [m] & $F_{sim,n}$ [N/m] & $F_{sim,t}$ [N/m] & $F_{d,n}$ [N] & $F_{d,t}$ [N] \\
         \hline
         1 & 0{,}064 & 0{,}1284 & $-$428 & $-$25 & $-$74 & $-$4 \\
         2 & 0{,}320 & 0{,}3825 & $-$1939 & 110 & $-$1001 & 57 \\
@@ -139,33 +138,36 @@ solicitación aerodinámica se suma o se resta a la inercial.
 
 \begin{table}[H]
     \centering
-    \caption{Fuerzas aerodinámicas por estación del estado Calibración de fatiga.}
+    \caption{Fuerzas aerodinámicas por estación del estado de calibración de fatiga.}
     \label{tab:anexo_fuerzas_calib}
     \begin{tabular}{ccrrrrr}
         \hline
-        \textbf{Est.} & $\mathbf{z}$ [m] & $\mathbf{\Delta s}$ [m] & $\mathbf{F_{sim,n}}$ [N/m] & $\mathbf{F_{sim,t}}$ [N/m] & $\mathbf{F_{d,n}}$ [N] & $\mathbf{F_{d,t}}$ [N] \\
+        \textbf{Estación} & \textbf{Cota} & \textbf{Tramo} & \multicolumn{2}{c}{\textbf{Fuerza simulada}} & \multicolumn{2}{c}{\textbf{Fuerza de diseño}} \\
+        \cline{4-5} \cline{6-7}
+        & & & \textbf{Normal} & \textbf{Tangencial} & \textbf{Normal} & \textbf{Tangencial} \\
+        & $z$ [m] & $\Delta s$ [m] & $F_{sim,n}$ [N/m] & $F_{sim,t}$ [N/m] & $F_{d,n}$ [N] & $F_{d,t}$ [N] \\
         \hline
-        1 & 0{,}064 & 0{,}1284 & 1081 & 82 & 205 & 16 \\
-        2 & 0{,}320 & 0{,}3825 & 3513 & 884 & 1984 & 499 \\
-        3 & 0{,}825 & 0{,}6279 & 4048 & 1200 & 3754 & 1112 \\
-        4 & 1{,}569 & 0{,}8594 & 4180 & 1049 & 5306 & 1332 \\
-        5 & 2{,}534 & 1{,}0716 & 3990 & 1076 & 6315 & 1704 \\
-        6 & 3{,}700 & 1{,}2600 & 3741 & 993 & 6960 & 1848 \\
-        7 & 5{,}040 & 1{,}4201 & 1948 & 68 & 4084 & 142 \\
-        8 & 6{,}524 & 1{,}5486 & 2133 & 153 & 4877 & 349 \\
-        9 & 8{,}120 & 1{,}6424 & 2134 & 163 & 5177 & 396 \\
-        10 & 9{,}791 & 1{,}6996 & 2114 & 129 & 5307 & 324 \\
-        11 & 11{,}500 & 1{,}7188 & 2070 & 116 & 5254 & 296 \\
-        12 & 13{,}209 & 1{,}6996 & 1874 & 82 & 4703 & 206 \\
-        13 & 14{,}880 & 1{,}6424 & 1746 & 79 & 4235 & 190 \\
-        14 & 16{,}476 & 1{,}5486 & 1817 & 100 & 4155 & 229 \\
-        15 & 17{,}960 & 1{,}4201 & 1752 & 82 & 3673 & 172 \\
-        16 & 19{,}300 & 1{,}2600 & 1593 & 42 & 2963 & 79 \\
-        17 & 20{,}466 & 1{,}0716 & 1699 & 66 & 2689 & 104 \\
-        18 & 21{,}431 & 0{,}8594 & 1711 & 79 & 2171 & 100 \\
-        19 & 22{,}175 & 0{,}6279 & 2991 & 802 & 2774 & 743 \\
-        20 & 22{,}680 & 0{,}3825 & 2644 & 709 & 1493 & 401 \\
-        21 & 22{,}936 & 0{,}1284 & 1285 & 168 & 244 & 32 \\
+        1 & 0{,}064 & 0{,}1284 & 821 & 34 & 125 & 5 \\
+        2 & 0{,}320 & 0{,}3825 & 2556 & 380 & 1162 & 173 \\
+        3 & 0{,}825 & 0{,}6279 & 3217 & 587 & 2401 & 438 \\
+        4 & 1{,}569 & 0{,}8594 & 3604 & 727 & 3681 & 743 \\
+        5 & 2{,}534 & 1{,}0716 & 3691 & 732 & 4701 & 932 \\
+        6 & 3{,}700 & 1{,}2600 & 3783 & 740 & 5666 & 1108 \\
+        7 & 5{,}040 & 1{,}4201 & 3863 & 757 & 6521 & 1277 \\
+        8 & 6{,}524 & 1{,}5486 & 3853 & 760 & 7092 & 1400 \\
+        9 & 8{,}120 & 1{,}6424 & 3825 & 762 & 7467 & 1488 \\
+        10 & 9{,}791 & 1{,}6996 & 3911 & 798 & 7902 & 1613 \\
+        11 & 11{,}500 & 1{,}7188 & 4205 & 942 & 8591 & 1925 \\
+        12 & 13{,}209 & 1{,}6996 & 4520 & 1050 & 9131 & 2122 \\
+        13 & 14{,}880 & 1{,}6424 & 5118 & 1361 & 9992 & 2657 \\
+        14 & 16{,}476 & 1{,}5486 & 5641 & 1668 & 10384 & 3070 \\
+        15 & 17{,}960 & 1{,}4201 & 5940 & 1448 & 10026 & 2444 \\
+        16 & 19{,}300 & 1{,}2600 & 6021 & 1754 & 9016 & 2627 \\
+        17 & 20{,}466 & 1{,}0716 & 6059 & 1760 & 7717 & 2242 \\
+        18 & 21{,}431 & 0{,}8594 & 5677 & 1544 & 5799 & 1578 \\
+        19 & 22{,}175 & 0{,}6279 & 5223 & 1292 & 3899 & 964 \\
+        20 & 22{,}680 & 0{,}3825 & 4615 & 1008 & 2098 & 458 \\
+        21 & 22{,}936 & 0{,}1284 & 2032 & 201 & 310 & 31 \\
         \hline
     \end{tabular}
 \end{table}

@@ -317,6 +317,7 @@
   \refstepcounter{anexo}%
   \label{#1}%
   \chapter*{Anexo \theanexo}%
+  \markboth{Anexo \theanexo}{}% \chapter* no actualiza el encabezado de pagina
   \addcontentsline{toc}{chapter}{Anexo \theanexo: #2}%
   \setcounter{table}{0}%
   \renewcommand{\thetable}{\theanexo.\arabic{table}}%
