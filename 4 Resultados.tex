@@ -647,6 +647,46 @@ El $97{,}1\%$ del daño se concentra en las tres velocidades más altas ($V = 20
 
 La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $379\,452$ clases de ciclo contadas, el $90\%$ del daño lo aportan $2\,621$, esto es, un $0{,}69\%$ del total, todas ellas de amplitud de diseño superior a $139{,}7$~MPa, esto es, equivalente a media nula y mayorada por $\gamma_{fat}$. Los ciclos de amplitud de diseño mayor o igual a $40$~MPa son $7{,}58 \times 10^{6}$ al año, frente a los $1{,}22 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
 
+La concentración del daño en las velocidades altas tiene además una consecuencia operacional directa. Las bandas de $20$ a $24$~m/s, que aportan el $97{,}1\%$ del daño, contribuyen poco a la energía, ya que la potencia media alcanza su máximo a $16$~m/s y decae a partir de esa velocidad (Tabla~\ref{tab:curva_potencia}), de modo que adelantar la velocidad de corte reduce el daño en una proporción mucho mayor que la producción. La Tabla~\ref{tab:corte_fatiga} recoge el efecto de retirar del cómputo las bandas superiores a cada velocidad de corte, con la energía anual estimada a partir de la curva de potencia y de los tiempos anuales de la Tabla~\ref{tab:weibull_fatiga}, y con el daño de la dirección gobernante, que se desarrolla en la Sección~\ref{sec:dano_total}, evaluado para la ficha técnica preliminar y para las familias de laminado de la Tabla~\ref{tab:laminados_infusionados}.
+
+\begin{table}[H]
+    \centering
+    \caption{Efecto de la velocidad de corte sobre la producción, el daño acumulado en la vida de diseño según el laminado y la tensión de diseño.}
+    \label{tab:corte_fatiga}
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabular}{lcccc}
+        \hline
+        & \multicolumn{4}{c}{\textbf{Velocidad de corte}, $V_{out}$ (m/s)} \\
+        \cline{2-5}
+        \textbf{Magnitud} & $25$ & $23$ & $21$ & $19$ \\
+        \hline
+        \multicolumn{5}{c}{\textit{Producción}} \\
+        \hline
+        Tiempo sin operar (h/año) & --- & $7{,}0$ & $28{,}8$ & $88{,}5$ \\
+        Energía anual (MWh) & $1\,203$ & $1\,201$ & $1\,192$ & $1\,166$ \\
+        Pérdida de energía (\%) & --- & $0{,}2$ & $0{,}9$ & $3{,}1$ \\
+        \hline
+        \multicolumn{5}{c}{\textit{Daño en 20 años, $D_{20}$}} \\
+        \hline
+        Ficha técnica preliminar & $503$ & $207$ & $63{,}3$ & $14{,}5$ \\
+        UD $[0]$, epoxi & $1{,}02 \times 10^{-4}$ & $7{,}84 \times 10^{-5}$ & $5{,}13 \times 10^{-5}$ & $2{,}72 \times 10^{-5}$ \\
+        Multidireccional, epoxi & $8{,}21$ & $7{,}33$ & $5{,}95$ & $4{,}18$ \\
+        Multidireccional, poliéster & $110$ & $102$ & $86{,}8$ & $65{,}6$ \\
+        $\pm 45^\circ$, epoxi & $1{,}35 \times 10^{5}$ & $1{,}08 \times 10^{5}$ & $7{,}44 \times 10^{4}$ & $4{,}20 \times 10^{4}$ \\
+        \hline
+        \multicolumn{5}{c}{\textit{Resistencia última}} \\
+        \hline
+        Variación de la tensión de diseño (\%) & --- & $-4{,}3$ & $-8{,}1$ & $-9{,}0$ \\
+        \hline
+        \multicolumn{5}{l}{\footnotesize Daño en la dirección gobernante, $\theta_k = 270^\circ$. La columna de $25$~m/s coincide con la Tabla~\ref{tab:fatiga_laminados}.}\\
+        \multicolumn{5}{l}{\footnotesize Variación de la tensión estimada por superposición de las corridas de calibración, sin resolver el modelo.}
+    \end{tabular}
+\end{table}
+
+Con el corte en $21$~m/s el daño con la ficha técnica preliminar se reduce a un octavo a cambio de menos del $1\%$ de la energía anual, mientras la potencia máxima de $511{,}7$~kW se conserva en todos los casos. La reducción no es la misma para todos los laminados, ya que crece cuanto más plana es la curva S-N. Con el mismo corte el daño se divide por $8{,}0$ con la ficha ($b = -0{,}045$), por $2{,}0$ con el laminado UD ($b = -0{,}088$) y solo por $1{,}4$ con el multidireccional en epoxi ($b = -0{,}130$), porque una curva plana concentra el daño en los ciclos de mayor amplitud, que ocurren a las velocidades que el corte retira, mientras una curva más pendiente lo reparte sobre todo el rango de operación. En consecuencia, ningún corte modifica qué laminados cumplen. El UD en epoxi satisface la fatiga con cualquiera de ellos, y los demás no la satisfacen con ninguno. La tensión de diseño, por su parte, baja bastante menos que el daño, porque la componente inercial, que aporta más de la mitad, no depende del viento.
+
+El cómputo retira las bandas superiores sin modificar el resto del análisis, lo que es válido para la fatiga porque ninguna de las dos variables de la Ec.~\ref{eq:sigma_from_M} depende de la velocidad del viento. La tensión inercial no cambia porque la rotación permanece en $42$~rpm desde $12$~m/s, y el factor momento-tensión es una propiedad del punto crítico. Adoptar el corte exige, en cambio, repetir la extrapolación de cargas extremas sobre el rango acotado y resolver de nuevo el modelo, ya que los doce instantes gobernantes del DLC 1.1 provienen de realizaciones a $24$~m/s (Tabla~\ref{tab:casos_direccionales}). Quedan además fuera del cómputo el mayor tiempo con el rotor detenido y las paradas adicionales que el corte introduce, propios de casos de carga que exceden el alcance del trabajo.
+
 \subsection{Daño acumulado total}
 \label{sec:dano_total}
 
@@ -1037,6 +1077,6 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
     \end{tabular}
 \end{table}
 
-El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $8{,}21$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
+El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $8{,}21$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura y con cualquiera de las velocidades de corte de la Tabla~\ref{tab:corte_fatiga}, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
 
 La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma IEC 61400-5 solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$.
