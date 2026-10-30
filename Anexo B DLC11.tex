@@ -1,6 +1,6 @@
 \iniciaranexo{anexo:dlc11}{Procesamiento de cargas del DLC 1.1}{Procesamiento de cargas del DLC 1.1: extrapolación al período de retorno de 50 años}
 
-Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en las cargas de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $144$ realizaciones, correspondientes a $12$ velocidades de viento, con seis semillas de turbulencia por debajo de $10$~m/s y quince desde esa velocidad.
+Este anexo reproduce el código que transforma las series temporales entregadas por QBlade en las cargas de diseño del DLC 1.1, siguiendo el procedimiento del Anexo G de IEC 61400-1~\parencite*{IEC61400-1} descrito en la Sección~\ref{sec:anexo_f}. Se omiten las rutinas de exportación a planilla y de generación de figuras, por no formar parte del cálculo. El procesamiento parte de $144$ realizaciones, correspondientes a $12$ velocidades de viento, con seis semillas de turbulencia por debajo de $10$~m/s y quince desde esa velocidad.
 
 \subsection*{Geometría y parámetros de entrada}
 
@@ -275,7 +275,7 @@ P_d = [extrapolar(max_dir[k])['F_d'] for k in range(len(TH))]
 
 \subsection*{Del escalar a las fuerzas por estación}
 
-El Anexo G entrega un valor escalar por dirección, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil de cada dirección se toma de su instante gobernante y se escala de manera uniforme, conforme a la Sección 6.1.4.3 de la IEC 61400-5~\parencite{IEC61400-5}. Las cargas que actúan simultáneamente con el extremo se denominan fuerzas compañeras.
+El Anexo G entrega un valor escalar por dirección, que debe convertirse en una distribución de fuerzas a lo largo de la envergadura para cargar el modelo estructural. Para preservar la correlación espacial entre estaciones, el perfil de cada dirección se toma de su instante gobernante y se escala de manera uniforme, conforme a la Sección 6.1.4.3 de la IEC 61400-5~\parencite*{IEC61400-5}. Las cargas que actúan simultáneamente con el extremo se denominan fuerzas compañeras.
 
 \begin{pycode}
 casos = []
