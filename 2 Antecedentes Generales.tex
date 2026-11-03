@@ -458,7 +458,7 @@ El diseño de un aerogenerador no puede definirse de forma genérica: la norma I
 \subsection{Sitio de instalación}
 \label{sec:sitio_instalacion}
 
-El emplazamiento considerado para este estudio se sitúa mar adentro frente a la Región de Los Lagos, en la costa sur de Chile, en las coordenadas $41{,}4723^\circ$ S y $73{,}9562^\circ$ O, al oeste de Puerto Montt (Figura~\ref{fig:ubicacion_emplazamiento}). Esta zona se caracteriza por la presencia de vientos intensos y persistentes provenientes del oeste, con una velocidad media anual de $8{,}15$ m/s a la altura del centro del área barrida y una clasificación de emplazamiento Clase II$_A$ según IEC 61400-1 (el número romano fija la clase por velocidad de referencia y la letra, la categoría de turbulencia, ambas detalladas más adelante en este capítulo). La profundidad del lecho marino en la zona supera los $50$ m, lo que descarta el uso de cimentaciones fijas y favorece las plataformas flotantes como única alternativa viable~\parencite{Mattar2017}. Es esa exigencia de calado la que lleva el emplazamiento mar adentro, sobre aguas abiertas. Los datos de viento provienen del explorador eólico del Ministerio de Energía de Chile~\parencite{ExploradorEolico2018}.
+El emplazamiento considerado para este estudio se sitúa mar adentro frente a la Región de Los Lagos, en la costa sur de Chile, en las coordenadas $41{,}4723^\circ$ S y $73{,}9562^\circ$ O, al oeste de Puerto Montt (Figura~\ref{fig:ubicacion_emplazamiento}). Esta zona se caracteriza por la presencia de vientos intensos y persistentes provenientes del oeste, con una velocidad media anual de $8{,}15$ m/s a la altura del centro del área barrida y una clasificación de emplazamiento Clase II\textsubscript{A} según IEC 61400-1 (el número romano fija la clase por velocidad de referencia y la letra, la categoría de turbulencia, ambas detalladas más adelante en este capítulo). La profundidad del lecho marino en la zona supera los $50$ m, lo que descarta el uso de cimentaciones fijas y favorece las plataformas flotantes como única alternativa viable~\parencite{Mattar2017}. Es esa exigencia de calado la que lleva el emplazamiento mar adentro, sobre aguas abiertas. Los datos de viento provienen del explorador eólico del Ministerio de Energía de Chile~\parencite{ExploradorEolico2018}.
 
 \begin{figure}[H]
     \centering
@@ -596,7 +596,7 @@ P_e(F \mid V_j) = 1 - \Phi(F; \mu_j, \beta_j).
 \label{eq:pe_cond_anexof}
 \end{equation}
 
-La turbina, sin embargo, no opera siempre a la misma velocidad, y una carga alta puede ser probable a $24$~m/s y a la vez irrelevante si el emplazamiento casi nunca alcanza esa velocidad. El riesgo no se evalúa por eso velocidad por velocidad, sino ponderando cada una por el tiempo que el viento efectivamente permanece en ella, información que aporta la distribución de Weibull del sitio, $f_W(V)$. Esa ponderación es la integral de la Ec.~\ref{eq:pe_longterm_anexof}, que combina la severidad de cada condición con su frecuencia de ocurrencia:
+La turbina, sin embargo, no opera siempre a la misma velocidad, y una carga alta puede ser probable a $24$~m/s y a la vez irrelevante si el emplazamiento casi nunca alcanza esa velocidad. El riesgo no se evalúa por eso velocidad por velocidad, sino ponderando cada una por el tiempo que el viento efectivamente permanece en ella, información que aporta la distribución de velocidades del sitio, $f_W(V)$. Esa ponderación es la integral de la Ec.~\ref{eq:pe_longterm_anexof}, que combina la severidad de cada condición con su frecuencia de ocurrencia:
 
 \begin{equation}
 P_e(F) = \int_{V_{in}}^{V_{out}} P_e(F \mid V) \cdot f_W(V) \, dV,
@@ -607,7 +607,7 @@ donde:
 \begin{itemize}
     \item $P_e(F)$ es la probabilidad de excedencia de largo plazo del nivel de carga $F$, es decir, considerando todo el rango de operación.
     \item $P_e(F \mid V)$ es la probabilidad de excedencia condicionada a la velocidad $V$, dada por la Ec.~\ref{eq:pe_cond_anexof}.
-    \item $f_W(V)$ es la función de densidad de probabilidad de la velocidad del viento en el emplazamiento, obtenida del ajuste de Weibull de la Ec.~\ref{eq:weibull_cdf}.
+    \item $f_W(V)$ es la función de densidad de probabilidad de la velocidad del viento en el emplazamiento, que la norma modela con la distribución de Weibull de la Ec.~\ref{eq:weibull_cdf} o con otra que resulte apropiada.
     \item $V_{in}$ y $V_{out}$ son las velocidades de conexión y de desconexión de la turbina, que acotan el rango en que la máquina se encuentra produciendo potencia.
 \end{itemize}
 
@@ -719,7 +719,7 @@ Los paneles (b) y (c) de la Figura~\ref{fig:rainflow_sn} muestran ese efecto sob
 
 Resta un aspecto propio de la aplicación a aerogeneradores. Las series simuladas duran minutos y cada una corresponde a una única velocidad de viento, mientras que el daño debe evaluarse sobre veinte años de operación a velocidades que varían continuamente. El objeto que salva esa distancia es el \textit{espectro de carga representativo}: un único recuento de ciclos que resume cuántas veces, y con qué amplitud, se solicita la pala a lo largo de un año típico de operación en el emplazamiento.
 
-Su construcción encadena tres operaciones. La primera es aplicar el conteo Rainflow por separado a la serie de cada velocidad de viento simulada, lo que entrega un espectro parcial, esto es, el número de ciclos $n_i$ por rango de amplitud $S_a$ que la pala experimenta durante los minutos simulados a esa velocidad. La segunda es llevar cada espectro parcial a la escala de un año, multiplicándolo por la razón entre la duración del año y la de la simulación, y por la fracción del año en que el viento permanece en el intervalo de velocidad correspondiente, dato que entrega la distribución de Weibull del emplazamiento (Sección~\ref{sec:recurso_eolico}): así, dos condiciones de viento simuladas durante el mismo tiempo no contribuyen igual al daño anual si una ocurre la mitad del año y la otra apenas unas horas. La tercera operación es sumar los espectros parciales así escalados, rango a rango, con lo que se obtiene el espectro anual. La aplicación numérica de este procedimiento al caso de estudio se desarrolla en la Sección~\ref{sec:anexo_g}.
+Su construcción encadena tres operaciones. La primera es aplicar el conteo Rainflow por separado a la serie de cada velocidad de viento simulada, lo que entrega un espectro parcial, esto es, el número de ciclos $n_i$ por rango de amplitud $S_a$ que la pala experimenta durante los minutos simulados a esa velocidad. La segunda es llevar cada espectro parcial a la escala de un año, multiplicándolo por la razón entre la duración del año y la de la simulación, y por la fracción del año en que el viento permanece en el intervalo de velocidad correspondiente, dato que entrega la distribución de velocidades del emplazamiento (Sección~\ref{sec:recurso_eolico}): así, dos condiciones de viento simuladas durante el mismo tiempo no contribuyen igual al daño anual si una ocurre la mitad del año y la otra apenas unas horas. La tercera operación es sumar los espectros parciales así escalados, rango a rango, con lo que se obtiene el espectro anual. La aplicación numérica de este procedimiento al caso de estudio se desarrolla en la Sección~\ref{sec:anexo_g}.
 
 Con ese espectro, la aplicación de la regla de Miner es inmediata: cada rango de amplitud aporta $n_i/N_i$, donde $N_i$ se lee sobre la curva S-N factoreada, y el daño anual es la suma de esos aportes; multiplicado por la vida de diseño se obtiene el daño acumulado que debe compararse con la unidad.
 
@@ -875,7 +875,7 @@ Su valor tiene un efecto directo sobre las curvas polares del perfil: un $N_{cri
 
 \begin{table}[H]
     \centering
-    \caption{Valores de $N_{crit}$ de referencia según la documentación de Xfoil.}
+    \caption{Valores de $N_{crit}$ de referencia según la documentación de XFoil.}
     \label{tab:ncrit_values}
     \begin{tabular}{lc}
         \hline
