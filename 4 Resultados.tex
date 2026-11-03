@@ -101,21 +101,7 @@ La Figura~\ref{fig:reynolds_envelope} presenta la envolvente paramétrica del n�
 
 Esta cobertura resulta relevante en el extremo superior del rango, donde pequeñas desviaciones en $C_l$ o $C_d$ se amplifican por la dependencia cuadrática de las fuerzas con la velocidad relativa (Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}).
 
-Esa cobertura absorbe además la variabilidad térmica del emplazamiento. Con la velocidad relativa fija, el Reynolds varía en proporción inversa a la viscosidad, de modo que en $W_{max} = 70{,}6$~m/s (Sección~\ref{sec:reynolds}) pasa de $5{,}12 \times 10^6$ con $\nu_{max}$ a $5{,}74 \times 10^6$ con $\nu_{min}$. Esa variación de $11{,}98\%$ es menor que el factor de aproximadamente $25$ que abarca la envolvente de la Figura~\ref{fig:reynolds_envelope}.
-
-Las fuerzas de sustentación y arrastre por unidad de envergadura se expresan según las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}:
-
-\begin{equation}
-    F_L = \frac{1}{2}\rho W^2 c\, C_l(Re,\alpha),
-    \label{eq:fuerza_sustentacion}
-\end{equation}
-
-\begin{equation}
-    F_D = \frac{1}{2}\rho W^2 c\, C_d(Re,\alpha),
-    \label{eq:fuerza_arrastre}
-\end{equation}
-
-que, con $\rho$, $W$ y $c$ fijos, varían en la misma proporción que $C_l$ y $C_d$. Entre esos dos Reynolds, las polares finales de QFoil ($N_{crit}=7$) varían menos de $0{,}25\%$ en $C_l$ y menos de $1{,}2\%$ en $C_d$ en régimen adherido, de modo que la influencia de la temperatura sobre las fuerzas, y por extensión sobre las cargas estructurales, resulta despreciable.
+Esa cobertura absorbe además la variabilidad térmica del emplazamiento. Con la velocidad relativa fija, el Reynolds varía en proporción inversa a la viscosidad, de modo que en $W_{max} = 70{,}6$~m/s (Sección~\ref{sec:reynolds}) pasa de $5{,}12 \times 10^6$ con $\nu_{max}$ a $5{,}74 \times 10^6$ con $\nu_{min}$. Esa variación de $11{,}98\%$ es menor que el factor de aproximadamente $25$ que abarca la envolvente de la Figura~\ref{fig:reynolds_envelope}. Como las fuerzas de las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre} varían, con $\rho$, $W$ y $c$ fijos, en la misma proporción que $C_l$ y $C_d$, basta con evaluar las polares finales de QFoil ($N_{crit}=7$) entre esos dos Reynolds. En régimen adherido varían menos de $0{,}25\%$ en $C_l$ y menos de $1{,}2\%$ en $C_d$, de modo que la influencia de la temperatura sobre las fuerzas, y por extensión sobre las cargas estructurales, resulta despreciable.
 
 \section{Resultados de la caracterización y extrapolación de perfiles}
 

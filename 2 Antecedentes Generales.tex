@@ -283,7 +283,19 @@ La pérdida aerodinámica, o \textit{stall}, es el fenómeno que fija el límite
 
 El borde de ataque es el extremo redondeado que enfrenta al flujo y el borde de fuga el extremo afilado opuesto. La recta que los une es la cuerda, de longitud $c$. La superficie superior, o extradós, es aquella sobre la cual el flujo se acelera y la presión disminuye, por lo que se denomina lado de succión; la inferior, o intradós, constituye el lado de presión. El espesor máximo $t$ caracteriza la esbeltez del perfil y, en la familia \gls{naca} de cuatro dígitos, se expresa como porcentaje de la cuerda~\parencite{Anderson2016}. El ángulo de ataque $\alpha$ es el que forma la cuerda con la velocidad relativa $W$, según se definió en la Sección~\ref{sec:cinematica}.
 
-La interacción entre el perfil y el flujo incidente produce una fuerza aerodinámica resultante que conviene descomponer respecto de la dirección de $W$: la sustentación es su componente perpendicular a $W$, y la resistencia (o arrastre), su componente paralela, en el sentido del flujo. Para comparar perfiles y condiciones de vuelo distintas, ambas se adimensionalizan dividiéndolas por la presión dinámica del flujo y el área de referencia, obteniéndose el coeficiente de sustentación $C_l$ y el coeficiente de resistencia $C_d$; de manera análoga se define el coeficiente de momento $C_m$, asociado al giro que la distribución de presiones induce sobre el perfil~\parencite{Anderson2016}. Los tres dependen principalmente del ángulo de ataque $\alpha$ y, en menor medida, del número de Reynolds $Re$ definido en la Sección~\ref{sec:reynolds}. Las curvas de $C_l$, $C_d$ y $C_m$ en función de $\alpha$ para un $Re$ dado constituyen la polar aerodinámica del perfil, que se retoma con mayor detalle en la Sección~\ref{sec:polares}.
+La interacción entre el perfil y el flujo incidente produce una fuerza aerodinámica resultante que conviene descomponer respecto de la dirección de $W$: la sustentación es su componente perpendicular a $W$, y la resistencia (o arrastre), su componente paralela, en el sentido del flujo. Para comparar perfiles y condiciones de vuelo distintas, ambas se adimensionalizan dividiéndolas por la presión dinámica del flujo y el área de referencia, obteniéndose el coeficiente de sustentación $C_l$ y el coeficiente de resistencia $C_d$; de manera análoga se define el coeficiente de momento $C_m$, asociado al giro que la distribución de presiones induce sobre el perfil~\parencite{Anderson2016}. Por unidad de envergadura, la sustentación y la resistencia se expresan según las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}:
+
+\begin{equation}
+    F_L = \frac{1}{2}\rho W^2 c\, C_l(Re,\alpha),
+    \label{eq:fuerza_sustentacion}
+\end{equation}
+
+\begin{equation}
+    F_D = \frac{1}{2}\rho W^2 c\, C_d(Re,\alpha),
+    \label{eq:fuerza_arrastre}
+\end{equation}
+
+Los tres coeficientes dependen principalmente del ángulo de ataque $\alpha$ y, en menor medida, del número de Reynolds $Re$ definido en la Sección~\ref{sec:reynolds}. Las curvas de $C_l$, $C_d$ y $C_m$ en función de $\alpha$ para un $Re$ dado constituyen la polar aerodinámica del perfil, que se retoma con mayor detalle en la Sección~\ref{sec:polares}.
 
 \subsubsection{Pérdida estática}
 
