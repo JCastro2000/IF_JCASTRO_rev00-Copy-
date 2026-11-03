@@ -26,7 +26,7 @@ Los resultados de la caracterización del recurso eólico según IEC 61400-1~\pa
 
 La velocidad media anual de $8{,}15$~m/s (Figura~\ref{fig:viento_promedio_anual}) presenta una variabilidad reducida durante el período analizado, ya que la desviación relativa de la velocidad media de cada año respecto de $V_{ave}$ no supera el $8\%$ en ninguno de los $38$ años del registro, con un mínimo de $7{,}54$~m/s en 2016 ($-7{,}5\%$) y un máximo de $8{,}71$~m/s en 1994 ($+6{,}8\%$). El ajuste lineal de esos promedios frente al año no muestra, además, una tendencia significativa (pendiente de $0{,}003$~m/s por año), lo que respalda tratar el registro histórico completo como representativo del recurso a lo largo de la vida de diseño de $20$ años.
 
-La turbulencia se estima con el procedimiento de la Sección~\ref{sec:ntm}, resolviendo la rugosidad implícita de Charnock y despejando la intensidad a $15$~m/s en la forma cerrada de la Ec.~\ref{eq:i15_cerrada}. Con el coeficiente $A_C = 0{,}034$ y la desviación $d = 4$~m/s que la IEC 61400-3-2~\parencite*{IEC61400-3-2} prescribe para emplazamientos marinos, la rugosidad resulta $z_0 = 1{,}332 \times 10^{-3}$~m y la intensidad $I_{15} = 15{,}68\%$. Ese valor excede el umbral de la categoría B, de modo que la categoría A, con $I_{ref} = 0{,}16$, es la de menor umbral capaz de envolver la turbulencia del sitio, y es por tanto la que se adopta. Como $V_{ref} = 40{,}8$~m/s está dentro del intervalo de la clase II ($37{,}5 \leq V_{ref} < 42{,}5$~m/s), el sitio queda clasificado como Clase II\textsubscript{A}, y los parámetros del NTM son los que la norma tabula para ella~\parencite{IEC61400-1}. La reclasificación modifica así solo la letra y no el número.
+La turbulencia se estima con el procedimiento de la Sección~\ref{sec:ntm}, resolviendo la rugosidad implícita de Charnock y despejando la intensidad a $15$~m/s en la forma cerrada de la Ec.~\ref{eq:i15_cerrada}. Con el coeficiente $A_C = 0{,}034$ y la desviación $d = 4$~m/s que la IEC 61400-3-2~\parencite*{IEC61400-3-2} prescribe para emplazamientos marinos, la rugosidad resulta $z_0 = 1{,}332 \times 10^{-3}$~m y la intensidad $I_{15} = 15{,}68\%$. Ese valor excede el umbral de la categoría B, de modo que la categoría A, con $I_{ref} = 0{,}16$, es la de menor umbral capaz de envolver la turbulencia del sitio, y es por tanto la que se adopta. Como $V_{ref} = 40{,}8$~m/s está dentro del intervalo de la clase II ($37{,}5 \leq V_{ref} < 42{,}5$~m/s), el sitio queda clasificado como Clase II\textsubscript{A}, y los parámetros del NTM son los que la norma tabula para ella~\parencite{IEC61400-1}. Así, la velocidad de referencia fija el número de la clase y la intensidad de turbulencia, su letra.
 
 \begin{figure}[H]
 \centering
@@ -35,7 +35,7 @@ La turbulencia se estima con el procedimiento de la Sección~\ref{sec:ntm}, reso
 \label{fig:viento_promedio_anual}
 \end{figure}
 
-La Figura~\ref{fig:viento_promedio_mensual} muestra que los meses de invierno (junio--agosto) presentan velocidades medias superiores a la media anual, con un máximo de $9{,}47$~m/s en junio, mientras que los meses de verano (enero--marzo) registran las velocidades más bajas, con un mínimo de $7{,}01$~m/s en febrero, esto es, una diferencia estacional del $35\%$.
+La Figura~\ref{fig:viento_promedio_mensual} muestra que los meses de invierno (junio--agosto) presentan velocidades medias superiores a la media anual, con un máximo de $9{,}47$~m/s en junio, mientras que los meses de verano (enero--marzo) registran las velocidades más bajas, con un mínimo de $7{,}01$~m/s en febrero, esto es, una diferencia estacional del $35\%$. Esa estacionalidad no requiere un tratamiento aparte, ya que tanto la extrapolación de cargas como el cálculo de fatiga ponderan cada velocidad por su frecuencia sobre el registro completo, que integra todas las estaciones del año.
 
 \begin{figure}[H]
 \centering
@@ -61,7 +61,7 @@ Las características anteriores del emplazamiento, velocidad media moderada, tur
 
 \section{Caracterización de las propiedades físicas del aire}
 
-Se analizan las temperaturas máximas y mínimas del período 1995--2025, registradas en la estación El Tepual, Puerto Montt (aeropuerto; altitud $85$~m; código DMC $410005$), obtenidas del explorador climático~\parencite{CR2}. Las temperaturas medias mensuales extremas registradas son de 3 \textdegree C para las mínimas y 21 \textdegree C para las máximas (Figura~\ref{fig:climatologia_mensual}).
+Se analizan las temperaturas máximas y mínimas del período 1995--2025, registradas en la estación El Tepual, Puerto Montt (aeropuerto; altitud $85$~m; código DMC $410005$), obtenidas del explorador climático~\parencite{CR2}. Las temperaturas medias mensuales extremas registradas son de 3 \textdegree C para las mínimas y 21 \textdegree C para las máximas (Figura~\ref{fig:climatologia_mensual}), y son las que acotan el rango de propiedades del aire con que se evalúa el número de Reynolds.
 
 \begin{figure}[H]
 \centering
@@ -101,7 +101,7 @@ La Figura~\ref{fig:reynolds_envelope} presenta la envolvente paramétrica del n�
 
 Esta cobertura resulta relevante en el extremo superior del rango, donde pequeñas desviaciones en $C_l$ o $C_d$ se amplifican por la dependencia cuadrática de las fuerzas con la velocidad relativa (Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}).
 
-Esa cobertura absorbe además la variabilidad térmica del emplazamiento. Con la velocidad relativa fija, el Reynolds varía en proporción inversa a la viscosidad, de modo que en $W_{max} = 70{,}6$~m/s (Sección~\ref{sec:reynolds}) pasa de $5{,}12 \times 10^6$ con $\nu_{max}$ a $5{,}74 \times 10^6$ con $\nu_{min}$. Esa variación de $11{,}98\%$ es menor que el factor de aproximadamente $25$ que abarca la envolvente de la Figura~\ref{fig:reynolds_envelope}. Como las fuerzas de las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre} varían, con $\rho$, $W$ y $c$ fijos, en la misma proporción que $C_l$ y $C_d$, basta con evaluar las polares finales de QFoil ($N_{crit}=7$) entre esos dos Reynolds. En régimen adherido varían menos de $0{,}25\%$ en $C_l$ y menos de $1{,}2\%$ en $C_d$, de modo que la influencia de la temperatura sobre las fuerzas, y por extensión sobre las cargas estructurales, resulta despreciable.
+Esa cobertura absorbe además la variabilidad térmica del emplazamiento. Con la velocidad relativa fija, el Reynolds varía en proporción inversa a la viscosidad, de modo que en $W_{max} = 70{,}6$~m/s (Sección~\ref{sec:reynolds}) pasa de $5{,}12 \times 10^6$ con $\nu_{max}$ a $5{,}74 \times 10^6$ con $\nu_{min}$. Esa variación, de un $11{,}98\%$, es pequeña frente al factor de aproximadamente $25$ que separa los extremos de la envolvente de la Figura~\ref{fig:reynolds_envelope}. Como las fuerzas de las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre} varían, con $\rho$, $W$ y $c$ fijos, en la misma proporción que $C_l$ y $C_d$, basta con evaluar las polares finales de QFoil ($N_{crit}=7$) entre esos dos Reynolds. En régimen adherido varían menos de $0{,}25\%$ en $C_l$ y menos de $1{,}2\%$ en $C_d$, de modo que la influencia de la temperatura sobre las fuerzas, y por extensión sobre las cargas estructurales, resulta despreciable.
 
 \section{Resultados de la caracterización y extrapolación de perfiles}
 
@@ -144,7 +144,7 @@ Las curvas polares calculadas con QFoil para 42 números de Reynolds entre $Re =
 
 \subsection{Comparación con datos experimentales}
 
-La Figura~\ref{fig:sheldahl_bianchini_qfoil} presenta la comparación entre tres fuentes independientes de datos aerodinámicos para el perfil NACA 0018 en el rango $0^\circ$ a $180^\circ$: las curvas de \textcite{Sheldahl1981}, los datos experimentales de \textcite{Bianchini2015} para $Re = 6 \times 10^4$ a $3 \times 10^5$, y cinco polares representativas calculadas con QFoil ($N_{crit} = 7$) desde $Re = 3{,}5 \times 10^5$ hasta $Re = 5 \times 10^6$. La coincidencia entre las tres fuentes en las zonas de solapamiento de Reynolds es estrecha en la región pre-stall, donde QFoil se desvía de Bianchini menos de un $3\%$ en $C_l$ para $\alpha \geq 8^\circ$, mientras que Sheldahl se aparta hasta un $13\%$, coherente con las deficiencias de esa base de datos histórica señaladas en la Sección~\ref{sec:caracterizacion_aero}. En la región de pérdida profunda, entre $150^\circ$ y $180^\circ$, las diferencias entre Sheldahl y Bianchini alcanzan hasta $0{,}33$ en $C_l$, magnitud comparable a las discrepancias que los propios \textcite{Bianchini2015} reportan en esa misma zona angular al contrastar sus mediciones con sus simulaciones CFD (Sección~\ref{sec:caracterizacion_aero}). Esta coincidencia constituye una validación cruzada entre un método computacional (panel con capa límite integral), datos experimentales recientes y la referencia histórica del perfil. Las polares de Bianchini cubren el rango de bajo Reynolds ($Re \leq 3 \times 10^5$) donde QFoil no alcanza convergencia, complementando así el conjunto de datos requerido para las simulaciones en todo el rango operacional de la turbina.
+La Figura~\ref{fig:sheldahl_bianchini_qfoil} presenta la comparación entre tres fuentes independientes de datos aerodinámicos para el perfil NACA 0018 en el rango $0^\circ$ a $180^\circ$: las curvas de \textcite{Sheldahl1981}, los datos experimentales de \textcite{Bianchini2015} para $Re = 6 \times 10^4$ a $3 \times 10^5$, y cinco polares representativas calculadas con QFoil ($N_{crit} = 7$) desde $Re = 3{,}5 \times 10^5$ hasta $Re = 5 \times 10^6$. La coincidencia entre las tres fuentes en las zonas de solapamiento de Reynolds es estrecha en la región pre-stall, donde QFoil se desvía de Bianchini menos de un $3\%$ en $C_l$ para $\alpha \geq 8^\circ$, mientras que Sheldahl se aparta hasta un $13\%$, coherente con las deficiencias de esa base de datos histórica señaladas en la Sección~\ref{sec:caracterizacion_aero}. En la región de pérdida profunda, entre $150^\circ$ y $180^\circ$, las diferencias entre Sheldahl y Bianchini alcanzan hasta $0{,}33$ en $C_l$, magnitud comparable a las discrepancias que los propios \textcite{Bianchini2015} reportan en esa misma zona angular al contrastar sus mediciones con sus simulaciones CFD (Sección~\ref{sec:caracterizacion_aero}). Esta coincidencia constituye una validación cruzada entre un método computacional (panel con capa límite integral), datos experimentales recientes y la referencia histórica del perfil. Las polares de Bianchini cubren el rango de bajo Reynolds ($Re \leq 3 \times 10^5$), en cuyo extremo inferior QFoil no alcanza convergencia, y completan así el conjunto de datos requerido para las simulaciones en todo el rango operacional de la turbina.
 
 \begin{figure}[H]
 \centering
@@ -158,7 +158,7 @@ Una vez calibrado el modelo aerodinámico del perfil, la siguiente etapa consist
 \section{Relación de velocidad de punta óptima}
 \label{sec:tsr_optimo}
 
-La Figura~\ref{fig:dmst_cp_vs_tsr} presenta las curvas TSR vs $C_p$ obtenidas mediante DMST para el rango de velocidades operacionales entre $V_{in} = 2$ m/s y $V_{out} = 25$ m/s. El valor máximo de $C_p$ se alcanza a un $\lambda_{opt} = 3{,}80$, con un $C_{p,max} = 0{,}5736$. Este valor supera el rango validado experimentalmente para configuraciones H-Darrieus ($0{,}35$--$0{,}45$)~\parencite{Essahraoui2026}, en aproximadamente un $27{,}5\%$ sobre el límite superior del rango, sobreestimación sistemática que corresponde a la limitación del método DMST descrita en la Sección~\ref{sec:metodos_aerodinamicos}~\parencite{Essahraoui2026,Islam2008}.
+La Figura~\ref{fig:dmst_cp_vs_tsr} presenta las curvas TSR vs $C_p$ obtenidas mediante DMST para el rango de velocidades operacionales entre $V_{in} = 2$ m/s y $V_{out} = 25$ m/s. El valor máximo de $C_p$ se alcanza a un $\lambda_{opt} = 3{,}80$, con un $C_{p,max} = 0{,}5736$. Este valor supera en aproximadamente un $27{,}5\%$ el máximo validado experimentalmente para configuraciones H-Darrieus, de $0{,}35$ a $0{,}42$ y hasta $0{,}45$ en rotores optimizados~\parencite{Essahraoui2026}, sobreestimación sistemática que corresponde a la limitación del método DMST descrita en la Sección~\ref{sec:metodos_aerodinamicos}~\parencite{Essahraoui2026,Islam2008}. Por esa razón, del barrido DMST se retiene la posición del óptimo y no la magnitud de $C_{p,max}$.
 
 \begin{figure}[H]
     \centering
@@ -167,7 +167,7 @@ La Figura~\ref{fig:dmst_cp_vs_tsr} presenta las curvas TSR vs $C_p$ obtenidas me
     \label{fig:dmst_cp_vs_tsr}
 \end{figure}
 
-La posición del óptimo, en cambio, cuenta con un respaldo independiente del método, ya que la solidez del rotor, $\sigma = Nc/R = 0{,}3184$, se sitúa dentro del rango $0{,}25$--$0{,}35$ que \textcite{Essahraoui2026} reportan como óptimo para H-rotores de tres palas con perfiles simétricos NACA, a partir de los resultados de \textcite{Subramanian2017}, si bien los propios autores advierten que dicho óptimo se desplaza con el perfil, el número de Reynolds y el TSR objetivo. Como se establece en la Sección~\ref{sec:solidez}, este parámetro permite aproximar la posición del máximo de $C_p$ en función del TSR, ya que rotores de baja solidez operan a TSR elevados ($\lambda > 4$) y rotores de alta solidez lo hacen a TSR bajos ($\lambda \approx 2$--$3$). La solidez del rotor estudiado es intermedia entre ambos regímenes, por lo que cabe esperar que su $\lambda_{opt}$ también lo sea, situado entre esos dos extremos; el valor obtenido mediante el barrido DMST, $\lambda_{opt} = 3{,}80$, cae precisamente en ese intervalo intermedio. Esta correspondencia constituye una verificación independiente del resultado, porque la solidez es un parámetro puramente geométrico que no depende del método aerodinámico con que se simula el rotor, de modo que la posición del óptimo que predice, a partir de la relación empírica documentada en la literatura, no hereda el sesgo del DMST señalado en el párrafo anterior. Que ambas vías, la curva TSR vs $C_p$ del barrido DMST y la relación solidez-TSR de la literatura, apunten a la misma posición del óptimo respalda el valor $\lambda_{opt} = 3{,}80$ con independencia de esas limitaciones, aunque estas sí afecten la magnitud de $C_{p,max}$ estimada, como se señala más arriba. Sobre esta base, dicho valor se adopta como TSR de referencia para las simulaciones LLFVW.
+La posición del óptimo, en cambio, cuenta con un respaldo independiente del método, ya que la solidez del rotor, $\sigma = Nc/R = 0{,}3184$, se sitúa dentro del rango $0{,}25$--$0{,}35$ que \textcite{Essahraoui2026} reportan como óptimo para H-rotores de tres palas con perfiles simétricos NACA, a partir de los resultados de \textcite{Subramanian2017}, si bien los propios autores advierten que dicho óptimo se desplaza con el perfil, el número de Reynolds y el TSR objetivo. Como se establece en la Sección~\ref{sec:solidez}, este parámetro permite aproximar la posición del máximo de $C_p$ en función del TSR, ya que rotores de baja solidez operan a TSR elevados ($\lambda > 4$) y rotores de alta solidez lo hacen a TSR bajos ($\lambda \approx 2$--$3$). La solidez del rotor estudiado es intermedia entre ambos regímenes, por lo que cabe esperar que su $\lambda_{opt}$ también lo sea, situado entre esos dos extremos; el valor obtenido mediante el barrido DMST, $\lambda_{opt} = 3{,}80$, cae precisamente en ese intervalo intermedio. Esta correspondencia constituye una verificación independiente del resultado, porque la solidez es un parámetro puramente geométrico que no depende del método aerodinámico, de modo que la posición del óptimo que predice no hereda el sesgo del DMST señalado en el párrafo anterior. Como ambas vías apuntan a la misma posición del óptimo, el valor $\lambda_{opt} = 3{,}80$ se adopta como TSR de referencia para las simulaciones LLFVW.
 
 Con el \gls{tsr} determinado queda fijada también la consigna de velocidad máxima de rotación. Aplicando el criterio de la Sección~\ref{sec:criterio_rotacion} con $\lambda = 3{,}80$ y la velocidad de viento nominal de $12$~m/s se obtiene la Ec.~\ref{eq:omega_diseno}:
 
@@ -239,7 +239,7 @@ La Figura~\ref{fig:curva_potencia} presenta la potencia media y el coeficiente d
     \label{fig:curva_potencia}
 \end{figure}
 
-El coeficiente de potencia se evalúa con la Ec.~\ref{eq:cp}, sustituyendo $V_{hub}^3$ por la media de $u^3$ en el tiempo y sobre el área barrida, medida en las cajas de turbulencia de la campaña. Su cociente con $\overline{V}^3$ vale $1{,}08$ a $24$~m/s, $1{,}12$ a $12$~m/s y $2{,}10$ a $2$~m/s, y crece al bajar la velocidad media con la intensidad de turbulencia (Ec.~\ref{eq:ntm_sigma}). El coeficiente alcanza su máximo de $0{,}503$ a $12$~m/s, se mantiene sobre $0{,}47$ entre $6$ y $14$~m/s y queda bajo el límite de Betz en todo el rango, con un margen del $15\%$ en el punto de diseño. Sobre $14$~m/s cae hasta $0{,}088$ a $24$~m/s, ya que la rotación limitada reduce el TSR y aleja el rotor de su óptimo. Referido a $\overline{V}^3$, como en la definición convencional de la curva de potencia, el coeficiente alcanzaría $0{,}592$ a $4$~m/s, valor que no viola el límite sino que compara la potencia extraída de un flujo turbulento con la que transportaría un flujo uniforme.
+El coeficiente de potencia se evalúa con la Ec.~\ref{eq:cp}, sustituyendo $V_{hub}^3$ por la media de $u^3$ en el tiempo y sobre el área barrida, medida en las cajas de turbulencia de la campaña, de modo que la potencia extraída se compara con la que efectivamente transporta el flujo turbulento. La diferencia con la definición convencional no es menor, ya que el cociente entre esa media y $\overline{V}^3$ vale $1{,}08$ a $24$~m/s, $1{,}12$ a $12$~m/s y $2{,}10$ a $2$~m/s, y crece al bajar la velocidad media porque aumenta la intensidad de turbulencia (Ec.~\ref{eq:ntm_sigma}). El coeficiente alcanza su máximo de $0{,}503$ a $12$~m/s, se mantiene sobre $0{,}47$ entre $6$ y $14$~m/s y queda bajo el límite de Betz en todo el rango, con un margen del $15\%$ en el punto de diseño. Sobre $14$~m/s cae hasta $0{,}088$ a $24$~m/s, ya que la rotación limitada reduce el TSR y aleja el rotor de su óptimo. Referido a $\overline{V}^3$, como en la definición convencional de la curva de potencia, el coeficiente alcanzaría $0{,}592$ a $4$~m/s, valor que no viola el límite sino que compara la potencia extraída de un flujo turbulento con la que transportaría un flujo uniforme.
 
 La dispersión entre semillas sigue el mismo patrón. La desviación estándar de $C_p$ pasa del $11{,}7\%$ de su media a $2$~m/s al $0{,}9\%$ a $24$~m/s, y el origen está en la turbulencia que prescribe el NTM, cuya desviación estándar aumenta con la velocidad de viento de forma menos que proporcional (Ec.~\ref{eq:ntm_sigma}), de modo que su valor relativo aumenta al bajar la velocidad. Con la rotación prescrita, el \gls{tsr} nominal es idéntico en las semillas de una misma velocidad, y toda la dispersión proviene por tanto del campo de viento y no del punto de operación. La dispersión no compromete las verificaciones de este capítulo, ya que la carga extrema de diseño proviene del extremo superior del rango de velocidades (Sección~\ref{sec:resultados_uls}) y el daño por fatiga se concentra igualmente en las velocidades altas (Sección~\ref{sec:resultados_fatiga}), de modo que la contribución de la condición de $2$~m/s a ambos estados límite es marginal.
 
@@ -576,7 +576,7 @@ Las 144 realizaciones aportan $378\,064$ ciclos contados sobre sus ventanas úti
     \end{tabular}
 \end{table}
 
-El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, de $6$ a $8$~m/s, y cae en casi dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas decenas de horas al año. Con este escalamiento el espectro suma $1{,}20 \times 10^{8}$ ciclos anuales, de los que $9{,}96 \times 10^{6}$ superan los $10$~MPa de amplitud equivalente a media nula y $1{,}05 \times 10^{6}$ superan los $40$~MPa.
+El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, de $6$ a $8$~m/s, y cae en casi dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas decenas de horas al año. Con este escalamiento el espectro suma $1{,}20 \times 10^{8}$ ciclos anuales, de los que $9{,}96 \times 10^{6}$ superan los $10$~MPa de amplitud equivalente a media nula y $1{,}05 \times 10^{6}$, menos del $1\%$ del total, superan los $40$~MPa, lo que anticipa que el daño se concentrará en una fracción reducida de los ciclos.
 
 \subsection{Curva S-N y espectro de fatiga}
 
@@ -699,7 +699,7 @@ Esa misma planitud de la curva hace al resultado sensible a la tensión con que 
     \end{tabular}
 \end{table}
 
-El daño alcanza la unidad para un factor un $28{,}0\%$ inferior al calibrado, margen que supera la incertidumbre de la calibración. El momento de la carga de calibración forma unos $10^\circ$ con la dirección gobernante y el factor que de ella resulta se aplica a las seis direcciones evaluadas, pero con un $K_{aero}$ un $5\%$ menor el daño se mantiene en $412$ con la ficha técnica preliminar y en $8{,}07$ con el laminado multiaxial en epoxi de la Sección~\ref{sec:propiedades_minimas}, y con uno un $5\%$ mayor asciende a $3\,580$ y $17{,}4$. La calibración que entrega $K_{aero}$ y $\sigma_{in}$ es por tanto parte integral de la verificación, y cualquier revisión del modelo estructural obliga a rehacer este cálculo.
+La tabla indica cuánto tendría que equivocarse la calibración para cambiar el veredicto. El daño alcanza la unidad solo con un factor un $28{,}0\%$ inferior al calibrado, margen que supera la incertidumbre de la calibración. Una fuente de esa incertidumbre es que el momento de la carga de calibración forma unos $10^\circ$ con la dirección gobernante, y el factor que de ella resulta se aplica a las seis direcciones evaluadas. Aun así, con un $K_{aero}$ un $5\%$ menor el daño sigue siendo de $412$ con la ficha técnica preliminar y de $8{,}07$ con el laminado multiaxial en epoxi de la Sección~\ref{sec:propiedades_minimas}, y con uno un $5\%$ mayor asciende a $3\,580$ y $17{,}4$, de modo que ninguno de los dos veredictos cambia. La calibración que entrega $K_{aero}$ y $\sigma_{in}$ es por tanto parte integral de la verificación, y cualquier revisión del modelo estructural obliga a rehacer este cálculo.
 
 La cifra absoluta tiene además un alcance acotado, porque proviene de evaluar la curva de Basquin en un rango de ciclos superior al ensayado por \textcite{Huh2012} y no admite lectura literal como predicción de vida. Lo que la verificación establece es que, con las propiedades de la ficha técnica preliminar, la fatiga supera el límite normativo. Como en la resistencia última, el déficit depende de las propiedades supuestas para el material, y las que el laminado debe alcanzar se obtienen en la Sección~\ref{sec:propiedades_minimas}.
 
@@ -795,7 +795,7 @@ Se reportan primero las tensiones y el desplazamiento bajo las cargas del DLC 1.
 
 \subsubsection{Tensiones principales}
 
-La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima sobre las dos caras de la pala, el intradós y el extradós, con el detalle ampliado de las dos conexiones con los brazos. El valor máximo del manto, $\sigma_{1,\max} = 187{,}09$~MPa, se localiza en la conexión con el brazo superior ($z = 18$~m), unos centímetros más allá del punto en que termina el vendaje de refuerzo. Las dos conexiones se solicitan de forma prácticamente simétrica, con $187{,}09$~MPa en la superior y $176{,}50$~MPa en la inferior, y en ambas el máximo aparece sobre la línea en que el refuerzo termina y el manto queda cargando solo. 
+La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima sobre las dos caras de la pala, el intradós y el extradós, con el detalle ampliado de las dos conexiones con los brazos. El valor máximo del manto, $\sigma_{1,\max} = 187{,}09$~MPa, se localiza en la conexión con el brazo superior ($z = 18$~m), unos centímetros más allá del punto en que termina el vendaje de refuerzo. Las dos conexiones se solicitan de forma similar, con $187{,}09$~MPa en la superior y $176{,}50$~MPa en la inferior, y en ambas el máximo aparece sobre la línea en que el refuerzo termina y el manto queda cargando solo. 
 
 \begin{figure}[H]
     \centering
@@ -927,28 +927,6 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
 
 \begin{table}[H]
     \centering
-    \caption{Resumen de la verificación a fatiga.}
-    \label{tab:resumen_fatiga}
-    \begin{tabular}{llc}
-        \hline
-        \textbf{Símbolo} & \textbf{Descripción} & \textbf{DLC 1.2 (NTM)} \\
-        \hline
-        $\gamma_f$ & Factor parcial de carga & $1{,}00$ \\
-        $\gamma_n \, \gamma_{m0}$ & Consecuencia de falla y factor base de material & $1{,}20$ \\
-        $\gamma_{m1} \cdots \gamma_{m5}$ & Factores de material $\gamma_{m1}$ a $\gamma_{m5}$ (IEC 61400-5) & $2{,}059$ \\
-        $\gamma_{fat}$ & Factor combinado sobre la amplitud & $2{,}471$ \\
-        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $1{,}030$~MPa/(kN$\cdot$m) \\
-        $\sigma_{in}$ & Tensión de origen inercial en el punto crítico & $80{,}5$~MPa \\
-        $\theta_k$ & Dirección gobernante & $270^\circ$ \\
-        --- & Ciclos anuales contabilizados & $1{,}20 \times 10^{8}$ \\
-        $D_{\text{año}}$ & Daño anual acumulado & $62{,}4$ \\
-        $D_{20}$ & Daño acumulado en 20 años & $1\,249$ \\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{table}[H]
-    \centering
     \caption{Resumen de la verificación a resistencia última.}
     \label{tab:resumen_uls}
     \begin{tabular}{l>{\raggedright\arraybackslash}p{5.0cm}ccc}
@@ -986,9 +964,31 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
+\begin{table}[H]
+    \centering
+    \caption{Resumen de la verificación a fatiga.}
+    \label{tab:resumen_fatiga}
+    \begin{tabular}{llc}
+        \hline
+        \textbf{Símbolo} & \textbf{Descripción} & \textbf{DLC 1.2 (NTM)} \\
+        \hline
+        $\gamma_f$ & Factor parcial de carga & $1{,}00$ \\
+        $\gamma_n \, \gamma_{m0}$ & Consecuencia de falla y factor base de material & $1{,}20$ \\
+        $\gamma_{m1} \cdots \gamma_{m5}$ & Factores de material $\gamma_{m1}$ a $\gamma_{m5}$ (IEC 61400-5) & $2{,}059$ \\
+        $\gamma_{fat}$ & Factor combinado sobre la amplitud & $2{,}471$ \\
+        $K_{aero}$ & Factor de proporcionalidad momento-tensión & $1{,}030$~MPa/(kN$\cdot$m) \\
+        $\sigma_{in}$ & Tensión de origen inercial en el punto crítico & $80{,}5$~MPa \\
+        $\theta_k$ & Dirección gobernante & $270^\circ$ \\
+        --- & Ciclos anuales contabilizados & $1{,}20 \times 10^{8}$ \\
+        $D_{\text{año}}$ & Daño anual acumulado & $62{,}4$ \\
+        $D_{20}$ & Daño acumulado en 20 años & $1\,249$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
 Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma IEC 61400-5, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $1\,249$.
 
-El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, la resistencia última le sigue y la fatiga supera el límite por el margen menor, medido en tensión. La resistencia y la fatiga dependen de las propiedades supuestas para el material, mientras que la estabilidad depende de la geometría del panel.
+El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, con un factor de $3{,}84$, y la resistencia última le sigue, con $1{,}91$. La fatiga, pese a un $D_{20}$ de $1\,249$, es la que supera el límite por menor margen cuando este se mide en tensión, ya que el daño alcanzaría la unidad con un factor momento-tensión un $28\%$ menor (Sección~\ref{sec:sensibilidad_fatiga}), consecuencia de la curva S-N casi plana. La resistencia y la fatiga dependen de las propiedades supuestas para el material, mientras que la estabilidad depende de la geometría del panel.
 
 El caso de referencia con cargas exclusivamente inerciales cuantifica además la fracción de la solicitación que proviene de la rotación, resultado que vincula el dimensionamiento estructural con la velocidad máxima de giro y que se desarrolla en el Capítulo~5.
 
