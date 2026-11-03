@@ -70,7 +70,7 @@ Se analizan las temperaturas máximas y mínimas del período 1995--2025, regist
 \label{fig:climatologia_mensual}
 \end{figure}
 
-A partir de esta caracterización térmica, se obtienen las propiedades físicas del aire que se resumen en la Tabla~\ref{tab:propiedades_aire}. La variación anual de la viscosidad es inferior al $12\%$, lo que indica que la influencia de la temperatura sobre el número de Reynolds es secundaria respecto a la producida por la variación de la velocidad del viento, efecto que se cuantifica más adelante sobre las fuerzas aerodinámicas (Tabla~\ref{tab:sensibilidad_re}).
+A partir de esta caracterización térmica, se obtienen las propiedades físicas del aire que se resumen en la Tabla~\ref{tab:propiedades_aire}. La variación anual de la viscosidad es inferior al $12\%$, lo que indica que la influencia de la temperatura sobre el número de Reynolds es secundaria respecto a la producida por la variación de la velocidad del viento, efecto que se cuantifica más adelante sobre las fuerzas aerodinámicas.
 
 \begin{table}[H]
     \centering
@@ -101,14 +101,7 @@ La Figura~\ref{fig:reynolds_envelope} presenta la envolvente paramétrica del n�
 
 Esta cobertura resulta relevante en el extremo superior del rango, donde pequeñas desviaciones en $C_l$ o $C_d$ se amplifican por la dependencia cuadrática de las fuerzas con la velocidad relativa (Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}).
 
-Esa cobertura absorbe además la incertidumbre que introduce la variabilidad térmica del emplazamiento sobre el Reynolds. Al mantener fija la velocidad relativa $W$, el cociente entre los Reynolds que resultan de evaluar la Ec.~\ref{eq:Re_max_theoretical} con $\nu_{min}$ y con $\nu_{max}$ se reduce al cociente inverso de las viscosidades, según la Ec.~\ref{eq:sensibilidad_re}:
-
-\begin{equation}
-    \frac{Re(\nu_{min})}{Re(\nu_{max})} = \frac{Wc/\nu_{min}}{Wc/\nu_{max}} = \frac{\nu_{max}}{\nu_{min}},
-    \label{eq:sensibilidad_re}
-\end{equation}
-
-de modo que el Reynolds hereda exactamente la misma variación porcentual que la viscosidad. Evaluada en $W_{max} = 70{,}6$~m/s (Sección~\ref{sec:reynolds}), esa variación es de $11{,}98\%$ entre $Re(\nu_{min}) = 5{,}74 \times 10^6$ y $Re(\nu_{max}) = 5{,}12 \times 10^6$, equivalente a $+5{,}2\%$ y $-6{,}1\%$ respecto del $\bar\nu$ adoptado para las simulaciones. Esa magnitud es secundaria frente a la que domina la envolvente de la Figura~\ref{fig:reynolds_envelope}, ya que el rango de $W$ inducido por la velocidad de viento y el TSR analizados abarca un factor de aproximadamente $25$ veces, de $Re_{min} = 2{,}18 \times 10^5$ a $Re_{max} = 5{,}46 \times 10^6$, dos órdenes de magnitud mayor que el efecto térmico.
+Esa cobertura absorbe además la variabilidad térmica del emplazamiento. Con la velocidad relativa fija, el Reynolds varía en proporción inversa a la viscosidad, de modo que en $W_{max} = 70{,}6$~m/s (Sección~\ref{sec:reynolds}) pasa de $5{,}12 \times 10^6$ con $\nu_{max}$ a $5{,}74 \times 10^6$ con $\nu_{min}$. Esa variación de $11{,}98\%$ es menor que el factor de aproximadamente $25$ que abarca la envolvente de la Figura~\ref{fig:reynolds_envelope}.
 
 Las fuerzas de sustentación y arrastre por unidad de envergadura se expresan según las Ecs.~\ref{eq:fuerza_sustentacion} y~\ref{eq:fuerza_arrastre}:
 
@@ -122,25 +115,7 @@ Las fuerzas de sustentación y arrastre por unidad de envergadura se expresan se
     \label{eq:fuerza_arrastre}
 \end{equation}
 
-que mantienen $\rho$, $W$ y $c$ fijos frente a este efecto, por lo que su variación porcentual coincide exactamente con la de $C_l$ y $C_d$. La Tabla~\ref{tab:sensibilidad_re} evalúa las polares finales de QFoil ($N_{crit}=7$) entre $Re(\nu_{min})$ y $Re(\nu_{max})$ para ángulos de ataque en régimen adherido, donde $C_l$ varía menos de $0{,}25\%$ y $C_d$ menos de $1{,}2\%$, casi dos órdenes de magnitud menos que el $11{,}98\%$ de variación del propio Reynolds. La influencia de la temperatura sobre las fuerzas predichas resulta, por tanto, despreciable frente a la que ejerce la velocidad del viento, y por extensión sobre el coeficiente de potencia y las cargas estructurales derivadas en las secciones siguientes, lo que refuerza la confiabilidad de las cargas señalada anteriormente.
-
-\begin{table}[H]
-    \centering
-    \caption{Variación de $C_l$ y $C_d$ del NACA 0018 entre $Re(\nu_{min})$ y $Re(\nu_{max})$, respecto del valor a $\bar\nu$, para ángulos de ataque en régimen adherido.}
-    \label{tab:sensibilidad_re}
-    \begin{tabular}{ccccc}
-        \hline
-        \textbf{Ángulo de ataque} & \multicolumn{2}{c}{\textbf{Variación de sustentación}} & \multicolumn{2}{c}{\textbf{Variación de arrastre}} \\
-        \cline{2-3} \cline{4-5}
-        $\alpha$ (°) & $\Delta C_l(\nu_{min})$ & $\Delta C_l(\nu_{max})$ & $\Delta C_d(\nu_{min})$ & $\Delta C_d(\nu_{max})$ \\
-        \hline
-        $5$  & $+0{,}11\%$ & $-0{,}13\%$ & $-0{,}33\%$ & $+0{,}55\%$ \\
-        $8$  & $+0{,}13\%$ & $-0{,}18\%$ & $-0{,}49\%$ & $+0{,}76\%$ \\
-        $10$ & $+0{,}19\%$ & $-0{,}25\%$ & $-0{,}78\%$ & $+0{,}97\%$ \\
-        $12$ & $+0{,}18\%$ & $-0{,}21\%$ & $-0{,}96\%$ & $+1{,}14\%$ \\
-        \hline
-    \end{tabular}
-\end{table}
+que, con $\rho$, $W$ y $c$ fijos, varían en la misma proporción que $C_l$ y $C_d$. Entre esos dos Reynolds, las polares finales de QFoil ($N_{crit}=7$) varían menos de $0{,}25\%$ en $C_l$ y menos de $1{,}2\%$ en $C_d$ en régimen adherido, de modo que la influencia de la temperatura sobre las fuerzas, y por extensión sobre las cargas estructurales, resulta despreciable.
 
 \section{Resultados de la caracterización y extrapolación de perfiles}
 
