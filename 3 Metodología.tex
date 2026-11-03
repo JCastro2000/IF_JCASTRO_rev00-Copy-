@@ -596,7 +596,7 @@ El factor de cargas se aplica por igual a las solicitaciones aerodinámicas y a 
 \subsection{Procesamiento de cargas aerodinámicas}
 \label{sec:procesamiento_cargas}
 
-Cada DLC recibe el tratamiento estadístico que corresponde a la pregunta de verificación que responde (Sección~\ref{sec:seleccion_dlc}), aplicado a las series temporales de fuerzas de QBlade con los factores parciales de la Tabla~\ref{tab:factores_seguridad}. La Tabla~\ref{tab:procesamiento_dlc} resume las diferencias entre los tres casos. Los dos de resistencia última se presentan primero, ya que comparten las magnitudes de carga, y el de fatiga al final.
+Cada DLC recibe el tratamiento estadístico que corresponde a la pregunta de verificación que responde (Sección~\ref{sec:seleccion_dlc}), aplicado a las series temporales de fuerzas de QBlade con los factores parciales de la Tabla~\ref{tab:factores_seguridad}. La Tabla~\ref{tab:procesamiento_dlc} resume las diferencias entre los tres casos.
 
 \begin{table}[H]
     \centering
@@ -617,6 +617,8 @@ Cada DLC recibe el tratamiento estadístico que corresponde a la pregunta de ver
         \multicolumn{4}{l}{\footnotesize Secciones y anexos de la norma IEC 61400-1.}\\
     \end{tabular}
 \end{table}
+
+El procesamiento se presenta primero para el DLC 1.1, luego para el DLC 1.3 y finalmente para el DLC 1.2. Los dos primeros comparten las magnitudes de carga y la forma en que se construyen los casos de carga para el modelo estructural, mientras que el DLC 1.2 reutiliza las mismas series del DLC 1.1 con un tratamiento distinto.
 
 \subsubsection{DLC 1.1, estado límite último}
 \label{sec:anexo_f}
