@@ -44,9 +44,9 @@ La Figura~\ref{fig:viento_promedio_mensual} muestra que los meses de invierno (j
 \label{fig:viento_promedio_mensual}
 \end{figure}
 
-La densidad de probabilidad de la velocidad del viento (Figura~\ref{fig:distribucion_viento}) presenta un parámetro de forma $k = 2{,}09$, cercano al caso particular $k = 2$ de la distribución de Rayleigh que la norma adopta como referencia para las clases estándar~\parencite{ennis2018}, y un parámetro de escala $c = 9{,}22$~m/s, ajustados a la altura del centro del rotor, donde la velocidad media resulta en $V_{ave} = 8{,}15$~m/s. El ajuste reproduce la densidad observada con $R^2 = 0{,}971$. Estos dos parámetros reaparecen a lo largo del estudio, ya que la distribución que definen pondera el tiempo de exposición a cada velocidad en el cálculo de fatiga (Sección~\ref{sec:resultados_fatiga}) y entrega la probabilidad de excedencia con que se fija la velocidad de corte.
+La densidad de probabilidad de la velocidad del viento (Figura~\ref{fig:distribucion_viento}) presenta un parámetro de forma $k = 2{,}09$, cercano al caso particular $k = 2$ de la distribución de Rayleigh que la norma adopta como referencia para las clases estándar~\parencite{ennis2018}, y un parámetro de escala $c = 9{,}22$~m/s, ajustados a la altura del centro del rotor, donde la velocidad media resulta en $V_{ave} = 8{,}15$~m/s. El ajuste reproduce la densidad observada con $R^2 = 0{,}971$. Estos dos parámetros caracterizan el recurso y entregan la probabilidad de excedencia con que se fija la velocidad de corte.
 
-El ajuste es bueno en el grueso de la distribución y no lo es en su cola, distinción que importa porque la extrapolación de cargas extremas depende precisamente de la cola. Sobre los $333\,117$ registros, la probabilidad que la Weibull asigna a la banda de $2$ a $6$~m/s reproduce la observada dentro de un $0{,}5\%$. En la banda de $18$ a $24$~m/s, en cambio, la Weibull asigna un $30{,}8\%$ menos de probabilidad que la serie, y el momento de tercer orden $\langle V^3 \rangle$, que es el que gobierna la energía disponible, queda un $2{,}4\%$ por debajo del observado. Como esa banda alta es la que domina la extrapolación del Anexo G de la norma IEC 61400-1~\parencite*{IEC61400-1} y el sesgo va en contra del margen de seguridad, la integración de largo plazo se pondera con la frecuencia empírica de la serie y no con la Weibull ajustada (Sección~\ref{sec:anexo_f}). Los parámetros $k$ y $c$ se conservan como caracterización sintética del recurso y siguen empleándose en el cálculo de fatiga, donde la ponderación abarca todo el rango y no solo su extremo.
+El ajuste es bueno en el grueso de la distribución y no lo es en su cola, distinción que importa porque la extrapolación de cargas extremas y el daño por fatiga dependen precisamente de la cola. Sobre los $333\,117$ registros, la probabilidad que la Weibull asigna a la banda de $2$ a $6$~m/s reproduce la observada dentro de un $0{,}5\%$. En la banda de $18$ a $24$~m/s, en cambio, la Weibull asigna un $30{,}8\%$ menos de probabilidad que la serie, y el momento de tercer orden $\langle V^3 \rangle$, que es el que gobierna la energía disponible, queda un $2{,}4\%$ por debajo del observado. Esa banda alta domina tanto la extrapolación del Anexo G de la norma IEC 61400-1~\parencite*{IEC61400-1} como el daño por fatiga, de modo que ponderar con la Weibull subestimaría el efecto de las velocidades altas y reduciría el margen de seguridad. Por ello, el tiempo que el viento permanece en cada velocidad se toma de la frecuencia observada en la serie y no de la Weibull ajustada, tanto en la extrapolación de cargas extremas (Sección~\ref{sec:anexo_f}) como en la fatiga (Sección~\ref{sec:anexo_g}), y los parámetros $k$ y $c$ se conservan como caracterización sintética del recurso.
 
 \begin{figure}[H]
 \centering
@@ -587,35 +587,35 @@ La sección crítica es la conexión con el brazo superior, $z_{crit} = 18$~m, e
 
 La lectura en un mismo punto es la que da sentido a la suma de la Ec.~\ref{eq:sigma_from_M}, ya que la carga de calibración y la rotación no traccionan por igual toda la sección. En el nodo del máximo de la carga de $\theta_k = 90^\circ$, de carga normal hacia el eje, la corrida solo inercial entrega una tensión normal axial de $-73{,}68$~MPa, esto es, compresión, y en el punto crítico esa misma carga no produce tracción. Las direcciones de $30^\circ$ a $180^\circ$ flectan la sección hacia esa cara opuesta, en la que la rotación comprime y los ciclos oscilan en torno a una media de compresión, de modo que el daño se evalúa en las seis que traccionan el punto crítico, de $210^\circ$ a $330^\circ$ y $0^\circ$. Las cifras que siguen corresponden a la gobernante, $\theta_k = 270^\circ$, de carga normal hacia afuera (Sección~\ref{sec:dano_total}).
 
-Las 144 realizaciones aportan $378\,064$ ciclos contados sobre sus ventanas útiles de $600$~s, que se expanden al tiempo que el viento permanece en cada velocidad a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de ese escalamiento, donde $f_W(V)$ es la densidad de probabilidad de Weibull, $t_j$ el tiempo anual que el viento permanece en cada intervalo de velocidad y $t_j/T_{obs}$ el número de realizaciones equivalentes por año.
+Las 144 realizaciones aportan $378\,064$ ciclos contados sobre sus ventanas útiles de $600$~s, que se expanden al tiempo que el viento permanece en cada velocidad a lo largo de un año. La Tabla~\ref{tab:weibull_fatiga} presenta los parámetros de ese escalamiento, donde $p_j$ es la frecuencia observada de cada intervalo de velocidad en la serie del emplazamiento, $t_j$ el tiempo anual que el viento permanece en cada intervalo de velocidad y $t_j/T_{obs}$ el número de realizaciones equivalentes por año.
 
 \begin{table}[H]
     \centering
-    \caption{Parámetros de escalamiento temporal según la distribución de Weibull del emplazamiento.}
+    \caption{Parámetros de escalamiento temporal según la frecuencia observada del viento en el emplazamiento.}
     \label{tab:weibull_fatiga}
-    \begin{tabular}{lccccc}
+    \begin{tabular}{lcccc}
         \hline
-        \textbf{Velocidad} & \textbf{Densidad} & \textbf{Probabilidad} & \multicolumn{2}{c}{\textbf{Tiempo anual}} & \textbf{Realizaciones} \\
-        \textbf{de viento} & \textbf{de Weibull} & & \multicolumn{2}{c}{} & \textbf{por año} \\
-        $V$ (m/s) & $f_W(V)$ & (\%) & $t_j$ (h/año) & $t_j$ (s/año) & $t_j/T_{obs}$ \\
+        \textbf{Velocidad} & \textbf{Frecuencia} & \multicolumn{2}{c}{\textbf{Tiempo anual}} & \textbf{Realizaciones} \\
+        \textbf{de viento} & \textbf{observada} & \multicolumn{2}{c}{} & \textbf{por año} \\
+        $V$ (m/s) & $p_j$ (\%) & $t_j$ (h/año) & $t_j$ (s/año) & $t_j/T_{obs}$ \\
         \hline
-        $2$  & $0{,}0413$ & $8{,}25$  & $723{,}3$    & $2{,}60 \times 10^6$ & $4\,340$ \\
-        $4$  & $0{,}0767$ & $15{,}34$ & $1\,344{,}8$ & $4{,}84 \times 10^6$ & $8\,069$ \\
-        $6$  & $0{,}0944$ & $18{,}89$ & $1\,655{,}7$ & $5{,}96 \times 10^6$ & $9\,934$ \\
-        $8$  & $0{,}0923$ & $18{,}46$ & $1\,617{,}9$ & $5{,}82 \times 10^6$ & $9\,707$ \\
-        $10$ & $0{,}0756$ & $15{,}13$ & $1\,326{,}0$ & $4{,}77 \times 10^6$ & $7\,956$ \\
-        $12$ & $0{,}0532$ & $10{,}65$ & $933{,}4$    & $3{,}36 \times 10^6$ & $5\,601$ \\
-        $14$ & $0{,}0326$ & $6{,}52$  & $571{,}2$    & $2{,}06 \times 10^6$ & $3\,427$ \\
-        $16$ & $0{,}0175$ & $3{,}49$  & $305{,}9$    & $1{,}10 \times 10^6$ & $1\,835$ \\
-        $18$ & $0{,}0082$ & $1{,}64$  & $143{,}9$    & $5{,}18 \times 10^5$ & $863$ \\
-        $20$ & $0{,}0034$ & $0{,}68$  & $59{,}6$     & $2{,}15 \times 10^5$ & $358$ \\
-        $22$ & $0{,}0012$ & $0{,}25$  & $21{,}8$     & $7{,}85 \times 10^4$ & $131$ \\
-        $24$ & $0{,}0004$ & $0{,}08$  & $7{,}0$      & $2{,}52 \times 10^4$ & $42$ \\
+        $2$  & $4{,}21$  & $368{,}8$    & $1{,}33 \times 10^6$ & $2\,213$ \\
+        $4$  & $15{,}06$ & $1\,319{,}7$ & $4{,}75 \times 10^6$ & $7\,918$ \\
+        $6$  & $21{,}50$ & $1\,884{,}9$ & $6{,}79 \times 10^6$ & $11\,310$ \\
+        $8$  & $20{,}98$ & $1\,839{,}1$ & $6{,}62 \times 10^6$ & $11\,035$ \\
+        $10$ & $14{,}60$ & $1\,280{,}1$ & $4{,}61 \times 10^6$ & $7\,680$ \\
+        $12$ & $8{,}60$  & $753{,}9$    & $2{,}71 \times 10^6$ & $4\,523$ \\
+        $14$ & $5{,}19$  & $455{,}0$    & $1{,}64 \times 10^6$ & $2\,730$ \\
+        $16$ & $3{,}14$  & $275{,}1$    & $9{,}90 \times 10^5$ & $1\,651$ \\
+        $18$ & $1{,}80$  & $157{,}8$    & $5{,}68 \times 10^5$ & $947$ \\
+        $20$ & $1{,}04$  & $90{,}9$     & $3{,}27 \times 10^5$ & $546$ \\
+        $22$ & $0{,}47$  & $41{,}3$     & $1{,}49 \times 10^5$ & $248$ \\
+        $24$ & $0{,}24$  & $21{,}1$     & $7{,}58 \times 10^4$ & $126$ \\
         \hline
     \end{tabular}
 \end{table}
 
-El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, de $6$ a $8$~m/s, y cae más de dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas pocas horas al año. Con este escalamiento el espectro suma $1{,}22 \times 10^{8}$ ciclos anuales, de los que $1{,}04 \times 10^{7}$ superan los $10$~MPa de amplitud equivalente a media nula y $9{,}21 \times 10^{5}$ superan los $40$~MPa.
+El factor $t_j/T_{obs}$ alcanza su máximo en las velocidades más frecuentes, de $6$ a $8$~m/s, y cae en casi dos órdenes de magnitud hacia el extremo superior del rango, donde el viento sopla solo unas decenas de horas al año. Con este escalamiento el espectro suma $1{,}20 \times 10^{8}$ ciclos anuales, de los que $9{,}96 \times 10^{6}$ superan los $10$~MPa de amplitud equivalente a media nula y $1{,}05 \times 10^{6}$ superan los $40$~MPa.
 
 \subsection{Curva S-N y espectro de fatiga}
 
@@ -641,11 +641,11 @@ La Figura~\ref{fig:daño_por_viento} presenta el reparto del daño anual entre l
     \label{fig:daño_por_viento}
 \end{figure}
 
-El $97{,}1\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}0\%$ del año ($88$~h/año), y solo la condición de $24$~m/s aporta el $58{,}9\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
+El $98{,}8\%$ del daño se concentra en las tres velocidades más altas ($V = 20$--$24$~m/s) que, sin embargo, ocurren apenas el $1{,}7\%$ del año ($153$~h/año), y solo la condición de $24$~m/s aporta el $71{,}0\%$. El resultado es opuesto al que sugiere el factor de escalamiento y es característico de la fatiga en aerogeneradores~\parencite{Brondsted2005}, ya que la relación no lineal entre amplitud de tensión y daño ($D \propto \sigma_a^{|1/b|} = \sigma_a^{22{,}2}$) hace que los ciclos de mayor amplitud, aunque poco frecuentes, dominen el daño acumulado por sobre la frecuencia de ocurrencia.
 
-La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $379\,452$ clases de ciclo contadas, el $90\%$ del daño lo aportan $2\,621$, esto es, un $0{,}69\%$ del total, todas ellas de amplitud de diseño superior a $139{,}7$~MPa, esto es, equivalente a media nula y mayorada por $\gamma_{fat}$. Los ciclos de amplitud de diseño mayor o igual a $40$~MPa son $7{,}58 \times 10^{6}$ al año, frente a los $1{,}22 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
+La concentración se aprecia mejor sobre el espectro completo que sobre las velocidades. De las $379\,452$ clases de ciclo contadas, el $90\%$ del daño lo aportan $2\,213$, esto es, un $0{,}58\%$ del total, todas ellas de amplitud de diseño superior a $151{,}4$~MPa, esto es, equivalente a media nula y mayorada por $\gamma_{fat}$. Los ciclos de amplitud de diseño mayor o igual a $40$~MPa son $6{,}90 \times 10^{6}$ al año, frente a los $1{,}20 \times 10^{8}$ ciclos anuales totales. La verificación a fatiga de esta pala descansa, por tanto, sobre una población reducida de ciclos extremos, circunstancia que conviene tener presente al juzgar la robustez del resultado.
 
-La concentración del daño en las velocidades altas tiene además una consecuencia operacional directa. Las bandas de $20$ a $24$~m/s, que aportan el $97{,}1\%$ del daño, contribuyen poco a la energía, ya que la potencia media alcanza su máximo a $16$~m/s y decae a partir de esa velocidad (Tabla~\ref{tab:curva_potencia}), de modo que adelantar la velocidad de corte reduce el daño en una proporción mucho mayor que la producción. La Tabla~\ref{tab:corte_fatiga} recoge el efecto de retirar del cómputo las bandas superiores a cada velocidad máxima de operación, con la energía anual estimada a partir de la curva de potencia y de los tiempos anuales de la Tabla~\ref{tab:weibull_fatiga}, y con el daño de la dirección gobernante, que se desarrolla en la Sección~\ref{sec:dano_total}, evaluado para la ficha técnica preliminar y para las familias de laminado de la Tabla~\ref{tab:laminados_infusionados}.
+La concentración del daño en las velocidades altas tiene además una consecuencia operacional directa. Las bandas de $20$ a $24$~m/s, que aportan el $98{,}8\%$ del daño, contribuyen poco a la energía, ya que la potencia media alcanza su máximo a $16$~m/s y decae a partir de esa velocidad (Tabla~\ref{tab:curva_potencia}), de modo que adelantar la velocidad de corte reduce el daño en una proporción mucho mayor que la producción. La Tabla~\ref{tab:corte_fatiga} recoge el efecto de retirar del cómputo las bandas superiores a cada velocidad máxima de operación, con la energía anual estimada a partir de la curva de potencia y de los tiempos anuales de la Tabla~\ref{tab:weibull_fatiga}, y con el daño de la dirección gobernante, que se desarrolla en la Sección~\ref{sec:dano_total}, evaluado para la ficha técnica preliminar y para las familias de laminado de la Tabla~\ref{tab:laminados_infusionados}.
 
 \begin{table}[H]
     \centering
@@ -660,17 +660,17 @@ La concentración del daño en las velocidades altas tiene además una consecuen
         \hline
         \multicolumn{5}{c}{\textit{Producción}} \\
         \hline
-        Tiempo sin operar (h/año) & --- & $7{,}0$ & $28{,}8$ & $88{,}5$ \\
-        Energía anual (MWh) & $1\,203$ & $1\,201$ & $1\,192$ & $1\,166$ \\
-        Pérdida de energía (\%) & --- & $0{,}2$ & $0{,}9$ & $3{,}1$ \\
+        Tiempo sin operar (h/año) & --- & $21{,}1$ & $62{,}3$ & $153{,}3$ \\
+        Energía anual (MWh) & $1\,140$ & $1\,132$ & $1\,115$ & $1\,076$ \\
+        Pérdida de energía (\%) & --- & $0{,}7$ & $2{,}1$ & $5{,}6$ \\
         \hline
         \multicolumn{5}{c}{\textit{Daño en 20 años, $D_{20}$}} \\
         \hline
-        Ficha técnica preliminar & $503$ & $207$ & $63{,}3$ & $14{,}5$ \\
-        UD $[0]$, epoxi & $1{,}02 \times 10^{-4}$ & $7{,}84 \times 10^{-5}$ & $5{,}13 \times 10^{-5}$ & $2{,}72 \times 10^{-5}$ \\
-        Multidireccional, epoxi & $8{,}21$ & $7{,}33$ & $5{,}95$ & $4{,}18$ \\
-        Multidireccional, poliéster & $110$ & $102$ & $86{,}8$ & $65{,}6$ \\
-        $\pm 45^\circ$, epoxi & $1{,}35 \times 10^{5}$ & $1{,}08 \times 10^{5}$ & $7{,}44 \times 10^{4}$ & $4{,}20 \times 10^{4}$ \\
+        Ficha técnica preliminar & $1\,249$ & $362$ & $89{,}9$ & $15{,}5$ \\
+        UD $[0]$, epoxi & $1{,}86 \times 10^{-4}$ & $1{,}15 \times 10^{-4}$ & $6{,}42 \times 10^{-5}$ & $2{,}74 \times 10^{-5}$ \\
+        Multidireccional, epoxi & $12{,}0$ & $9{,}33$ & $6{,}70$ & $4{,}01$ \\
+        Multidireccional, poliéster & $148$ & $122$ & $94{,}1$ & $61{,}8$ \\
+        $\pm 45^\circ$, epoxi & $2{,}36 \times 10^{5}$ & $1{,}55 \times 10^{5}$ & $9{,}14 \times 10^{4}$ & $4{,}21 \times 10^{4}$ \\
         \hline
         \multicolumn{5}{c}{\textit{Resistencia última}} \\
         \hline
@@ -681,7 +681,7 @@ La concentración del daño en las velocidades altas tiene además una consecuen
     \end{tabular}
 \end{table}
 
-Limitando la operación a $20$~m/s, el daño con la ficha técnica preliminar se reduce a un octavo a cambio de menos del $1\%$ de la energía anual, mientras la potencia máxima de $511{,}7$~kW se conserva en todos los casos. La reducción no es la misma para todos los laminados, ya que crece cuanto más plana es la curva S-N. Con el mismo corte el daño se divide por $8{,}0$ con la ficha ($b = -0{,}045$), por $2{,}0$ con el laminado UD ($b = -0{,}088$) y solo por $1{,}4$ con el multidireccional en epoxi ($b = -0{,}130$), porque una curva plana concentra el daño en los ciclos de mayor amplitud, que ocurren a las velocidades que el corte retira, mientras una curva más pendiente lo reparte sobre todo el rango de operación. En consecuencia, ningún corte modifica qué laminados cumplen. El UD en epoxi satisface la fatiga con cualquiera de ellos, y los demás no la satisfacen con ninguno. La tensión de diseño, por su parte, baja bastante menos que el daño, porque la componente inercial, que aporta más de la mitad, no depende del viento.
+Limitando la operación a $20$~m/s, el daño con la ficha técnica preliminar se divide por $13{,}9$ a cambio del $2{,}1\%$ de la energía anual, mientras la potencia máxima de $511{,}7$~kW se conserva en todos los casos. La reducción no es la misma para todos los laminados, ya que crece cuanto más plana es la curva S-N. Con el mismo corte el daño se divide por $13{,}9$ con la ficha ($b = -0{,}045$), por $2{,}9$ con el laminado UD ($b = -0{,}088$) y solo por $1{,}8$ con el multidireccional en epoxi ($b = -0{,}130$), porque una curva plana concentra el daño en los ciclos de mayor amplitud, que ocurren a las velocidades que el corte retira, mientras una curva más pendiente lo reparte sobre todo el rango de operación. En consecuencia, ningún corte modifica qué laminados cumplen. El UD en epoxi satisface la fatiga con cualquiera de ellos, y los demás no la satisfacen con ninguno. La tensión de diseño, por su parte, baja bastante menos que el daño, porque la componente inercial, que aporta más de la mitad, no depende del viento.
 
 El cómputo retira las bandas superiores sin modificar el resto del análisis, lo que es válido para la fatiga porque ninguna de las dos variables de la Ec.~\ref{eq:sigma_from_M} depende de la velocidad del viento. La tensión inercial no cambia porque la rotación permanece en $42$~rpm desde $12$~m/s, y el factor momento-tensión es una propiedad del punto crítico. Adoptar el corte exige, en cambio, repetir la extrapolación de cargas extremas sobre el rango acotado y resolver de nuevo el modelo, ya que los doce instantes gobernantes del DLC 1.1 provienen de realizaciones a $24$~m/s (Tabla~\ref{tab:casos_direccionales}). Quedan además fuera del cómputo el mayor tiempo con el rotor detenido y las paradas adicionales que el corte introduce, propios de casos de carga que exceden el alcance del trabajo.
 
@@ -699,17 +699,17 @@ La Tabla~\ref{tab:dano_direcciones} recoge el daño acumulado en la vida de dise
         \textbf{Dirección} & \textbf{Daño en 20 años} & \textbf{Dirección} & \textbf{Daño en 20 años} \\
         $\theta_k$ & $D_{20}$ & $\theta_k$ & $D_{20}$ \\
         \hline
-        $210^\circ$ & $7{,}14 \times 10^{-4}$ & $300^\circ$ & $18{,}7$ \\
-        $240^\circ$ & $27{,}5$                & $330^\circ$ & $4{,}20 \times 10^{-5}$ \\
-        $270^\circ$ & $\mathbf{503}$          & $0^\circ$   & $2{,}87 \times 10^{-14}$ \\
+        $210^\circ$ & $1{,}77 \times 10^{-3}$ & $300^\circ$ & $46{,}9$ \\
+        $240^\circ$ & $67{,}7$                & $330^\circ$ & $1{,}05 \times 10^{-4}$ \\
+        $270^\circ$ & $\mathbf{1\,249}$       & $0^\circ$   & $7{,}46 \times 10^{-14}$ \\
         \hline
     \end{tabular}
 \end{table}
 
-En la dirección gobernante, $\theta_k = 270^\circ$, el daño anual según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 25{,}2$, y en la vida de diseño asciende al valor de la Ec.~\ref{eq:D20_res}:
+En la dirección gobernante, $\theta_k = 270^\circ$, el daño anual según la regla de Palmgren-Miner~\parencite{Miner1945} es $D_{\text{año}} = 62{,}4$, y en la vida de diseño asciende al valor de la Ec.~\ref{eq:D20_res}:
 
 \begin{equation}
-    D_{20} = 20 \cdot D_{\text{año}} = 503.
+    D_{20} = 20 \cdot D_{\text{año}} = 1\,249.
     \label{eq:D20_res}
 \end{equation}
 
@@ -729,16 +729,16 @@ Esa misma planitud de la curva hace al resultado sensible a la tensión con que 
         \textbf{Factor relativo} & \textbf{Factor momento-tensión} & \textbf{Daño en 20 años} \\
         $K/K_{aero}$ & $K$ (MPa/(kN$\cdot$m)) & $D_{20}$ \\
         \hline
-        $0{,}80$ & $0{,}824$ & $4{,}00$ \\
-        $1{,}00$ & $1{,}030$ & $503$ \\
-        $1{,}25$ & $1{,}288$ & $6{,}17 \times 10^{4}$ \\
-        $1{,}50$ & $1{,}545$ & $3{,}06 \times 10^{6}$ \\
-        $2{,}00$ & $2{,}060$ & $1{,}38 \times 10^{9}$ \\
+        $0{,}80$ & $0{,}824$ & $9{,}95$ \\
+        $1{,}00$ & $1{,}030$ & $1\,249$ \\
+        $1{,}25$ & $1{,}288$ & $1{,}52 \times 10^{5}$ \\
+        $1{,}50$ & $1{,}545$ & $7{,}54 \times 10^{6}$ \\
+        $2{,}00$ & $2{,}060$ & $3{,}38 \times 10^{9}$ \\
         \hline
     \end{tabular}
 \end{table}
 
-El daño alcanza la unidad para un factor un $24{,}9\%$ inferior al calibrado, margen que supera la incertidumbre de la calibración. El momento de la carga de calibración forma unos $10^\circ$ con la dirección gobernante y el factor que de ella resulta se aplica a las seis direcciones evaluadas, pero con un $K_{aero}$ un $5\%$ menor el daño se mantiene en $166$ con la ficha técnica preliminar y en $5{,}54$ con el laminado multidireccional en epoxi de la Sección~\ref{sec:propiedades_minimas}, y con uno un $5\%$ mayor asciende a $1\,444$ y $11{,}9$. La calibración que entrega $K_{aero}$ y $\sigma_{in}$ es por tanto parte integral de la verificación, y cualquier revisión del modelo estructural obliga a rehacer este cálculo.
+El daño alcanza la unidad para un factor un $28{,}0\%$ inferior al calibrado, margen que supera la incertidumbre de la calibración. El momento de la carga de calibración forma unos $10^\circ$ con la dirección gobernante y el factor que de ella resulta se aplica a las seis direcciones evaluadas, pero con un $K_{aero}$ un $5\%$ menor el daño se mantiene en $412$ con la ficha técnica preliminar y en $8{,}07$ con el laminado multidireccional en epoxi de la Sección~\ref{sec:propiedades_minimas}, y con uno un $5\%$ mayor asciende a $3\,580$ y $17{,}4$. La calibración que entrega $K_{aero}$ y $\sigma_{in}$ es por tanto parte integral de la verificación, y cualquier revisión del modelo estructural obliga a rehacer este cálculo.
 
 La cifra absoluta tiene además un alcance acotado, porque proviene de evaluar la curva de Basquin en un rango de ciclos superior al ensayado por \textcite{Huh2012} y no admite lectura literal como predicción de vida. Lo que la verificación establece es que, con las propiedades de la ficha técnica preliminar, la fatiga supera el límite normativo. Como en la resistencia última, el déficit depende de las propiedades supuestas para el material, y las que el laminado debe alcanzar se obtienen en la Sección~\ref{sec:propiedades_minimas}.
 
@@ -979,9 +979,9 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         $K_{aero}$ & Factor de proporcionalidad momento-tensión & $1{,}030$~MPa/(kN$\cdot$m) \\
         $\sigma_{in}$ & Tensión de origen inercial en el punto crítico & $80{,}5$~MPa \\
         $\theta_k$ & Dirección gobernante & $270^\circ$ \\
-        --- & Ciclos anuales contabilizados & $1{,}22 \times 10^{8}$ \\
-        $D_{\text{año}}$ & Daño anual acumulado & $25{,}2$ \\
-        $D_{20}$ & Daño acumulado en 20 años & $503$ \\
+        --- & Ciclos anuales contabilizados & $1{,}20 \times 10^{8}$ \\
+        $D_{\text{año}}$ & Daño anual acumulado & $62{,}4$ \\
+        $D_{20}$ & Daño acumulado en 20 años & $1\,249$ \\
         \hline
     \end{tabular}
 \end{table}
@@ -1025,7 +1025,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
     \end{tabular}
 \end{table}
 
-Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma IEC 61400-5, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $503$.
+Ninguno de los dos casos de carga última satisface la verificación de estabilidad ni la de resistencia con las propiedades de la ficha técnica preliminar. Al multiplicador de pandeo le falta un factor de $3{,}84$ para alcanzar el umbral de la norma IEC 61400-5, y queda además por debajo de la unidad, de modo que el modelo predice inestabilidad bajo la propia carga de diseño. A la resistencia le falta un factor de $1{,}91$ en el caso gobernante, y la fatiga tampoco se satisface, con un daño acumulado en veinte años de $1\,249$.
 
 El orden de los déficits es por tanto inequívoco. La estabilidad gobierna el dimensionamiento, la resistencia última le sigue y la fatiga supera el límite por el margen menor, medido en tensión. La resistencia y la fatiga dependen de las propiedades supuestas para el material, mientras que la estabilidad depende de la geometría del panel.
 
@@ -1066,15 +1066,15 @@ La fatiga admite la misma inversión. La Tabla~\ref{tab:fatiga_laminados} presen
         \textbf{Laminado} & \textbf{Resistencia} & \textbf{Exponente} & \textbf{Daño en 20 años} & \textbf{Verificación} \\
         & $\sigma_u$ (MPa) & $b$ & $D_{20}$ & \\
         \hline
-        Ficha técnica preliminar & $242{,}1$ & $-0{,}045$ & $503$ & No cumple\\
-        UD $[0]$, epoxi & $995$ & $-0{,}088$ & $1{,}02 \times 10^{-4}$ & Cumple\\
-        Multidireccional $[(\pm 45)_2/(0)_2]_s$, epoxi & $704$ & $-0{,}130$ & $8{,}21$ & No cumple\\
-        Multidireccional $[(\pm 45)_2/(0)_2]_s$, poliéster & $663$ & $-0{,}151$ & $110$ & No cumple\\
-        $\pm 45^\circ$, epoxi & $224$ & $-0{,}092$ & $1{,}35 \times 10^{5}$ & No cumple\\
+        Ficha técnica preliminar & $242{,}1$ & $-0{,}045$ & $1\,249$ & No cumple\\
+        UD $[0]$, epoxi & $995$ & $-0{,}088$ & $1{,}86 \times 10^{-4}$ & Cumple\\
+        Multidireccional $[(\pm 45)_2/(0)_2]_s$, epoxi & $704$ & $-0{,}130$ & $12{,}0$ & No cumple\\
+        Multidireccional $[(\pm 45)_2/(0)_2]_s$, poliéster & $663$ & $-0{,}151$ & $148$ & No cumple\\
+        $\pm 45^\circ$, epoxi & $224$ & $-0{,}092$ & $2{,}36 \times 10^{5}$ & No cumple\\
         \hline
     \end{tabular}
 \end{table}
 
-El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $8{,}21$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura y con cualquiera de las velocidades de corte de la Tabla~\ref{tab:corte_fatiga}, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
+El laminado multiaxial con capas UD y $\pm 45^\circ$ en matriz epoxi que exige la resistencia última no satisface la fatiga, con un daño de $12{,}0$, y la misma configuración con resina de poliéster tampoco cumple. Solo el laminado UD en epoxi cumple, con holgura y con cualquiera de las velocidades de corte de la Tabla~\ref{tab:corte_fatiga}, de modo que el laminado multiaxial ensayado no basta en fatiga y la verificación debe confirmarse con la curva S-N medida del laminado definitivo, ya que su resultado depende del exponente con la misma sensibilidad que de la resistencia.
 
 La estabilidad, en cambio, no admite una solución por material. Alcanzar el umbral de la norma IEC 61400-5 solo con el módulo exigiría unos $147$~GPa, más de tres veces el módulo del laminado de vidrio más rígido de la Tabla~\ref{tab:laminados_infusionados}. Su solución es geométrica (Sección~\ref{sec:verif_estabilidad}), y la práctica de la industria es construir los carenados en sándwich, con un núcleo de espuma o de balsa entre pieles de laminado~\parencite{Mishnaevsky2017}. El dimensionamiento de esa modificación depende a su vez del laminado definitivo. Con el módulo de $29{,}7$~GPa de un laminado multidireccional~\parencite{Samborsky2010}, el factor que falta al multiplicador crece de $3{,}84$ a $4{,}94$.

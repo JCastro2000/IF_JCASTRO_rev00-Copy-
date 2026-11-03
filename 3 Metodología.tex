@@ -754,7 +754,7 @@ La Gumbel ajustada da, para una velocidad fija $V_j$, la probabilidad de que el 
 
 Como cada velocidad ocurre con una frecuencia distinta a lo largo del año, la norma obtiene la probabilidad no condicionada integrando sobre la distribución de velocidades del emplazamiento (Ecuación G.2, Sección G.3.2 del Anexo G de la norma IEC 61400-1)~\parencite*{IEC61400-1}.
 
-Como ponderación se emplea la frecuencia empírica de la serie del emplazamiento, contada por banda sobre los $38$ años de registro extrapolados a la altura del centro del rotor (Sección~\ref{sec:recurso_metodo}), en lugar de la Weibull ajustada a esa serie. La Sección G.3.4 de la norma admite ponderar por la distribución de Weibull o por la que resulte apropiada~\parencite{IEC61400-1}, y aquí lo es la empírica, porque la Weibull subestima la banda alta de velocidades, que domina la cola de la extrapolación, y reduciría así el margen de seguridad (Capítulo~4). La Weibull se mantiene en el cálculo de fatiga, donde la ponderación abarca todo el rango y no solo su extremo.
+Como ponderación se emplea la frecuencia empírica de la serie del emplazamiento, contada por banda sobre los $38$ años de registro extrapolados a la altura del centro del rotor (Sección~\ref{sec:recurso_metodo}), en lugar de la Weibull ajustada a esa serie. La Sección G.3.4 de la norma admite ponderar por la distribución de Weibull o por la que resulte apropiada~\parencite{IEC61400-1}, y aquí lo es la empírica, porque la Weibull subestima la banda alta de velocidades, que domina la cola de la extrapolación, y reduciría así el margen de seguridad (Capítulo~4). El mismo criterio se aplica al escalamiento del cálculo de fatiga (Sección~\ref{sec:anexo_g}), cuyo daño se concentra en esa misma banda alta.
 
 La integral se discretiza en bandas de $\Delta V = 2$~m/s centradas en las $12$ velocidades simuladas, discretización que describe la Sección G.3.1 de la norma y que la nota 6 de la Sección 7.4 da por suficiente~\parencite{IEC61400-1}, y cada banda emplea su propio par $\mu(V_m)$, $\beta(V_m)$. Como la turbina no produce bajo $V_{in}$ ni sobre $V_{out}$, la banda de $V = 2$~m/s es la única asimétrica y cubre $[2; 3)$~m/s.
 
@@ -924,21 +924,16 @@ donde:
 
 \medskip
 \noindent\textbf{Paso 5. Construcción del espectro colectivo anual.}
-Cada simulación de $T_{obs} = 600$~s representa la operación a una velocidad fija $V_j$. El espectro anual se construye expandiendo los ciclos de cada velocidad en proporción al tiempo que el viento permanece en ese intervalo durante un año, obtenido de la distribución de Weibull del sitio (Ec.~\ref{eq:weibull_pdf_general}) según la Ec.~\ref{eq:tiempo_anual}:
+Cada simulación de $T_{obs} = 600$~s representa la operación a una velocidad fija $V_j$. El espectro anual se construye expandiendo los ciclos de cada velocidad en proporción al tiempo que el viento permanece en ese intervalo durante un año, obtenido de la frecuencia observada en la serie del emplazamiento con el mismo criterio de la Sección~\ref{sec:anexo_f}, según la Ec.~\ref{eq:tiempo_anual}:
 
 \begin{equation}
-    t_j = f_W(V_j) \cdot \Delta V \cdot 365{,}25 \cdot 24 \cdot 3600 \quad [\text{s/año}],
+    t_j = p_j \cdot 365{,}25 \cdot 24 \cdot 3600 \quad [\text{s/año}],
     \label{eq:tiempo_anual}
 \end{equation}
 
-donde:
-\begin{itemize}
-    \item $f_W(V_j)$ es la densidad de probabilidad Weibull evaluada en $V_j$.
-    \item $\Delta V = 2$~m/s es el ancho del intervalo de velocidad.
-    \item $365{,}25 \cdot 24 \cdot 3600$ es la duración media del año en segundos, incluidos los bisiestos.
-\end{itemize}
+donde $p_j$ es la fracción de registros de la serie que caen en la banda de $\Delta V = 2$~m/s centrada en $V_j$, la misma de la Ec.~\ref{eq:pe_longterm}, y $365{,}25 \cdot 24 \cdot 3600$ es la duración media del año en segundos, incluidos los bisiestos.
 
-La Tabla~\ref{tab:weibull_fatiga} del Capítulo~4 presenta $f_W(V_j)$, $t_j$ y el factor $t_j / T_{obs}$ para las doce velocidades.
+La Tabla~\ref{tab:weibull_fatiga} del Capítulo~4 presenta $p_j$, $t_j$ y el factor $t_j / T_{obs}$ para las doce velocidades.
 
 El número de ciclos anuales atribuibles a la velocidad $V_j$ se calcula escalando los ciclos simulados (Ecuación H.7 del Anexo H de la norma IEC 61400-1)~\parencite*{IEC61400-1}, según la Ec.~\ref{eq:espectro_anual}:
 

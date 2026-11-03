@@ -14,7 +14,7 @@ Entrada : 144 series temporales de fuerzas por estación (12 V; 6 semillas
           bajo 10 m/s y 15 desde esa velocidad).
 Salida  : daño acumulado de Palmgren-Miner en la vida de diseño.
 """
-import glob, os
+import glob, json, os
 from collections import defaultdict
 import numpy as np
 import rainflow          # conteo de ciclos según ASTM E1049-85
@@ -62,8 +62,6 @@ GAMMA_TOTAL = (GAMMA_F * GAMMA_N * GAMMA_M0 * GAMMA_M1 * GAMMA_M2
                * GAMMA_M3 * GAMMA_M4 * GAMMA_M5)    # = 2,471
 
 # --- Recurso eólico y vida de diseño ------------------------------------
-WEIBULL_K = 2.0879
-WEIBULL_C = 9.2156    # [m/s], a la altura del centro del rotor
 V_LISTA   = list(range(2, 26, 2))
 DV        = 2.0       # ancho del intervalo de velocidad [m/s]
 T_OBS     = 600.0     # ventana útil de cada realización [s]
@@ -172,16 +170,14 @@ def ciclos_hasta_falla(sigma_a):
     return 0.5 * (sigma_a / SIGMA_U) ** (1.0 / B_EXP)
 
 
-def weibull_pdf(V, k, c):
-    """Densidad de probabilidad de Weibull de la velocidad del viento."""
-    return (k / c) * (V / c) ** (k - 1) * np.exp(-(V / c) ** k)
-
-
 # Tiempo que el viento permanece en cada intervalo de velocidad a lo largo
 # de un año, en segundos. Es el peso que convierte una realización de
-# 600 s en su contribución anual.
-t_anual = {V: weibull_pdf(V, WEIBULL_K, WEIBULL_C) * DV * T_YEAR
-           for V in V_LISTA}
+# 600 s en su contribución anual. Se toma de la frecuencia empírica por
+# banda de 2 m/s, la misma del DLC 1.1, porque la Weibull subestima la
+# banda de 20 a 24 m/s, que concentra el daño.
+with open('distribucion_viento.json') as fh:
+    PESO = {float(k): v for k, v in json.load(fh)['bandas'].items()}
+t_anual = {V: PESO[V] * T_YEAR for V in V_LISTA}
 \end{pycode}
 
 \subsection*{Daño por realización y acumulación anual}
