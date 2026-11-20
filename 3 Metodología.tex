@@ -673,11 +673,11 @@ El signo de cada componente es el de la fuerza que la produce, ya que el brazo s
 A partir de $M_x$ y $M_y$ se definen las demás magnitudes. El momento de mayor módulo no produce necesariamente el mayor esfuerzo, porque la sección resiste de forma distinta según la dirección en que flecta. Por eso la carga se evalúa en doce direcciones separadas $30^\circ$, el conjunto que la Sección 6.1.4.3 de la IEC 61400-5 da por suficiente en su enfoque avanzado (Sección~\ref{sec:extrapolacion_teoria}), cada una obtenida proyectando el momento sobre ella, según la Ec.~\ref{eq:P_k}:
 
 \begin{equation}
-    P_k(t) = M_x(t) \cos\theta_k + M_y(t) \sin\theta_k, \qquad \theta_k = \frac{2\pi \left( k - 1 \right)}{12}, \qquad k = 1,\dots,12.
+    P_k(t) = M_x(t) \cos\varphi_k + M_y(t) \sin\varphi_k, \qquad \varphi_k = \frac{2\pi \left( k - 1 \right)}{12}, \qquad k = 1,\dots,12.
     \label{eq:P_k}
 \end{equation}
 
-El ángulo $\theta_k$ se mide desde la cuerda ($Y_l$) hacia la normal ($X_l$), y como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente (Figura~\ref{fig:envolvente_direccional}).
+El ángulo $\varphi_k$ se mide desde la cuerda ($Y_l$) hacia la normal ($X_l$), y como las doce direcciones recorren el círculo completo, la proyección cubre los dos sentidos de cada componente (Figura~\ref{fig:envolvente_direccional}).
 
 \begin{figure}[H]
     \centering
