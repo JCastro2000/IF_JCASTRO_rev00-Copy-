@@ -476,7 +476,7 @@ Varios de los márgenes en el apoyo inferior son estrechos, del orden de pocos p
 \section{Comparación de fuerzas por estación entre DLC}
 \label{sec:comparacion_dlc}
 
-Definidas las cargas globales de ambos casos últimos, resta distribuirlas a lo largo de la pala para su aplicación en el modelo estructural. La Figura~\ref{fig:comparacion_fuerzas_dlc} presenta los perfiles de fuerzas de diseño $F_d$ a lo largo de la envergadura, construidos en cada caso con la misma lógica con que la norma define su carga característica. En el DLC 1.1, que la obtiene por extrapolación, se escalan uniformemente las fuerzas compañeras del instante gobernante (Sección~\ref{sec:anexo_f}), y en el DLC 1.3, que la define como la media de los máximos, se promedian por estación los perfiles de las seis semillas a la velocidad gobernante (Sección~\ref{sec:anexo_dlc13}). Las curvas azules corresponden a la dirección $\theta_k = 90^\circ$, de carga normal hacia el eje del rotor, y las rojas a la dirección gobernante $\theta_k = 240^\circ$, de carga normal hacia afuera.
+Definidas las cargas globales de ambos casos últimos, resta distribuirlas a lo largo de la pala para su aplicación en el modelo estructural. La Figura~\ref{fig:comparacion_fuerzas_dlc} presenta los perfiles de fuerzas de diseño $F_d$ a lo largo de la envergadura, construidos en cada caso con la misma lógica con que la norma define su carga característica. En el DLC 1.1, que la obtiene por extrapolación, se escalan uniformemente las fuerzas compañeras del instante gobernante (Sección~\ref{sec:anexo_f}), y en el DLC 1.3, que la define como la media de los máximos, se promedian por estación los perfiles de las seis semillas a la velocidad gobernante (Sección~\ref{sec:anexo_dlc13}). Las curvas azules corresponden a la dirección $\theta_k = 90^\circ$, de carga normal hacia el eje del rotor, y las rojas a la dirección gobernante $\theta_k = 270^\circ$, de carga normal hacia afuera.
 
 \begin{figure}[H]
     \centering
@@ -493,7 +493,7 @@ Los perfiles conservan el signo que entrega la simulación, y ese signo obliga a
 
 La dirección de mayor momento de diseño, $\theta_k = 90^\circ$, corresponde a un instante de carga normal positiva en las 21 estaciones, esto es, dirigida hacia el eje. Esa carga se opone a la fuerza centrífuga, que apunta hacia afuera y que en esta máquina domina la solicitación estructural, de modo que el extremo aerodinámico alivia parcialmente el estado combinado en lugar de agravarlo. El mayor momento aerodinámico no produce, por tanto, la mayor tensión en la pala.
 
-Por esa razón la verificación recorre las doce direcciones de la Sección~\ref{sec:anexo_f} y no solo la de mayor momento. Las direcciones de carga normal hacia afuera seleccionan instantes en que esa carga se suma a la centrífuga, y de ellas proviene el segundo perfil de cada caso, el de $\theta_k = 240^\circ$, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una fuerza normal integrada de $136{,}1$~kN frente a los $154{,}6$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
+Por esa razón la verificación recorre las doce direcciones de la Sección~\ref{sec:anexo_f} y no solo la de mayor momento. Las direcciones de carga normal hacia afuera seleccionan instantes en que esa carga se suma a la centrífuga, y de ellas proviene el segundo perfil de cada caso, el de $\theta_k = 270^\circ$, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una fuerza normal integrada de $136{,}0$~kN frente a los $154{,}6$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
 
 \medskip
 \noindent\textbf{Forma de las distribuciones.}
@@ -512,7 +512,7 @@ Los resultados siguen los pasos de la Sección~\ref{sec:anexo_g}. Se presentan p
 
 \subsection{Procesamiento de las series de carga}
 
-La sección crítica es la conexión con el brazo superior, $z_{crit} = 18$~m, en la que el modelo de elementos finitos registra la mayor tensión principal (Sección~\ref{sec:resultados_fem}). El punto crítico se ubica en la terminación del vendaje de esa conexión, en el nodo del máximo del caso gobernante del DLC 1.1, $\theta_k = 240^\circ$, y en él se leen las tres corridas de la Tabla~\ref{tab:calibracion_fatiga}.
+La sección crítica es la conexión con el brazo superior, $z_{crit} = 18$~m, en la que el modelo de elementos finitos registra la mayor tensión principal (Sección~\ref{sec:resultados_fem}). El punto crítico se ubica en la terminación del vendaje de esa conexión, en el nodo del máximo del caso gobernante del DLC 1.1, $\theta_k = 270^\circ$, y en él se leen las tres corridas de la Tabla~\ref{tab:calibracion_fatiga}.
 
 \begin{table}[H]
     \centering
@@ -522,8 +522,8 @@ La sección crítica es la conexión con el brazo superior, $z_{crit} = 18$~m, e
         \hline
         \textbf{Corrida} & \textbf{Fuerzas aerodinámicas} & \textbf{Inercia} & $\boldsymbol{\gamma_f}$ & \textbf{Variable} & \textbf{Valor} \\
         \hline
-        Caso del máximo & DLC 1.1, $\theta_k = 240^\circ$ & Sí & $1{,}25$ & $\sigma_{1,\max}$ & $185{,}73$~MPa \\
-        Calibración & DLC 1.1, $\theta_k = 240^\circ$ & No & $1{,}00$ & $\sigma_{aero}$ & $68{,}60$~MPa \\
+        Caso del máximo & DLC 1.1, $\theta_k = 270^\circ$ & Sí & $1{,}25$ & $\sigma_{1,\max}$ & $185{,}73$~MPa \\
+        Calibración & DLC 1.1, $\theta_k = 270^\circ$ & No & $1{,}00$ & $\sigma_{aero}$ & $68{,}60$~MPa \\
         Solo inercial & Ninguna & Sí & $1{,}00$ & $\sigma_{in}$ & $80{,}47$~MPa \\
         --- & Perfil de la calibración & --- & $1{,}00$ & $M_{res,cal}$ & $66{,}60$~kN$\cdot$m \\
         \hline
@@ -771,7 +771,7 @@ Las fuerzas aerodinámicas de diseño $F_d$ se aplican como cargas remotas en lo
     \label{fig:tension_direccional}
 \end{figure}
 
-En el DLC 1.1, las direcciones de carga normal hacia el eje, de $0^\circ$ a $150^\circ$, producen entre $36$ y $47$~MPa, ya que esa carga se opone a la flexión que induce la fuerza centrífuga, mientras que las de carga normal hacia afuera, de $180^\circ$ a $330^\circ$, alcanzan entre $171$ y $187$~MPa al sumarse a ella. El DLC 1.3 reproduce el mismo patrón, con $50$ a $58$~MPa en el primer grupo y $148$ a $173$~MPa en el segundo. El mayor extremo aerodinámico, el de $\theta_k = 90^\circ$, no coincide por tanto con el estado combinado más desfavorable. El caso gobernante es el de $\theta_k = 240^\circ$, que entrega a la vez la mayor tensión y el menor multiplicador de pandeo, aunque las cuatro direcciones de $240^\circ$ a $330^\circ$ difieren en menos de un $0{,}2\%$ por compartir instante. En el DLC 1.3 las direcciones de $240^\circ$, $270^\circ$ y $300^\circ$ comparten la distribución de fuerzas y gobiernan con resultados idénticos. Los resultados que siguen corresponden a esos casos gobernantes.
+En el DLC 1.1, las direcciones de carga normal hacia el eje, de $0^\circ$ a $150^\circ$, producen entre $36$ y $47$~MPa, ya que esa carga se opone a la flexión que induce la fuerza centrífuga, mientras que las de carga normal hacia afuera, de $180^\circ$ a $330^\circ$, alcanzan entre $171$ y $187$~MPa al sumarse a ella. El DLC 1.3 reproduce el mismo patrón, con $50$ a $58$~MPa en el primer grupo y $148$ a $173$~MPa en el segundo. El mayor extremo aerodinámico, el de $\theta_k = 90^\circ$, no coincide por tanto con el estado combinado más desfavorable. El caso gobernante es el de $\theta_k = 270^\circ$, que entrega a la vez la mayor tensión y el menor multiplicador de pandeo, aunque las cuatro direcciones de $240^\circ$ a $330^\circ$ difieren en menos de un $0{,}2\%$ por compartir instante. En el DLC 1.3 las direcciones de $240^\circ$, $270^\circ$ y $300^\circ$ comparten la distribución de fuerzas y gobiernan con resultados idénticos. Los resultados que siguen corresponden a esos casos gobernantes.
 
 La unión entre la pala y el brazo queda resuelta en el modelo mediante tres elementos, el vendaje de refuerzo de la zona de conexión (Sección~\ref{sec:seccion_caracteristica}), la superficie de $500 \times 600$~mm sobre la que se impone el apoyo remoto de cada conexión (Sección~\ref{sec:condiciones_borde}) y el larguero de cajón, formado por las dos almas de $5{,}2$~mm y por el engrosamiento del manto entre ellas (Sección~\ref{sec:seccion_caracteristica}), visibles todos en el detalle de la malla de la Figura~\ref{fig:fem_cb}(b).
 
@@ -818,14 +818,14 @@ La Figura~\ref{fig:fem_deformacion11} presenta el desplazamiento de la pala bajo
 
 El DLC 1.3 conserva el patrón del caso anterior y resulta en todos sus valores menos exigente. La tensión principal máxima, $\sigma_{1,\max} = 172{,}78$~MPa, vuelve a localizarse en la terminación del refuerzo de las conexiones, lo que confirma que la ubicación de la sección crítica no depende del caso de carga. La compresión alcanza $\sigma_{3,\min} = -167{,}81$~MPa, de magnitud comparable a la del DLC 1.1 ($-180{,}20$~MPa), y el desplazamiento máximo es de $260{,}8$~mm en el centro del vano.
 
-Que la tensión máxima y el desplazamiento resulten menores que en el DLC 1.1 es coherente con que su carga sea menor, con una fuerza normal integrada de $113{,}3$~kN frente a los $136{,}1$~kN del DLC 1.1 en la dirección de $240^\circ$, y con la distribución de las fuerzas. Ambos casos se resuelven con idénticas condiciones de borde y aceleraciones, por lo que la única diferencia entre ellos es el perfil de carga por estación. El DLC 1.1, extraído de un único instante de la simulación, concentra mayor carga en el vano central entre apoyos, cuya flexión solicita las conexiones y produce la flecha máxima del vano, mientras que el DLC 1.3, construido como media de máximos por estación, distribuye la carga de forma más suave hacia los voladizos (Sección~\ref{sec:comparacion_dlc}), lo que se refleja en una tracción, una compresión y un desplazamiento menores.
+Que la tensión máxima y el desplazamiento resulten menores que en el DLC 1.1 es coherente con que su carga sea menor, con una fuerza normal integrada de $113{,}3$~kN frente a los $136{,}0$~kN del DLC 1.1 en la dirección de $270^\circ$, y con la distribución de las fuerzas. Ambos casos se resuelven con idénticas condiciones de borde y aceleraciones, por lo que la única diferencia entre ellos es el perfil de carga por estación. El DLC 1.1, extraído de un único instante de la simulación, concentra mayor carga en el vano central entre apoyos, cuya flexión solicita las conexiones y produce la flecha máxima del vano, mientras que el DLC 1.3, construido como media de máximos por estación, distribuye la carga de forma más suave hacia los voladizos (Sección~\ref{sec:comparacion_dlc}), lo que se refleja en una tracción, una compresión y un desplazamiento menores.
 
 \subsubsection{Contribución de las cargas inerciales}
 \label{sec:solo_inercial}
 
 Para cuantificar el peso de la rotación en el estado tensional, el modelo se resuelve adicionalmente con las cargas inerciales, aceleración centrífuga de $20{,}4\,g$ y gravedad, como única solicitación y sin mayorar, prescindiendo de las fuerzas aerodinámicas (Sección~\ref{sec:corridas_fem}). La tensión principal máxima resultante es $\sigma_{1,\max} = 81{,}06$~MPa, en la misma zona crítica que el caso gobernante, y en el punto crítico vale $80{,}47$~MPa. Este mismo caso es el que entrega la tensión inercial $\sigma_{in}$ del análisis de fatiga (Sección~\ref{sec:resultados_fatiga}), lo que explica que se resuelva sin factores parciales.
 
-Este caso de referencia entrega una conclusión de diseño central. Afectado por el factor parcial del DLC 1.1 para hacerlo comparable, el estado inercial aporta $101{,}3$ de los $187{,}09$~MPa del caso gobernante, esto es, algo más de la mitad de la tensión. Medido sobre la solicitación en lugar de sobre la respuesta, el predominio es aún más marcado, ya que la fuerza centrífuga suma $213{,}26$~kN frente a los $136{,}11$~kN de la fuerza normal aerodinámica integrada de diseño, un $61\%$ del total. La pala está dimensionada por tanto en primer término por la decisión que fija la velocidad máxima de rotación en $42$~rpm, y solo en segundo término por el viento del emplazamiento, incluso en su condición extrema a 50 años. Este resultado explica además que las reacciones en los brazos apenas difieran entre ambos DLC, dado que la componente inercial, idéntica en los dos casos, domina el equilibrio global.
+Este caso de referencia entrega una conclusión de diseño central. Afectado por el factor parcial del DLC 1.1 para hacerlo comparable, el estado inercial aporta $101{,}3$ de los $187{,}09$~MPa del caso gobernante, esto es, algo más de la mitad de la tensión. Medido sobre la solicitación en lugar de sobre la respuesta, el predominio es aún más marcado, ya que la fuerza centrífuga suma $213{,}26$~kN frente a los $136{,}03$~kN de la fuerza normal aerodinámica integrada de diseño, un $61\%$ del total. La pala está dimensionada por tanto en primer término por la decisión que fija la velocidad máxima de rotación en $42$~rpm, y solo en segundo término por el viento del emplazamiento, incluso en su condición extrema a 50 años. Este resultado explica además que las reacciones en los brazos apenas difieran entre ambos DLC, dado que la componente inercial, idéntica en los dos casos, domina el equilibrio global.
 
 \subsubsection{Verificación de resistencia última}
 
@@ -921,10 +921,10 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         \hline
         \multicolumn{5}{c}{\textit{Cargas de diseño}} \\
         \hline
-        $P_{k,d}$ & Proyectado de diseño, apoyo superior & $64{,}71$~kN$\cdot$m & $55{,}69$~kN$\cdot$m &  \\
+        $P_{k,d}$ & Proyectado de diseño, apoyo superior & $82{,}18$~kN$\cdot$m & $70{,}91$~kN$\cdot$m &  \\
         $M_{res,d}$ & Resultante de diseño, apoyo superior & $100{,}96$~kN$\cdot$m & $91{,}68$~kN$\cdot$m &  \\
         $\gamma_f$ & Factor parcial de carga & $1{,}25$ & $1{,}35$ &  \\
-        $\theta_k$ & Dirección de carga gobernante & $240^\circ$ & $240^\circ$ a $300^\circ$ &  \\
+        $\theta_k$ & Dirección de carga gobernante & $270^\circ$ & $240^\circ$ a $300^\circ$ &  \\
         \hline
         \multicolumn{5}{c}{\textit{Tensiones (FEM)}} \\
         \hline

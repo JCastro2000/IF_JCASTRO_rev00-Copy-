@@ -70,7 +70,7 @@ ANIOS     = 20        # vida de diseño [años]
 
 # Tensiones principales obtenidas del FEM en el punto crítico, ambas sin
 # mayorar y leídas en el MISMO nodo, el del máximo del caso gobernante del
-# DLC 1.1 (theta = 240 grados): la primera con ese caso como única
+# DLC 1.1 (theta = 270 grados): la primera con ese caso como única
 # solicitación y la segunda con las cargas inerciales como única
 # solicitación. La aerodinámica escala con el momento y define K_aero; la
 # inercial no escala y se reincorpora como nivel de la historia. Se calibran
@@ -121,7 +121,7 @@ Bajo la hipótesis de comportamiento elástico lineal del material hasta rotura,
 
 \begin{pycode}
 # fn_k, ft_k son las fuerzas por estación del caso direccional de
-# theta = 240 grados del DLC 1.1 SIN mayorar, es decir las mismas que se
+# theta = 270 grados del DLC 1.1 SIN mayorar, es decir las mismas que se
 # aplicaron en la corrida de calibración del modelo de elementos finitos.
 M_res_k = momento_resultante(fn_k, ft_k) / 1000.0     # [kN*m]
 
