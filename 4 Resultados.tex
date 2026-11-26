@@ -604,7 +604,9 @@ Se reportan primero las tensiones y el desplazamiento bajo las cargas del DLC 1.
 
 \subsubsection{Tensiones principales}
 
-La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima sobre las dos caras de la pala, el intradós y el extradós, con el detalle ampliado de las dos conexiones con los brazos. El valor máximo del manto, $\sigma_{1,\max} = 187{,}09$~MPa, se localiza en la conexión con el brazo superior ($z = 18$~m), unos centímetros más allá del punto en que termina el vendaje de refuerzo. Las dos conexiones se solicitan de forma similar, con $176{,}50$~MPa en la inferior, y en ambas el máximo aparece sobre la línea en que el refuerzo termina y el manto queda cargando solo. 
+La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal máxima sobre las dos caras de la pala, el intradós y el extradós, con el detalle ampliado de las dos conexiones con los brazos. El valor máximo del manto, $\sigma_{1,\max} = 187{,}09$~MPa, se localiza en la conexión con el brazo superior ($z = 18$~m), unos centímetros más allá del punto en que termina el vendaje de refuerzo. Las dos conexiones se solicitan de forma similar, con $176{,}50$~MPa en la inferior, y en ambas el máximo aparece sobre la línea en que el refuerzo termina. 
+
+El esfuerzo máximo que se observa, no corresponde a un artefacto de la simulacón, ya que este tiene su justificación en el cambio de espesor producido al final del vendaje. En la zona del vendaje, se tiene un espesor total de $13{,}2$ a $19{,}4$~mm de espesor según el tramo, y al terminar el refuerzo queda en $5{,}2$ u $11{,}4$~mm. Ese cambio aumenta del orden de $2{,}5$ veces la tensión de membrana que un mismo momento flector produce en el manto, y del orden de $1{,}7$ veces sobre el ala del larguero. La terminación del refuerzo es por tanto el punto crítico por construcción.
 
 \begin{figure}[H]
     \centering
@@ -612,8 +614,6 @@ La Figura~\ref{fig:fem_max11} presenta la distribución de tensión principal m�
     \caption[Distribución de tensión principal máxima, DLC 1.1.]{Distribución de tensión principal máxima del DLC 1.1 sobre el intradós y el extradós de la pala, en MPa. Los detalles A y B amplían las dos conexiones con los brazos.}
     \label{fig:fem_max11}
 \end{figure}
-
-Conviene precisar el origen de ese valor, porque no corresponde a un concentrador del detalle de la unión sino a un cambio de sección. Bajo el vendaje el manto trabaja como ala de un laminado de $13{,}2$ a $19{,}4$~mm de espesor según el tramo, y al terminar el refuerzo queda solo con los $5{,}2$ u $11{,}4$~mm que le son propios. Evaluado sobre el carenado de borde de fuga, ese cambio aumenta del orden de $2{,}5$ veces la tensión de membrana que un mismo momento flector produce en el manto, y del orden de $1{,}7$ veces sobre el ala del larguero. La terminación del refuerzo es por tanto el punto crítico por construcción, y lo seguirá siendo por gradual que se haga la transición de espesor, ya que el chaflán gobierna lo brusco del paso pero no el hecho de que, fuera del refuerzo, el manto toma solo la flexión que bajo el vendaje compartía con él.
 
 El análisis de convergencia descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}90\%$, por debajo del criterio adoptado. Lo que no se puede descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que un apoyo de mayor superficie o un refuerzo más extenso podrían redistribuir la tensión en esa zona.
 
