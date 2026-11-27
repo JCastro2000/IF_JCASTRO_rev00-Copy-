@@ -682,7 +682,14 @@ La Tabla~\ref{tab:verif_uls} resume la verificación en ambos casos de carga. La
 \subsubsection{Verificación de estabilidad}
 \label{sec:verif_estabilidad}
 
-El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma IEC 61400-5.
+El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma IEC 61400-5. El contraste se expresa con el factor de aprovechamiento de la Ec.~\ref{eq:eta_pandeo}, que vale la unidad cuando el multiplicador alcanza exactamente el umbral, y con su inverso, que indica por cuánto debe multiplicarse la capacidad de pandeo para cumplir el criterio:
+
+\begin{equation}
+    \eta_{\text{pandeo}} = \frac{LM}{1{,}98}, \qquad \frac{1}{\eta_{\text{pandeo}}} = \frac{1{,}98}{LM},
+    \label{eq:eta_pandeo}
+\end{equation}
+
+donde $LM$ es el multiplicador del primer modo y $1{,}98$ el umbral de la Ec.~\ref{eq:criterio_pandeo_p5}.
 
 \begin{table}[H]
     \centering
@@ -696,8 +703,8 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
         Recorrido de los tres primeros modos & $0{,}5153$--$0{,}5374$ & --- \\
         \hline
         Umbral IEC 61400-5, Ec.~\ref{eq:criterio_pandeo_p5} & $1{,}98$ & $1{,}98$ \\
-        Factor de aprovechamiento, $LM/1{,}98$ & $0{,}260$ & $0{,}274$ \\
-        Factor que falta para cumplir, $1{,}98/LM$ & $3{,}84$ & $3{,}65$ \\
+        Factor de aprovechamiento, $\eta_{\text{pandeo}}$ (Ec.~\ref{eq:eta_pandeo}) & $0{,}260$ & $0{,}274$ \\
+        Factor que falta para cumplir, $1/\eta_{\text{pandeo}}$ & $3{,}84$ & $3{,}65$ \\
         \hline
     \end{tabular}
 \end{table}
