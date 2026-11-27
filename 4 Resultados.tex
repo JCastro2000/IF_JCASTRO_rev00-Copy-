@@ -718,15 +718,29 @@ Los modos extraídos corresponden a pandeo local del manto y todos se localizan 
     \label{fig:fem_modos_pandeo}
 \end{figure}
 
-Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Como toda la pala se modela con un mismo laminado y la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado (Ec.~\ref{eq:pandeo_placa}), ese panel resulta, a igualdad de condiciones de borde, con una tensión crítica $6$ veces menor que la del panel de borde de ataque y $12$ veces menor que la del ala del larguero. La Tabla~\ref{tab:paneles_manto} recoge esa comparación, en la que la capacidad relativa de cada panel es el cociente entre su valor de $(t/b)^2$ y el del panel de borde de fuga, ya que los demás términos de la Ec.~\ref{eq:pandeo_placa} son comunes a los tres.
+Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Según la Ec.~\ref{eq:pandeo_placa} (Sección~\ref{sec:pandeo_teoria}), la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado. Como toda la pala se modela con un mismo laminado, $E$ y $\nu$ son comunes a los tres paneles, y si se suponen iguales condiciones de borde también lo es $k$, de modo que la capacidad de cada panel referida a la del panel de borde de fuga se reduce al cociente de la Ec.~\ref{eq:capacidad_relativa}:
+
+\begin{equation}
+    C_i = \frac{\sigma_{cr,i}}{\sigma_{cr,BF}} = \frac{(t_i/b_i)^2}{(t_{BF}/b_{BF})^2},
+    \label{eq:capacidad_relativa}
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $C_i$ es la capacidad relativa al pandeo del panel $i$.
+    \item $t_i$ y $b_i$ son el espesor y el ancho no apoyado del panel $i$.
+    \item $t_{BF}$ y $b_{BF}$ son los del panel de borde de fuga.
+\end{itemize}
+
+La Tabla~\ref{tab:paneles_manto} recoge el resultado. El panel de borde de fuga tiene una tensión crítica $6$ veces menor que la del panel de borde de ataque y $12$ veces menor que la del ala del larguero.
 
 \begin{table}[H]
     \centering
-    \caption{Capacidad relativa al pandeo de los tres paneles de manto que delimitan las almas, calculada como $(t/b)^2$ de cada panel referido al del panel de borde de fuga (Ec.~\ref{eq:pandeo_placa}).}
+    \caption{Capacidad relativa al pandeo de los tres paneles de manto que delimitan las almas, según la Ec.~\ref{eq:capacidad_relativa}.}
     \label{tab:paneles_manto}
     \begin{tabular}{lccc}
         \hline
-        \textbf{Panel} & \textbf{Ancho} & \textbf{Espesor} & \textbf{Capacidad relativa} \\
+        \textbf{Panel} & \textbf{Ancho} & \textbf{Espesor} & \textbf{Capacidad relativa, $C_i$} \\
         \hline
         Borde de ataque & $220$~mm & $5{,}2$~mm & $6{,}0$ \\
         Central, ala del larguero & $340$~mm & $11{,}4$~mm & $12{,}1$ \\
