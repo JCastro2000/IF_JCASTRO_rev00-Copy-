@@ -42,8 +42,8 @@ A diferencia del DLC 1.1, donde el perfil de diseño proviene de un único insta
 
 \begin{pycode}
 maximos  = defaultdict(lambda: defaultdict(list))  # [magnitud][V] = 6 máximos
-max_dir  = [defaultdict(list) for _ in TH]         # [k][V] = 6 máximos de P_k
-perfiles = [defaultdict(list) for _ in TH]         # [k][V] = 6 perfiles compañeros
+max_dir  = [defaultdict(list) for _ in TH]         # [k][V] = hasta 6 máximos de P_k
+perfiles = [defaultdict(list) for _ in TH]         # [k][V] = hasta 6 perfiles compañeros
 
 for ruta in sorted(glob.glob('sim_DLC13_*_forces.csv')):
     m = re.search(r'sim_DLC13_(\d+)_V(\d+)_S(\d+)_forces\.csv', ruta)
@@ -59,13 +59,19 @@ for ruta in sorted(glob.glob('sim_DLC13_*_forces.csv')):
         maximos[nombre][v].append(float(serie.max()))
 
     # Perfil compañero del instante de máxima proyección de ESTA semilla, en
-    # cada una de las doce direcciones del apoyo superior.
+    # cada una de las doce direcciones del apoyo superior, entre los instantes
+    # cuyo momento apunta dentro de +-15 grados de la dirección.
     m_x, m_y = momentos_en_apoyo(fn[util], ft[util], Z_APOYO_SUP, 'sup')
     p = np.outer(m_x, np.cos(TH)) + np.outer(m_y, np.sin(TH))
-    j = p.argmax(axis=0)
+    sector = np.mod(np.round(np.arctan2(m_y, m_x) / (2.0 * np.pi / N_DIRECCIONES)),
+                    N_DIRECCIONES).astype(int)
     for k in range(len(TH)):
-        max_dir[k][v].append(float(p[j[k], k]))
-        perfiles[k][v].append((fn[util][j[k]].copy(), ft[util][j[k]].copy()))
+        sel = np.flatnonzero(sector == k)
+        if sel.size == 0:
+            continue                  # la semilla no carga esta dirección
+        j = sel[p[sel, k].argmax()]
+        max_dir[k][v].append(float(p[j, k]))
+        perfiles[k][v].append((fn[util][j].copy(), ft[util][j].copy()))
 \end{pycode}
 
 \subsection*{Carga característica y velocidad gobernante}

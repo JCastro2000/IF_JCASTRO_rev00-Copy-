@@ -224,7 +224,7 @@ def carga_caracteristica(centros, mus, betas):
 
 \subsection*{Recorrido de las realizaciones y cargas de diseño}
 
-El procedimiento anterior se aplica de forma independiente a cada una de las magnitudes. En el mismo recorrido se calcula, para cada una de las doce direcciones de la Ec.~\ref{eq:P_k}, el momento proyectado en el apoyo superior, y se localiza el instante en que alcanza su máximo sobre el conjunto de las 144 realizaciones.
+El procedimiento anterior se aplica de forma independiente a cada una de las magnitudes. En el mismo recorrido se calcula, para cada una de las doce direcciones de la Ec.~\ref{eq:P_k}, el momento proyectado en el apoyo superior, y se localiza, entre los instantes cuyo momento apunta dentro de $\pm 15^\circ$ de esa dirección, el instante en que alcanza su máximo sobre el conjunto de las 144 realizaciones.
 
 \begin{pycode}
 # Direcciones de carga de la Ec. P_k, medidas desde Y_l hacia X_l.
@@ -249,13 +249,20 @@ for ruta in sorted(glob.glob('sim_DLC11_*_forces.csv')):
     # Momento proyectado en las doce direcciones, Ec. P_k, apoyo superior.
     m_x, m_y = momentos_en_apoyo(fn[util], ft[util], Z_APOYO_SUP, 'sup')
     p = np.outer(m_x, np.cos(TH)) + np.outer(m_y, np.sin(TH))
-    j = p.argmax(axis=0)
+    # Cada instante se asigna a la dirección hacia la que apunta su momento,
+    # la más cercana de las doce (entorno de +-15 grados).
+    sector = np.mod(np.round(np.arctan2(m_y, m_x) / (2.0 * np.pi / N_DIRECCIONES)),
+                    N_DIRECCIONES).astype(int)
     for k in range(len(TH)):
-        max_dir[k][v].append(float(p[j[k], k]))
-        if p[j[k], k] > mejor[k]['valor']:
-            mejor[k] = {'valor': float(p[j[k], k]), 't': float(t[util][j[k]]),
+        sel = np.flatnonzero(sector == k)
+        if sel.size == 0:
+            continue                    # la realización no carga esta dirección
+        j = sel[p[sel, k].argmax()]
+        max_dir[k][v].append(float(p[j, k]))
+        if p[j, k] > mejor[k]['valor']:
+            mejor[k] = {'valor': float(p[j, k]), 't': float(t[util][j]),
                         'V': v, 'semilla': semilla,
-                        'fn': fn[util][j[k]].copy(), 'ft': ft[util][j[k]].copy()}
+                        'fn': fn[util][j].copy(), 'ft': ft[util][j].copy()}
 
 
 def extrapolar(por_v):
@@ -270,7 +277,9 @@ def extrapolar(por_v):
 
 
 resultados = {nombre: extrapolar(por_v) for nombre, por_v in maximos.items()}
-P_d = [extrapolar(max_dir[k])['F_d'] for k in range(len(TH))]
+# En cada dirección se ajustan solo las velocidades con al menos dos máximos.
+P_d = [extrapolar({v: x for v, x in max_dir[k].items() if len(x) >= 2})['F_d']
+       for k in range(len(TH))]
 \end{pycode}
 
 \subsection*{Del escalar a las fuerzas por estación}

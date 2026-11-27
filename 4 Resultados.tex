@@ -365,11 +365,11 @@ Este valor constituye una primera verificación del procedimiento implementado. 
 
 Las cargas características y de diseño que resultan de aplicar la bisección a cada magnitud son las de la Tabla~\ref{tab:dlc11_magnitudes}. Esas magnitudes alimentan el criterio de omisión de la Sección~\ref{sec:criterio_omision}.
 
-Los casos de carga del modelo estructural se construyen con los doce momentos proyectados de la Ec.~\ref{eq:P_k} en el apoyo superior, que es el más solicitado. La Tabla~\ref{tab:casos_direccionales} recoge, para cada dirección, la carga de diseño de ambos casos de carga y el instante gobernante del DLC 1.1, del que provienen sus fuerzas compañeras.
+Los casos de carga del modelo estructural se construyen con los doce momentos proyectados de la Ec.~\ref{eq:P_k} en el apoyo superior, que es el más solicitado, considerando en cada dirección solo los instantes cuyo momento apunta dentro de $\pm 15^\circ$ de ella (Sección~\ref{sec:anexo_f}). La Tabla~\ref{tab:casos_direccionales} recoge, para cada dirección, la carga de diseño de ambos casos de carga y el instante gobernante del DLC 1.1, del que provienen sus fuerzas compañeras.
 
 \begin{table}[H]
     \centering
-    \caption{Casos de carga direccionales en el apoyo superior.}
+    \caption[Casos de carga direccionales en el apoyo superior.]{Casos de carga direccionales en el apoyo superior. Los instantes provienen de realizaciones de $V = 24$~m/s, salvo en $0^\circ$, $120^\circ$ y $240^\circ$, de $V = 22$~m/s.}
     \label{tab:casos_direccionales}
     \begin{tabular}{cccccc}
         \hline
@@ -378,23 +378,23 @@ Los casos de carga del modelo estructural se construyen con los doce momentos pr
         \cline{3-4}
         $\varphi_k$ & $P_{k,d}$ (kN$\cdot$m) & Semilla & $t$ (s) & & $P_{k,d}$ (kN$\cdot$m) \\
         \hline
-        $0^\circ$   & $26{,}00$ & $2$  & $264{,}44$ & $1{,}428$ & $24{,}09$ \\
-        $30^\circ$  & $70{,}61$ & $6$  & $84{,}42$  & $1{,}471$ & $64{,}96$ \\
-        $60^\circ$  & $97{,}30$ & $6$  & $84{,}42$  & $1{,}480$ & $88{,}59$ \\
-        $90^\circ$  & $97{,}85$ & $6$  & $84{,}42$  & $1{,}486$ & $88{,}53$ \\
-        $120^\circ$ & $72{,}09$ & $6$  & $84{,}42$  & $1{,}491$ & $64{,}92$ \\
-        $150^\circ$ & $29{,}20$ & $14$ & $285{,}87$ & $1{,}491$ & $25{,}02$ \\
-        $180^\circ$ & $4{,}59$  & $10$ & $614{,}13$ & $1{,}548$ & $3{,}94$ \\
-        $210^\circ$ & $29{,}24$ & $8$  & $457{,}04$ & $1{,}434$ & $26{,}51$ \\
-        $240^\circ$ & $64{,}71$ & $8$  & $457{,}04$ & $1{,}464$ & $55{,}69$ \\
+        $0^\circ$   & $0{,}55$  & $15$ & $296{,}41$ & $3{,}354$ & $0{,}38$ \\
+        $30^\circ$  & $0{,}71$  & $15$ & $296{,}41$ & $2{,}554$ & $0{,}21$ \\
+        $60^\circ$  & $92{,}15$ & $2$  & $264{,}44$ & $1{,}431$ & $87{,}37$ \\
+        $90^\circ$  & $99{,}82$ & $6$  & $84{,}42$  & $1{,}516$ & $87{,}37$ \\
+        $120^\circ$ & $1{,}88$  & $12$ & $577{,}16$ & $1{,}741$ & $1{,}29$ \\
+        $150^\circ$ & $0{,}73$  & $2$  & $511{,}45$ & $1{,}538$ & $0{,}53$ \\
+        $180^\circ$ & $0{,}57$  & $14$ & $287{,}14$ & $1{,}565$ & $0{,}44$ \\
+        $210^\circ$ & $0{,}71$  & $13$ & $314{,}29$ & $1{,}685$ & $0{,}57$ \\
+        $240^\circ$ & $2{,}19$  & $3$  & $224{,}31$ & $1{,}664$ & $1{,}66$ \\
         $270^\circ$ & $82{,}18$ & $8$  & $457{,}04$ & $1{,}463$ & $70{,}91$ \\
-        $300^\circ$ & $77{,}47$ & $8$  & $457{,}04$ & $1{,}460$ & $67{,}12$ \\
-        $330^\circ$ & $52{,}20$ & $8$  & $457{,}04$ & $1{,}459$ & $45{,}47$ \\
+        $300^\circ$ & $2{,}17$  & $5$  & $294{,}96$ & $2{,}904$ & $0{,}71$ \\
+        $330^\circ$ & $0{,}70$  & $7$  & $110{,}67$ & $2{,}615$ & $0{,}19$ \\
         \hline
     \end{tabular}
 \end{table}
 
-El DLC 1.1 supera al DLC 1.3 en las doce direcciones, y todos sus instantes gobernantes provienen de realizaciones de $V = 24$~m/s, resultado coherente con que la carga aerodinámica crezca de forma monótona con el viento hasta el corte. Solo cinco instantes distintos cubren las doce direcciones, ya que el instante de una carga extrema resulta también el de máxima proyección en las direcciones contiguas a la suya. Las direcciones de $30^\circ$ a $120^\circ$ comparten así el instante de la semilla $6$, y las de $210^\circ$ a $330^\circ$ el de la semilla $8$, con factores de escala que difieren entre sí menos de un $3\%$. La Figura~\ref{fig:azimut_direccion} muestra el origen de esa agrupación. La dirección del momento no sigue a la posición acimutal de la pala, sino que se mantiene cerca de $\varphi_k = 90^\circ$ en la mitad de barlovento y cerca de $270^\circ$ en la de sotavento, según el sentido de la fuerza normal, de modo que las cargas extremas se concentran en torno a esas dos direcciones.
+El DLC 1.1 supera al DLC 1.3 en las doce direcciones. La carga de diseño solo es apreciable en $60^\circ$, $90^\circ$ y $270^\circ$, y en las nueve direcciones restantes no supera los $2{,}2$~kN$\cdot$m, ya que el momento en el apoyo casi nunca apunta hacia ellas. La Figura~\ref{fig:azimut_direccion} muestra el origen de esa concentración. La dirección del momento no sigue a la posición acimutal de la pala, sino que se mantiene cerca de $\varphi_k = 90^\circ$ en la mitad de barlovento y cerca de $270^\circ$ en la de sotavento, según el sentido de la fuerza normal, de modo que las cargas extremas se concentran en torno a esas dos direcciones.
 
 \begin{figure}[H]
     \centering
@@ -500,7 +500,7 @@ Los perfiles conservan el signo que entrega la simulación, y ese signo obliga a
 
 La dirección de mayor momento de diseño, $\varphi_k = 90^\circ$, corresponde a un instante de carga normal positiva en las 21 estaciones, esto es, dirigida hacia el eje. Esa carga se opone a la fuerza centrífuga, que apunta hacia afuera y que en esta máquina domina la solicitación estructural, de modo que el extremo aerodinámico alivia parcialmente el estado combinado en lugar de agravarlo. El mayor momento aerodinámico no produce, por tanto, la mayor tensión en la pala.
 
-Por esa razón la verificación recorre las doce direcciones de la Sección~\ref{sec:anexo_f} y no solo la de mayor momento. Las direcciones de carga normal hacia afuera seleccionan instantes en que esa carga se suma a la centrífuga, y de ellas proviene el segundo perfil de cada caso, el de $\varphi_k = 270^\circ$, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una fuerza normal integrada de $136{,}0$~kN frente a los $154{,}6$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
+Por esa razón la verificación recorre las doce direcciones de la Sección~\ref{sec:anexo_f} y no solo la de mayor momento. Las direcciones de carga normal hacia afuera seleccionan instantes en que esa carga se suma a la centrífuga, y de ellas proviene el segundo perfil de cada caso, el de $\varphi_k = 270^\circ$, representado en rojo en la Figura~\ref{fig:comparacion_fuerzas_dlc}. Su magnitud es menor, con una fuerza normal integrada de $136{,}0$~kN frente a los $157{,}7$~kN del perfil hacia el eje en el DLC 1.1, pero la combinación con la carga inercial decide cuál gobierna, y esa comparación se resuelve en el modelo estructural (Sección~\ref{sec:resultados_fem}).
 
 \medskip
 \noindent\textbf{Forma de las distribuciones.}
@@ -594,7 +594,7 @@ Las fuerzas aerodinámicas de diseño $F_d$ se aplican como cargas remotas en el
     \label{fig:tension_direccional}
 \end{figure}
 
-En el DLC 1.1, las direcciones de carga normal hacia el eje, de $0^\circ$ a $150^\circ$, producen entre $36$ y $47$~MPa, ya que esa carga se opone a la flexión que induce la fuerza centrífuga, mientras que las de carga normal hacia afuera, de $180^\circ$ a $330^\circ$, alcanzan entre $171$ y $187$~MPa al sumarse a ella. El DLC 1.3 reproduce el mismo patrón, con $50$ a $58$~MPa en el primer grupo y $148$ a $173$~MPa en el segundo. El mayor extremo aerodinámico, el de $\varphi_k = 90^\circ$, no coincide por tanto con el estado combinado más desfavorable. El caso gobernante es el de $\varphi_k = 270^\circ$, que entrega a la vez la mayor tensión y el menor multiplicador de pandeo, aunque las cuatro direcciones de $240^\circ$ a $330^\circ$ difieren en menos de un $0{,}2\%$ por compartir instante. En el DLC 1.3 las direcciones de $240^\circ$, $270^\circ$ y $300^\circ$ comparten la distribución de fuerzas y gobiernan con resultados idénticos. Los resultados que siguen corresponden a esos casos gobernantes.
+En el DLC 1.1, las direcciones de $60^\circ$ y $90^\circ$, en que la carga normal apunta hacia el eje, producen $36$ y $40$~MPa, ya que esa carga se opone a la flexión que induce la fuerza centrífuga, mientras que en $270^\circ$, donde se suma a ella, la tensión alcanza $187{,}09$~MPa. Las nueve direcciones restantes, en las que la carga aerodinámica casi no actúa, quedan entre $96$ y $120$~MPa, del orden de la corrida solo inercial afectada por el factor parcial (Sección~\ref{sec:solo_inercial}). El DLC 1.3 reproduce el mismo patrón, con $54$ y $51$~MPa en $60^\circ$ y $90^\circ$, $172{,}78$~MPa en $270^\circ$ y entre $100$ y $120$~MPa en el resto. El mayor extremo aerodinámico, el de $\varphi_k = 90^\circ$, no coincide por tanto con el estado combinado más desfavorable, y el caso gobernante de ambos estados límite es el de $\varphi_k = 270^\circ$. Los resultados que siguen corresponden a esos casos gobernantes.
 
 La unión entre la pala y el brazo queda resuelta en el modelo mediante tres elementos, el vendaje de refuerzo de la zona de conexión (Sección~\ref{sec:seccion_caracteristica}), la superficie de $500 \times 600$~mm sobre la que se impone el apoyo remoto de cada conexión (Sección~\ref{sec:condiciones_borde}) y el larguero de cajón, formado por las dos almas de $5{,}2$~mm y por el engrosamiento del manto entre ellas (Sección~\ref{sec:seccion_caracteristica}), visibles todos en el detalle de la malla de la Figura~\ref{fig:fem_cb}(b).
 
@@ -615,8 +615,7 @@ El esfuerzo máximo que se observa no corresponde a un artefacto de la simulaci�
     \label{fig:fem_max11}
 \end{figure}
 
-El análisis de convergencia, aplicado a las cuatro regiones instrumentadas y a la sección del apoyo inferior (Tabla~
-ef{tab:convergencia_malla}), descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}90\%$, por debajo del criterio adoptado, y las demás regiones también lo cumplen. Lo que no se permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que la tensión máxima depende de dónde termina el refuerzo, y un vendaje más extenso llevaría esa terminación a una sección de menor momento flector.
+El análisis de convergencia, aplicado a las cuatro regiones instrumentadas y a la sección del apoyo inferior (Tabla~\ref{tab:convergencia_malla}), descarta que ese valor provenga de la discretización, ya que su variación en el último refinamiento es del $3{,}90\%$, por debajo del criterio adoptado, y las demás regiones también lo cumplen. Lo que no se permite descartar es su sensibilidad al detalle constructivo de la unión, representada aquí mediante una superficie de apoyo y un vendaje ante la falta de un plano de la conexión (Sección~\ref{sec:condiciones_borde}), ya que la tensión máxima depende de dónde termina el refuerzo, y un vendaje más extenso llevaría esa terminación a una sección de menor momento flector.
 
 La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,\min} = -180{,}20$~MPa, correspondiente a compresión. El contorno corresponde igualmente al laminado del manto, y el máximo de compresión se localiza en la misma terminación del refuerzo que el de tracción, pero sobre la cara opuesta de la pala, como corresponde a la flexión que inducen conjuntamente las fuerzas aerodinámicas y la fuerza centrífuga. El sentido relativo en que ambas actúan depende del instante del que proviene el perfil de carga, y es por eso que cada caso se resuelve en las doce direcciones (Sección~\ref{sec:comparacion_dlc}).
 
@@ -627,8 +626,7 @@ La Figura~\ref{fig:fem_min11} muestra la tensión principal mínima, $\sigma_{3,
     \label{fig:fem_min11}
 \end{figure}
 
-En el vano central la flexión cambia de signo, por lo que la cara que trabaja en tracción en las conexiones queda en compresión en el centro del vano. Ahí se produce el desplazamiento máximo de la pala (Figura~
-ef{fig:fem_deformacion11}), pero no la tensión máxima, ya que el manto mantiene su espesor y no tiene el cambio de sección que se produce al final del vendaje.
+En el vano central la flexión cambia de signo, por lo que la cara que trabaja en tracción en las conexiones queda en compresión en el centro del vano. Ahí se produce el desplazamiento máximo de la pala (Figura~\ref{fig:fem_deformacion11}), pero no la tensión máxima, ya que el manto mantiene su espesor y no tiene el cambio de sección que se produce al final del vendaje.
 
 \subsubsection{Desplazamiento}
 
@@ -944,7 +942,7 @@ La Tabla~\ref{tab:resumen_uls} sintetiza los resultados de la verificación a re
         $P_{k,d}$ & Proyectado de diseño, apoyo superior & $82{,}18$~kN$\cdot$m & $70{,}91$~kN$\cdot$m &  \\
         $M_{res,d}$ & Resultante de diseño, apoyo superior & $100{,}96$~kN$\cdot$m & $91{,}68$~kN$\cdot$m &  \\
         $\gamma_f$ & Factor parcial de carga & $1{,}25$ & $1{,}35$ &  \\
-        $\varphi_k$ & Dirección de carga gobernante & $270^\circ$ & $240^\circ$ a $300^\circ$ &  \\
+        $\varphi_k$ & Dirección de carga gobernante & $270^\circ$ & $270^\circ$ &  \\
         \hline
         \multicolumn{5}{c}{\textit{Tensiones (FEM)}} \\
         \hline
