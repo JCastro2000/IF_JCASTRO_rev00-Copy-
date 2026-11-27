@@ -658,7 +658,26 @@ Este caso de referencia entrega una conclusión de diseño central. Afectado por
 
 La verificación de resistencia última emplea el criterio de máxima tensión principal, apropiado para materiales compuestos de matriz polimérica con comportamiento frágil~\parencite{Moraras2023}, que compara la tensión principal máxima con la resistencia factoreada $\sigma_{u,d} = 97{,}98$~MPa de la Ec.~\ref{eq:sigma_ud_p5}.
 
-Para el DLC 1.1, $\sigma_{1,\max} = 187{,}09$~MPa resulta en un factor de reserva $\eta_{\text{ULS}}^{1.1} = 97{,}98 / 187{,}09 = 0{,}524$, y para el DLC 1.3, con $\sigma_{1,\max} = 172{,}78$~MPa, en $0{,}567$. Ninguno de los dos casos satisface el criterio con las propiedades de la ficha técnica preliminar, ya que la tensión supera a la resistencia factoreada en un $91\%$ y un $76\%$, respectivamente. En compresión, $\sigma_{3,\min} = -180{,}20$~MPa (DLC 1.1) y $-167{,}81$~MPa (DLC 1.3) superan también en valor absoluto la resistencia factoreada, y su relevancia radica sobre todo en la verificación de estabilidad que sigue. Las propiedades que el laminado debe alcanzar para cumplir se obtienen en la Sección~\ref{sec:propiedades_minimas}.
+La Tabla~\ref{tab:verif_uls} resume la verificación en ambos casos de carga. La tensión principal máxima supera a la resistencia factoreada en un $91\%$ en el DLC 1.1 y en un $76\%$ en el DLC 1.3, de modo que ninguno de los dos satisface el criterio con las propiedades de la ficha técnica preliminar. La compresión la supera también, en un $84\%$ y un $71\%$, y su relevancia radica sobre todo en la verificación de estabilidad que sigue. Las propiedades que el laminado debe alcanzar para cumplir se obtienen en la Sección~\ref{sec:propiedades_minimas}.
+
+\begin{table}[H]
+    \centering
+    \caption{Verificación de resistencia última.}
+    \label{tab:verif_uls}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Magnitud} & \textbf{DLC 1.1} & \textbf{DLC 1.3} \\
+        \hline
+        Tensión principal máxima, $\sigma_{1,\max}$ (MPa) & $187{,}09$ & $172{,}78$ \\
+        Tensión principal mínima, $\sigma_{3,\min}$ (MPa) & $-180{,}20$ & $-167{,}81$ \\
+        Resistencia factoreada, $\sigma_{u,d}$ (MPa) & $97{,}98$ & $97{,}98$ \\
+        Factor de reserva, $\eta_{\text{ULS}} = \sigma_{u,d}/\sigma_{1,\max}$ & $0{,}524$ & $0{,}567$ \\
+        Exceso sobre $\sigma_{u,d}$, tracción & $91\%$ & $76\%$ \\
+        Exceso sobre $\sigma_{u,d}$, compresión & $84\%$ & $71\%$ \\
+        Verificación & No cumple & No cumple \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \subsubsection{Verificación de estabilidad}
 \label{sec:verif_estabilidad}
