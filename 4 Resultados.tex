@@ -682,14 +682,7 @@ La Tabla~\ref{tab:verif_uls} resume la verificación en ambos casos de carga. La
 \subsubsection{Verificación de estabilidad}
 \label{sec:verif_estabilidad}
 
-El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma IEC 61400-5. El contraste se expresa con el factor de aprovechamiento de la Ec.~\ref{eq:eta_pandeo}, que vale la unidad cuando el multiplicador alcanza exactamente el umbral, y con su inverso, que indica por cuánto debe multiplicarse la capacidad de pandeo para cumplir el criterio:
-
-\begin{equation}
-    \eta_{\text{pandeo}} = \frac{LM}{1{,}98}, \qquad \frac{1}{\eta_{\text{pandeo}}} = \frac{1{,}98}{LM},
-    \label{eq:eta_pandeo}
-\end{equation}
-
-donde $LM$ es el multiplicador del primer modo y $1{,}98$ el umbral de la Ec.~\ref{eq:criterio_pandeo_p5}.
+El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ejecuta sobre las soluciones estáticas de ambos casos de carga última, con la malla convergida de $18$~mm. La Tabla~\ref{tab:pandeo} presenta los multiplicadores de carga y su contraste con el umbral de la norma IEC 61400-5, expresado con el factor de aprovechamiento y su inverso de la Ec.~\ref{eq:eta_pandeo}.
 
 \begin{table}[H]
     \centering
@@ -718,21 +711,7 @@ Los modos extraídos corresponden a pandeo local del manto y todos se localizan 
     \label{fig:fem_modos_pandeo}
 \end{figure}
 
-Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. Según la Ec.~\ref{eq:pandeo_placa} (Sección~\ref{sec:pandeo_teoria}), la tensión crítica de un panel crece con el cuadrado de la razón entre su espesor y su ancho no apoyado. Como toda la pala se modela con un mismo laminado, $E$ y $\nu$ son comunes a los tres paneles, y si se suponen iguales condiciones de borde también lo es $k$, de modo que la capacidad de cada panel referida a la del panel de borde de fuga se reduce al cociente de la Ec.~\ref{eq:capacidad_relativa}:
-
-\begin{equation}
-    C_i = \frac{\sigma_{cr,i}}{\sigma_{cr,BF}} = \frac{(t_i/b_i)^2}{(t_{BF}/b_{BF})^2},
-    \label{eq:capacidad_relativa}
-\end{equation}
-
-donde:
-\begin{itemize}
-    \item $C_i$ es la capacidad relativa al pandeo del panel $i$.
-    \item $t_i$ y $b_i$ son el espesor y el ancho no apoyado del panel $i$.
-    \item $t_{BF}$ y $b_{BF}$ son los del panel de borde de fuga.
-\end{itemize}
-
-La Tabla~\ref{tab:paneles_manto} recoge el resultado. El panel de borde de fuga tiene una tensión crítica $6$ veces menor que la del panel de borde de ataque y $12$ veces menor que la del ala del larguero.
+Esa concentración tiene una explicación geométrica directa. De los tres paneles en que las dos almas dividen el manto, el de borde de fuga es a la vez el más ancho, con $540$~mm frente a $340$ y $220$~mm, y el más delgado, con $5{,}2$~mm frente a los $11{,}4$~mm del ala del larguero. La Tabla~\ref{tab:paneles_manto} recoge la capacidad relativa al pandeo de cada panel, según la Ec.~\ref{eq:capacidad_relativa}, y muestra que el de borde de fuga tiene una tensión crítica $6$ veces menor que la del panel de borde de ataque y $12$ veces menor que la del ala del larguero.
 
 \begin{table}[H]
     \centering

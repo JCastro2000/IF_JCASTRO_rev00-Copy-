@@ -1139,9 +1139,30 @@ donde:
     \item $\gamma_{m5} = 1{,}00$, por caracterizarse la carga en doce direcciones repartidas uniformemente~\parencite{IEC61400-5}.
 \end{itemize}
 
-El producto de esos factores fija el umbral en $LM \geq 1{,}98$. La segunda condición de la Sección 7.6.4 de la norma IEC 61400-1, que ningún componente pandee bajo la carga característica, se satisface siempre que $LM \geq 1 / \gamma_f$ sobre las mismas cargas de diseño~\parencite*{IEC61400-1}, umbral menos exigente que el anterior en los dos casos de carga analizados.
+El producto de esos factores fija el umbral en $LM \geq 1{,}98$. El contraste con ese umbral se expresa con el factor de aprovechamiento de la Ec.~\ref{eq:eta_pandeo}, que vale la unidad cuando el multiplicador alcanza exactamente el umbral, y con su inverso, que indica por cuánto debe multiplicarse la capacidad de pandeo para cumplir el criterio:
+
+\begin{equation}
+    \eta_{\text{pandeo}} = \frac{LM}{1{,}98}, \qquad \frac{1}{\eta_{\text{pandeo}}} = \frac{1{,}98}{LM},
+    \label{eq:eta_pandeo}
+\end{equation}
+
+donde $LM$ es el multiplicador del primer modo y $1{,}98$ el umbral de la Ec.~\ref{eq:criterio_pandeo_p5}.
+
+La segunda condición de la Sección 7.6.4 de la norma IEC 61400-1, que ningún componente pandee bajo la carga característica, se satisface siempre que $LM \geq 1 / \gamma_f$ sobre las mismas cargas de diseño~\parencite*{IEC61400-1}, umbral menos exigente que el anterior en los dos casos de carga analizados.
 
 Dos de los factores dependen del método y no del material. El de $1{,}20$ baja a $1{,}00$ con un análisis geométricamente no lineal, y el de $1{,}25$ con validación por ensayo de pala o de subcomponente, con lo que el umbral podría reducirse hasta $1{,}32$. La misma cláusula admite verificar la estabilidad mediante ensayo a escala real con un factor combinado de $1{,}60$~\parencite{IEC61400-5}. Ninguna de esas vías está al alcance de este trabajo, de modo que rige el umbral de la Ec.~\ref{eq:criterio_pandeo_p5}.
 
-El método lineal no incorpora imperfecciones geométricas ni efectos no lineales, a los que los cascarones de pared delgada son sensibles, por lo que sus resultados constituyen una cota superior de la carga crítica real (Sección~\ref{sec:pandeo_teoria}). La localización de los modos sobre la pala completa es además un resultado de la verificación, ya que discrimina si la capacidad del conjunto la gobierna el larguero o los paneles de manto, y se desarrolla en el Capítulo~4.
+El método lineal no incorpora imperfecciones geométricas ni efectos no lineales, a los que los cascarones de pared delgada son sensibles, por lo que sus resultados constituyen una cota superior de la carga crítica real (Sección~\ref{sec:pandeo_teoria}). La localización de los modos sobre la pala completa es además un resultado de la verificación, ya que discrimina si la capacidad del conjunto la gobierna el larguero o los paneles de manto, y se desarrolla en el Capítulo~4. Para interpretar esa localización se compara la capacidad de los paneles del manto con la Ec.~\ref{eq:capacidad_relativa}, que refiere la tensión crítica de cada uno, según la Ec.~\ref{eq:pandeo_placa} (Sección~\ref{sec:pandeo_teoria}), a la del panel de borde de fuga. Como toda la pala se modela con un mismo laminado, $E$ y $\nu$ son comunes a los paneles, y si se suponen iguales condiciones de borde también lo es $k$, de modo que la comparación se reduce al cociente de sus valores de $(t/b)^2$:
+
+\begin{equation}
+    C_i = \frac{\sigma_{cr,i}}{\sigma_{cr,BF}} = \frac{(t_i/b_i)^2}{(t_{BF}/b_{BF})^2},
+    \label{eq:capacidad_relativa}
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $C_i$ es la capacidad relativa al pandeo del panel $i$.
+    \item $t_i$ y $b_i$ son el espesor y el ancho no apoyado del panel $i$.
+    \item $t_{BF}$ y $b_{BF}$ son los del panel de borde de fuga.
+\end{itemize}
 
