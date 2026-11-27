@@ -702,7 +702,7 @@ El análisis de pandeo lineal descrito en la Sección~\ref{sec:pandeo_met} se ej
     \end{tabular}
 \end{table}
 
-Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga, como muestra la Figura~\ref{fig:fem_modos_pandeo}. Su contorno representa la forma del modo con amplitud normalizada y no un desplazamiento físico, ya que el autovector del pandeo lineal carece de magnitud propia. Una extracción ampliada a diez modos confirma que todos emanan de ese panel, nueve junto a las conexiones, donde la compresión es máxima, y uno en el centro del vano, sin que ninguna otra región de la pala comparezca por debajo.
+Los modos extraídos corresponden a pandeo local del manto y todos se localizan en el mismo panel, el que va desde el alma posterior hasta el borde de fuga, como muestra la Figura~\ref{fig:fem_modos_pandeo}. Su contorno representa la forma del modo con amplitud normalizada y no un desplazamiento físico, ya que el autovector del pandeo lineal carece de magnitud propia.
 
 \begin{figure}[H]
     \centering
@@ -728,7 +728,7 @@ Esa concentración tiene una explicación geométrica directa. De los tres panel
     \end{tabular}
 \end{table}
 
-Que los modos emanen de un mismo panel y respondan a una misma respuesta estructural los sitúa, en los términos que la Sección 6.6.5.6 de la norma IEC 61400-5 emplea, entre los modos no independientes~\parencite*{IEC61400-5}. El déficit no procede por tanto de varios mecanismos que haya que atender por separado, sino de una única región con capacidad insuficiente.
+Los tres modos de la Figura~\ref{fig:fem_modos_pandeo} aparecen en el mismo panel, el de borde de fuga, y en todos la causa es la misma, la compresión que la flexión de la pala produce en ese panel. No son, por tanto, mecanismos de inestabilidad distintos, sino variantes de un mismo pandeo local, lo que en los términos de la Sección 6.6.5.6 de la norma IEC 61400-5 los sitúa entre los modos no independientes~\parencite*{IEC61400-5}. En la práctica, esto significa que no hay varios puntos de la pala que corregir por separado, ya que un refuerzo del panel de borde de fuga actúa sobre todos los modos a la vez.
 
 Frente al criterio de la norma, el resultado es inequívoco y más severo que el de resistencia última. Con $LM = 0{,}5153$ frente al umbral de $1{,}98$ de la Ec.~\ref{eq:criterio_pandeo_p5}, el factor de aprovechamiento es de $0{,}260$ y falta un factor de $3{,}84$ para cumplir.
 
@@ -738,7 +738,7 @@ El estudio de convergencia sobre el autovalor es lo que hace admisible este vere
 
 El mismo resultado indica dónde actuar. Según la Ec.~\ref{eq:pandeo_placa}, un alma adicional al $75\%$ de la cuerda reduce a la mitad el ancho no apoyado del panel de borde de fuga, de $540$ a $270$~mm, y cuadruplica por tanto su tensión crítica, factor que supera el de $3{,}84$ que falta. El engrosamiento, en cambio, actúa sobre toda la superficie del panel y añade bastante más masa para un mismo efecto, desventaja que en un rotor de eje vertical influye más que en uno de eje horizontal, ya que cada kilogramo añadido a la pala suma $0{,}25$~kN de solicitación centrífuga (Tabla~\ref{tab:corridas_fem}).
 
-El alma debe atravesar el perfil de piel a piel y no limitarse a reforzar una de ellas. La pala es una viga con dos apoyos y voladizos, de modo que el signo del momento flector cambia a lo largo de la envergadura y la cara comprimida no es la misma sobre los apoyos que en el centro del vano. Los modos obtenidos lo reflejan, ya que nueve se sitúan junto a las conexiones y el restante en el vano. Un refuerzo aplicado sobre una sola cara apoyaría uno de los dos tramos y dejaría el otro sin cambios.
+El alma debe atravesar el perfil de piel a piel y no limitarse a reforzar una de ellas. La pala es una viga con dos apoyos y voladizos, de modo que el signo del momento flector cambia a lo largo de la envergadura y la cara comprimida no es la misma sobre los apoyos que en el centro del vano. Un refuerzo aplicado sobre una sola cara apoyaría uno de los dos tramos y dejaría el otro sin cambios.
 
 En consecuencia, se mantiene la sección característica como configuración analizada y el cumplimiento del criterio de estabilidad queda supeditado a una rigidización del panel de borde de fuga cuyo dimensionamiento excede el alcance comprobatorio de este trabajo. La estimación anterior se apoya en la Ec.~\ref{eq:pandeo_placa} y no en una simulación del modelo, por lo que orienta el refuerzo necesario pero no lo dimensiona.
 
